@@ -1,0 +1,558 @@
+[gd_scene format=3 uid="uid://c3qp2vefda8vd"]
+
+[ext_resource type="Script" uid="uid://dpx3nuhhv3orx" path="res://Scenes/test_hub.gd" id="1_fvjd3"]
+[ext_resource type="Texture2D" uid="uid://blnm1mgbp03i8" path="res://Assets/Images/blackbar.PNG" id="1_xxqnn"]
+[ext_resource type="Texture2D" uid="uid://daknovhyyh2iq" path="res://Assets/Images/PlayerImage.PNG" id="2_37aim"]
+[ext_resource type="Texture2D" uid="uid://cd5hdt0xwl28o" path="res://Assets/Images/Hotbar_bg.PNG" id="3_nxa43"]
+[ext_resource type="Texture2D" uid="uid://bsrqc1ig0v02r" path="res://Assets/Icon/icon.svg" id="4_6rgjo"]
+[ext_resource type="Texture2D" uid="uid://bi8kclu220hnj" path="res://Assets/Images/buttons/Empty_Button.PNG" id="6_00yal"]
+[ext_resource type="Texture2D" uid="uid://cx1tw1fgtskpo" path="res://Assets/Images/Slot.PNG" id="8_oeq8t"]
+[ext_resource type="Texture2D" uid="uid://b0q3dicecqcic" path="res://Assets/Icon/Coin_Icon.PNG" id="9_37aim"]
+[ext_resource type="Texture2D" uid="uid://cmt6x74ipgab7" path="res://Assets/Images/Interaction_Button.PNG" id="9_aambu"]
+[ext_resource type="Texture2D" uid="uid://ch8nn1sldhkhg" path="res://Assets/Icon/UNK_Icon.PNG" id="10_nxa43"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3elyr"]
+bg_color = Color(0.23921569, 0.23921569, 0.23921569, 0.53333336)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwjmf"]
+bg_color = Color(0.7331229, 0.113122396, 0.19328791, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13xwg"]
+bg_color = Color(0.26681262, 0.60497814, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oskkn"]
+bg_color = Color(0.8408583, 0.51380235, 0, 1)
+
+[node name="TestHub" type="Control" unique_id=444801402]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fvjd3")
+
+[node name="BlackBar" type="TextureRect" parent="." unique_id=665780370]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -329.5
+offset_top = -17.339996
+offset_right = 329.5
+offset_bottom = 22.660004
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_xxqnn")
+
+[node name="BlackBar2" type="TextureRect" parent="." unique_id=1498315664]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -329.0
+offset_top = -23.0
+offset_right = 330.0
+offset_bottom = 17.0
+grow_horizontal = 2
+texture = ExtResource("1_xxqnn")
+
+[node name="PlayerImage" type="TextureRect" parent="." unique_id=339400210]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011000001
+anchor_top = 0.13100001
+anchor_right = 0.109000005
+anchor_bottom = 0.3
+offset_left = -0.04000044
+offset_top = -0.16000366
+offset_right = 0.23999786
+grow_vertical = 2
+texture = ExtResource("2_37aim")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="PlayerImage" unique_id=381848421]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 56.0
+offset_bottom = 55.5
+texture = ExtResource("4_6rgjo")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HotbarBG" type="TextureRect" parent="." unique_id=1772179527]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.291
+anchor_top = 0.92200005
+anchor_right = 0.70900005
+anchor_bottom = 1.0
+offset_left = -0.2400055
+offset_top = -13.600006
+offset_right = 0.23995972
+offset_bottom = -13.679993
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_nxa43")
+
+[node name="Hotbar" type="HBoxContainer" parent="." unique_id=759395188]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -98.0
+offset_top = -63.66501
+offset_right = 98.0
+offset_bottom = -23.665009
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 49
+metadata/_edit_group_ = true
+
+[node name="ItemSlot" type="Control" parent="Hotbar" unique_id=1862239753]
+layout_mode = 2
+
+[node name="Slot" type="TextureRect" parent="Hotbar/ItemSlot" unique_id=2020758728]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_oeq8t")
+
+[node name="TextureRect" type="TextureRect" parent="Hotbar/ItemSlot" unique_id=1870234023]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 11.0
+offset_bottom = -8.0
+grow_horizontal = 2
+texture = ExtResource("9_aambu")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Hotbar/ItemSlot/TextureRect" unique_id=985537335]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 0.66500854
+offset_right = 22.0
+offset_bottom = 14.665009
+theme_override_font_sizes/font_size = 8
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemSlot2" type="Control" parent="Hotbar" unique_id=2023939934]
+layout_mode = 2
+
+[node name="Slot" type="TextureRect" parent="Hotbar/ItemSlot2" unique_id=1106141742]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_oeq8t")
+
+[node name="TextureRect" type="TextureRect" parent="Hotbar/ItemSlot2" unique_id=1201628305]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 11.0
+offset_bottom = -8.0
+grow_horizontal = 2
+texture = ExtResource("9_aambu")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Hotbar/ItemSlot2/TextureRect" unique_id=96144248]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 0.66500854
+offset_right = 22.0
+offset_bottom = 14.665009
+theme_override_font_sizes/font_size = 8
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemSlot3" type="Control" parent="Hotbar" unique_id=399344803]
+layout_mode = 2
+
+[node name="Slot" type="TextureRect" parent="Hotbar/ItemSlot3" unique_id=142031166]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_oeq8t")
+
+[node name="TextureRect" type="TextureRect" parent="Hotbar/ItemSlot3" unique_id=211488116]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 11.0
+offset_bottom = -8.0
+grow_horizontal = 2
+texture = ExtResource("9_aambu")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Hotbar/ItemSlot3/TextureRect" unique_id=1989782346]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 0.66500854
+offset_right = 22.0
+offset_bottom = 14.665009
+theme_override_font_sizes/font_size = 8
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemSlot4" type="Control" parent="Hotbar" unique_id=1573297513]
+layout_mode = 2
+
+[node name="Slot" type="TextureRect" parent="Hotbar/ItemSlot4" unique_id=1565712690]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_oeq8t")
+
+[node name="TextureRect" type="TextureRect" parent="Hotbar/ItemSlot4" unique_id=1812560191]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 11.0
+offset_bottom = -8.0
+grow_horizontal = 2
+texture = ExtResource("9_aambu")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Hotbar/ItemSlot4/TextureRect" unique_id=110022113]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 0.66500854
+offset_right = 22.0
+offset_bottom = 14.665009
+theme_override_font_sizes/font_size = 8
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemSlot5" type="Control" parent="Hotbar" unique_id=1916389955]
+layout_mode = 2
+
+[node name="Slot" type="TextureRect" parent="Hotbar/ItemSlot5" unique_id=402131281]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_oeq8t")
+
+[node name="TextureRect" type="TextureRect" parent="Hotbar/ItemSlot5" unique_id=803196611]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 11.0
+offset_bottom = -8.0
+grow_horizontal = 2
+texture = ExtResource("9_aambu")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Hotbar/ItemSlot5/TextureRect" unique_id=1720987651]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 0.66500854
+offset_right = 22.0
+offset_bottom = 14.665009
+theme_override_font_sizes/font_size = 8
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="W" type="TextureButton" parent="." unique_id=1250356700]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0969375
+anchor_top = 0.70300007
+anchor_right = 0.14993751
+anchor_bottom = 0.7940001
+offset_left = -0.040000916
+offset_top = -0.08001709
+offset_right = 0.039993286
+offset_bottom = 0.1599884
+texture_normal = ExtResource("6_00yal")
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="W" unique_id=1340812125]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 34.0
+offset_bottom = 33.0
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="A" type="TextureButton" parent="." unique_id=356194084]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.032875
+anchor_top = 0.8141112
+anchor_right = 0.08587501
+anchor_bottom = 0.9051112
+offset_left = -0.040000916
+offset_top = -0.08001709
+offset_right = 0.039993286
+offset_bottom = 0.1599884
+texture_normal = ExtResource("6_00yal")
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="A" unique_id=1694393886]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 34.0
+offset_bottom = 33.0
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="S" type="TextureButton" parent="." unique_id=667105159]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0969375
+anchor_top = 0.8141112
+anchor_right = 0.14993751
+anchor_bottom = 0.9051112
+offset_left = -0.040000916
+offset_top = -0.08001709
+offset_right = 0.039993286
+offset_bottom = 0.1599884
+texture_normal = ExtResource("6_00yal")
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="S" unique_id=1552029492]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 34.0
+offset_bottom = 33.0
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D" type="TextureButton" parent="." unique_id=252388559]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.161
+anchor_top = 0.8141112
+anchor_right = 0.21400002
+anchor_bottom = 0.9051112
+offset_left = -0.040000916
+offset_top = -0.08001709
+offset_right = 0.039993286
+offset_bottom = 0.1599884
+texture_normal = ExtResource("6_00yal")
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="D" unique_id=1168878850]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 34.0
+offset_bottom = 33.0
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=251966716]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 49.0
+offset_right = 180.0
+offset_bottom = 64.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3elyr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dwjmf")
+value = 44.85
+show_percentage = false
+
+[node name="ProgressBar2" type="ProgressBar" parent="." unique_id=1179669581]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 69.0
+offset_right = 180.0
+offset_bottom = 84.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3elyr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_13xwg")
+value = 35.52
+show_percentage = false
+
+[node name="ProgressBar3" type="ProgressBar" parent="." unique_id=1187912381]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 90.0
+offset_right = 180.0
+offset_bottom = 105.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3elyr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_oskkn")
+value = 9.12
+show_percentage = false
+
+[node name="Coin" type="Control" parent="." unique_id=1932645037]
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 112.0
+offset_right = 104.0
+offset_bottom = 135.0
+metadata/_edit_group_ = true
+
+[node name="Icon" type="TextureRect" parent="Coin" unique_id=2140054803]
+texture_filter = 1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 22.0
+offset_bottom = 21.0
+texture = ExtResource("9_37aim")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Coin" unique_id=728708656]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 3.0
+offset_right = 85.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 14
+text = "999"
+
+[node name="X1" type="Control" parent="." unique_id=1484445216]
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 138.0
+offset_right = 104.0
+offset_bottom = 161.0
+
+[node name="Icon" type="TextureRect" parent="X1" unique_id=564511893]
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 21.0
+offset_bottom = 21.0
+texture = ExtResource("10_nxa43")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="X1" unique_id=84151041]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 3.0
+offset_right = 85.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 14
+text = "999"
+
+[node name="X2" type="Control" parent="." unique_id=312043691]
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 164.0
+offset_right = 104.0
+offset_bottom = 187.0
+metadata/_edit_group_ = true
+
+[node name="Icon" type="TextureRect" parent="X2" unique_id=1568499876]
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 21.0
+offset_bottom = 21.0
+texture = ExtResource("10_nxa43")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="X2" unique_id=1035700481]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 3.0
+offset_right = 85.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 14
+text = "999"
+
+[connection signal="pressed" from="W" to="." method="_on_w_pressed"]
+[connection signal="pressed" from="A" to="." method="_on_a_pressed"]
+[connection signal="pressed" from="S" to="." method="_on_s_pressed"]
+[connection signal="pressed" from="D" to="." method="_on_d_pressed"]
