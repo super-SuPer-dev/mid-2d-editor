@@ -1,3 +1,26 @@
 [gd_scene format=3 uid="uid://fsd4odicwbn3"]
 
+[ext_resource type="PackedScene" uid="uid://c3qp2vefda8vd" path="res://Scenes/test_hub.tscn" id="1_8od7v"]
+[ext_resource type="PackedScene" uid="uid://x5v84bd35vis" path="res://Actors/Player.tscn" id="2_qc4db"]
+[ext_resource type="PackedScene" uid="uid://cmn34yrghi0jl" path="res://Prefabs/test_box.tscn" id="3_qc4db"]
+
 [node name="Test" type="Node2D" unique_id=1456979942]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1733723988]
+
+[node name="TestHub" parent="CanvasLayer" unique_id=444801402 instance=ExtResource("1_8od7v")]
+
+[node name="Player" parent="." unique_id=2083867807 instance=ExtResource("2_qc4db")]
+position = Vector2(317, 183)
+
+[node name="TestBox" parent="." unique_id=3927985 instance=ExtResource("3_qc4db")]
+position = Vector2(147, 135)
+
+[node name="TestBox2" parent="." unique_id=472454575 instance=ExtResource("3_qc4db")]
+position = Vector2(97.999985, 209)
+
+[node name="TestBox3" parent="." unique_id=2032556732 instance=ExtResource("3_qc4db")]
+position = Vector2(406, 122)
+
+[node name="TestBox5" parent="." unique_id=927621854 instance=ExtResource("3_qc4db")]
+position = Vector2(241.99997, 109)
