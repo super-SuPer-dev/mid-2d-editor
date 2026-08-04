@@ -18,5 +18,4 @@ texture = ExtResource("2_80rbv")
 shape = SubResource("RectangleShape2D_dwjmf")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=578161503]
-position = Vector2(40, -30)
 zoom = Vector2(1.5, 1.5)

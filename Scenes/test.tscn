@@ -524,4 +524,3 @@ tile_set = SubResource("TileSet_dwjmf")
 
 [node name="Player" parent="." unique_id=2083867807 instance=ExtResource("2_qc4db")]
 position = Vector2(317, 183)
-god_mode = true

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://r0wq5a70usqb"]
+
+[ext_resource type="Script" uid="uid://bi1oabf3owt41" path="res://Scenes/Managers/scene_manager.gd" id="1_wx451"]
+
+[node name="SceneManager" type="CanvasLayer" unique_id=515583258]
+script = ExtResource("1_wx451")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1930862819]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=523235247]
