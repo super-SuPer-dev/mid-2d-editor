@@ -339,7 +339,7 @@ text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="W" type="TextureButton" parent="." unique_id=1250356700]
+[node name="MoveUpBtn" type="TextureButton" parent="." unique_id=1250356700]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -355,16 +355,16 @@ texture_normal = ExtResource("6_00yal")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="W" unique_id=1340812125]
+[node name="Label" type="Label" parent="MoveUpBtn" unique_id=1340812125]
 layout_mode = 0
 offset_left = 1.0
 offset_right = 34.0
 offset_bottom = 33.0
-text = "W"
+text = "▲"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="A" type="TextureButton" parent="." unique_id=356194084]
+[node name="MoveLeftBtn" type="TextureButton" parent="." unique_id=356194084]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -380,16 +380,16 @@ texture_normal = ExtResource("6_00yal")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="A" unique_id=1694393886]
+[node name="Label" type="Label" parent="MoveLeftBtn" unique_id=1694393886]
 layout_mode = 0
 offset_left = 1.0
 offset_right = 34.0
 offset_bottom = 33.0
-text = "A"
+text = "◀"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="S" type="TextureButton" parent="." unique_id=667105159]
+[node name="MoveDownBtn" type="TextureButton" parent="." unique_id=667105159]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -405,16 +405,16 @@ texture_normal = ExtResource("6_00yal")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="S" unique_id=1552029492]
+[node name="Label" type="Label" parent="MoveDownBtn" unique_id=1552029492]
 layout_mode = 0
 offset_left = 1.0
 offset_right = 34.0
 offset_bottom = 33.0
-text = "S"
+text = "▼"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="D" type="TextureButton" parent="." unique_id=252388559]
+[node name="MoveRightBtn" type="TextureButton" parent="." unique_id=252388559]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -430,12 +430,12 @@ texture_normal = ExtResource("6_00yal")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="D" unique_id=1168878850]
+[node name="Label" type="Label" parent="MoveRightBtn" unique_id=1168878850]
 layout_mode = 0
 offset_left = 1.0
 offset_right = 34.0
 offset_bottom = 33.0
-text = "D"
+text = "▶"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -552,7 +552,11 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 14
 text = "999"
 
-[connection signal="pressed" from="W" to="." method="_on_w_pressed"]
-[connection signal="pressed" from="A" to="." method="_on_a_pressed"]
-[connection signal="pressed" from="S" to="." method="_on_s_pressed"]
-[connection signal="pressed" from="D" to="." method="_on_d_pressed"]
+[connection signal="button_down" from="MoveUpBtn" to="." method="_on_move_up_btn_button_down"]
+[connection signal="button_up" from="MoveUpBtn" to="." method="_on_move_up_btn_button_up"]
+[connection signal="button_down" from="MoveLeftBtn" to="." method="_on_move_left_btn_button_down"]
+[connection signal="button_up" from="MoveLeftBtn" to="." method="_on_move_left_btn_button_up"]
+[connection signal="button_down" from="MoveDownBtn" to="." method="_on_move_down_btn_button_down"]
+[connection signal="button_up" from="MoveDownBtn" to="." method="_on_move_down_btn_button_up"]
+[connection signal="button_down" from="MoveRightBtn" to="." method="_on_move_right_btn_button_down"]
+[connection signal="button_up" from="MoveRightBtn" to="." method="_on_move_right_btn_button_up"]

@@ -2,7 +2,7 @@ extends Control
 
 func _on_new_game_btn_pressed() -> void:
 	AudioManager.click_sfx.play()
-	GameManager.LoadScene("res://Scenes/test.tscn")
+	SceneManager.load_scene_without_transition("res://Scenes/test.tscn")
 
 
 func _on_exit_btn_pressed() -> void:
