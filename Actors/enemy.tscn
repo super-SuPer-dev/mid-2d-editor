@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://igcvqlmedhrg"]
+
+[ext_resource type="Texture2D" uid="uid://bsrqc1ig0v02r" path="res://Assets/Icon/icon.svg" id="1_pgd2a"]
+[ext_resource type="Script" uid="uid://b41uiy4aldvl8" path="res://Actors/enemy.gd" id="1_rracr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dwjmf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pgd2a")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3elyr"]
+size = Vector2(48, 122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwjmf"]
+size = Vector2(48, 123)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=211638927 groups=["Enemy"]]
+script = ExtResource("1_rracr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2140455774]
+position = Vector2(0, -1)
+scale = Vector2(0.3515625, 0.9375)
+sprite_frames = SubResource("SpriteFrames_dwjmf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=185792323]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_3elyr")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1240659694]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=852315889]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_dwjmf")
+debug_color = Color(0.96793634, 1.2513996e-06, 0.47413158, 0.41960785)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=94708355]
+
+[node name="ProgressBar" type="ProgressBar" parent="Node2D" unique_id=558930515]
+offset_left = -44.0
+offset_top = -96.0
+offset_right = 45.0
+offset_bottom = -69.0

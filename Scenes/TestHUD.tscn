@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cx1tw1fgtskpo" path="res://Assets/Images/Slot.PNG" id="8_oeq8t"]
 [ext_resource type="Texture2D" uid="uid://b0q3dicecqcic" path="res://Assets/Icon/Coin_Icon.PNG" id="9_37aim"]
 [ext_resource type="Texture2D" uid="uid://cmt6x74ipgab7" path="res://Assets/Images/Interaction_Button.PNG" id="9_aambu"]
-[ext_resource type="Texture2D" uid="uid://ch8nn1sldhkhg" path="res://Assets/Icon/UNK_Icon.PNG" id="10_nxa43"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3elyr"]
 bg_color = Color(0.23921569, 0.23921569, 0.23921569, 0.53333336)
@@ -65,17 +64,17 @@ texture = ExtResource("1_xxqnn")
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.011000001
-anchor_top = 0.13100001
-anchor_right = 0.109000005
-anchor_bottom = 0.3
+anchor_left = 0.015687501
+anchor_top = 0.12544446
+anchor_right = 0.1136875
+anchor_bottom = 0.2944445
 offset_left = -0.04000044
 offset_top = -0.16000366
 offset_right = 0.23999786
 grow_vertical = 2
+scale = Vector2(0.75527143, 0.75527143)
 texture = ExtResource("2_37aim")
 metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="PlayerImage" unique_id=381848421]
 layout_mode = 0
@@ -86,6 +85,7 @@ offset_bottom = 55.5
 texture = ExtResource("4_6rgjo")
 expand_mode = 1
 stretch_mode = 4
+metadata/_edit_use_anchors_ = true
 
 [node name="HotbarBG" type="TextureRect" parent="." unique_id=1772179527]
 texture_filter = 1
@@ -95,10 +95,10 @@ anchor_left = 0.291
 anchor_top = 0.92200005
 anchor_right = 0.70900005
 anchor_bottom = 1.0
-offset_left = -0.2400055
-offset_top = -13.600006
-offset_right = 0.23995972
-offset_bottom = -13.679993
+offset_left = -1.2400055
+offset_top = -0.9200134
+offset_right = -0.7600403
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("3_nxa43")
@@ -111,9 +111,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -98.0
-offset_top = -63.66501
+offset_top = -50.0
 offset_right = 98.0
-offset_bottom = -23.665009
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 49
@@ -340,6 +340,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MoveUpBtn" type="TextureButton" parent="." unique_id=1250356700]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -365,6 +366,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MoveLeftBtn" type="TextureButton" parent="." unique_id=356194084]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -390,6 +392,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MoveDownBtn" type="TextureButton" parent="." unique_id=667105159]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -415,6 +418,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MoveRightBtn" type="TextureButton" parent="." unique_id=252388559]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -441,10 +445,11 @@ vertical_alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=251966716]
 layout_mode = 0
-offset_left = 75.0
-offset_top = 49.0
-offset_right = 180.0
-offset_bottom = 64.0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 169.0
+offset_bottom = 63.0
+scale = Vector2(0.6445687, 0.6445687)
 theme_override_styles/background = SubResource("StyleBoxFlat_3elyr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_dwjmf")
 value = 44.85
@@ -452,10 +457,11 @@ show_percentage = false
 
 [node name="ProgressBar2" type="ProgressBar" parent="." unique_id=1179669581]
 layout_mode = 0
-offset_left = 75.0
-offset_top = 69.0
-offset_right = 180.0
-offset_bottom = 84.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 169.0
+offset_bottom = 79.0
+scale = Vector2(0.6445687, 0.6445687)
 theme_override_styles/background = SubResource("StyleBoxFlat_3elyr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_13xwg")
 value = 35.52
@@ -463,10 +469,11 @@ show_percentage = false
 
 [node name="ProgressBar3" type="ProgressBar" parent="." unique_id=1187912381]
 layout_mode = 0
-offset_left = 75.0
-offset_top = 90.0
-offset_right = 180.0
-offset_bottom = 105.0
+offset_left = 64.0
+offset_top = 80.0
+offset_right = 169.0
+offset_bottom = 95.0
+scale = Vector2(0.6445687, 0.6445687)
 theme_override_styles/background = SubResource("StyleBoxFlat_3elyr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_oskkn")
 value = 9.12
@@ -474,19 +481,19 @@ show_percentage = false
 
 [node name="Coin" type="Control" parent="." unique_id=1932645037]
 anchors_preset = 0
-offset_left = 9.0
-offset_top = 112.0
-offset_right = 104.0
-offset_bottom = 135.0
+offset_left = 8.0
+offset_top = 99.0
+offset_right = 103.0
+offset_bottom = 122.0
 metadata/_edit_group_ = true
 
 [node name="Icon" type="TextureRect" parent="Coin" unique_id=2140054803]
 texture_filter = 1
 layout_mode = 0
 offset_left = 5.0
-offset_top = 4.0
+offset_top = 2.0
 offset_right = 22.0
-offset_bottom = 21.0
+offset_bottom = 19.0
 texture = ExtResource("9_37aim")
 stretch_mode = 2
 
@@ -495,62 +502,91 @@ layout_mode = 0
 offset_left = 27.0
 offset_top = 3.0
 offset_right = 85.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 14
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
 text = "999"
 
-[node name="X1" type="Control" parent="." unique_id=1484445216]
+[node name="Coin2" type="Control" parent="." unique_id=1673129073]
 anchors_preset = 0
-offset_left = 9.0
-offset_top = 138.0
-offset_right = 104.0
-offset_bottom = 161.0
-
-[node name="Icon" type="TextureRect" parent="X1" unique_id=564511893]
-texture_filter = 1
-layout_mode = 0
-offset_left = 7.0
-offset_top = 4.0
-offset_right = 21.0
-offset_bottom = 21.0
-texture = ExtResource("10_nxa43")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="X1" unique_id=84151041]
-layout_mode = 0
-offset_left = 27.0
-offset_top = 3.0
-offset_right = 85.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 14
-text = "999"
-
-[node name="X2" type="Control" parent="." unique_id=312043691]
-anchors_preset = 0
-offset_left = 9.0
-offset_top = 164.0
-offset_right = 104.0
-offset_bottom = 187.0
+offset_left = 8.0
+offset_top = 122.0
+offset_right = 103.0
+offset_bottom = 145.0
 metadata/_edit_group_ = true
 
-[node name="Icon" type="TextureRect" parent="X2" unique_id=1568499876]
+[node name="Icon" type="TextureRect" parent="Coin2" unique_id=532551672]
 texture_filter = 1
 layout_mode = 0
-offset_left = 7.0
-offset_top = 4.0
-offset_right = 21.0
-offset_bottom = 21.0
-texture = ExtResource("10_nxa43")
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 22.0
+offset_bottom = 19.0
+texture = ExtResource("9_37aim")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="X2" unique_id=1035700481]
+[node name="Label" type="Label" parent="Coin2" unique_id=979136259]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 3.0
 offset_right = 85.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 14
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
 text = "999"
+
+[node name="Coin3" type="Control" parent="." unique_id=1514522813]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 145.0
+offset_right = 103.0
+offset_bottom = 168.0
+metadata/_edit_group_ = true
+
+[node name="Icon" type="TextureRect" parent="Coin3" unique_id=1102040532]
+texture_filter = 1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 22.0
+offset_bottom = 19.0
+texture = ExtResource("9_37aim")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Coin3" unique_id=1869329234]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 3.0
+offset_right = 85.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
+text = "999"
+
+[node name="DashBtn" type="TextureButton" parent="." unique_id=35490526]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9015625
+anchor_top = 0.60555553
+anchor_right = 0.9545625
+anchor_bottom = 0.69755554
+offset_right = 0.07999802
+offset_bottom = -0.12000275
+texture_normal = ExtResource("6_00yal")
+metadata/_edit_use_anchors_ = true
+
+[node name="DashBtn2" type="TextureButton" parent="." unique_id=1197951276]
+visible = false
+modulate = Color(0.70324796, 0.102826305, 0.21739244, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8109375
+anchor_top = 0.71944445
+anchor_right = 0.88425
+anchor_bottom = 0.8558889
+offset_right = 0.07999802
+offset_bottom = -0.12000275
+texture_normal = ExtResource("6_00yal")
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
 
 [connection signal="button_down" from="MoveUpBtn" to="." method="_on_move_up_btn_button_down"]
 [connection signal="button_up" from="MoveUpBtn" to="." method="_on_move_up_btn_button_up"]

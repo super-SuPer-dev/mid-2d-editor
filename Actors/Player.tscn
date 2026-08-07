@@ -1,21 +1,113 @@
 [gd_scene format=3 uid="uid://x5v84bd35vis"]
 
 [ext_resource type="Script" uid="uid://blaqvqeshqj7e" path="res://Actors/player.gd" id="1_80rbv"]
-[ext_resource type="Texture2D" uid="uid://ch8nn1sldhkhg" path="res://Assets/Icon/UNK_Icon.PNG" id="2_80rbv"]
+[ext_resource type="Texture2D" uid="uid://blbwaukk6qd7" path="res://Assets/Images/buttons/D_Button Merged.PNG" id="2_80rbv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dwjmf"]
 size = Vector2(28, 28)
 
-[node name="Player" type="CharacterBody2D" unique_id=2083867807]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3elyr"]
+size = Vector2(45.889385, 27.535986)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13xwg"]
+size = Vector2(34, 20)
+
+[sub_resource type="Animation" id="Animation_80rbv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitBox:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1jtgk"]
+resource_name = "attack"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitBox:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.07, 0.2, 0.21, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true, false, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.07, 0.2007491, 0.21, 0.29956055),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true, false, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x82gw"]
+_data = {
+&"RESET": SubResource("Animation_80rbv"),
+&"attack": SubResource("Animation_1jtgk")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=2083867807 groups=["Player"]]
 script = ExtResource("1_80rbv")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=470577098]
 texture_filter = 1
-scale = Vector2(1.676756, 1.676756)
+scale = Vector2(0.7878897, 0.7632218)
 texture = ExtResource("2_80rbv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1627049676]
+[node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=1627049676]
 shape = SubResource("RectangleShape2D_dwjmf")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=578161503]
-zoom = Vector2(1.5, 1.5)
+position = Vector2(0, -28)
+zoom = Vector2(1.315, 1.315)
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=282078072]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1845413870]
+position = Vector2(4.7683716e-07, 3)
+scale = Vector2(1.0024104, 1.0168512)
+shape = SubResource("RectangleShape2D_3elyr")
+debug_color = Color(3.4172833e-06, 0.64910305, 0.16851485, 0.41960785)
+
+[node name="HitBox" type="Area2D" parent="." unique_id=548255966]
+visible = false
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=167314002]
+position = Vector2(36, 0)
+shape = SubResource("RectangleShape2D_13xwg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=642747197]
+libraries/ = SubResource("AnimationLibrary_x82gw")
+
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
+[connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

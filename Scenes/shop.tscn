@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://c7edrkdvo1pwx"]
+
+[ext_resource type="Script" uid="uid://bw4q8bo1lbv12" path="res://Scenes/shop.gd" id="1_2shtd"]
+[ext_resource type="Texture2D" uid="uid://bsrqc1ig0v02r" path="res://Assets/Icon/icon.svg" id="2_io27d"]
+[ext_resource type="Texture2D" uid="uid://cmt6x74ipgab7" path="res://Assets/Images/Interaction_Button.PNG" id="3_io27d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mhmv"]
+size = Vector2(120, 91.5)
+
+[node name="Shop" type="Node2D" unique_id=1935889462 groups=["Interactable"]]
+script = ExtResource("1_2shtd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2020196373]
+modulate = Color(0.69536716, 0.39167604, 0, 1)
+scale = Vector2(0.53, 0.53)
+texture = ExtResource("2_io27d")
+
+[node name="InteractBox" type="Area2D" parent="." unique_id=2061907119]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractBox" unique_id=1842932909]
+position = Vector2(0, -9.25)
+shape = SubResource("RectangleShape2D_6mhmv")
+
+[node name="ShopUI" type="CanvasLayer" parent="." unique_id=1354680492]
+visible = false
+
+[node name="Control" type="Control" parent="ShopUI" unique_id=1319584839]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="ShopUI/Control" unique_id=1428011275]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.31764707)
+
+[node name="Button" type="Button" parent="ShopUI/Control" unique_id=1342438221]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 162.0
+offset_right = 377.0
+offset_bottom = 193.0
+text = "Buy X for 10 coin"
+
+[node name="InteractionBox" type="Sprite2D" parent="." unique_id=634363147]
+visible = false
+position = Vector2(0, -50)
+texture = ExtResource("3_io27d")
+
+[node name="Label" type="Label" parent="InteractionBox" unique_id=1297749716]
+offset_left = -3.0
+offset_top = -7.0
+offset_right = 3.0
+offset_bottom = 6.0
+theme_override_font_sizes/font_size = 9
+text = "E"
+
+[connection signal="pressed" from="ShopUI/Control/Button" to="." method="_on_button_pressed"]
