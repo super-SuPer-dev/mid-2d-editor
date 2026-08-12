@@ -36,20 +36,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.57, 0.74, 0.27, 1)
 theme_override_font_sizes/font_size = 34
-text = "MISSION"
+text = "ภารกิจ"
 [node name="Health" type="Label" parent="Root/TopMargin/Row"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "HP --/--"
+text = "ชีวิต --/--"
 [node name="Samples" type="Label" parent="Root/TopMargin/Row"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
 theme_override_font_sizes/font_size = 32
-text = "SAMPLES 0"
+text = "ตัวอย่าง 0"
 [node name="Objective" type="Label" parent="Root/TopMargin/Row"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "THREATS 0/0"
+text = "ศัตรู 0/0"
 
 [node name="Hint" type="Label" parent="Root"]
 layout_mode = 0
@@ -59,7 +59,7 @@ offset_right = 1240.0
 offset_bottom = 710.0
 theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
 theme_override_font_sizes/font_size = 26
-text = "A/D MOVE   W/SPACE JUMP   SHIFT DODGE   LMB CUTTER   ESC PAUSE"
+text = "A/D เคลื่อนที่   W/SPACE กระโดด   SHIFT หลบ   คลิกซ้าย ตัด   ESC หยุดเกม"
 
 [node name="Modal" type="ColorRect" parent="Root"]
 visible = false
@@ -88,13 +88,13 @@ alignment = 1
 [node name="Title" type="Label" parent="Root/Modal/Center/Panel/Content"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 68
-text = "MISSION PAUSED"
+text = "หยุดภารกิจชั่วคราว"
 horizontal_alignment = 1
 [node name="Subtitle" type="Label" parent="Root/Modal/Center/Panel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
 theme_override_font_sizes/font_size = 32
-text = "Systems suspended"
+text = "ระบบพักการทำงาน"
 horizontal_alignment = 1
 [node name="Action1" type="Button" parent="Root/Modal/Center/Panel/Content"]
 layout_mode = 2

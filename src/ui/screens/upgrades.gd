@@ -1,9 +1,9 @@
 extends Control
 
 const UPGRADE_DATA := {
-	"blade": {"name": "CUTTER BLADE", "description": "+1 attack power per level", "color": Color("91bd45")},
-	"engine": {"name": "MOWER ENGINE", "description": "+5% movement and dash speed", "color": Color("c58b43")},
-	"armor": {"name": "FIELD ARMOR", "description": "+1 maximum health per level", "color": Color("6e91a8")},
+	"blade": {"name": "ใบมีดเครื่องตัด", "description": "+1 พลังโจมตีต่อระดับ", "color": Color("91bd45")},
+	"engine": {"name": "เครื่องยนต์ตัดหญ้า", "description": "+5% ความเร็วเคลื่อนที่และพุ่งหลบ", "color": Color("c58b43")},
+	"armor": {"name": "เกราะภาคสนาม", "description": "+1 พลังชีวิตสูงสุดต่อระดับ", "color": Color("6e91a8")},
 }
 
 
@@ -27,18 +27,18 @@ func _purchase(upgrade_id: String) -> void:
 
 
 func _refresh() -> void:
-	$Layout/Header/Samples.text = "SAMPLES %d" % int(SaveManager.profile.get("total_crystals", 0))
+	$Layout/Header/Samples.text = "ตัวอย่าง %d" % int(SaveManager.profile.get("total_crystals", 0))
 	for upgrade_id in UPGRADE_DATA:
 		var row := $Layout.get_node(upgrade_id)
 		var level := SaveManager.get_upgrade_level(upgrade_id)
-		row.get_node("Row/Level").text = "LEVEL %d/5" % level
+		row.get_node("Row/Level").text = "ระดับ %d/5" % level
 		var button: Button = row.get_node("Row/Purchase")
 		if level >= 5:
-			button.text = "MAXIMUM"
+			button.text = "สูงสุด"
 			button.disabled = true
 		else:
 			var cost := SaveManager.get_upgrade_cost(upgrade_id)
-			button.text = "UPGRADE • %d" % cost
+			button.text = "อัปเกรด • %d" % cost
 			button.disabled = int(SaveManager.profile.get("total_crystals", 0)) < cost
 
 

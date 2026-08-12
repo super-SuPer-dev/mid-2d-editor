@@ -1,8 +1,21 @@
 # Replacing placeholder assets
 
-The current presentation uses `Polygon2D`, `ColorRect`, default fonts, and one
-click sound. These are deliberate placeholders; gameplay does not depend on
-their geometry.
+Gameplay art now uses Inspector-ready `Sprite2D` nodes and operator portraits
+use `TextureRect`. Select `BodyVisual`, `Visual`, or `Content/Portrait`, then
+drop a PNG, WebP, SVG, or imported texture into its `Texture` property.
+Collisions and scripts are separate, so changing artwork does not change play.
+
+Replaceable slots are available in the player, enemy, sample, hazard,
+projectile, portal, platform, level background, and reusable character-card
+scenes. Scene textures are authoritative and are not replaced by scripts at
+runtime. Their temporary source
+textures live in `Assets/placeholders/`. Keep replacement art centered on the
+same canvas size, or adjust only the art node's position and scale.
+
+UI skins are also texture-driven. Replace `ui_background.svg`, `ui_panel.svg`,
+`ui_button.svg`, `ui_button_hover.svg`, and `ui_button_pressed.svg` to reskin
+every screen centrally. Individual screen backgrounds are editable
+`TextureRect` nodes, while buttons remain semantic Godot `Button` controls.
 
 ## Recommended pixel-art specification
 

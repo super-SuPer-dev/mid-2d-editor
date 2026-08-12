@@ -31,7 +31,7 @@ func _on_reset_pressed() -> void:
 	AudioManager.play_click()
 	if not reset_armed:
 		reset_armed = true
-		reset_button.text = "CONFIRM RESET"
+		reset_button.text = "ยืนยันการล้างข้อมูล"
 		return
 	SaveManager.erase_progress()
 	SceneManager.go_to_main_menu()

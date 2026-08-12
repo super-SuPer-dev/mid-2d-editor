@@ -43,27 +43,27 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func show_pause() -> void:
 	get_tree().paused = true
-	_show_modal("MISSION PAUSED", "Systems suspended", Color("54d6ff"), [
-		["RESUME", close_modal], ["RESTART", SceneManager.restart_level], ["LEVEL SELECT", SceneManager.go_to_level_select],
+	_show_modal("หยุดภารกิจชั่วคราว", "ระบบพักการทำงาน", Color("54d6ff"), [
+		["ทำต่อ", close_modal], ["เริ่มใหม่", SceneManager.restart_level], ["เลือกภารกิจ", SceneManager.go_to_level_select],
 	])
 
 
 func show_game_over() -> void:
 	get_tree().paused = true
-	_show_modal("OPERATIVE LOST", "Signal terminated. Reinitialize the mission?", Color("ef476f"), [
-		["RETRY MISSION", SceneManager.restart_level], ["LEVEL SELECT", SceneManager.go_to_level_select],
+	_show_modal("เจ้าหน้าที่เสียชีวิต", "สัญญาณขาดหาย ต้องการเริ่มภารกิจใหม่หรือไม่?", Color("ef476f"), [
+		["ลองภารกิจอีกครั้ง", SceneManager.restart_level], ["เลือกภารกิจ", SceneManager.go_to_level_select],
 	])
 
 
 func show_level_complete(is_campaign_complete: bool) -> void:
 	get_tree().paused = true
-	var title := "CAMPAIGN COMPLETE" if is_campaign_complete else "MISSION COMPLETE"
-	var subtitle := "The invasion command has fallen." if is_campaign_complete else "%d samples secured. New sector unlocked." % GameManager.coin
+	var title := "จบแคมเปญ" if is_campaign_complete else "ภารกิจสำเร็จ"
+	var subtitle := "กองบัญชาการผู้รุกรานถูกทำลายแล้ว" if is_campaign_complete else "เก็บตัวอย่างได้ %d ชิ้น ปลดล็อกพื้นที่ใหม่แล้ว" % GameManager.coin
 	var actions: Array = []
 	if not is_campaign_complete:
-		actions.append(["NEXT MISSION", _play_next_level])
-	actions.append(["LEVEL SELECT", SceneManager.go_to_level_select])
-	actions.append(["MAIN MENU", SceneManager.go_to_main_menu])
+		actions.append(["ภารกิจถัดไป", _play_next_level])
+	actions.append(["เลือกภารกิจ", SceneManager.go_to_level_select])
+	actions.append(["เมนูหลัก", SceneManager.go_to_main_menu])
 	_show_modal(title, subtitle, Color("63ffb0"), actions)
 
 
@@ -117,13 +117,12 @@ func _play_next_level() -> void:
 
 
 func _on_health_changed(current_health: int, maximum_health: int) -> void:
-	health_label.text = "HP %d/%d" % [current_health, maximum_health]
+	health_label.text = "ชีวิต %d/%d" % [current_health, maximum_health]
 
 
 func _on_currency_changed(current_amount: int, _change: int) -> void:
-	crystal_label.text = "SAMPLES %d" % current_amount
+	crystal_label.text = "ตัวอย่าง %d" % current_amount
 
 
 func _on_objective_changed(defeated: int, required: int) -> void:
-	objective_label.text = "THREATS %d/%d" % [mini(defeated, required), required]
-
+	objective_label.text = "ศัตรู %d/%d" % [mini(defeated, required), required]

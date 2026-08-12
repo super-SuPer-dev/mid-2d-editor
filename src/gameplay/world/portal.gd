@@ -3,7 +3,7 @@ extends Area2D
 
 signal player_entered
 
-@onready var visual: Polygon2D = $Visual
+@onready var visual: Sprite2D = $Visual
 @onready var label: Label = $Label
 
 var active: bool = false
@@ -12,9 +12,9 @@ var elapsed: float = 0.0
 
 func _process(delta: float) -> void:
 	elapsed += delta
-	visual.rotation = elapsed * (1.5 if active else 0.25)
-	visual.color = Color("91bd45") if active else Color("55584b")
-	label.text = "EXTRACT" if active else "AREA UNCLEAR"
+	visual.modulate = Color("c9ff8c") if active else Color("9a9d91")
+	visual.scale = Vector2.ONE * (1.0 + sin(elapsed * (4.0 if active else 1.5)) * 0.025)
+	label.text = "จุดถอนกำลัง" if active else "พื้นที่ยังไม่ปลอดภัย"
 
 
 func set_active(enabled: bool) -> void:

@@ -1,5 +1,8 @@
 # Art direction
 
+The shipping interface language is Thai. All native Godot controls use
+`Assets/RD CHULAJARUEK.ttf` through the shared global theme.
+
 The `art_refs/` boards define the production target. The game should feel like
 a grounded Thai rural survival story disrupted by alien biology—not a clean
 space-station adventure.

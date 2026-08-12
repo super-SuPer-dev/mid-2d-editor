@@ -11,10 +11,9 @@ const DASH_DURATION := 0.16
 const DASH_COOLDOWN := 0.7
 const ATTACK_DURATION := 0.15
 
-@onready var body_visual: Polygon2D = $BodyVisual
-@onready var visor: Polygon2D = $BodyVisual/Visor
+@onready var body_visual: Sprite2D = $BodyVisual
 @onready var attack_area: Area2D = $AttackArea
-@onready var attack_arc: Polygon2D = $AttackArea/AttackArc
+@onready var attack_arc: Sprite2D = $AttackArea/AttackArc
 @onready var health: HealthComponent = $HealthComponent
 
 var move_speed: float = 190.0
@@ -43,10 +42,7 @@ func _ready() -> void:
 	dash_speed *= 1.0 + SaveManager.get_upgrade_level("engine") * 0.04
 	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor")
 	health.reset()
-	body_visual.color = character["color"]
-	$BodyVisual/Torso.color = character["uniform"]
-	$BodyVisual/Head.color = character["skin"]
-	visor.color = Color.WHITE
+	body_visual.self_modulate = Color.WHITE.lerp(character["color"], 0.22)
 	health.health_changed.connect(_on_health_changed)
 	health.died.connect(_on_died)
 	GameManager.player_movement_changed.connect(_on_movement_changed)

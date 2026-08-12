@@ -4,7 +4,7 @@ extends CharacterBody2D
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://Scenes/gameplay/enemy_projectile.tscn")
 
-@onready var visual: Polygon2D = $Visual
+@onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar = $HealthBar
 
@@ -26,27 +26,23 @@ func configure(type_id: String) -> void:
 			move_speed = 35.0
 			health.max_health = 5
 			contact_damage = 2
-			visual.color = Color("76a94f")
-			$Visual/Bloom.color = Color("d6c64a")
+			visual.modulate = Color("b7d46c")
 		"maw":
 			move_speed = 70.0
 			health.max_health = 8
 			contact_damage = 2
-			visual.color = Color("556f35")
-			$Visual/Bloom.color = Color("8f3f58")
+			visual.modulate = Color("9b6b78")
 			scale = Vector2(1.25, 1.25)
 		"banyan_boss":
 			move_speed = 105.0
 			health.max_health = 24
 			contact_damage = 2
 			detection_range = 700.0
-			visual.color = Color("44372b")
-			$Visual/Bloom.color = Color("a44e9a")
+			visual.modulate = Color("a46aa4")
 			scale = Vector2(1.8, 1.8)
 		_:
 			health.max_health = 3
-			visual.color = Color("658542")
-			$Visual/Bloom.color = Color("a8c74e")
+			visual.modulate = Color.WHITE
 	health.reset()
 
 
