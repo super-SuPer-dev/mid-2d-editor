@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://0ey56a01thce"]
 
-[ext_resource type="Script" path="res://src/ui/screens/level_select.gd" id="1"]
-[ext_resource type="Theme" path="res://Scenes/ui/field_theme.tres" id="2"]
-[ext_resource type="Texture2D" path="res://Assets/placeholders/ui_background.svg" id="3_bg"]
+[ext_resource type="Script" uid="uid://wlcy5jy73brl" path="res://src/ui/screens/level_select.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://Scenes/ui/field_theme.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://c02tfrdibcle2" path="res://Generated-Assets/ChatGPT Image 12 ส.ค. 2569 21_47_27.png" id="3_a7ceu"]
 
-[node name="LevelSelect" type="Control"]
+[node name="LevelSelect" type="Control" unique_id=1852008178]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,17 +13,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2")
 script = ExtResource("1")
-[node name="Background" type="TextureRect" parent="."]
+
+[node name="Background" type="TextureRect" parent="." unique_id=1904858288]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_bg")
+texture = ExtResource("3_a7ceu")
 expand_mode = 1
 stretch_mode = 6
-[node name="Layout" type="VBoxContainer" parent="."]
+
+[node name="Layout" type="VBoxContainer" parent="." unique_id=914380754]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,47 +37,59 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
-[node name="Header" type="HBoxContainer" parent="Layout"]
+
+[node name="Header" type="HBoxContainer" parent="Layout" unique_id=229036654]
 layout_mode = 2
-[node name="Back" type="Button" parent="Layout/Header"]
+
+[node name="Back" type="Button" parent="Layout/Header" unique_id=718701590]
 custom_minimum_size = Vector2(220, 80)
 layout_mode = 2
 text = "< เมนู"
-[node name="Title" type="Label" parent="Layout/Header"]
+
+[node name="Title" type="Label" parent="Layout/Header" unique_id=667200123]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
 theme_override_font_sizes/font_size = 60
 text = "แผนที่ภารกิจ"
 horizontal_alignment = 1
-[node name="Operator" type="Button" parent="Layout/Header"]
+
+[node name="Operator" type="Button" parent="Layout/Header" unique_id=1067642049]
 custom_minimum_size = Vector2(360, 80)
 layout_mode = 2
 text = "เจ้าหน้าที่"
-[node name="Missions" type="VBoxContainer" parent="Layout"]
+
+[node name="Missions" type="VBoxContainer" parent="Layout" unique_id=490014175]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
-[node name="level_01" type="Button" parent="Layout/Missions"]
+
+[node name="level_01" type="Button" parent="Layout/Missions" unique_id=103099397]
 custom_minimum_size = Vector2(1180, 112)
 layout_mode = 2
-[node name="level_02" type="Button" parent="Layout/Missions"]
+
+[node name="level_02" type="Button" parent="Layout/Missions" unique_id=1473503538]
 custom_minimum_size = Vector2(1180, 112)
 layout_mode = 2
-[node name="level_03" type="Button" parent="Layout/Missions"]
+
+[node name="level_03" type="Button" parent="Layout/Missions" unique_id=244781692]
 custom_minimum_size = Vector2(1180, 112)
 layout_mode = 2
-[node name="Footer" type="HBoxContainer" parent="Layout"]
+
+[node name="Footer" type="HBoxContainer" parent="Layout" unique_id=13813988]
 layout_mode = 2
 alignment = 1
-[node name="Samples" type="Label" parent="Layout/Footer"]
+
+[node name="Samples" type="Label" parent="Layout/Footer" unique_id=519708341]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
 theme_override_font_sizes/font_size = 30
-[node name="Upgrades" type="Button" parent="Layout/Footer"]
+
+[node name="Upgrades" type="Button" parent="Layout/Footer" unique_id=1769883759]
 custom_minimum_size = Vector2(340, 76)
 layout_mode = 2
 text = "อัปเกรดฐาน"
+
 [connection signal="pressed" from="Layout/Header/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Layout/Header/Operator" to="." method="_on_operator_pressed"]
 [connection signal="pressed" from="Layout/Footer/Upgrades" to="." method="_on_upgrades_pressed"]

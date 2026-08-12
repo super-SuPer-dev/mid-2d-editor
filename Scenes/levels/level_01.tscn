@@ -8,38 +8,37 @@
 [ext_resource type="PackedScene" path="res://Scenes/gameplay/hazard.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://Scenes/gameplay/portal.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/game_hud.tscn" id="8"]
-[ext_resource type="Texture2D" path="res://Assets/placeholders/level_background.svg" id="9_bg"]
+[ext_resource type="PackedScene" path="res://Scenes/backgrounds/grassland_parallax.tscn" id="9_bg"]
 
 [node name="ContaminatedGrassland" type="Node2D"]
 script = ExtResource("1")
 
 [node name="Environment" type="Node2D" parent="."]
 
-[node name="BackgroundArt" type="Sprite2D" parent="Environment"]
-z_index = -50
-position = Vector2(1350, 360)
-scale = Vector2(2.11, 1)
-texture_filter = 1
-texture = ExtResource("9_bg")
+[node name="ParallaxBackground" parent="Environment" instance=ExtResource("9_bg")]
 
 [node name="Hills" type="Polygon2D" parent="Environment"]
+visible = false
 z_index = -30
 polygon = PackedVector2Array(0, 720, 0, 430, 180, 380, 360, 425, 540, 350, 720, 410, 900, 365, 1080, 430, 1260, 370, 1440, 405, 1620, 340, 1800, 420, 1980, 360, 2160, 410, 2340, 350, 2520, 405, 2700, 365, 2700, 720)
 color = Color(0.25098, 0.34902, 0.27451, 1)
 
 [node name="CloudA" type="Polygon2D" parent="Environment"]
+visible = false
 z_index = -40
 position = Vector2(180, 110)
 polygon = PackedVector2Array(-60, 8, -38, -8, -15, -5, 0, -25, 24, -16, 38, 0, 65, 9)
 color = Color(0.55, 0.61, 0.62, 1)
 
 [node name="CloudB" type="Polygon2D" parent="Environment"]
+visible = false
 z_index = -40
 position = Vector2(1120, 150)
 polygon = PackedVector2Array(-70, 8, -42, -12, -18, -7, 0, -28, 27, -18, 43, 0, 72, 9)
 color = Color(0.55, 0.61, 0.62, 1)
 
 [node name="CloudC" type="Polygon2D" parent="Environment"]
+visible = false
 z_index = -40
 position = Vector2(2200, 95)
 polygon = PackedVector2Array(-55, 7, -32, -9, -12, -5, 0, -22, 22, -13, 35, 0, 58, 8)

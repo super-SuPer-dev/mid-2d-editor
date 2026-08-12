@@ -3,6 +3,11 @@
 The shipping interface language is Thai. All native Godot controls use
 `Assets/RD CHULAJARUEK.ttf` through the shared global theme.
 
+Campaign environments use four native `Parallax2D` planes: sky, distant
+horizon, middle vegetation, and transparent foreground. The reusable scenes
+live under `Scenes/backgrounds/`; layer textures and scroll scales are editable
+directly in the Inspector.
+
 The `art_refs/` boards define the production target. The game should feel like
 a grounded Thai rural survival story disrupted by alien biology—not a clean
 space-station adventure.

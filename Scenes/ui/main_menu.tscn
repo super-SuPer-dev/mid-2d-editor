@@ -30,17 +30,13 @@ stretch_mode = 6
 [node name="Center" type="CenterContainer" parent="." unique_id=927681839]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.098437496
-anchor_top = -0.009027783
-anchor_right = 0.91354764
-anchor_bottom = 0.9346526
-offset_top = 25.5
-offset_right = 236.65906
-offset_bottom = 117.05011
+offset_left = 390.99994
+offset_top = 6.000002
+offset_right = 1057.0
+offset_bottom = 777.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.8151101, 0.8151101)
-metadata/_edit_use_anchors_ = true
+scale = Vector2(0.8, 0.8)
 
 [node name="Content" type="VBoxContainer" parent="Center" unique_id=1347114172]
 layout_mode = 2
