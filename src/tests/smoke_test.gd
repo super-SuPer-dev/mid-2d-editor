@@ -11,6 +11,7 @@ const UI_SCENES := [
 	preload("res://Scenes/ui/character_select.tscn"),
 	preload("res://Scenes/ui/level_select.tscn"),
 	preload("res://Scenes/ui/settings.tscn"),
+	preload("res://Scenes/ui/credits.tscn"),
 	preload("res://Scenes/ui/upgrades.tscn"),
 ]
 

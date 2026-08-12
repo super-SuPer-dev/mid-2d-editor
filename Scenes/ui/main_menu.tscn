@@ -78,12 +78,17 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Settings" type="Button" parent="Center/Content/Footer" unique_id=1831597533]
-custom_minimum_size = Vector2(234, 68)
+custom_minimum_size = Vector2(152, 68)
 layout_mode = 2
 text = "ตั้งค่า"
 
+[node name="Credits" type="Button" parent="Center/Content/Footer"]
+custom_minimum_size = Vector2(152, 68)
+layout_mode = 2
+text = "เครดิต"
+
 [node name="Exit" type="Button" parent="Center/Content/Footer" unique_id=1430948299]
-custom_minimum_size = Vector2(234, 68)
+custom_minimum_size = Vector2(152, 68)
 layout_mode = 2
 text = "ออกจากเกม"
 
@@ -91,4 +96,5 @@ text = "ออกจากเกม"
 [connection signal="pressed" from="Center/Content/FieldMap" to="." method="_on_field_map_pressed"]
 [connection signal="pressed" from="Center/Content/BaseUpgrades" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="Center/Content/Footer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Center/Content/Footer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Center/Content/Footer/Exit" to="." method="_on_exit_pressed"]

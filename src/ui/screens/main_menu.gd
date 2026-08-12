@@ -22,6 +22,10 @@ func _on_settings_pressed() -> void:
 	_navigate(SceneManager.go_to_settings)
 
 
+func _on_credits_pressed() -> void:
+	_navigate(SceneManager.go_to_credits)
+
+
 func _on_exit_pressed() -> void:
 	AudioManager.play_click()
 	get_tree().quit()
