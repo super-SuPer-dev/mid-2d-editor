@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://dpr5ii86tyln3"]
 
-[ext_resource type="Script" path="res://src/ui/game_hud.gd" id="1"]
-[ext_resource type="Theme" path="res://Scenes/ui/field_theme.tres" id="2"]
+[ext_resource type="Script" uid="uid://c0xra83sxow4g" path="res://src/ui/game_hud.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://Scenes/ui/field_theme.tres" id="2"]
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" unique_id=154325126]
 process_mode = 3
 script = ExtResource("1")
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=1413615168]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2")
 
-[node name="TopMargin" type="MarginContainer" parent="Root"]
+[node name="TopMargin" type="MarginContainer" parent="Root" unique_id=119429463]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -27,41 +27,51 @@ theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 32
 
-[node name="Row" type="HBoxContainer" parent="Root/TopMargin"]
+[node name="Row" type="HBoxContainer" parent="Root/TopMargin" unique_id=1752263940]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
-[node name="Level" type="Label" parent="Root/TopMargin/Row"]
+
+[node name="Level" type="Label" parent="Root/TopMargin/Row" unique_id=1347461284]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.57, 0.74, 0.27, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 34
 text = "ภารกิจ"
-[node name="Health" type="Label" parent="Root/TopMargin/Row"]
+
+[node name="Health" type="Label" parent="Root/TopMargin/Row" unique_id=1607343646]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "ชีวิต --/--"
-[node name="Samples" type="Label" parent="Root/TopMargin/Row"]
+
+[node name="Samples" type="Label" parent="Root/TopMargin/Row" unique_id=696677876]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "ตัวอย่าง 0"
-[node name="Objective" type="Label" parent="Root/TopMargin/Row"]
+
+[node name="Objective" type="Label" parent="Root/TopMargin/Row" unique_id=66119322]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "ศัตรู 0/0"
 
-[node name="Hint" type="Label" parent="Root"]
+[node name="Hint" type="Label" parent="Root" unique_id=199616670]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 670.0
 offset_right = 1240.0
 offset_bottom = 710.0
 theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 26
 text = "A/D เคลื่อนที่   W/SPACE กระโดด   SHIFT หลบ   คลิกซ้าย ตัด   ESC หยุดเกม"
 
-[node name="Modal" type="ColorRect" parent="Root"]
+[node name="Modal" type="ColorRect" parent="Root" unique_id=1406394126]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -69,38 +79,47 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 color = Color(0.008, 0.027, 0.067, 0.85)
-[node name="Center" type="CenterContainer" parent="Root/Modal"]
+
+[node name="Center" type="CenterContainer" parent="Root/Modal" unique_id=1378994431]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-[node name="Panel" type="PanelContainer" parent="Root/Modal/Center"]
+
+[node name="Panel" type="PanelContainer" parent="Root/Modal/Center" unique_id=530895797]
 custom_minimum_size = Vector2(920, 600)
 layout_mode = 2
-[node name="Content" type="VBoxContainer" parent="Root/Modal/Center/Panel"]
+
+[node name="Content" type="VBoxContainer" parent="Root/Modal/Center/Panel" unique_id=1820157022]
 layout_mode = 2
 theme_override_constants/separation = 28
 alignment = 1
-[node name="Title" type="Label" parent="Root/Modal/Center/Panel/Content"]
+
+[node name="Title" type="Label" parent="Root/Modal/Center/Panel/Content" unique_id=1214133025]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 68
 text = "หยุดภารกิจชั่วคราว"
 horizontal_alignment = 1
-[node name="Subtitle" type="Label" parent="Root/Modal/Center/Panel/Content"]
+
+[node name="Subtitle" type="Label" parent="Root/Modal/Center/Panel/Content" unique_id=1132650952]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "ระบบพักการทำงาน"
 horizontal_alignment = 1
-[node name="Action1" type="Button" parent="Root/Modal/Center/Panel/Content"]
+
+[node name="Action1" type="Button" parent="Root/Modal/Center/Panel/Content" unique_id=160375771]
 layout_mode = 2
-[node name="Action2" type="Button" parent="Root/Modal/Center/Panel/Content"]
+
+[node name="Action2" type="Button" parent="Root/Modal/Center/Panel/Content" unique_id=1590381283]
 layout_mode = 2
-[node name="Action3" type="Button" parent="Root/Modal/Center/Panel/Content"]
+
+[node name="Action3" type="Button" parent="Root/Modal/Center/Panel/Content" unique_id=550508025]
 layout_mode = 2
 
 [connection signal="pressed" from="Root/Modal/Center/Panel/Content/Action1" to="." method="_on_action_1"]
