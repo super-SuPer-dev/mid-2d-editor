@@ -1,6 +1,49 @@
 # mid-2d-editor
 Game-Dev Year3 mid term 2d project
 
+Godot 4.7 project for **Low Altitude Warrior**, a Thai countryside sci-fi
+survival side-scroller with a pixel-art production target.
+
+## Development setup
+
+1. Open `project.godot` with Godot 4.7 or a compatible Godot 4 release.
+2. Run the project to start at the main menu.
+3. Start a campaign, select one of four field operators, and clear the three
+   unlockable missions.
+
+Controls:
+
+- A/D or Left/Right: move
+- W, Space, or Up: jump
+- Shift: dash
+- Left mouse button: attack
+- Escape: pause
+- F2: debug mode
+- F3: invulnerability debug mode
+
+The project separates scripts under `src/` from Godot resources under
+`Scenes/`. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before adding a new
+system or moving scenes.
+
+Placeholder visuals are built from Godot polygons and controls. Follow
+[docs/ASSET_REPLACEMENT.md](docs/ASSET_REPLACEMENT.md) when replacing them with
+pixel-art or generated assets.
+
+The active visual direction is documented in
+[docs/ART_DIRECTION.md](docs/ART_DIRECTION.md) and is derived from the boards in
+`art_refs/`. Those boards are reference material, not runtime textures.
+
+## Smoke test
+
+Run the project-level smoke scene headlessly with Godot 4.7:
+
+```powershell
+godot --headless --path . Scenes/tests/smoke_test.tscn
+```
+
+It instantiates every front-end screen and all campaign levels, and validates
+the configured character, enemy, objective, and platform counts.
+
 # แนะนำ github repo นี้
 repo นี้มีไว้เพื่อเก็บ code และ ตัว project หลักไม่ใช่ตัวเกมที่พร้อมเล่นบนเว็ป
 ตัว repo ที่พร้อมเล่นบนเว็ปจะสร้าง repo แยกเป็น "mid-2d-prod" แทน

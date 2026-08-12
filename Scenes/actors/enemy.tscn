@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/actors/enemies/enemy.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://src/core/components/health_component.gd" id="2_health"]
+
+[sub_resource type="RectangleShape2D" id="BodyShape"]
+size = Vector2(34, 38)
+
+[sub_resource type="RectangleShape2D" id="HurtShape"]
+size = Vector2(42, 44)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_enemy")
+
+[node name="Visual" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-17, 16, -13, -8, -7, -18, 0, -22, 8, -18, 15, -7, 18, 16, 7, 11, 0, 18, -8, 11)
+color = Color(0.4, 0.52, 0.26, 1)
+
+[node name="Bloom" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(0, -26, 5, -18, 14, -19, 10, -10, 16, -3, 7, -2, 0, 5, -6, -2, -16, -3, -10, -11, -14, -19, -5, -18)
+color = Color(0.66, 0.78, 0.3, 1)
+
+[node name="Mouth" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-8, -10, 0, -5, 9, -11, 6, -1, 0, 3, -6, -1)
+color = Color(0.2, 0.1, 0.12, 1)
+
+[node name="Eye" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-2, -10, 3, -11, 5, -7, 1, -5, -3, -7)
+color = Color(0.83, 0.9, 0.35, 1)
+
+[node name="RootLeft" type="Line2D" parent="Visual"]
+points = PackedVector2Array(-5, 12, -15, 22, -24, 19)
+width = 4.0
+default_color = Color(0.28, 0.24, 0.17, 1)
+
+[node name="RootRight" type="Line2D" parent="Visual"]
+points = PackedVector2Array(5, 12, 15, 22, 24, 19)
+width = 4.0
+default_color = Color(0.28, 0.24, 0.17, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("BodyShape")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("HurtShape")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 3
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -38.0
+offset_right = 24.0
+offset_bottom = -31.0
+show_percentage = false
+visible = false
