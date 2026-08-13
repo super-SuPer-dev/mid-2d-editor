@@ -24,6 +24,12 @@ func default_profile() -> Dictionary:
 		"best_crystals": {},
 		"total_crystals": 0,
 		"upgrade_levels": {"blade": 0, "engine": 0, "armor": 0},
+		"character_upgrade_levels": {
+			"tonkla": {"blade": 0, "engine": 0, "armor": 0},
+			"ranger": {"blade": 0, "engine": 0, "armor": 0},
+			"villager": {"blade": 0, "engine": 0, "armor": 0},
+			"t800": {"blade": 0, "engine": 0, "armor": 0},
+		},
 		"settings": {"master_volume": 0.8, "fullscreen": false},
 	}
 
@@ -114,6 +120,42 @@ func purchase_upgrade(upgrade_id: String) -> bool:
 		return false
 	profile["total_crystals"] = int(profile["total_crystals"]) - cost
 	profile["upgrade_levels"][upgrade_id] = current_level + 1
+	profile_changed.emit()
+	save_game()
+	return true
+
+
+func get_character_upgrade_level(upgrade_id: String, character_id: String = "") -> int:
+	var resolved_character_id := character_id if not character_id.is_empty() else GameManager.selected_character_id
+	var all_levels: Dictionary = profile.get("character_upgrade_levels", {})
+	var character_levels: Dictionary = all_levels.get(resolved_character_id, {})
+	return int(character_levels.get(upgrade_id, 0))
+
+
+func get_character_upgrade_cost(upgrade_id: String, character_id: String = "") -> int:
+	return 3 + get_character_upgrade_level(upgrade_id, character_id) * 3
+
+
+func purchase_character_upgrade(upgrade_id: String, character_id: String = "") -> bool:
+	if upgrade_id not in ["blade", "engine", "armor"]:
+		return false
+	var resolved_character_id := character_id if not character_id.is_empty() else GameManager.selected_character_id
+	if not CharacterCatalog.CHARACTERS.has(resolved_character_id):
+		return false
+	var current_level := get_character_upgrade_level(upgrade_id, resolved_character_id)
+	if current_level >= 5:
+		return false
+	var cost := get_character_upgrade_cost(upgrade_id, resolved_character_id)
+	if int(profile["total_crystals"]) < cost:
+		return false
+	profile["total_crystals"] = int(profile["total_crystals"]) - cost
+	var all_levels: Dictionary = profile["character_upgrade_levels"]
+	if not all_levels.has(resolved_character_id):
+		all_levels[resolved_character_id] = {"blade": 0, "engine": 0, "armor": 0}
+	var character_levels: Dictionary = all_levels[resolved_character_id]
+	character_levels[upgrade_id] = current_level + 1
+	all_levels[resolved_character_id] = character_levels
+	profile["character_upgrade_levels"] = all_levels
 	profile_changed.emit()
 	save_game()
 	return true

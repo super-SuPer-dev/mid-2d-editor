@@ -51,7 +51,7 @@ position = Vector2(1350, 680)
 scale = Vector2(27, 4)
 
 [node name="Platform01" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(510, 534)
+position = Vector2(510, 554)
 scale = Vector2(2.6, 1.4)
 
 [node name="Platform02" parent="WorldGeometry" instance=ExtResource("2")]
@@ -71,7 +71,7 @@ position = Vector2(2050, 569)
 scale = Vector2(3, 1.4)
 
 [node name="Platform06" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(2360, 464)
+position = Vector2(2360, 479)
 scale = Vector2(2.2, 1.4)
 
 [node name="Hazard01" parent="WorldGeometry" instance=ExtResource("6")]
@@ -88,7 +88,7 @@ position = Vector2(120, 560)
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Thornling01" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(560, 470)
+position = Vector2(560, 490)
 enemy_type = "thornling"
 
 [node name="Thornling02" parent="Enemies" instance=ExtResource("4")]
@@ -106,7 +106,7 @@ enemy_type = "thornling"
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="Sample01" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(460, 475)
+position = Vector2(460, 495)
 [node name="Sample02" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(840, 405)
 [node name="Sample03" parent="Pickups" instance=ExtResource("5")]
@@ -116,7 +116,7 @@ position = Vector2(1580, 430)
 [node name="Sample05" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(1990, 510)
 [node name="Sample06" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(2320, 405)
+position = Vector2(2320, 420)
 
 [node name="Portal" parent="." instance=ExtResource("7")]
 position = Vector2(2520, 515)

@@ -37,10 +37,11 @@ func _ready() -> void:
 	jump_velocity = float(character["jump_velocity"])
 	attack_damage = int(character["attack_damage"])
 	dash_speed = float(character["dash_speed"])
-	attack_damage += SaveManager.get_upgrade_level("blade")
-	move_speed *= 1.0 + SaveManager.get_upgrade_level("engine") * 0.05
-	dash_speed *= 1.0 + SaveManager.get_upgrade_level("engine") * 0.04
-	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor")
+	attack_damage += SaveManager.get_upgrade_level("blade") + SaveManager.get_character_upgrade_level("blade")
+	var engine_level := SaveManager.get_upgrade_level("engine") + SaveManager.get_character_upgrade_level("engine")
+	move_speed *= 1.0 + engine_level * 0.05
+	dash_speed *= 1.0 + engine_level * 0.04
+	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor") + SaveManager.get_character_upgrade_level("armor")
 	health.reset()
 	body_visual.self_modulate = Color.WHITE.lerp(character["color"], 0.22)
 	health.health_changed.connect(_on_health_changed)

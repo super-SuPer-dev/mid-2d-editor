@@ -47,22 +47,22 @@ scale = Vector2(3, 1.6)
 position = Vector2(1970, 720)
 scale = Vector2(5, 2)
 [node name="Platform02" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(2425, 606)
+position = Vector2(2425, 626)
 scale = Vector2(2.7, 1.6)
 [node name="GroundD" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(2965, 715)
 scale = Vector2(6.7, 2.5)
 [node name="Platform03" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(500, 564)
+position = Vector2(500, 654)
 scale = Vector2(2.2, 1.4)
 [node name="Platform04" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1145, 484)
+position = Vector2(1145, 594)
 scale = Vector2(2.1, 1.4)
 [node name="Platform05" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1985, 524)
+position = Vector2(1985, 614)
 scale = Vector2(2.3, 1.4)
 [node name="Platform06" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(2870, 504)
+position = Vector2(2870, 604)
 scale = Vector2(2.6, 1.4)
 [node name="Hazard01" parent="WorldGeometry" instance=ExtResource("6")]
 position = Vector2(805, 760)
@@ -81,7 +81,7 @@ scale = Vector2(1.09, 1.25)
 position = Vector2(100, 660)
 [node name="Enemies" type="Node2D" parent="."]
 [node name="Thornling01" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(430, 500)
+position = Vector2(430, 590)
 enemy_type = "thornling"
 [node name="Spitter01" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(980, 620)
@@ -93,7 +93,7 @@ enemy_type = "maw"
 position = Vector2(1900, 650)
 enemy_type = "thornling"
 [node name="Spitter02" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(2380, 540)
+position = Vector2(2380, 560)
 enemy_type = "spitter"
 [node name="Maw02" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(2850, 625)
@@ -103,19 +103,19 @@ enemy_type = "maw"
 [node name="Sample01" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(260, 690)
 [node name="Sample02" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(480, 505)
+position = Vector2(480, 595)
 [node name="Sample03" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(930, 620)
 [node name="Sample04" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(1100, 425)
+position = Vector2(1100, 535)
 [node name="Sample05" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(1480, 545)
 [node name="Sample06" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(1830, 650)
 [node name="Sample07" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(2380, 545)
+position = Vector2(2380, 565)
 [node name="Sample08" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(2810, 445)
+position = Vector2(2810, 545)
 
 [node name="Portal" parent="." instance=ExtResource("7")]
 position = Vector2(3110, 595)

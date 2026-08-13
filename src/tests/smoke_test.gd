@@ -6,12 +6,28 @@ const GAME_LEVELS := {
 	"level_02": preload("res://Scenes/levels/level_02.tscn"),
 	"level_03": preload("res://Scenes/levels/level_03.tscn"),
 }
+const REQUIRED_JUMP_ROUTES := {
+	"level_01": [
+		["Ground", "Platform01"], ["Platform01", "Platform02"],
+		["Platform03", "Platform04"], ["Platform05", "Platform06"],
+	],
+	"level_02": [
+		["GroundA", "Platform03"], ["GroundB", "Platform04"],
+		["GroundB", "Platform01"], ["GroundC", "Platform05"],
+		["GroundC", "Platform02"], ["GroundD", "Platform06"],
+	],
+	"level_03": [
+		["Ground", "Platform01"], ["Platform01", "Platform02"],
+		["Platform03", "Platform04"],
+	],
+}
 const UI_SCENES := [
 	preload("res://Scenes/ui/main_menu.tscn"),
 	preload("res://Scenes/ui/character_select.tscn"),
 	preload("res://Scenes/ui/level_select.tscn"),
 	preload("res://Scenes/ui/settings.tscn"),
 	preload("res://Scenes/ui/credits.tscn"),
+	preload("res://Scenes/ui/character_upgrades.tscn"),
 	preload("res://Scenes/ui/upgrades.tscn"),
 ]
 
@@ -40,10 +56,14 @@ func _ready() -> void:
 func _validate_catalogs() -> void:
 	_check(CharacterCatalog.get_ids().size() == 4, "Expected four playable characters.")
 	_check(LevelCatalog.LEVEL_ORDER.size() == 3, "Expected three campaign levels.")
+	_check(SaveManager.get_character_upgrade_level("blade") >= 0, "Character upgrade data is missing.")
 	for character_id in CharacterCatalog.get_ids():
+		_check(SaveManager.profile.get("character_upgrade_levels", {}).has(character_id), "%s has no character upgrade profile." % character_id)
 		var data := CharacterCatalog.get_character(character_id)
 		_check(int(data["max_health"]) > 0, "%s has invalid health." % character_id)
 		_check(float(data["move_speed"]) > 0.0, "%s has invalid speed." % character_id)
+		var jump_height := pow(float(data["jump_velocity"]), 2.0) / (2.0 * PlayerController.GRAVITY)
+		_check(jump_height >= 110.0, "%s cannot reach the campaign's required platform steps." % character_id)
 	for level_id in LevelCatalog.LEVEL_ORDER:
 		var data := LevelCatalog.get_level(level_id)
 		_check(int(data["required_kills"]) > 0, "%s has an invalid objective." % level_id)
@@ -78,7 +98,11 @@ func _validate_levels() -> void:
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)
+		_validate_jump_routes(level_id, level.get_node("WorldGeometry"))
 		var player := get_tree().get_first_node_in_group("Player") as PlayerController
+		var character := CharacterCatalog.get_character(GameManager.selected_character_id)
+		var expected_attack := int(character["attack_damage"]) + SaveManager.get_upgrade_level("blade") + SaveManager.get_character_upgrade_level("blade")
+		_check(player.attack_damage == expected_attack, "%s did not apply character attack upgrades." % level_id)
 		var health_before := player.health.current_health
 		player.take_damage(1, Vector2.LEFT)
 		_check(player.health.current_health == health_before - 1, "%s player damage did not apply." % level_id)
@@ -94,6 +118,16 @@ func _validate_levels() -> void:
 		await get_tree().process_frame
 		await get_tree().process_frame
 	GameManager.reset_run()
+
+
+func _validate_jump_routes(level_id: String, world_geometry: Node) -> void:
+	for route: Array in REQUIRED_JUMP_ROUTES[level_id]:
+		var source := world_geometry.get_node(str(route[0])) as Node2D
+		var target := world_geometry.get_node(str(route[1])) as Node2D
+		var source_surface := source.position.y - 10.0 * source.scale.y
+		var target_surface := target.position.y - 10.0 * target.scale.y
+		var step_height := source_surface - target_surface
+		_check(step_height <= 100.0, "%s route %s -> %s is too high (%.1f px)." % [level_id, route[0], route[1], step_height])
 
 
 func _check(condition: bool, message: String) -> void:

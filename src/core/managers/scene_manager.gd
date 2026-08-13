@@ -6,6 +6,7 @@ const LEVEL_SELECT := "res://Scenes/ui/level_select.tscn"
 const SETTINGS := "res://Scenes/ui/settings.tscn"
 const CREDITS := "res://Scenes/ui/credits.tscn"
 const UPGRADES := "res://Scenes/ui/upgrades.tscn"
+const CHARACTER_UPGRADES := "res://Scenes/ui/character_upgrades.tscn"
 const GAME_LEVELS := {
 	"level_01": "res://Scenes/levels/level_01.tscn",
 	"level_02": "res://Scenes/levels/level_02.tscn",
@@ -61,6 +62,10 @@ func go_to_credits() -> void:
 
 func go_to_upgrades() -> void:
 	load_scene(UPGRADES)
+
+
+func go_to_character_upgrades() -> void:
+	load_scene(CHARACTER_UPGRADES)
 
 
 func play_level(level_id: String) -> void:

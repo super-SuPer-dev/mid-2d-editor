@@ -63,7 +63,8 @@ func show_level_complete(is_campaign_complete: bool) -> void:
 	if not is_campaign_complete:
 		actions.append(["ภารกิจถัดไป", _play_next_level])
 	actions.append(["เลือกภารกิจ", SceneManager.go_to_level_select])
-	actions.append(["เมนูหลัก", SceneManager.go_to_main_menu])
+	if is_campaign_complete:
+		actions.append(["เมนูหลัก", SceneManager.go_to_main_menu])
 	_show_modal(title, subtitle, Color("63ffb0"), actions)
 
 
@@ -125,4 +126,9 @@ func _on_currency_changed(current_amount: int, _change: int) -> void:
 
 
 func _on_objective_changed(defeated: int, required: int) -> void:
-	objective_label.text = "ศัตรู %d/%d" % [mini(defeated, required), required]
+	if required > 0 and defeated >= required:
+		objective_label.text = "จุดถอนกำลังเปิดแล้ว"
+		objective_label.add_theme_color_override("font_color", Color("63ffb0"))
+	else:
+		objective_label.text = "ศัตรู %d/%d" % [mini(defeated, required), required]
+		objective_label.remove_theme_color_override("font_color")

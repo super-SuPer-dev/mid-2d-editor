@@ -37,10 +37,10 @@ default_color = Color(0.55, 0.26, 0.57, 0.55)
 position = Vector2(1450, 680)
 scale = Vector2(29, 4)
 [node name="Platform01" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(565, 514)
+position = Vector2(565, 554)
 scale = Vector2(2.3, 1.4)
 [node name="Platform02" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(965, 444)
+position = Vector2(965, 464)
 scale = Vector2(2.3, 1.4)
 [node name="Platform03" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(1360, 534)
@@ -65,10 +65,10 @@ scale = Vector2(1.09, 0.94)
 position = Vector2(100, 560)
 [node name="Enemies" type="Node2D" parent="."]
 [node name="Maw" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(560, 435)
+position = Vector2(560, 475)
 enemy_type = "maw"
 [node name="Spitter01" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(960, 380)
+position = Vector2(960, 400)
 enemy_type = "spitter"
 [node name="Thornling" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(1360, 470)
@@ -82,9 +82,9 @@ enemy_type = "banyan_boss"
 
 [node name="Pickups" type="Node2D" parent="."]
 [node name="Sample01" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(520, 455)
+position = Vector2(520, 495)
 [node name="Sample02" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(920, 385)
+position = Vector2(920, 405)
 [node name="Sample03" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(1300, 475)
 [node name="Sample04" parent="Pickups" instance=ExtResource("5")]

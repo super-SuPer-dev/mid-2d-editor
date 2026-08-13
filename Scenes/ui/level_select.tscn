@@ -4,6 +4,19 @@
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://Scenes/ui/field_theme.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://c02tfrdibcle2" path="res://Generated-Assets/ChatGPT Image 12 ส.ค. 2569 21_47_27.png" id="3_a7ceu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xqk3c"]
+bg_color = Color(0.105882354, 0.13725491, 0.10980392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.38039216, 0.50980395, 0.2509804, 1)
+corner_detail = 13
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 5.0
+
 [node name="LevelSelect" type="Control" unique_id=1852008178]
 layout_mode = 3
 anchors_preset = 15
@@ -63,6 +76,7 @@ text = "เจ้าหน้าที่"
 [node name="Missions" type="VBoxContainer" parent="Layout" unique_id=490014175]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.21
 theme_override_constants/separation = 20
 
 [node name="level_01" type="Button" parent="Layout/Missions" unique_id=103099397]
@@ -79,18 +93,31 @@ layout_mode = 2
 
 [node name="Footer" type="HBoxContainer" parent="Layout" unique_id=13813988]
 layout_mode = 2
-alignment = 1
+size_flags_stretch_ratio = 0.0
+alignment = 2
 
 [node name="Samples" type="Label" parent="Layout/Footer" unique_id=519708341]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 20.0
+offset_transform_position = Vector2(-6.195, 0)
+theme_override_colors/font_color = Color(1, 0.2784314, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_xqk3c")
+text = "test"
 
 [node name="Upgrades" type="Button" parent="Layout/Footer" unique_id=1769883759]
-custom_minimum_size = Vector2(340, 76)
+custom_minimum_size = Vector2(280, 76)
 layout_mode = 2
 text = "อัปเกรดฐาน"
+
+[node name="CharacterUpgrades" type="Button" parent="Layout/Footer" unique_id=338747071]
+custom_minimum_size = Vector2(280, 76)
+layout_mode = 2
+text = "อัปเกรดตัวละคร"
 
 [connection signal="pressed" from="Layout/Header/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Layout/Header/Operator" to="." method="_on_operator_pressed"]
 [connection signal="pressed" from="Layout/Footer/Upgrades" to="." method="_on_upgrades_pressed"]
+[connection signal="pressed" from="Layout/Footer/CharacterUpgrades" to="." method="_on_character_upgrades_pressed"]

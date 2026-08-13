@@ -67,11 +67,6 @@ custom_minimum_size = Vector2(480, 76)
 layout_mode = 2
 text = "แผนที่ภารกิจ"
 
-[node name="BaseUpgrades" type="Button" parent="Center/Content" unique_id=550799050]
-custom_minimum_size = Vector2(480, 76)
-layout_mode = 2
-text = "อัปเกรดฐาน"
-
 [node name="Footer" type="HBoxContainer" parent="Center/Content" unique_id=1096903553]
 layout_mode = 2
 theme_override_constants/separation = 12
@@ -94,7 +89,6 @@ text = "ออกจากเกม"
 
 [connection signal="pressed" from="Center/Content/StartMission" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Center/Content/FieldMap" to="." method="_on_field_map_pressed"]
-[connection signal="pressed" from="Center/Content/BaseUpgrades" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="Center/Content/Footer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Center/Content/Footer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Center/Content/Footer/Exit" to="." method="_on_exit_pressed"]

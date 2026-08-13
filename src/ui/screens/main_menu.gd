@@ -14,10 +14,6 @@ func _on_field_map_pressed() -> void:
 	_navigate(SceneManager.go_to_level_select)
 
 
-func _on_upgrades_pressed() -> void:
-	_navigate(SceneManager.go_to_upgrades)
-
-
 func _on_settings_pressed() -> void:
 	_navigate(SceneManager.go_to_settings)
 

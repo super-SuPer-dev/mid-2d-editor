@@ -50,7 +50,8 @@ text = "< ย้อนกลับ"
 [node name="Title" type="Label" parent="Layout/Header" unique_id=319402980]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
 text = "เลือกเจ้าหน้าที่ภาคสนาม"
 horizontal_alignment = 1

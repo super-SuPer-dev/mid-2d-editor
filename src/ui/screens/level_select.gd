@@ -42,3 +42,8 @@ func _on_operator_pressed() -> void:
 func _on_upgrades_pressed() -> void:
 	AudioManager.play_click()
 	SceneManager.go_to_upgrades()
+
+
+func _on_character_upgrades_pressed() -> void:
+	AudioManager.play_click()
+	SceneManager.go_to_character_upgrades()
