@@ -1,9 +1,10 @@
 class_name CharacterCatalog
 extends RefCounted
 
-const PLACEHOLDER_ART := preload("res://Assets/placeholders/player.svg")
-
 const DEFAULT_CHARACTER := "tonkla"
+const SHEET_COLUMNS := 4
+const SHEET_ROWS := 5
+const FRAME_INSET := 8.0
 
 const CHARACTERS := {
 	"tonkla": {
@@ -18,7 +19,10 @@ const CHARACTERS := {
 		"color": Color("8fbd52"),
 		"skin": Color("c68b59"),
 		"uniform": Color("343a2f"),
-		"art_texture": PLACEHOLDER_ART,
+		"art_texture": preload("res://Generated-Assets/character/generated/tonkla-codex-final.png"),
+		"frame_inset": 0.0,
+		"idle_visual_y": -9.0,
+		"run_visual_y": -9.0,
 	},
 	"ranger": {
 		"name": "ริน",
@@ -32,7 +36,7 @@ const CHARACTERS := {
 		"color": Color("5f91bd"),
 		"skin": Color("bd8058"),
 		"uniform": Color("263d32"),
-		"art_texture": PLACEHOLDER_ART,
+		"art_texture": preload("res://Generated-Assets/character/fixed/jintana.png"),
 	},
 	"villager": {
 		"name": "เข้ม",
@@ -46,7 +50,7 @@ const CHARACTERS := {
 		"color": Color("c89a4b"),
 		"skin": Color("b97848"),
 		"uniform": Color("33445a"),
-		"art_texture": PLACEHOLDER_ART,
+		"art_texture": preload("res://Generated-Assets/character/fixed/esan-farmer.png"),
 	},
 	"t800": {
 		"name": "ที-800",
@@ -60,7 +64,7 @@ const CHARACTERS := {
 		"color": Color("9a6ac7"),
 		"skin": Color("a9adb0"),
 		"uniform": Color("44484a"),
-		"art_texture": PLACEHOLDER_ART,
+		"art_texture": preload("res://Generated-Assets/character/fixed/t800.png"),
 	},
 }
 
@@ -73,3 +77,18 @@ static func get_ids() -> Array[String]:
 	var ids: Array[String] = []
 	ids.assign(CHARACTERS.keys())
 	return ids
+
+
+static func get_sprite_frame(texture: Texture2D, column: int, row: int, inset: float = FRAME_INSET) -> AtlasTexture:
+	var cell_size := Vector2(
+		float(texture.get_width()) / SHEET_COLUMNS,
+		float(texture.get_height()) / SHEET_ROWS
+	)
+	var frame := AtlasTexture.new()
+	frame.atlas = texture
+	frame.region = Rect2(
+		Vector2(column * cell_size.x, row * cell_size.y) + Vector2.ONE * inset,
+		cell_size - Vector2.ONE * inset * 2.0
+	)
+	frame.filter_clip = true
+	return frame

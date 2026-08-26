@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://bqkmtuiskilj" path="res://src/ui/screens/upgrades.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://Scenes/ui/field_theme.tres" id="2"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/upgrade_row.tscn" id="3"]
-[ext_resource type="Texture2D" uid="uid://ctp2i6y0ncet4" path="res://Assets/placeholders/ui_background.svg" id="4_bg"]
+[ext_resource type="Texture2D" uid="uid://wwy3v7kgftlw" path="res://Generated-Assets/Background/ChatGPT Image 13 ส.ค. 2569 12_10_42 (1).png" id="3_qwte7"]
 
 [node name="Upgrades" type="Control" unique_id=1757090442]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,9 +23,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_bg")
+texture = ExtResource("3_qwte7")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="." unique_id=717044935]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.019607844, 0.043137256, 0.07058824, 0.3019608)
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=1231266981]
 layout_mode = 1
@@ -52,6 +63,7 @@ text = "< แผนที่ภารกิจ"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 42
 text = "โรงช่างประจำฐาน"
 horizontal_alignment = 1
@@ -64,21 +76,25 @@ text = "ตัวอย่าง 0"
 
 [node name="Intro" type="Label" parent="Layout" unique_id=1241145443]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 26
 text = "อัปเกรดเครื่องตัด • ใช้ชีวมวลต่างดาวเพื่อเพิ่มความสามารถให้เจ้าหน้าที่ทุกคน"
 horizontal_alignment = 1
 
-[node name="blade" parent="Layout" unique_id=660240921 instance=ExtResource("3")]
-custom_minimum_size = Vector2(608, 70)
+[node name="Cards" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="blade" parent="Layout/Cards" unique_id=660240921 instance=ExtResource("3")]
 layout_mode = 2
 
-[node name="engine" parent="Layout" unique_id=84560130 instance=ExtResource("3")]
-custom_minimum_size = Vector2(608, 70)
+[node name="engine" parent="Layout/Cards" unique_id=84560130 instance=ExtResource("3")]
 layout_mode = 2
 
-[node name="armor" parent="Layout" unique_id=1125024702 instance=ExtResource("3")]
-custom_minimum_size = Vector2(608, 70)
+[node name="armor" parent="Layout/Cards" unique_id=1125024702 instance=ExtResource("3")]
 layout_mode = 2
 
 [connection signal="pressed" from="Layout/Header/Back" to="." method="_on_back_pressed"]

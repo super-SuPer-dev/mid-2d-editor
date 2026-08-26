@@ -1,13 +1,35 @@
-[gd_scene format=3 uid="uid://dpr5ii86tyln3"]
+[gd_scene load_steps=7 format=3 uid="uid://dpr5ii86tyln3"]
 
 [ext_resource type="Script" uid="uid://c0xra83sxow4g" path="res://src/ui/game_hud.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://Scenes/ui/field_theme.tres" id="2"]
+[ext_resource type="Texture2D" path="res://Generated-Assets/ui/3.png" id="3_icons"]
+
+[sub_resource type="AtlasTexture" id="LevelIcon"]
+atlas = ExtResource("3_icons")
+region = Rect2(14, 10, 84, 84)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="HealthIcon"]
+atlas = ExtResource("3_icons")
+region = Rect2(742, 10, 84, 84)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="SamplesIcon"]
+atlas = ExtResource("3_icons")
+region = Rect2(205, 10, 84, 84)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ObjectiveIcon"]
+atlas = ExtResource("3_icons")
+region = Rect2(827, 10, 84, 84)
+filter_clip = true
 
 [node name="HUD" type="CanvasLayer" unique_id=154325126]
 process_mode = 3
 script = ExtResource("1")
 
 [node name="Root" type="Control" parent="." unique_id=1413615168]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,41 +46,93 @@ anchor_right = 1.0
 offset_bottom = 116.0
 grow_horizontal = 2
 theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 40
+theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 32
 
 [node name="Row" type="HBoxContainer" parent="Root/TopMargin" unique_id=1752263940]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Level" type="Label" parent="Root/TopMargin/Row" unique_id=1347461284]
+custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"HUDLevel"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 34
 text = "ภารกิจ"
 
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Level"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 56.0
+offset_bottom = 53.0
+mouse_filter = 2
+texture = SubResource("LevelIcon")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Health" type="Label" parent="Root/TopMargin/Row" unique_id=1607343646]
+custom_minimum_size = Vector2(230, 60)
 layout_mode = 2
+theme_type_variation = &"HUDHealth"
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "ชีวิต --/--"
 
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Health"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 56.0
+offset_bottom = 53.0
+mouse_filter = 2
+texture = SubResource("HealthIcon")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Samples" type="Label" parent="Root/TopMargin/Row" unique_id=696677876]
+custom_minimum_size = Vector2(230, 60)
 layout_mode = 2
+theme_type_variation = &"HUDSamples"
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "ตัวอย่าง 0"
 
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Samples"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 56.0
+offset_bottom = 53.0
+mouse_filter = 2
+texture = SubResource("SamplesIcon")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Objective" type="Label" parent="Root/TopMargin/Row" unique_id=66119322]
+custom_minimum_size = Vector2(260, 60)
 layout_mode = 2
+theme_type_variation = &"HUDObjective"
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "ศัตรู 0/0"
+
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Objective"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 56.0
+offset_bottom = 53.0
+mouse_filter = 2
+texture = SubResource("ObjectiveIcon")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Hint" type="Label" parent="Root" unique_id=199616670]
 layout_mode = 0
@@ -90,18 +164,18 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Root/Modal/Center" unique_id=530895797]
-custom_minimum_size = Vector2(920, 600)
+custom_minimum_size = Vector2(760, 500)
 layout_mode = 2
 
 [node name="Content" type="VBoxContainer" parent="Root/Modal/Center/Panel" unique_id=1820157022]
 layout_mode = 2
-theme_override_constants/separation = 28
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="Title" type="Label" parent="Root/Modal/Center/Panel/Content" unique_id=1214133025]
 layout_mode = 2
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 68
+theme_override_font_sizes/font_size = 56
 text = "หยุดภารกิจชั่วคราว"
 horizontal_alignment = 1
 
@@ -109,7 +183,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 text = "ระบบพักการทำงาน"
 horizontal_alignment = 1
 

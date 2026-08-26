@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c02tfrdibcle2" path="res://Generated-Assets/ChatGPT Image 12 ส.ค. 2569 21_47_27.png" id="3_p0g45"]
 
 [node name="Settings" type="Control" unique_id=147538801]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center" unique_id=1652943748]
-custom_minimum_size = Vector2(960, 600)
+custom_minimum_size = Vector2(840, 540)
 layout_mode = 2
 
 [node name="Content" type="VBoxContainer" parent="Center/Panel" unique_id=1468036758]

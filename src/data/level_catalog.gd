@@ -8,7 +8,9 @@ const LEVELS := {
 	"level_01": {
 		"name": "ทุ่งหญ้าปนเปื้อน",
 		"subtitle": "ตามรอยเมล็ดพันธุ์ต่างดาวที่ตกลงมา",
+		"card_subtitle": "ตามรอยเมล็ดพันธุ์ต่างดาว\nที่ตกลงมา",
 		"location": "ทุ่งภาคอีสาน • วันที่ 05",
+		"card_location": "ทุ่งภาคอีสาน\nวันที่ 05",
 		"size": Vector2(2700, 720),
 		"required_kills": 4,
 		"next_level": "level_02",
@@ -18,7 +20,9 @@ const LEVELS := {
 	"level_02": {
 		"name": "ป่ากลายพันธุ์",
 		"subtitle": "ฝ่าแนวเรือนยอดที่เต็มไปด้วยสปอร์",
+		"card_subtitle": "ฝ่าแนวเรือนยอด\nที่เต็มไปด้วยสปอร์",
 		"location": "เขตกักกัน • พลบค่ำ",
+		"card_location": "เขตกักกัน\nพลบค่ำ",
 		"size": Vector2(3300, 800),
 		"required_kills": 6,
 		"next_level": "level_03",
@@ -28,7 +32,9 @@ const LEVELS := {
 	"level_03": {
 		"name": "ถ้ำรากต่างดาว",
 		"subtitle": "ตัดหัวใจต้นไทรที่ถูกสิง",
+		"card_subtitle": "ตัดหัวใจต้นไทร\nที่ถูกสิง",
 		"location": "ความลึกราก 03 • สัญญาณขาดหาย",
+		"card_location": "ความลึกราก 03\nสัญญาณขาดหาย",
 		"size": Vector2(2900, 720),
 		"required_kills": 5,
 		"next_level": "",

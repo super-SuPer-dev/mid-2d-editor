@@ -9,7 +9,7 @@ const UPGRADE_DATA := {
 
 func _ready() -> void:
 	for upgrade_id in UPGRADE_DATA:
-		var row := $Layout.get_node(upgrade_id)
+		var row := $Layout/Cards.get_node(upgrade_id)
 		var data: Dictionary = UPGRADE_DATA[upgrade_id]
 		row.get_node("Row/Badge").color = data["color"]
 		var title: Label = row.get_node("Row/Copy/Name")
@@ -29,7 +29,7 @@ func _purchase(upgrade_id: String) -> void:
 func _refresh() -> void:
 	$Layout/Header/Samples.text = "ตัวอย่าง %d" % int(SaveManager.profile.get("total_crystals", 0))
 	for upgrade_id in UPGRADE_DATA:
-		var row := $Layout.get_node(upgrade_id)
+		var row := $Layout/Cards.get_node(upgrade_id)
 		var level := SaveManager.get_upgrade_level(upgrade_id)
 		row.get_node("Row/Level").text = "ระดับ %d/5" % level
 		var button: Button = row.get_node("Row/Purchase")

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c02tfrdibcle2" path="res://Generated-Assets/ChatGPT Image 12 ส.ค. 2569 21_47_27.png" id="3_background"]
 
 [node name="Credits" type="Control" unique_id=540824438]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,9 +80,9 @@ layout_mode = 2
 
 [node name="GameTitle" type="Label" parent="Center/Panel/Margin/Content" unique_id=35453412]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.93, 0.83, 0.5, 1)
+theme_override_colors/font_color = Color(0.81960785, 0.80784315, 0, 1)
 theme_override_font_sizes/font_size = 27
-text = "เอาชีวิตรอดไซไฟ • ชนบทไทย"
+text = "LOW ATTITUDE WARRIOR"
 horizontal_alignment = 1
 
 [node name="CreditsText" type="Label" parent="Center/Panel/Margin/Content" unique_id=231293265]

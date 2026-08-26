@@ -10,10 +10,11 @@ const JUMP_BUFFER_TIME := 0.12
 const DASH_DURATION := 0.16
 const DASH_COOLDOWN := 0.7
 const ATTACK_DURATION := 0.15
+const IDLE_VISUAL_Y := -12.0
+const RUN_VISUAL_Y := -9.0
 
-@onready var body_visual: Sprite2D = $BodyVisual
+@onready var body_visual: AnimatedSprite2D = $BodyVisual
 @onready var attack_area: Area2D = $AttackArea
-@onready var attack_arc: Sprite2D = $AttackArea/AttackArc
 @onready var health: HealthComponent = $HealthComponent
 
 var move_speed: float = 190.0
@@ -29,6 +30,8 @@ var dash_cooldown_timer: float = 0.0
 var attack_timer: float = 0.0
 var invulnerability_timer: float = 0.0
 var hit_targets: Dictionary = {}
+var idle_visual_y: float = IDLE_VISUAL_Y
+var run_visual_y: float = RUN_VISUAL_Y
 
 
 func _ready() -> void:
@@ -37,13 +40,15 @@ func _ready() -> void:
 	jump_velocity = float(character["jump_velocity"])
 	attack_damage = int(character["attack_damage"])
 	dash_speed = float(character["dash_speed"])
+	idle_visual_y = float(character.get("idle_visual_y", IDLE_VISUAL_Y))
+	run_visual_y = float(character.get("run_visual_y", RUN_VISUAL_Y))
+	_setup_character_animations(character["art_texture"], float(character.get("frame_inset", CharacterCatalog.FRAME_INSET)))
 	attack_damage += SaveManager.get_upgrade_level("blade") + SaveManager.get_character_upgrade_level("blade")
 	var engine_level := SaveManager.get_upgrade_level("engine") + SaveManager.get_character_upgrade_level("engine")
 	move_speed *= 1.0 + engine_level * 0.05
 	dash_speed *= 1.0 + engine_level * 0.04
 	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor") + SaveManager.get_character_upgrade_level("armor")
 	health.reset()
-	body_visual.self_modulate = Color.WHITE.lerp(character["color"], 0.22)
 	health.health_changed.connect(_on_health_changed)
 	health.died.connect(_on_died)
 	GameManager.player_movement_changed.connect(_on_movement_changed)
@@ -86,6 +91,36 @@ func _physics_process(delta: float) -> void:
 		coyote_timer = 0.0
 
 	move_and_slide()
+	_update_character_animation()
+
+
+func _setup_character_animations(texture: Texture2D, frame_inset: float) -> void:
+	var frames := SpriteFrames.new()
+	frames.remove_animation(&"default")
+	var animations := {&"idle": 0, &"run": 1, &"attack": 2, &"dash": 3}
+	var animation_speeds := {&"idle": 8.0, &"run": 8.0, &"attack": 20.0, &"dash": 20.0}
+	for animation: StringName in animations:
+		frames.add_animation(animation)
+		frames.set_animation_speed(animation, animation_speeds[animation])
+		frames.set_animation_loop(animation, animation == &"idle" or animation == &"run")
+		for column in range(4):
+			var frame := CharacterCatalog.get_sprite_frame(texture, column, animations[animation], frame_inset)
+			frames.add_frame(animation, frame)
+	body_visual.sprite_frames = frames
+	body_visual.play(&"idle")
+
+
+func _update_character_animation() -> void:
+	var desired: StringName = &"idle"
+	if dash_timer > 0.0:
+		desired = &"dash"
+	elif attack_timer > 0.0:
+		desired = &"attack"
+	elif absf(velocity.x) > 10.0 and is_on_floor():
+		desired = &"run"
+	body_visual.position.y = run_visual_y if desired == &"run" else idle_visual_y
+	if body_visual.animation != desired:
+		body_visual.play(desired)
 
 
 func _update_timers(delta: float) -> void:
@@ -98,7 +133,6 @@ func _update_timers(delta: float) -> void:
 		attack_timer = maxf(attack_timer - delta, 0.0)
 		if attack_timer <= 0.0:
 			attack_area.set_deferred("monitoring", false)
-			attack_arc.visible = false
 	body_visual.modulate.a = 0.45 if invulnerability_timer > 0.0 and int(invulnerability_timer * 18.0) % 2 == 0 else 1.0
 
 
@@ -108,7 +142,6 @@ func _start_attack() -> void:
 	hit_targets.clear()
 	attack_area.position.x = 34.0 * facing
 	attack_area.set_deferred("monitoring", true)
-	attack_arc.visible = true
 
 
 func _start_dash() -> void:

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b3n8p6ed2s1fj" path="res://Generated-Assets/ChatGPT_Image_12_ส.ค._2569_22_52_30-removebg-preview.png" id="4_baxwh"]
 
 [node name="MainMenu" type="Control" unique_id=1059778678]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,43 +28,41 @@ texture = ExtResource("3_sn23y")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Center" type="CenterContainer" parent="." unique_id=927681839]
+[node name="Center" type="PanelContainer" parent="." unique_id=927681839]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 390.99994
-offset_top = 6.000002
-offset_right = 1057.0
-offset_bottom = 777.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 0.8)
+offset_left = 72.0
+offset_top = 48.0
+offset_right = 572.0
+offset_bottom = 672.0
 
 [node name="Content" type="VBoxContainer" parent="Center" unique_id=1347114172]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Center/Content" unique_id=605483811]
+custom_minimum_size = Vector2(420, 220)
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_baxwh")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Subtitle" type="Label" parent="Center/Content" unique_id=362958876]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.75, 0.82, 0.65, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 text = "เอาชีวิตรอดไซไฟ • ชนบทไทย"
 horizontal_alignment = 1
 
 [node name="StartMission" type="Button" parent="Center/Content" unique_id=740037755]
-custom_minimum_size = Vector2(480, 76)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "เริ่มภารกิจ"
 
 [node name="FieldMap" type="Button" parent="Center/Content" unique_id=1097794591]
-custom_minimum_size = Vector2(480, 76)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 text = "แผนที่ภารกิจ"
 
@@ -73,17 +72,17 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Settings" type="Button" parent="Center/Content/Footer" unique_id=1831597533]
-custom_minimum_size = Vector2(152, 68)
+custom_minimum_size = Vector2(136, 54)
 layout_mode = 2
 text = "ตั้งค่า"
 
 [node name="Credits" type="Button" parent="Center/Content/Footer"]
-custom_minimum_size = Vector2(152, 68)
+custom_minimum_size = Vector2(136, 54)
 layout_mode = 2
 text = "เครดิต"
 
 [node name="Exit" type="Button" parent="Center/Content/Footer" unique_id=1430948299]
-custom_minimum_size = Vector2(152, 68)
+custom_minimum_size = Vector2(136, 54)
 layout_mode = 2
 text = "ออกจากเกม"
 
