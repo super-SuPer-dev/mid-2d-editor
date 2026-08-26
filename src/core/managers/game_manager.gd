@@ -7,7 +7,14 @@ signal currency_changed(current_amount: int, change: int)
 signal player_data_changed
 signal run_started(level_id: String)
 signal objective_changed(defeated: int, required: int)
+signal mission_phase_changed(phase: StringName)
+signal boss_requested(boss_id: String, boss_name_key: String)
+signal boss_health_changed(current_health: int, maximum_health: int)
 signal run_finished(won: bool)
+
+const PHASE_CLEAR_THREATS := &"CLEAR_THREATS"
+const PHASE_BOSS_ACTIVE := &"BOSS_ACTIVE"
+const PHASE_EXTRACTION := &"EXTRACTION"
 
 var is_god_mode: bool = false
 var is_debug_mode: bool = false
@@ -18,33 +25,68 @@ var current_level_id: String = "level_01"
 var defeated_enemies: int = 0
 var required_enemies: int = 0
 var run_active: bool = false
+var mission_phase: StringName = PHASE_CLEAR_THREATS
+var current_boss_id: String = ""
+var current_boss_name_key: String = ""
 
 
 func select_character(character_id: String) -> void:
-	selected_character_id = character_id if CharacterCatalog.CHARACTERS.has(character_id) else CharacterCatalog.DEFAULT_CHARACTER
+	selected_character_id = CharacterCatalog.resolve_character_id(character_id)
 	player_data_changed.emit()
 
 
 func start_level(level_id: String) -> void:
 	current_level_id = level_id
 	var level_data := LevelCatalog.get_level(level_id)
-	required_enemies = int(level_data.get("required_kills", 0))
+	required_enemies = int(level_data.get("threat_quota", level_data.get("required_kills", 0)))
 	defeated_enemies = 0
+	current_boss_id = str(level_data.get("boss_id", ""))
+	current_boss_name_key = str(level_data.get("boss_name_key", ""))
+	mission_phase = PHASE_CLEAR_THREATS
 	coin = 0
 	run_active = true
 	set_player_movement_enabled(true)
 	currency_changed.emit(coin, 0)
 	objective_changed.emit(defeated_enemies, required_enemies)
+	mission_phase_changed.emit(mission_phase)
 	run_started.emit(level_id)
 
 
 func register_enemy_defeated() -> void:
+	if not run_active or mission_phase != PHASE_CLEAR_THREATS:
+		return
 	defeated_enemies += 1
 	objective_changed.emit(defeated_enemies, required_enemies)
+	if is_objective_complete():
+		_start_boss_phase()
+
+
+func _start_boss_phase() -> void:
+	if mission_phase != PHASE_CLEAR_THREATS:
+		return
+	mission_phase = PHASE_BOSS_ACTIVE
+	mission_phase_changed.emit(mission_phase)
+	boss_requested.emit(current_boss_id, current_boss_name_key)
+
+
+func update_boss_health(current_health: int, maximum_health: int) -> void:
+	if mission_phase == PHASE_BOSS_ACTIVE:
+		boss_health_changed.emit(current_health, maximum_health)
+
+
+func register_boss_defeated() -> void:
+	if mission_phase != PHASE_BOSS_ACTIVE:
+		return
+	mission_phase = PHASE_EXTRACTION
+	mission_phase_changed.emit(mission_phase)
 
 
 func is_objective_complete() -> bool:
 	return defeated_enemies >= required_enemies
+
+
+func can_extract() -> bool:
+	return mission_phase == PHASE_EXTRACTION
 
 
 func finish_run(won: bool) -> void:
@@ -103,6 +145,9 @@ func reset_run() -> void:
 	coin = 0
 	defeated_enemies = 0
 	run_active = false
+	mission_phase = PHASE_CLEAR_THREATS
+	current_boss_id = ""
+	current_boss_name_key = ""
 	set_player_movement_enabled(true)
 
 

@@ -1,63 +1,43 @@
 extends Control
 
-const UPGRADE_DATA := {
-	"blade": {
-		"name": "ฝึกใช้อาวุธ",
-		"description": "+1 พลังโจมตีเฉพาะตัวละครนี้",
-		"color": Color("91bd45"),
-	},
-	"armor": {
-		"name": "เสริมความแข็งแกร่ง",
-		"description": "+1 พลังชีวิตสูงสุดเฉพาะตัวละครนี้",
-		"color": Color("6e91a8"),
-	},
-	"engine": {
-		"name": "ฝึกความคล่องตัว",
-		"description": "+5% ความเร็วเคลื่อนที่และพุ่งหลบเฉพาะตัวละครนี้",
-		"color": Color("c58b43"),
-	},
-}
-
 
 func _ready() -> void:
+	LocalizationManager.language_changed.connect(_refresh_text)
+	$Margin/Layout/Cards/blade/Content/Purchase.pressed.connect(_purchase_mastery)
+	$Margin/Layout/Cards/armor.visible = false
+	$Margin/Layout/Cards/engine.visible = false
+	_refresh_text(LocalizationManager.current_language)
+
+
+func _refresh_text(_locale: String = "") -> void:
 	var character := CharacterCatalog.get_character(GameManager.selected_character_id)
-	$Margin/Layout/Header/Character.text = "ตัวละคร: %s" % character["name"]
+	var display_name := LocalizationManager.text(character["name_key"])
+	$Margin/Layout/Header/Title.text = LocalizationManager.text("MASTERY_TITLE")
+	$Margin/Layout/Header/Character.text = LocalizationManager.text("MASTERY_OPERATOR", {"name": display_name})
 	$Margin/Layout/Header/Character.add_theme_color_override("font_color", character["color"])
-	for upgrade_id in UPGRADE_DATA:
-		_configure_card(upgrade_id)
-	_refresh()
+	$Margin/Layout/Resources.text = LocalizationManager.text("LEVEL_SAMPLES", {"count": int(SaveManager.profile.get("total_crystals", 0))})
+	var card := $Margin/Layout/Cards/blade
+	card.get_node("Content/Icon").text = "★"
+	card.get_node("Content/Name").text = LocalizationManager.text("MASTERY_TITLE")
+	card.get_node("Content/Description").text = LocalizationManager.text("MASTERY_DESC")
+	var rank := SaveManager.get_mastery_rank()
+	card.get_node("Content/Level").text = LocalizationManager.text("MASTERY_RANK", {"rank": rank})
+	var button: Button = card.get_node("Content/Purchase")
+	if rank >= 5:
+		button.text = LocalizationManager.text("MASTERY_MAX")
+		button.disabled = true
+	else:
+		var cost := SaveManager.get_mastery_cost()
+		button.text = LocalizationManager.text("MASTERY_PURCHASE", {"cost": cost})
+		button.disabled = int(SaveManager.profile.get("total_crystals", 0)) < cost
+	$Margin/Layout/Status.text = LocalizationManager.text("MASTERY_DESC")
+	$Margin/Layout/Footer/Back.text = LocalizationManager.text("UI_BACK_MAP")
 
 
-func _configure_card(upgrade_id: String) -> void:
-	var card: PanelContainer = $Margin/Layout/Cards.get_node(upgrade_id)
-	var data: Dictionary = UPGRADE_DATA[upgrade_id]
-	var title: Label = card.get_node("Content/Name")
-	title.text = data["name"]
-	title.add_theme_color_override("font_color", data["color"])
-	card.get_node("Content/Description").text = data["description"]
-	card.get_node("Content/Purchase").pressed.connect(_purchase.bind(upgrade_id))
-
-
-func _purchase(upgrade_id: String) -> void:
+func _purchase_mastery() -> void:
 	AudioManager.play_click()
-	SaveManager.purchase_character_upgrade(upgrade_id)
-	_refresh()
-
-
-func _refresh() -> void:
-	$Margin/Layout/Resources.text = "ตัวอย่างต่างดาว: %d" % int(SaveManager.profile.get("total_crystals", 0))
-	for upgrade_id in UPGRADE_DATA:
-		var card: PanelContainer = $Margin/Layout/Cards.get_node(upgrade_id)
-		var level := SaveManager.get_character_upgrade_level(upgrade_id)
-		card.get_node("Content/Level").text = "ระดับ %d/5" % level
-		var button: Button = card.get_node("Content/Purchase")
-		if level >= 5:
-			button.text = "ระดับสูงสุด"
-			button.disabled = true
-		else:
-			var cost := SaveManager.get_character_upgrade_cost(upgrade_id)
-			button.text = "อัปเกรด • %d" % cost
-			button.disabled = int(SaveManager.profile.get("total_crystals", 0)) < cost
+	SaveManager.purchase_mastery()
+	_refresh_text()
 
 
 func _on_back_pressed() -> void:

@@ -15,6 +15,7 @@ const RUN_VISUAL_Y := -9.0
 
 @onready var body_visual: AnimatedSprite2D = $BodyVisual
 @onready var attack_area: Area2D = $AttackArea
+@onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var health: HealthComponent = $HealthComponent
 
 var move_speed: float = 190.0
@@ -27,15 +28,21 @@ var coyote_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
 var dash_timer: float = 0.0
 var dash_cooldown_timer: float = 0.0
+var dash_cooldown_duration: float = DASH_COOLDOWN
 var attack_timer: float = 0.0
 var invulnerability_timer: float = 0.0
 var hit_targets: Dictionary = {}
 var idle_visual_y: float = IDLE_VISUAL_Y
 var run_visual_y: float = RUN_VISUAL_Y
+var character_id: String = CharacterCatalog.DEFAULT_CHARACTER
+var mastery_rank: int = 0
+var recovery_sample_count: int = 0
 
 
 func _ready() -> void:
-	var character := CharacterCatalog.get_character(GameManager.selected_character_id)
+	character_id = CharacterCatalog.resolve_character_id(GameManager.selected_character_id)
+	mastery_rank = SaveManager.get_mastery_rank(character_id)
+	var character := CharacterCatalog.get_character(character_id)
 	move_speed = float(character["move_speed"])
 	jump_velocity = float(character["jump_velocity"])
 	attack_damage = int(character["attack_damage"])
@@ -43,16 +50,18 @@ func _ready() -> void:
 	idle_visual_y = float(character.get("idle_visual_y", IDLE_VISUAL_Y))
 	run_visual_y = float(character.get("run_visual_y", RUN_VISUAL_Y))
 	_setup_character_animations(character["art_texture"], float(character.get("frame_inset", CharacterCatalog.FRAME_INSET)))
-	attack_damage += SaveManager.get_upgrade_level("blade") + SaveManager.get_character_upgrade_level("blade")
-	var engine_level := SaveManager.get_upgrade_level("engine") + SaveManager.get_character_upgrade_level("engine")
+	attack_damage += SaveManager.get_upgrade_level("blade")
+	var engine_level := SaveManager.get_upgrade_level("engine")
 	move_speed *= 1.0 + engine_level * 0.05
 	dash_speed *= 1.0 + engine_level * 0.04
-	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor") + SaveManager.get_character_upgrade_level("armor")
+	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor")
+	_apply_passive()
 	health.reset()
 	health.health_changed.connect(_on_health_changed)
 	health.died.connect(_on_died)
 	GameManager.player_movement_changed.connect(_on_movement_changed)
 	GameManager.god_mode_changed.connect(_on_god_mode_changed)
+	GameManager.currency_changed.connect(_on_currency_changed)
 	_on_health_changed(health.current_health, health.max_health)
 
 
@@ -98,7 +107,7 @@ func _setup_character_animations(texture: Texture2D, frame_inset: float) -> void
 	var frames := SpriteFrames.new()
 	frames.remove_animation(&"default")
 	var animations := {&"idle": 0, &"run": 1, &"attack": 2, &"dash": 3}
-	var animation_speeds := {&"idle": 8.0, &"run": 8.0, &"attack": 20.0, &"dash": 20.0}
+	var animation_speeds := {&"idle": 5.0, &"run": 6.0, &"attack": 12.0, &"dash": 12.0}
 	for animation: StringName in animations:
 		frames.add_animation(animation)
 		frames.set_animation_speed(animation, animation_speeds[animation])
@@ -146,14 +155,17 @@ func _start_attack() -> void:
 
 func _start_dash() -> void:
 	dash_timer = DASH_DURATION
-	dash_cooldown_timer = DASH_COOLDOWN
+	dash_cooldown_timer = dash_cooldown_duration
 	invulnerability_timer = maxf(invulnerability_timer, DASH_DURATION)
 
 
 func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> bool:
 	if GameManager.is_god_mode or invulnerability_timer > 0.0:
 		return false
-	if not health.take_damage(amount):
+	var resolved_amount := amount
+	if character_id == "t800":
+		resolved_amount = maxi(amount - int(CharacterCatalog.get_passive_strength(character_id, mastery_rank)), 1)
+	if not health.take_damage(resolved_amount):
 		return false
 	AudioManager.play_sfx(0.7, -5.0)
 	invulnerability_timer = 0.8
@@ -197,3 +209,25 @@ func _on_movement_changed(enabled: bool) -> void:
 
 func _on_god_mode_changed(_enabled: bool) -> void:
 	body_visual.modulate = Color("a6ffcb") if GameManager.is_god_mode else Color.WHITE
+
+
+func _apply_passive() -> void:
+	var strength := CharacterCatalog.get_passive_strength(character_id, mastery_rank)
+	match character_id:
+		"rin":
+			dash_cooldown_duration = DASH_COOLDOWN * (1.0 - strength)
+		"khem":
+			var shape := attack_shape.shape.duplicate() as RectangleShape2D
+			shape.size.x *= 1.0 + strength
+			attack_shape.shape = shape
+			attack_area.position.x *= 1.0 + strength * 0.35
+
+
+func _on_currency_changed(_current_amount: int, change: int) -> void:
+	if character_id != "tonkla" or change <= 0:
+		return
+	recovery_sample_count += change
+	var required := int(CharacterCatalog.get_passive_strength(character_id, mastery_rank))
+	while recovery_sample_count >= required:
+		recovery_sample_count -= required
+		heal(1)

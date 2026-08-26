@@ -18,8 +18,10 @@ config/icon="res://Assets/Icon/icon.svg"
 [autoload]
 
 AudioManager="*res://Scenes/core/audio_manager.tscn"
+LocalizationManager="*res://src/core/managers/localization_manager.gd"
 GameManager="*res://src/core/managers/game_manager.gd"
 SaveManager="*res://src/core/managers/save_manager.gd"
+StoryManager="*res://src/core/managers/story_manager.gd"
 SceneManager="*res://Scenes/core/scene_manager.tscn"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
@@ -123,3 +125,5 @@ pause={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
+textures/default_filters/use_nearest_mipmap_filter=false

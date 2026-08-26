@@ -14,11 +14,13 @@ func _process(delta: float) -> void:
 	elapsed += delta
 	visual.modulate = Color("c9ff8c") if active else Color("9a9d91")
 	visual.scale = Vector2.ONE * (1.0 + sin(elapsed * (4.0 if active else 1.5)) * 0.025)
-	label.text = "จุดถอนกำลัง" if active else "พื้นที่ยังไม่ปลอดภัย"
+	label.text = LocalizationManager.text("PORTAL_READY" if active else "PORTAL_LOCKED")
 
 
 func set_active(enabled: bool) -> void:
 	active = enabled
+	visible = enabled
+	monitoring = enabled
 
 
 func _on_body_entered(body: Node2D) -> void:

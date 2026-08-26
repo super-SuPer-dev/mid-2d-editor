@@ -38,6 +38,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	AudioManager.muted_for_tests = true
 	_validate_catalogs()
+	_validate_localization_and_dialogue()
 	await _validate_ui_scenes()
 	await _validate_levels()
 	AudioManager.stop_all_sfx()
@@ -55,10 +56,10 @@ func _ready() -> void:
 
 func _validate_catalogs() -> void:
 	_check(CharacterCatalog.get_ids().size() == 4, "Expected four playable characters.")
-	_check(LevelCatalog.LEVEL_ORDER.size() == 3, "Expected three campaign levels.")
-	_check(SaveManager.get_character_upgrade_level("blade") >= 0, "Character upgrade data is missing.")
+	_check(LevelCatalog.LEVEL_ORDER.size() == 5, "Expected five campaign levels in the catalog.")
+	_check(SaveManager.get_mastery_rank() >= 0, "Operator mastery data is missing.")
 	for character_id in CharacterCatalog.get_ids():
-		_check(SaveManager.profile.get("character_upgrade_levels", {}).has(character_id), "%s has no character upgrade profile." % character_id)
+		_check(SaveManager.profile.get("operator_mastery", {}).has(character_id), "%s has no mastery profile." % character_id)
 		var data := CharacterCatalog.get_character(character_id)
 		_check(int(data["max_health"]) > 0, "%s has invalid health." % character_id)
 		_check(float(data["move_speed"]) > 0.0, "%s has invalid speed." % character_id)
@@ -66,7 +67,22 @@ func _validate_catalogs() -> void:
 		_check(jump_height >= 110.0, "%s cannot reach the campaign's required platform steps." % character_id)
 	for level_id in LevelCatalog.LEVEL_ORDER:
 		var data := LevelCatalog.get_level(level_id)
-		_check(int(data["required_kills"]) > 0, "%s has an invalid objective." % level_id)
+		_check(int(data["threat_quota"]) > 0, "%s has an invalid objective." % level_id)
+		_check(not str(data.get("boss_id", "")).is_empty(), "%s has no boss ID." % level_id)
+		_check(data.get("mission_phases", []) == ["CLEAR_THREATS", "BOSS_ACTIVE", "EXTRACTION"], "%s has an invalid phase contract." % level_id)
+	_check(CharacterCatalog.resolve_character_id("ranger") == "rin", "Legacy ranger ID did not migrate to rin.")
+	_check(CharacterCatalog.resolve_character_id("villager") == "khem", "Legacy villager ID did not migrate to khem.")
+
+
+func _validate_localization_and_dialogue() -> void:
+	LocalizationManager.set_language("en")
+	_check(LocalizationManager.text("MENU_START_MISSION") == "Start Mission", "English localization did not load.")
+	LocalizationManager.set_language("th")
+	_check(LocalizationManager.text("MENU_START_MISSION") == "เริ่มภารกิจ", "Thai localization did not load.")
+	LocalizationManager.set_language("en")
+	for sequence_id in DialogueCatalog.SEQUENCES:
+		for error in DialogueCatalog.validate_sequence(sequence_id):
+			_check(false, error)
 
 
 func _validate_ui_scenes() -> void:
@@ -86,38 +102,60 @@ func _validate_ui_scenes() -> void:
 
 
 func _validate_levels() -> void:
-	for level_id in LevelCatalog.LEVEL_ORDER:
+	for level_id in GAME_LEVELS:
+		get_tree().paused = false
 		GameManager.start_level(level_id)
 		var level: Node = GAME_LEVELS[level_id].instantiate()
 		add_child(level)
 		await get_tree().process_frame
+		var dialogue := level.get_node("HUD/Root/DialogueOverlay") as DialogueOverlay
+		if dialogue.visible:
+			dialogue._on_skip_pressed()
 		await get_tree().process_frame
-		var expected_enemies: int = int(LevelCatalog.get_level(level_id)["required_kills"])
-		var enemy_count := get_tree().get_nodes_in_group("Enemy").size()
+		var expected_enemies: int = int(LevelCatalog.get_level(level_id)["threat_quota"])
+		var enemy_count := 0
+		var boss_count := 0
+		for enemy: EnemyController in get_tree().get_nodes_in_group("Enemy"):
+			if enemy.is_boss:
+				boss_count += 1
+			else:
+				enemy_count += 1
 		var player_count := get_tree().get_nodes_in_group("Player").size()
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
+		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)
 		_validate_jump_routes(level_id, level.get_node("WorldGeometry"))
 		var player := get_tree().get_first_node_in_group("Player") as PlayerController
 		var character := CharacterCatalog.get_character(GameManager.selected_character_id)
-		var expected_attack := int(character["attack_damage"]) + SaveManager.get_upgrade_level("blade") + SaveManager.get_character_upgrade_level("blade")
-		_check(player.attack_damage == expected_attack, "%s did not apply character attack upgrades." % level_id)
+		var expected_attack := int(character["attack_damage"]) + SaveManager.get_upgrade_level("blade")
+		_check(player.attack_damage == expected_attack, "%s did not apply base attack upgrades." % level_id)
 		var health_before := player.health.current_health
 		player.take_damage(1, Vector2.LEFT)
 		_check(player.health.current_health == health_before - 1, "%s player damage did not apply." % level_id)
 		for enemy: EnemyController in get_tree().get_nodes_in_group("Enemy"):
-			enemy.take_damage(999, Vector2.RIGHT)
+			if not enemy.is_boss:
+				enemy.take_damage(999, Vector2.RIGHT)
 		await get_tree().process_frame
 		await get_tree().process_frame
 		_check(GameManager.is_objective_complete(), "%s combat objective did not complete." % level_id)
+		_check(GameManager.mission_phase == GameManager.PHASE_BOSS_ACTIVE, "%s did not enter the boss phase." % level_id)
 		var portal := level.get_node_or_null("Portal") as ExitPortal
-		_check(portal != null and portal.active, "%s exit portal did not activate." % level_id)
+		_check(portal != null and not portal.active, "%s portal activated before boss defeat." % level_id)
+		if dialogue.visible:
+			dialogue._on_skip_pressed()
+		var boss := level.get_node("Enemies").get_children().filter(func(node: Node) -> bool: return node is EnemyController and node.is_boss)[0] as EnemyController
+		boss.take_damage(999, Vector2.RIGHT)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		_check(GameManager.mission_phase == GameManager.PHASE_EXTRACTION, "%s did not enter extraction." % level_id)
+		_check(portal != null and portal.active, "%s exit portal did not activate after boss defeat." % level_id)
 		level.queue_free()
 		await get_tree().process_frame
 		await get_tree().process_frame
 		await get_tree().process_frame
 	GameManager.reset_run()
+	get_tree().paused = false
 
 
 func _validate_jump_routes(level_id: String, world_geometry: Node) -> void:

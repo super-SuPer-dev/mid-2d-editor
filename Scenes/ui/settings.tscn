@@ -73,7 +73,20 @@ text = "100%"
 
 [node name="Fullscreen" type="CheckButton" parent="Center/Panel/Content" unique_id=1754889876]
 layout_mode = 2
-text = "เต็มหน้าจอ"
+text = "SETTINGS_FULLSCREEN"
+
+[node name="LanguageRow" type="HBoxContainer" parent="Center/Panel/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="Center/Panel/Content/LanguageRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "SETTINGS_LANGUAGE"
+
+[node name="Language" type="OptionButton" parent="Center/Panel/Content/LanguageRow"]
+custom_minimum_size = Vector2(360, 58)
+layout_mode = 2
 
 [node name="ResetCampaign" type="Button" parent="Center/Panel/Content" unique_id=1803358293]
 layout_mode = 2
@@ -86,5 +99,6 @@ text = "บันทึกและกลับ"
 
 [connection signal="value_changed" from="Center/Panel/Content/VolumeRow/Volume" to="." method="_on_volume_changed"]
 [connection signal="toggled" from="Center/Panel/Content/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="item_selected" from="Center/Panel/Content/LanguageRow/Language" to="." method="_on_language_selected"]
 [connection signal="pressed" from="Center/Panel/Content/ResetCampaign" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Center/Panel/Content/Back" to="." method="_on_back_pressed"]

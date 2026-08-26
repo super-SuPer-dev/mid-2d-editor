@@ -99,6 +99,10 @@ enemy_type = "spitter"
 position = Vector2(2850, 625)
 enemy_type = "maw"
 
+[node name="MawBloomSovereign" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(2990, 625)
+enemy_type = "maw_sovereign_boss"
+
 [node name="Pickups" type="Node2D" parent="."]
 [node name="Sample01" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(260, 690)

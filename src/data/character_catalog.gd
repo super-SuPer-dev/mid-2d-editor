@@ -2,15 +2,17 @@ class_name CharacterCatalog
 extends RefCounted
 
 const DEFAULT_CHARACTER := "tonkla"
+const CHARACTER_ORDER: Array[String] = ["tonkla", "rin", "khem", "t800"]
 const SHEET_COLUMNS := 4
 const SHEET_ROWS := 5
 const FRAME_INSET := 8.0
 
 const CHARACTERS := {
 	"tonkla": {
-		"name": "ต้นกล้า",
-		"role": "เจ้าหน้าที่ ACO",
-		"description": "ผู้เชี่ยวชาญเครื่องตัดหญ้าสมดุล พร้อมรับมือทุกสถานการณ์",
+		"name_key": "CHAR_TONKLA_NAME",
+		"role_key": "CHAR_TONKLA_ROLE",
+		"description_key": "CHAR_TONKLA_DESC",
+		"passive_id": "field_recovery",
 		"max_health": 8,
 		"move_speed": 190.0,
 		"jump_velocity": -570.0,
@@ -24,10 +26,11 @@ const CHARACTERS := {
 		"idle_visual_y": -9.0,
 		"run_visual_y": -9.0,
 	},
-	"ranger": {
-		"name": "ริน",
-		"role": "หน่วยลาดตระเวน",
-		"description": "ทหารลาดตระเวนว่องไว โจมตีแล้วเปลี่ยนตำแหน่งได้รวดเร็ว",
+	"rin": {
+		"name_key": "CHAR_RIN_NAME",
+		"role_key": "CHAR_RIN_ROLE",
+		"description_key": "CHAR_RIN_DESC",
+		"passive_id": "rapid_relay",
 		"max_health": 6,
 		"move_speed": 225.0,
 		"jump_velocity": -610.0,
@@ -38,10 +41,11 @@ const CHARACTERS := {
 		"uniform": Color("263d32"),
 		"art_texture": preload("res://Generated-Assets/character/fixed/jintana.png"),
 	},
-	"villager": {
-		"name": "เข้ม",
-		"role": "อาสาสมัครอีสาน",
-		"description": "ผู้รอดชีวิตจอมแกร่ง เหวี่ยงเครื่องตัดหญ้าได้กว้างและรุนแรง",
+	"khem": {
+		"name_key": "CHAR_KHEM_NAME",
+		"role_key": "CHAR_KHEM_ROLE",
+		"description_key": "CHAR_KHEM_DESC",
+		"passive_id": "wide_cut",
 		"max_health": 9,
 		"move_speed": 170.0,
 		"jump_velocity": -550.0,
@@ -53,9 +57,10 @@ const CHARACTERS := {
 		"art_texture": preload("res://Generated-Assets/character/fixed/esan-farmer.png"),
 	},
 	"t800": {
-		"name": "ที-800",
-		"role": "จักรกลสังเคราะห์",
-		"description": "จักรกลหุ้มเกราะ ทนทานสูงและทรงพลังอย่างไม่หยุดยั้ง",
+		"name_key": "CHAR_T800_NAME",
+		"role_key": "CHAR_T800_ROLE",
+		"description_key": "CHAR_T800_DESC",
+		"passive_id": "reinforced_chassis",
 		"max_health": 12,
 		"move_speed": 155.0,
 		"jump_velocity": -530.0,
@@ -70,13 +75,34 @@ const CHARACTERS := {
 
 
 static func get_character(character_id: String) -> Dictionary:
-	return CHARACTERS.get(character_id, CHARACTERS[DEFAULT_CHARACTER]).duplicate(true)
+	return CHARACTERS.get(resolve_character_id(character_id), CHARACTERS[DEFAULT_CHARACTER]).duplicate(true)
 
 
 static func get_ids() -> Array[String]:
-	var ids: Array[String] = []
-	ids.assign(CHARACTERS.keys())
-	return ids
+	return CHARACTER_ORDER.duplicate()
+
+
+static func resolve_character_id(character_id: String) -> String:
+	match character_id:
+		"ranger":
+			return "rin"
+		"villager":
+			return "khem"
+	return character_id if CHARACTERS.has(character_id) else DEFAULT_CHARACTER
+
+
+static func get_passive_strength(character_id: String, mastery_rank: int) -> float:
+	var rank := clampi(mastery_rank, 0, 5)
+	match resolve_character_id(character_id):
+		"tonkla":
+			return 2.0 if rank >= 3 else 3.0
+		"rin":
+			return 0.25 + rank * 0.03
+		"khem":
+			return 0.25 + rank * 0.05
+		"t800":
+			return 2.0 if rank >= 3 else 1.0
+	return 0.0
 
 
 static func get_sprite_frame(texture: Texture2D, column: int, row: int, inset: float = FRAME_INSET) -> AtlasTexture:

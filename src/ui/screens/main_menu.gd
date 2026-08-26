@@ -1,6 +1,20 @@
 extends Control
 
 
+func _ready() -> void:
+	LocalizationManager.language_changed.connect(_refresh_text)
+	_refresh_text(LocalizationManager.current_language)
+
+
+func _refresh_text(_locale: String) -> void:
+	$Center/Content/Subtitle.text = LocalizationManager.text("MENU_SUBTITLE")
+	$Center/Content/StartMission.text = LocalizationManager.text("MENU_START_MISSION")
+	$Center/Content/FieldMap.text = LocalizationManager.text("MENU_FIELD_MAP")
+	$Center/Content/Footer/Settings.text = LocalizationManager.text("MENU_SETTINGS")
+	$Center/Content/Footer/Credits.text = LocalizationManager.text("MENU_CREDITS")
+	$Center/Content/Footer/Exit.text = LocalizationManager.text("MENU_EXIT")
+
+
 func _navigate(action: Callable) -> void:
 	AudioManager.play_click()
 	action.call()

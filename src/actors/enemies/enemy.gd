@@ -3,12 +3,13 @@ extends CharacterBody2D
 
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://Scenes/gameplay/enemy_projectile.tscn")
+const THORN_MATRIARCH_TEXTURE := preload("res://Assets/Enemies/Bosses/thorn_matriarch.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar = $HealthBar
 
-@export_enum("thornling", "spitter", "maw", "banyan_boss") var enemy_type: String = "thornling"
+@export_enum("thornling", "spitter", "maw", "thorn_matriarch_boss", "maw_sovereign_boss", "banyan_boss", "root_hydra_boss", "root_core_eye_boss") var enemy_type: String = "thornling"
 var target: PlayerController
 var move_speed: float = 85.0
 var contact_damage: int = 1
@@ -17,10 +18,15 @@ var attack_cooldown: float = 0.0
 var shoot_cooldown: float = 0.0
 var facing: float = -1.0
 var defeated: bool = false
+var is_boss: bool = false
+var combat_active: bool = true
 
 
 func configure(type_id: String) -> void:
 	enemy_type = type_id
+	is_boss = enemy_type.ends_with("_boss")
+	if is_boss:
+		add_to_group("Boss")
 	match enemy_type:
 		"spitter":
 			move_speed = 35.0
@@ -40,6 +46,26 @@ func configure(type_id: String) -> void:
 			detection_range = 700.0
 			visual.modulate = Color("a46aa4")
 			scale = Vector2(1.8, 1.8)
+		"thorn_matriarch_boss":
+			move_speed = 82.0
+			health.max_health = 28
+			contact_damage = 2
+			detection_range = 760.0
+			visual.modulate = Color("bd6b72")
+			visual.texture = THORN_MATRIARCH_TEXTURE
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.055, 0.055)
+			# The source has transparent lower padding; offset the visible root baseline
+			# to the floor while the compact collision body remains stable.
+			visual.position = Vector2(0.0, -3.0)
+			scale = Vector2(1.9, 1.9)
+		"maw_sovereign_boss":
+			move_speed = 64.0
+			health.max_health = 34
+			contact_damage = 3
+			detection_range = 780.0
+			visual.modulate = Color("8f617d")
+			scale = Vector2(2.0, 2.0)
 		_:
 			health.max_health = 3
 			visual.modulate = Color.WHITE
@@ -59,6 +85,8 @@ func _find_target() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if not combat_active:
+		return
 	if global_position.y > 1000.0:
 		_on_died()
 		return
@@ -104,12 +132,29 @@ func _on_health_changed(current_health: int, maximum_health: int) -> void:
 	health_bar.max_value = maximum_health
 	health_bar.value = current_health
 	health_bar.visible = current_health < maximum_health
+	if is_boss:
+		GameManager.update_boss_health(current_health, maximum_health)
 
 
 func _on_died() -> void:
 	if defeated:
 		return
 	defeated = true
-	AudioManager.play_sfx(0.55 if enemy_type == "banyan_boss" else 0.85, -8.0)
-	GameManager.register_enemy_defeated()
+	AudioManager.play_sfx(0.55 if is_boss else 0.85, -8.0)
+	if is_boss:
+		GameManager.register_boss_defeated()
+	else:
+		GameManager.register_enemy_defeated()
 	queue_free()
+
+
+func set_combat_active(active: bool) -> void:
+	if defeated:
+		return
+	combat_active = active
+	visible = active
+	process_mode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
+	$CollisionShape2D.set_deferred("disabled", not active)
+	$HurtBox/CollisionShape2D.set_deferred("disabled", not active)
+	if active:
+		GameManager.update_boss_health(health.current_health, health.max_health)

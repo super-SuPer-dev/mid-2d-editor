@@ -76,6 +76,9 @@ enemy_type = "thornling"
 [node name="Spitter02" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(1770, 380)
 enemy_type = "spitter"
+[node name="Maw02" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(2100, 470)
+enemy_type = "maw"
 [node name="BanyanBoss" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(2350, 535)
 enemy_type = "banyan_boss"

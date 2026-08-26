@@ -67,10 +67,10 @@ columns = 2
 [node name="tonkla" parent="Layout/Cards" unique_id=353122139 instance=ExtResource("3")]
 layout_mode = 2
 
-[node name="ranger" parent="Layout/Cards" unique_id=2140149453 instance=ExtResource("3")]
+[node name="rin" parent="Layout/Cards" unique_id=2140149453 instance=ExtResource("3")]
 layout_mode = 2
 
-[node name="villager" parent="Layout/Cards" unique_id=1608849291 instance=ExtResource("3")]
+[node name="khem" parent="Layout/Cards" unique_id=1608849291 instance=ExtResource("3")]
 layout_mode = 2
 
 [node name="t800" parent="Layout/Cards" unique_id=593908756 instance=ExtResource("3")]

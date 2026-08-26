@@ -320,7 +320,7 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
-[node name="Future04" type="TextureRect" parent="MissionMarkers" unique_id=434962428]
+[node name="level_04" type="TextureButton" parent="MissionMarkers" unique_id=434962428]
 modulate = Color(0.62, 0.62, 0.62, 0.92)
 layout_mode = 1
 anchors_preset = -1
@@ -332,11 +332,13 @@ offset_left = -50.0
 offset_top = -61.0
 offset_right = 50.0
 offset_bottom = 61.0
-mouse_filter = 2
-texture = SubResource("Atlas_lock4")
-expand_mode = 1
+toggle_mode = true
+disabled = true
+texture_normal = SubResource("Atlas_lock4")
+texture_disabled = SubResource("Atlas_lock4")
+ignore_texture_size = true
 
-[node name="Number" type="Label" parent="MissionMarkers/Future04" unique_id=1815228497]
+[node name="Number" type="Label" parent="MissionMarkers/level_04" unique_id=1815228497]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -348,7 +350,7 @@ theme_override_font_sizes/font_size = 25
 text = "4"
 horizontal_alignment = 1
 
-[node name="Future05" type="TextureRect" parent="MissionMarkers" unique_id=338623841]
+[node name="level_05" type="TextureButton" parent="MissionMarkers" unique_id=338623841]
 modulate = Color(0.62, 0.62, 0.62, 0.92)
 layout_mode = 1
 anchors_preset = -1
@@ -360,11 +362,13 @@ offset_left = -50.0
 offset_top = -61.0
 offset_right = 50.0
 offset_bottom = 61.0
-mouse_filter = 2
-texture = SubResource("Atlas_lock5")
-expand_mode = 1
+toggle_mode = true
+disabled = true
+texture_normal = SubResource("Atlas_lock5")
+texture_disabled = SubResource("Atlas_lock5")
+ignore_texture_size = true
 
-[node name="Number" type="Label" parent="MissionMarkers/Future05" unique_id=1380505586]
+[node name="Number" type="Label" parent="MissionMarkers/level_05" unique_id=1380505586]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

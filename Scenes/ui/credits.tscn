@@ -82,7 +82,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.81960785, 0.80784315, 0, 1)
 theme_override_font_sizes/font_size = 27
-text = "LOW ATTITUDE WARRIOR"
+text = "LOW ALTITUDE WARRIOR"
 horizontal_alignment = 1
 
 [node name="CreditsText" type="Label" parent="Center/Panel/Margin/Content" unique_id=231293265]

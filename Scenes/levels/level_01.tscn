@@ -103,6 +103,10 @@ enemy_type = "spitter"
 position = Vector2(2050, 505)
 enemy_type = "thornling"
 
+[node name="ThornMatriarch" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(2350, 590)
+enemy_type = "thorn_matriarch_boss"
+
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="Sample01" parent="Pickups" instance=ExtResource("5")]
