@@ -484,9 +484,21 @@ height must be tested independently.
 
 ## 13. Art Direction
 
-The production target is a **pixel-painted hybrid**: detailed rural illustration
-and UI ornament with disciplined sprite grids, transparent edges, stable
-pivots, and filtering chosen by asset class. `[GDD-ART-01]`
+The production target is **high-resolution pixel art**: deliberately simplified
+forms built from visible, consistent pixel clusters, presented at a high output
+resolution without becoming photorealistic, painterly, or 3D-rendered.
+`[GDD-ART-01]`
+
+- Runtime raster art is authored on a declared logical pixel grid and enlarged
+  only by integer nearest-neighbor scaling; accidental smoothing is prohibited.
+- Sprites use hard alpha edges, limited ramps, selective highlights, and a
+  controlled palette. Soft airbrush shading, photographic textures, skin
+  pores, physically based materials, and anti-aliased brushwork are prohibited.
+- Portraits simplify facial features into readable pixel clusters. They must
+  match the game sprites instead of resembling photographs or painted concept
+  art.
+- Backgrounds may contain more detail than actors but retain discrete pixel
+  clusters, stepped curves, limited color ramps, and crisp depth separation.
 
 - Characters: stocky silhouettes, practical equipment, consistent frame scale,
   and grounded foot baselines
@@ -495,6 +507,10 @@ pivots, and filtering chosen by asset class. `[GDD-ART-01]`
 - Backgrounds: distinct layers and landmarks per biome
 - Effects: bright enough to communicate attacks without hiding collision reads
 - UI: text rendered by Godot controls, not baked into atlases
+
+Nearest-neighbor presentation is the default for pixel artwork. UI fonts,
+vector controls, and deliberately smooth accessibility elements are configured
+separately and must not force bilinear filtering onto sprites or environments.
 
 Approved generated art must move from `Generated-Assets/` into `Assets/` after
 technical, provenance, and visual validation.

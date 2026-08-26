@@ -1,7 +1,8 @@
 # Art direction
 
-The shipping interface language is Thai. All native Godot controls use
-`Assets/RD CHULAJARUEK.ttf` through the shared global theme.
+English is the default shipping interface language; Thai is a complete optional
+selection. All native Godot controls use the shared font stack with complete
+Latin and Thai glyph coverage. No runtime image contains baked UI text.
 
 Campaign environments use four native `Parallax2D` planes: sky, distant
 horizon, middle vegetation, and transparent foreground. The reusable scenes
@@ -18,6 +19,30 @@ space-station adventure.
 grass, workwear, farm tools, and local character archetypes carry the human
 side. Toxic green tissue, purple roots, luminous spores, and the fallen seed
 capsule carry the alien side.
+
+## Visual medium
+
+The entire game uses **high-resolution pixel art**. “High-resolution” means
+larger canvases, more deliberate animation detail, and richer environments—not
+realistic rendering. Every raster asset must still read as authored pixel art:
+
+- Visible, consistently sized square pixel clusters and stepped contours
+- Hard-edged alpha with no white matte, fringe, or semi-transparent paint haze
+- Limited color ramps with selective highlights rather than smooth gradients
+- Integer nearest-neighbor scaling for sprites, tiles, portraits, and pixel UI
+- Simplified anatomy, faces, foliage, materials, and lighting
+- Stable sprite pivots and foot baselines across every animation frame
+
+The following are outside the art direction: photorealism, realistic skin
+texture, painterly concept-art brushwork, soft airbrushing, vector-smooth
+characters, 3D renders, PBR materials, cinematic depth of field, and generated
+images that only imitate pixels with a noisy texture overlay.
+
+Every source file declares its logical pixel canvas. A typical portrait may be
+authored at 256 × 256 logical pixels and displayed at an integer multiple; a
+gameplay sprite uses the smallest grid that preserves silhouette and attack
+readability. Final dimensions are asset-specific and recorded in the asset
+register.
 
 ## Palette
 
@@ -43,8 +68,8 @@ only on small screens, instruments, or rare alien effects.
   thorns, spores, and asymmetrical mutation.
 - Terrain is layered grass over dark soil with distant hills, tall grass,
   forest trunks, hanging roots, haze, and occasional ACO equipment.
-- Pixel assets should favor deliberate clusters and restrained highlights over
-  smooth vector gradients.
+- Pixel assets use deliberate clusters, stepped curves, and restrained
+  highlights. Do not use smooth vector gradients or continuous painted shading.
 
 ## UI language
 
@@ -76,4 +101,5 @@ Preferred labels include `FIELD MAP`, `FIELD OPERATOR`, `BASE WORKSHOP`,
 Current polygons deliberately approximate these silhouettes and palettes.
 They are layout and gameplay stand-ins. Do not rasterize or crop the reference
 boards into the game. Replace placeholder visual nodes using the contracts in
-`ASSET_REPLACEMENT.md`.
+`ASSET_REPLACEMENT.md`. Generated assets remain provisional until their pixel
+grid, alpha, palette, runtime filtering, and in-game scale pass visual review.
