@@ -108,7 +108,7 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 | UI-LEVEL-MAP | แผนที่ 5 ด่าน | Review |
 | UI-HUD-ICON-ATLAS | HUD icons | Review |
 | UI-DIALOGUE-FRAME | dialogue | Missing |
-| UI-RADIO-OVERLAY | radio แบบไม่ pause | Missing |
+| UI-RADIO-OVERLAY | integrate โหมด compact ด้านขวาบนใต้ safe area ของ HUD/บอสแล้ว; หลักฐาน runtime ที่ `validation/screenshots/gate2_radio_overlay.png`; ยังขาด portrait expressions และกรอบ pixel art ขั้นสุดท้าย | Placeholder |
 | UI-BRIEFING-PANEL | briefing | Missing |
 | UI-DEBRIEF-PANEL | debrief | Missing |
 | UI-BOSS-HUD | boss name/phase/health | Missing |

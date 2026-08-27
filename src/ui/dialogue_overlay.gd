@@ -5,6 +5,7 @@ extends Control
 @onready var portrait: TextureRect = $Panel/Body/Portrait
 @onready var speaker_label: Label = $Panel/Body/Content/Speaker
 @onready var text_label: Label = $Panel/Body/Content/Text
+@onready var actions: HBoxContainer = $Panel/Body/Content/Actions
 @onready var continue_button: Button = $Panel/Body/Content/Actions/Continue
 @onready var skip_button: Button = $Panel/Body/Content/Actions/Skip
 @onready var radio_timer: Timer = $RadioTimer
@@ -55,6 +56,7 @@ func _show_current_entry() -> void:
 	continue_button.text = LocalizationManager.text("DIALOGUE_CONTINUE")
 	skip_button.text = LocalizationManager.text("DIALOGUE_SKIP")
 	var is_radio := str(entry.get("presentation_mode", "briefing")) == "radio"
+	_apply_presentation_mode("radio" if is_radio else "full")
 	continue_button.visible = not is_radio
 	skip_button.visible = not is_radio and bool(entry.get("skippable", true))
 	if bool(entry.get("pause_game", false)) and not get_tree().paused:
@@ -62,6 +64,40 @@ func _show_current_entry() -> void:
 		paused_by_dialogue = true
 	if is_radio:
 		radio_timer.start(4.5)
+
+
+func _apply_presentation_mode(mode: String) -> void:
+	var is_radio := mode == "radio"
+	if is_radio:
+		panel.custom_minimum_size = Vector2(500.0, 116.0)
+		panel.anchor_left = 1.0
+		panel.anchor_top = 0.0
+		panel.anchor_right = 1.0
+		panel.anchor_bottom = 0.0
+		panel.offset_left = -550.0
+		panel.offset_top = 190.0
+		panel.offset_right = -30.0
+		panel.offset_bottom = 326.0
+		portrait.custom_minimum_size = Vector2(76.0, 92.0)
+		text_label.custom_minimum_size = Vector2(0.0, 36.0)
+		speaker_label.add_theme_font_size_override("font_size", 18)
+		text_label.add_theme_font_size_override("font_size", 16)
+		actions.visible = false
+	else:
+		panel.custom_minimum_size = Vector2(900.0, 220.0)
+		panel.anchor_left = 0.5
+		panel.anchor_top = 1.0
+		panel.anchor_right = 0.5
+		panel.anchor_bottom = 1.0
+		panel.offset_left = -450.0
+		panel.offset_top = -250.0
+		panel.offset_right = 450.0
+		panel.offset_bottom = -30.0
+		portrait.custom_minimum_size = Vector2(160.0, 184.0)
+		text_label.custom_minimum_size = Vector2(0.0, 92.0)
+		speaker_label.add_theme_font_size_override("font_size", 24)
+		text_label.add_theme_font_size_override("font_size", 21)
+		actions.visible = true
 
 
 func _on_continue_pressed() -> void:

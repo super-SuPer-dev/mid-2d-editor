@@ -1,6 +1,7 @@
 extends Node
 
 const MAIN_ENTRANCE := preload("res://Scenes/main.tscn")
+const DIALOGUE_OVERLAY_SCENE := preload("res://Scenes/ui/dialogue_overlay.tscn")
 const GAME_LEVELS := {
 	"level_01": preload("res://Scenes/levels/level_01.tscn"),
 	"level_02": preload("res://Scenes/levels/level_02.tscn"),
@@ -53,6 +54,7 @@ func _ready() -> void:
 	AudioManager.muted_for_tests = true
 	_validate_catalogs()
 	_validate_localization_and_dialogue()
+	await _validate_dialogue_presentations()
 	await _validate_ui_scenes()
 	await _validate_levels()
 	AudioManager.stop_all_sfx()
@@ -132,6 +134,25 @@ func _validate_ui_scenes() -> void:
 		_check(screen.get_child_count() > 0, "%s did not construct its UI." % packed_scene.resource_path)
 		screen.queue_free()
 		await get_tree().process_frame
+
+
+func _validate_dialogue_presentations() -> void:
+	var overlay := DIALOGUE_OVERLAY_SCENE.instantiate() as DialogueOverlay
+	add_child(overlay)
+	await get_tree().process_frame
+	overlay.visible = true
+	overlay._apply_presentation_mode("radio")
+	await get_tree().process_frame
+	_check(overlay.panel.anchor_left == 1.0 and overlay.panel.anchor_top == 0.0, "Radio dialogue is not anchored to the top-right safe area.")
+	_check(overlay.panel.offset_top >= 180.0, "Radio dialogue overlaps the combat HUD or boss bar.")
+	_check(overlay.panel.size.x <= 520.0 and overlay.panel.size.y <= 180.0, "Radio dialogue is not compact enough for active combat (panel %s, portrait %s, text %s, actions %s)." % [overlay.panel.size, overlay.portrait.size, overlay.text_label.size, overlay.actions.size])
+	_check(not overlay.actions.visible, "Radio dialogue exposes blocking action controls.")
+	overlay._apply_presentation_mode("full")
+	await get_tree().process_frame
+	_check(overlay.panel.anchor_left == 0.5 and overlay.panel.anchor_top == 1.0, "Full dialogue did not restore its bottom-center layout.")
+	_check(overlay.actions.visible, "Full dialogue did not restore its controls.")
+	overlay.queue_free()
+	await get_tree().process_frame
 
 
 func _validate_levels() -> void:

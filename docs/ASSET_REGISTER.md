@@ -127,7 +127,7 @@ Each biome needs at least four parallax layers, gameplay ground/platforms, foreg
 | UI-LEVEL-MAP | Five-level selection map | P0 | Generated map/atlas integrated; icons repositioned | Review |
 | UI-HUD-ICON-ATLAS | Health, sample, objective and ability icons | P0 | Generated atlas integrated provisionally | Review |
 | UI-DIALOGUE-FRAME | Briefing/debrief dialogue | P0 | Not present | Missing |
-| UI-RADIO-OVERLAY | Compact non-pausing radio | P0 | Not present | Missing |
+| UI-RADIO-OVERLAY | Compact non-pausing radio | P0 | Native compact top-right mode integrated below HUD/boss safe areas; runtime evidence at `validation/screenshots/gate2_radio_overlay.png`; final portrait expressions and pixel-art frame remain | Placeholder |
 | UI-BRIEFING-PANEL | Mission briefing presentation | P0 | Not present | Missing |
 | UI-DEBRIEF-PANEL | Mission results/story presentation | P0 | Not present | Missing |
 | UI-BOSS-HUD | Boss name, phase and health | P0 | Not present | Missing |
