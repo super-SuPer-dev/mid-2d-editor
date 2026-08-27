@@ -70,7 +70,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 
 | Asset ID | ด่าน | ผลไม้อ้างอิง | ชุด production | สถานะ |
 |---|---:|---|---|---|
-| BOSS-THORN-MATRIARCH | 1 | พวงราชินีเงาะ | integrate ภาพบอส true-alpha แล้ว; ต้อง retrofit fruit cue และยังขาด phases/hair-thorn hazards/projectiles/tells/portrait/death/VFX/SFX | Integrated |
+| BOSS-THORN-MATRIARCH | 1 | พวงราชินีเงาะ | ชุดภาพตัวบอส true-alpha แบบละเอียด 9 action อยู่ใน Review ที่ `Generated-Assets/bosses/thorn_matriarch/`: armored/exposed idle, phase break, sweep tell/attack, mine/fan cast, hurt และ death บน cell มาตรฐาน 1200 x 900; ยังต้อง integrate runtime, ทำ mines/hair-thorn/lane hazards, portrait/HUD, VFX/SFX และตรวจ gameplay | Review |
 | BOSS-MAW-SOVEREIGN | 2 | มงกุฎทุเรียน + กายมังคุด | armored rind/bloom phases, spore rain, rotating five-way, aimed seed burst, tells, portrait, HUD, death | Missing |
 | BOSS-POSSESSED-BANYAN | 3 | ขนุน + ลูกไทร | trunk/fibrous-fruit/possession phases, seed columns, diagonal roots, sticky sap | Placeholder |
 | BOSS-ROOT-HYDRA | 4 | พวงลูกจาก | segmented heads/root lanes, crossfire/rings/lane walls, conduit hazards/phase states | Missing |
