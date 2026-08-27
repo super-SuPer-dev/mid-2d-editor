@@ -30,6 +30,20 @@ const UI_SCENES := [
 	preload("res://Scenes/ui/character_upgrades.tscn"),
 	preload("res://Scenes/ui/upgrades.tscn"),
 ]
+const EXPECTED_THREAT_QUOTAS := {
+	"level_01": 4,
+	"level_02": 5,
+	"level_03": 5,
+	"level_04": 6,
+	"level_05": 6,
+}
+const EXPECTED_PROJECTILE_CAPS := {
+	"level_01": 18,
+	"level_02": 32,
+	"level_03": 36,
+	"level_04": 48,
+	"level_05": 64,
+}
 
 var failures: Array[String] = []
 
@@ -67,9 +81,21 @@ func _validate_catalogs() -> void:
 		_check(jump_height >= 110.0, "%s cannot reach the campaign's required platform steps." % character_id)
 	for level_id in LevelCatalog.LEVEL_ORDER:
 		var data := LevelCatalog.get_level(level_id)
-		_check(int(data["threat_quota"]) > 0, "%s has an invalid objective." % level_id)
+		_check(int(data["threat_quota"]) == EXPECTED_THREAT_QUOTAS[level_id], "%s has a GDD-inconsistent threat quota." % level_id)
 		_check(not str(data.get("boss_id", "")).is_empty(), "%s has no boss ID." % level_id)
 		_check(data.get("mission_phases", []) == ["CLEAR_THREATS", "BOSS_ACTIVE", "EXTRACTION"], "%s has an invalid phase contract." % level_id)
+		_check(data.get("target_duration_seconds", Vector2i.ZERO) == Vector2i(300, 420), "%s does not target 5–7 minutes." % level_id)
+		_check(data.get("encounter_segments", []) == LevelCatalog.MISSION_SEGMENTS, "%s has an invalid encounter-segment contract." % level_id)
+		_check(not data.get("enemy_roster", []).is_empty(), "%s has no enemy roster." % level_id)
+		_check(not str(data.get("tile_kit_id", "")).is_empty(), "%s has no tile kit ID." % level_id)
+		_check(not str(data.get("background_kit_id", "")).is_empty(), "%s has no background kit ID." % level_id)
+		var pattern_set_id := str(data.get("boss_pattern_set", ""))
+		_check(not pattern_set_id.is_empty(), "%s has no boss pattern set." % level_id)
+		_check(int(data.get("projectile_cap", 0)) == EXPECTED_PROJECTILE_CAPS[level_id], "%s has an invalid projectile cap." % level_id)
+		var pattern_set := BossPatternCatalog.get_pattern_set(pattern_set_id)
+		_check(int(pattern_set.get("max_projectiles", 0)) == int(data.get("projectile_cap", 0)), "%s pattern-set cap does not match its level cap." % level_id)
+		for error in BossPatternCatalog.validate_pattern_set(pattern_set_id):
+			_check(false, error)
 	_check(CharacterCatalog.resolve_character_id("ranger") == "rin", "Legacy ranger ID did not migrate to rin.")
 	_check(CharacterCatalog.resolve_character_id("villager") == "khem", "Legacy villager ID did not migrate to khem.")
 
@@ -120,6 +146,7 @@ func _validate_levels() -> void:
 				boss_count += 1
 			else:
 				enemy_count += 1
+				_check(enemy.enemy_type in LevelCatalog.get_level(level_id).get("enemy_roster", []), "%s spawned enemy type %s outside its roster." % [level_id, enemy.enemy_type])
 		var player_count := get_tree().get_nodes_in_group("Player").size()
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)

@@ -89,9 +89,6 @@ enemy_type = "spitter"
 [node name="Maw01" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(1450, 530)
 enemy_type = "maw"
-[node name="Thornling02" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(1900, 650)
-enemy_type = "thornling"
 [node name="Spitter02" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(2380, 560)
 enemy_type = "spitter"
