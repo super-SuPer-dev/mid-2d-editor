@@ -60,6 +60,7 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 | ENEMY-MAW | move/bite/hurt/death/anticipation/recovery | Placeholder |
 | ENEMY-ROOT-SKITTER | burrow/emerge/scuttle/attack/hurt/death/tell | Missing |
 | ENEMY-EYE-WISP | fly/charge/beam/bolt/hurt/death/tell | Missing |
+| ENEMY-CAPSULE-HUSK | idle/move/armored charge/exposed-core attack/hurt/death/shell-break tell | Missing |
 
 ## 5. บอส
 
@@ -67,11 +68,13 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 
 | Asset ID | ด่าน | ชุด production | สถานะ |
 |---|---:|---|---|
-| BOSS-THORN-MATRIARCH | 1 | integrate ภาพบอส true-alpha ที่ `Assets/Enemies/Bosses/thorn_matriarch.png` แล้ว; ยังขาด phases, hazards, tells, portrait, death และ VFX/SFX ขั้นสุดท้าย | Integrated |
-| BOSS-MAW-SOVEREIGN | 2 | bloom/maw phases, spores, tells, portrait, HUD, death | Missing |
-| BOSS-POSSESSED-BANYAN | 3 | แทน generic scale ด้วย trunk/root/possession phases | Placeholder |
-| BOSS-ROOT-HYDRA | 4 | multi-head/root lanes/conduit hazards/phase states | Missing |
-| BOSS-ROOT-CORE-EYE | 5 | eye/core phases, beams, roots, core exposure, ending death | Missing |
+| BOSS-THORN-MATRIARCH | 1 | integrate ภาพบอส true-alpha ที่ `Assets/Enemies/Bosses/thorn_matriarch.png` แล้ว; ยังขาด phases, hazards, fan/lane projectile set, tells, portrait, death และ VFX/SFX ขั้นสุดท้าย | Integrated |
+| BOSS-MAW-SOVEREIGN | 2 | bloom/maw phases, spore rain, rotating five-way, aimed burst, tells, portrait, HUD, death | Missing |
+| BOSS-POSSESSED-BANYAN | 3 | แทน generic scale ด้วย trunk/root/possession phases, seed columns และ diagonal root lines | Placeholder |
+| BOSS-ROOT-HYDRA | 4 | multi-head/root lanes, crossfire/rings/lane walls, conduit hazards/phase states | Missing |
+| BOSS-ROOT-CORE-EYE | 5 | eye/core phases, spirals/aimed rings/bullet curtains, beams, roots, core exposure, ending death | Missing |
+
+ชุดกระสุนต้องใช้ shape coding ที่ contrast สูง มี spawn/impact tell, editable master, atlas ที่เหมาะกับ pooling และ variant name ที่จับคู่กับ `pattern_id` แบบหนึ่งต่อหนึ่ง แต่ละด่านใช้ shader/particle เชิงเทคนิคร่วมได้ แต่ห้ามใช้ silhouette และ palette หลักเดียวกันโดยไม่ผ่าน readability review
 
 ## 6. โลกและ Gameplay
 
@@ -93,7 +96,7 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 | LANDMARK-ROOT-CONDUIT | nutrient conduit | Missing |
 | LANDMARK-ALIEN-EYE | sensory nexus | Missing |
 
-แต่ละ biome ต้องมี background/midground/gameplay ground/foreground/hazards/extraction/landmark โดยไม่บัง route, enemy, objective หรือ level icon
+แต่ละ biome ต้องมี parallax อย่างน้อย 4 ชั้น, gameplay ground/platform, foreground, hazards, extraction และ landmark โดยไม่บัง route, enemy, objective หรือ level icon primary tile kit ต้องมี straight runs, caps, inner/outer corners, slope หรือ transition เทียบเท่า, damaged/infested variants และ decorative overlay ที่ collision ปลอดภัย การเปลี่ยน palette จาก biome อื่นอย่างเดียวไม่ถือเป็น world set ที่ครบ
 
 ## 7. UI และ VFX
 
@@ -141,6 +144,6 @@ UI ต้องรองรับ 1280×720, keyboard focus, safe area, English 
 
 ## 10. สรุปจำนวน
 
-4 operator animation sets (อย่างน้อย 8 กลุ่ม), 4 passive icons, 4 operator portraits ×2 expressions, 3 NPC portraits ×3 expressions, ศัตรู 5 ตระกูล, บอส 5 ตัว, world sets 5, narrative UI ครบ, เพลง 1 menu + 5 levels + 2 boss suites + 2 stingers และ SFX ประมาณ 40
+4 operator animation sets (อย่างน้อย 8 กลุ่ม), 4 passive icons, 4 operator portraits ×2 expressions, 3 NPC portraits ×3 expressions, ศัตรู 6 ตระกูล, บอส 5 ตัว, world sets 5, narrative UI ครบ, เพลง 1 menu + 5 levels + 2 boss suites + 2 stingers และ SFX ประมาณ 40
 
 การเปลี่ยนสถานะต้องมีหลักฐานตาม [Validation Protocol](VALIDATION_PROTOCOL_TH.md)

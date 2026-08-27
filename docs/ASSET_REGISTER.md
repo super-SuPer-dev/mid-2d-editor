@@ -75,6 +75,7 @@ Every production entry must ultimately record source/runtime paths, dimensions, 
 | ENEMY-MAW | Maw | P0 | Shared plant placeholder | Idle/move, bite, hurt, death, anticipation/recovery | Placeholder |
 | ENEMY-ROOT-SKITTER | Root Skitter | P1 | None | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Missing |
 | ENEMY-EYE-WISP | Eye Wisp | P1 | None | Fly, charge, beam/bolt, hurt, death, aerial tell | Missing |
+| ENEMY-CAPSULE-HUSK | Capsule Husk | P0 | None | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Missing |
 
 Production sets must expose consistent damage/hurt timing while preserving distinct silhouettes and attack tells. Color swaps alone do not count as separate families.
 
@@ -84,13 +85,15 @@ Production sets must expose consistent damage/hurt timing while preserving disti
 
 | Asset ID | Level | Priority | Required production package | State |
 |---|---:|---:|---|---|
-| BOSS-THORN-MATRIARCH | 1 | P0 | Base true-alpha boss sprite integrated at `Assets/Enemies/Bosses/thorn_matriarch.png`; phases, thorn hazards, tells, portrait treatment, death sequence and final VFX/SFX remain | Integrated |
-| BOSS-MAW-SOVEREIGN | 2 | P0 | Multi-phase bloom/maw set, spore attacks, tells, portrait treatment, health bar, death sequence, VFX/SFX | Missing |
-| BOSS-POSSESSED-BANYAN | 3 | P0 | Current generic scaled behavior replaced by trunk/root/possession phases, tells, portrait, death sequence | Placeholder |
-| BOSS-ROOT-HYDRA | 4 | P0 | Multiple heads/root lanes, conduit hazards, phase damage states, portrait, death sequence | Missing |
-| BOSS-ROOT-CORE-EYE | 5 | P0 | Sensory-core phases, beam/root hazards, final core exposure, portrait, campaign-ending death sequence | Missing |
+| BOSS-THORN-MATRIARCH | 1 | P0 | Base true-alpha boss sprite integrated at `Assets/Enemies/Bosses/thorn_matriarch.png`; phases, thorn hazards, fan/lane projectile set, tells, portrait treatment, death sequence and final VFX/SFX remain | Integrated |
+| BOSS-MAW-SOVEREIGN | 2 | P0 | Multi-phase bloom/maw set, spore rain, rotating five-way and aimed-burst projectiles, tells, portrait treatment, health bar, death sequence, VFX/SFX | Missing |
+| BOSS-POSSESSED-BANYAN | 3 | P0 | Current generic scaled behavior replaced by trunk/root/possession phases, seed-column and diagonal-root-line projectiles, tells, portrait, death sequence | Placeholder |
+| BOSS-ROOT-HYDRA | 4 | P0 | Multiple heads/root lanes, crossfire/ring/lane-wall projectiles, conduit hazards, phase damage states, portrait, death sequence | Missing |
+| BOSS-ROOT-CORE-EYE | 5 | P0 | Sensory-core phases, spirals/aimed rings/bullet curtains, beam/root hazards, final core exposure, portrait, campaign-ending death sequence | Missing |
 
 Each boss package includes phase-readable silhouettes, pre-damage telegraphs, hit/death feedback, boss-introduction presentation, health-bar elements, projectiles/hazards and source masters. Boss mechanics remain functional if presentation assets fail to load.
+
+Projectile production sets require high-contrast shape coding, spawn and impact tells, editable masters, pooling-friendly atlases and named variants that map one-to-one to canonical boss `pattern_id` values. Level-specific sets may share technical shaders or particles, but not the same primary projectile silhouette and palette without a readability review.
 
 ## 6. World and Gameplay Assets
 
@@ -112,7 +115,7 @@ Each boss package includes phase-readable silhouettes, pre-damage telegraphs, hi
 | LANDMARK-ROOT-CONDUIT | Marsh nutrient conduit | P1 | No final landmark | Missing |
 | LANDMARK-ALIEN-EYE | Awakened sensory nexus | P0 | No final landmark | Missing |
 
-Each biome needs background, midground, gameplay ground/platforms, foreground framing, hazards, extraction treatment and a landmark without obscuring routes, enemies, objectives or the level-selection icon.
+Each biome needs at least four parallax layers, gameplay ground/platforms, foreground framing, hazards, extraction treatment and a landmark without obscuring routes, enemies, objectives or the level-selection icon. Its primary tile kit includes straight runs, caps, inner/outer corners, slopes or equivalent traversal transitions, damaged/infested variants and collision-safe decorative overlays. A palette swap of another biome's primary tiles is not a complete world set.
 
 ## 7. UI and VFX Assets
 
@@ -175,7 +178,7 @@ There are no voice-over assets. Dialogue readability must not depend on voice. L
 | Operator passive icons | 4 |
 | Operator portraits | 4 × at least 2 expressions |
 | NPC portraits | 3 × at least 3 expressions |
-| Standard enemy families | 5 |
+| Standard enemy families | 6 |
 | Dedicated bosses | 5 |
 | Complete biome/world sets | 5 |
 | Narrative UI packages | Dialogue, radio, briefing, debrief, boss intro |

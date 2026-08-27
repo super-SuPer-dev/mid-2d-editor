@@ -78,6 +78,7 @@ Screenshots must show the runtime build, not only editor previews. Evidence is r
 - Four canonical operators load and point to valid scenes/data.
 - Five canonical levels load, are registered for navigation/unlocks and contain valid spawn/extraction bounds.
 - Every level declares threat quota, boss ID/name key, biome, briefing, radio, debrief and mission phases.
+- Every level declares encounter segments, enemy roster, tile/background kit IDs, boss pattern set and projectile cap.
 - Every referenced scene, texture, audio file, localization key and dialogue entry exists.
 - Canonical IDs are unique and never localized.
 
@@ -125,7 +126,20 @@ For each operator × level combination, test:
 9. Pause/settings/language changes where permitted.
 10. No mission phase, boss phase, dialogue or portal can soft-lock.
 
-Record completion time, deaths, damage sources, currency earned/spent and boss phase duration. Level targets are 10–15 minutes for a competent first-time player and 60–90 minutes for initial campaign completion.
+Record completion time, segment splits, deaths, damage sources, currency earned/spent and boss phase duration. Each level targets 5–7 minutes from player control to extraction for a competent first-time player; initial campaign completion targets 35–50 minutes including briefings, debriefings and normal menu use. A mandatory route must contain at least three authored pre-boss beats and no more than 20 seconds of travel without a traversal choice, threat, reward or story cue.
+
+### Boss Projectile and Danmaku Validation
+
+[VAL-BULLET-01] Touhou-inspired patterns are accepted only when they remain readable in a side-scrolling platformer.
+
+- Each volley resolves from a canonical `pattern_id` and is deterministic enough to reproduce defects.
+- Telegraph, active and recovery timing are logged; dense patterns run for 3–6 seconds and provide at least 0.75 seconds of recovery.
+- Every pattern preserves a reachable safe route at least 1.75 player widths wide for the slowest operator configuration.
+- Projectiles never spawn inside the player, behind an unavoidable camera edge or under combat-critical UI.
+- Concurrent projectile caps are Level 1: 18, Level 2: 32, Level 3: 36, Level 4: 48 and Level 5: 64.
+- Phase change, boss death, player death/retry and scene exit remove every owned projectile and cancel pending emitters.
+- Projectile silhouettes, colors, motion and warning tells remain distinct from scenery, pickups, enemy bodies and friendly cutter VFX.
+- Windows and Web captures verify 60 FPS at the level cap while enemies, VFX and radio UI are also active.
 
 ## 7. Story Validation
 
@@ -179,6 +193,9 @@ Record completion time, deaths, damage sources, currency earned/spent and boss p
 - At 1280×720, every screen is checked for stretch, blur, clipping, halos, overlap and text overflow in English, Thai and pseudo-localization.
 - Level-selection icons do not obscure important landmarks and remain keyboard-focus readable.
 - Boss/hazard telegraphs contrast against the current biome and remain visible during VFX-heavy combat.
+- Every biome provides at least four readable parallax layers, one foreground set, one landmark, a primary tile kit with caps/corners/transitions, a signature hazard treatment and a distinct extraction treatment.
+- Two levels may reuse shaders, tools and technical materials, but may not pass diversity review through palette swaps or shared primary tiles alone.
+- Enemy silhouette, movement role and attack tell diversity match the approved per-level roster; every level introduces at least one new family or meaningful mechanic variant.
 - Texture and atlas memory is measured on Web, not inferred from disk size.
 
 ## 10. Audio Validation
@@ -198,6 +215,7 @@ Record completion time, deaths, damage sources, currency earned/spent and boss p
 - Target 60 FPS at 1280×720 on supported Windows hardware and supported Web browsers.
 - Web peak memory remains below 512 MB through a complete mission and scene transitions.
 - Test worst-case enemy, projectile, VFX, boss and radio overlap.
+- Hold each level at its documented projectile cap for at least 60 seconds; pooled node counts must stabilize without allocation growth or cleanup leaks.
 - Run a 30-minute soak including repeated combat, pause, retry, language switching and scene transitions.
 - No growing node/audio/tween count, recurring error spam, corrupted save or input loss.
 - Loading and transitions remain within the approved UX budget; exact measured budgets are locked at Gate 2.
@@ -219,6 +237,8 @@ Minimum release matrix:
 - [ ] No Must-have/P0 requirement is below Verified.
 - [ ] No P0/P1 defect is open.
 - [ ] Levels 1–5, all bosses, passives, Mastery and campaign ending pass.
+- [ ] Every level meets the 5–7 minute pacing contract and biome-diversity review.
+- [ ] All boss patterns preserve safe routes, caps, cleanup and Windows/Web performance.
 - [ ] New-profile and legacy-save migration/recovery pass.
 - [ ] English/Thai key, placeholder, dialogue-entry and glossary parity pass.
 - [ ] English is the default and live language switching persists.
@@ -227,4 +247,3 @@ Minimum release matrix:
 - [ ] Asset provenance/licenses and Release-ready approvals are recorded.
 - [ ] Documentation links, IDs, asset states and English/Thai parity are verified.
 - [ ] Human approvals for story, Thai translation, artwork, animation, boss feel, accessibility and balance are signed.
-

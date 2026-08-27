@@ -45,6 +45,7 @@ Defect ที่เปิดใหม่ทำให้ evidence/score เดิ
 
 - operators 4 และ levels 5 โหลดได้ ID unique
 - ทุกด่านมี quota, boss ID/name key, biome, briefing/radio/debrief และ phases
+- ทุกด่านมี encounter segments, enemy roster, tile/background kit IDs, boss pattern set และ projectile cap
 - scene/texture/audio/localization/dialogue references มีจริง
 - canonical ID ไม่แปล
 
@@ -75,7 +76,20 @@ Defect ที่เปิดใหม่ทำให้ evidence/score เดิ
 
 [VAL-GAMEPLAY-01] ทดสอบทุก operator × level: briefing/skip, movement/jump/fall/dash/attack, route/collision/camera/hazard, quota/death/sample, radio 3 ครั้ง, boss intro/phases/telegraph/defeat/retry, extraction/debrief/reward/unlock, death ก่อน/ระหว่าง/หลังบอส, pause/settings/language และยืนยันไม่มี soft-lock
 
-เก็บเวลา completion, deaths, damage, currency และ boss phase duration เป้าด่าน 10–15 นาที แคมเปญแรก 60–90 นาที
+เก็บเวลา completion และเวลาแยกแต่ละช่วง, deaths, damage, currency และ boss phase duration ทุกด่านเป้า 5–7 นาทีตั้งแต่ผู้เล่นควบคุมจน extraction สำหรับผู้เล่นครั้งแรกที่มีทักษะพื้นฐาน แคมเปญแรกเป้า 35–50 นาทีรวม briefing/debrief/menu ตามปกติ เส้นทางบังคับต้องมีอย่างน้อยสามช่วงก่อนบอส และห้ามเดินเกิน 20 วินาทีโดยไม่มีทางเลือก traversal, threat, reward หรือ story cue
+
+### ตรวจ Boss Projectile และ Danmaku
+
+[VAL-BULLET-01] รูปแบบที่ได้รับแรงบันดาลใจจาก Touhou ผ่านได้เมื่อยังอ่านง่ายใน side-scrolling platformer เท่านั้น
+
+- ทุก volley มาจาก `pattern_id` หลักและทำซ้ำเพื่อหา defect ได้
+- บันทึก telegraph/active/recovery; ช่วงหนาแน่นยาว 3–6 วินาทีและมี recovery อย่างน้อย 0.75 วินาที
+- ทุก pattern มี safe route ที่ไปถึงได้และกว้างอย่างน้อย 1.75 เท่าของความกว้างผู้เล่นสำหรับ operator configuration ที่ช้าที่สุด
+- กระสุนห้ามเกิดทับผู้เล่น หลังขอบกล้องที่หลบไม่ได้ หรือใต้ UI สำคัญ
+- cap กระสุนพร้อมกัน: ด่าน 1 = 18, ด่าน 2 = 32, ด่าน 3 = 36, ด่าน 4 = 48, ด่าน 5 = 64
+- เปลี่ยน phase, บอสตาย, ผู้เล่นตาย/retry และออก scene ต้องล้างกระสุนเจ้าของทั้งหมดและยกเลิก emitter ที่รออยู่
+- silhouette, สี, motion และ warning ของกระสุนต้องแยกจากฉาก pickup ตัวศัตรู และ cutter VFX
+- capture Windows/Web ต้องยืนยัน 60 FPS ที่ cap ขณะ enemy, VFX และ radio UI ทำงานพร้อมกัน
 
 ## 7. ตรวจเนื้อเรื่อง
 
@@ -110,7 +124,7 @@ Defect ที่เปิดใหม่ทำให้ evidence/score เดิ
 
 [VAL-ASSET-01]
 
-Source ต้องบันทึก dimensions/format/color/alpha/editable master, grid/cell/gutter, crop/pivot, provenance/license Runtime ต้องไม่มี halo/matte/neighboring frame/seam/bleed; เท้าไม่ลอย; animation timing ลื่นและอ่านได้; filtering ไม่ blur; panel ไม่ยืด; ตรวจทุกหน้าที่ 1280×720 ใน English/Thai/pseudo; level icon ไม่บัง landmark; telegraph เห็นชัด; วัด Web texture memory จริง
+Source ต้องบันทึก dimensions/format/color/alpha/editable master, grid/cell/gutter, crop/pivot, provenance/license Runtime ต้องไม่มี halo/matte/neighboring frame/seam/bleed; เท้าไม่ลอย; animation timing ลื่นและอ่านได้; filtering ไม่ blur; panel ไม่ยืด; ตรวจทุกหน้าที่ 1280×720 ใน English/Thai/pseudo; level icon ไม่บัง landmark; telegraph เห็นชัด; วัด Web texture memory จริง แต่ละ biome ต้องมี parallax อย่างน้อย 4 ชั้น, foreground, landmark, primary tile kit ที่มี caps/corners/transitions, hazard และ extraction treatment เฉพาะ ห้ามผ่าน diversity review ด้วย palette swap หรือ primary tiles ร่วมกันเพียงอย่างเดียว ทุกด่านต้องเพิ่ม enemy family ใหม่หรือ mechanic variant ที่มีความหมาย
 
 ## 10. ตรวจเสียง
 
@@ -120,7 +134,7 @@ Source ต้องบันทึก dimensions/format/color/alpha/editable mas
 
 [VAL-PERF-01]
 
-60 FPS ที่ 1280×720, Web peak memory <512 MB, ทดสอบ worst-case enemy/projectile/VFX/boss/radio, soak 30 นาทีรวม retry/language/scene transition และต้องไม่มี node/audio/tween รั่ว error spam save เสีย หรือ input หาย
+60 FPS ที่ 1280×720, Web peak memory <512 MB, ทดสอบ worst-case enemy/projectile/VFX/boss/radio และค้างที่ projectile cap ของแต่ละด่านอย่างน้อย 60 วินาทีโดย pooled node count ต้องนิ่ง soak 30 นาทีรวม retry/language/scene transition และต้องไม่มี node/audio/tween รั่ว error spam save เสีย หรือ input หาย
 
 ## 12. Platform Matrix
 
@@ -135,6 +149,8 @@ Keyboard/mouse และ reference layout 1280×720 เป็นขั้นต�
 - [ ] Gate 0–6 มีหลักฐานครบ
 - [ ] readiness ≥90%; Must-have/P0 ≥Verified; ไม่มี P0/P1
 - [ ] ด่าน 1–5, บอส, passives, Mastery, ตอนจบผ่าน
+- [ ] ทุกด่านผ่านเป้า 5–7 นาทีและ biome diversity review
+- [ ] boss pattern ทุกชุดผ่าน safe route, cap, cleanup และ performance Windows/Web
 - [ ] new profile/migration/recovery ผ่าน
 - [ ] English/Thai key/placeholder/dialogue/glossary parity ผ่าน
 - [ ] English default และ live language persistence ผ่าน
@@ -143,4 +159,3 @@ Keyboard/mouse และ reference layout 1280×720 เป็นขั้นต�
 - [ ] provenance/license/release approvals ครบ
 - [ ] links/IDs/states/document parity ผ่าน
 - [ ] human approval ด้าน story/Thai/art/animation/boss/accessibility/balance ครบ
-

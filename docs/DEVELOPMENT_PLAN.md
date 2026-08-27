@@ -16,7 +16,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 | Core play | Side-scrolling movement, jump, dash, cutter attack, damage, pickups, quota, portal | Formal three-phase mission controller and boss lifecycle |
 | Campaign | Three authored levels selectable from a map | Retrofit Levels 1–3 and build Levels 4–5 |
 | Operators | Tonkla, Rin, Khem, and T-800 share controls and animation structure | Passives, mastery, full production animation contracts |
-| Enemies | Thornling, spitter, and maw behaviors | Two more standard families, distinct art, tuning, telegraphs |
+| Enemies | Thornling, spitter, and maw behaviors | Three more standard families, biome-specific rosters, distinct art, tuning and telegraphs |
 | Bosses | Generic enlarged enemy behavior used in Level 3 | Five dedicated, multi-phase bosses |
 | Progression | Shared upgrades plus duplicate per-character tracks | Base Technology + Operator Mastery and save migration v2 |
 | Story | No complete runtime narrative flow | Briefings, radio events, boss introductions, debriefings, story state |
@@ -34,6 +34,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 - [DEV-PRINCIPLE-04] Generated assets remain provisional until technical and visual review is complete.
 - [DEV-PRINCIPLE-05] Human review is mandatory for story tone, Thai translation quality, animation, artwork, boss feel, accessibility, and final balance.
 - [DEV-PRINCIPLE-06] English content is written first; Thai content is delivered in the same feature slice.
+- [DEV-PRINCIPLE-07] Every mission is authored for a 5–7 minute completion target and must have a distinct traversal rhythm, encounter mix, enemy roster, tile kit, background stack and boss pattern identity.
 
 ## 3. Agentic Task Contract
 
@@ -60,7 +61,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 [DEV-GATE-00]
 
 **Inputs:** Current prototype, old design notes, the rewritten GDD, current asset directories.  
-**Work:** Finalize English documents and Thai companions; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve glossary terms and five-act progression.  
+**Work:** Finalize English documents and Thai companions; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve glossary terms, five-act progression, the 5–7 minute mission budget, biome diversity matrix, boss pattern IDs and per-level projectile caps.
 **Exit criteria:**
 
 - All eight documents exist and cross-link correctly.
@@ -79,9 +80,10 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 - Add `localization/ui.csv`, `localization/story.csv`, and `localization/glossary.csv`.
 - Make English the new-profile default and add live English/ไทย selection.
 - Replace user-facing hardcoded strings with keys and English fallback.
-- Extend level data with quota, boss, biome, mission phases and story sequences.
+- Extend level data with quota, boss, biome, mission phases, story sequences, encounter segments, enemy roster, tile/background kit IDs, boss pattern set and projectile cap.
 - Implement `CLEAR_THREATS → BOSS_ACTIVE → EXTRACTION`.
 - Define boss lifecycle/phase/health signals.
+- Implement a reusable, pooled boss-projectile pattern runner with telegraph, duration, recovery, safe-route and cleanup contracts.
 - Add speaker, dialogue and story-state data contracts.
 - Implement passives, Operator Mastery, and save schema v2 migration.
 - Extend automated validation to five-level catalogs and localization parity.
@@ -93,16 +95,16 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 [DEV-GATE-02]
 
 **Inputs:** Gate 1 foundation and approved Level 1 asset concepts.  
-**Work:** Produce the complete Contaminated Grassland mission, Thorn Matriarch boss, briefing, three radio events, boss introduction, debriefing, operator barks, English/Thai text, VFX, music and SFX. Replace all Level 1 placeholders required by the asset register.
+**Work:** Redesign and produce the complete Contaminated Grassland mission around three authored pre-boss beats and a 5–7 minute completion target. Produce the Thorn Matriarch with tutorial fan/lane projectile patterns, briefing, three radio events, boss introduction, debriefing, operator barks, English/Thai text, a distinct farmland tile/parallax kit, enemy composition, VFX, music and SFX. Replace all Level 1 placeholders required by the asset register.
 
-**Exit criteria:** Level 1 is playable from briefing through debriefing on Windows and Web; it sets the approved art, animation, audio, encounter, UI and localization standard; no P0/P1 defects remain.
+**Exit criteria:** Level 1 is playable from briefing through debriefing on Windows and Web in 5–7 minutes; its three beats remain readable without empty travel or combat padding; the boss preserves its safe routes and projectile cap; it sets the approved art, animation, audio, encounter, UI and localization standard; no P0/P1 defects remain.
 
 ### Gate 3 — Retrofit Levels 2–3
 
 [DEV-GATE-03]
 
 **Inputs:** Approved production slice.  
-**Work:** Retrofit the Mutated Forest and Roots Beneath Capsule 07 using the approved standard. Add Maw Bloom Sovereign and Possessed Banyan, distinct hazards/enemies, full bilingual sequences, environmental storytelling, audio and midpoint Capsule 07 reveal.
+**Work:** Retrofit the Mutated Forest and Roots Beneath Capsule 07 using the approved standard and separate 5–7 minute grayboxes. Give each level a unique route topology, tile/parallax kit, landmark, hazards and enemy roster. Add the projectile-heavy Maw Bloom Sovereign with spore rain, rotating volleys and aimed bursts; add the Possessed Banyan with seed columns, diagonal root lines and arena-control phases; complete bilingual sequences, environmental storytelling, audio and the midpoint Capsule 07 reveal.
 
 **Exit criteria:** Levels 1–3 form a stable narrative arc; bosses and environments are mechanically distinct; unlock/retry/story state is stable; routes work for every operator.
 
@@ -111,7 +113,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 [DEV-GATE-04]
 
 **Inputs:** Stable three-level campaign.  
-**Work:** Build Devouring Root Marsh and Alien Eye Nexus, Root Hydra and Root-Core Eye, final enemy families, landmarks, ending sequences, campaign completion and post-ending state.
+**Work:** Build separate 5–7 minute routes for Devouring Root Marsh and Alien Eye Nexus with unique traversal, tile/parallax kits, foregrounds, hazards, enemy rosters and landmarks. Produce the projectile-heavy Root Hydra with multi-origin crossfire, rings and lane walls, and the Root-Core Eye with spirals, aimed rings and bullet curtains. Complete final enemy families, ending sequences, campaign completion and post-ending state.
 
 **Exit criteria:** The five-level campaign is completable without developer intervention; ending and restrained sequel hook play once at the correct stage; Windows and Web campaign tests pass.
 
@@ -122,7 +124,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 **Inputs:** Feature-complete campaign.  
 **Work:** Balance economy, Base Technology, Mastery and passives; polish cutter feel, telegraphs, VFX, animation timing, dialogue pacing, tutorials, accessibility, UI layouts, mix and translation. Run pseudo-localization and full asset review.
 
-**Exit criteria:** Target playtime and difficulty are met; English and Thai reviews are approved; all Must-have assets are at least Verified; weighted readiness is at least 85% with a credible path to release.
+**Exit criteria:** Every mission meets the 5–7 minute target without HP inflation or dead traversal; projectile patterns are readable and performant; each biome passes the diversity review; English and Thai reviews are approved; all Must-have assets are at least Verified; weighted readiness is at least 85% with a credible path to release.
 
 ### Gate 6 — Release Hardening
 
@@ -137,13 +139,30 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 
 1. Canonical IDs, glossary and save contract.
 2. Localization, mission phases, boss interface, story data and automated checks.
-3. Level 1 production slice.
-4. Reusable enemy/boss/content pipelines proven by Level 1.
-5. Levels 2–3 retrofit.
-6. Levels 4–5 production and campaign ending.
-7. Balance, accessibility, localization review and release hardening.
+3. Five mission grayboxes, encounter timing budgets and a boss-pattern laboratory.
+4. Level 1 production slice and its farmland diversity kit.
+5. Reusable enemy, projectile, boss and content pipelines proven by Level 1.
+6. Levels 2–3 retrofit with dedicated biome kits and rosters.
+7. Levels 4–5 production and campaign ending.
+8. Balance, accessibility, localization review and release hardening.
 
 Art concepts, music exploration and translation drafting may proceed in parallel, but integration waits for their dependent contracts. A boss cannot be marked Integrated before its mission phase, health signal, defeat signal and retry behavior exist.
+
+### 5.1 Level, Boss, and Diversity Redesign Package
+
+[DEV-LEVEL-01] Each level is delivered through the same five milestones: timing graybox, enemy/hazard pass, boss-pattern laboratory, biome art pass, and integrated timing/polish review.
+
+| Level | Traversal and encounter identity | Boss projectile identity | Required visual diversity |
+|---|---|---|---|
+| 1 — Contaminated Grassland | Irrigation channels, low farm roofs and destructible crop lanes; three teaching beats | Thorn fans and closing lanes with generous recovery | Grass/soil/concrete tile kit, rural props, four-layer farmland parallax and crash-smoke landmark |
+| 2 — Mutated Forest | Vertical canopy routes, fungal shelves and falling-spore decisions | Spore rain, rotating five-way volleys and player-aimed bursts | Bark/moss/fungal tile kit, dense canopy layers, luminous spores and Maw Bloom landmark |
+| 3 — Roots Beneath Capsule 07 | Impact tunnels, root lifts and short chamber locks | Seed columns and diagonal root lines supporting arena control | Capsule shell/root/membrane kit, subterranean depth layers and exposed seed landmark |
+| 4 — Devouring Root Marsh | Sinking islands, moving root rafts and toxic-water route swaps | Multi-head crossfire, expanding rings and moving lane walls | Mud/reed/conduit kit, mist/water parallax and nutrient-conduit landmark |
+| 5 — Alien Eye Nexus | Shifting eye platforms, elite remixes and a compact final ascent | Spirals, aimed rings and bullet curtains with deterministic safe routes | Membrane/neural-root/core kit, pulsing depth layers and the Root-Core Eye landmark |
+
+Every graybox must fit entry, three authored pre-boss beats, a 75–120 second boss and extraction inside the 5–7 minute target before final art begins. Optional sample routes may add no more than 45 seconds. Enemy health, travel distance and repeated waves may not be increased merely to fill time.
+
+Boss pattern data must expose `pattern_id`, phase, telegraph duration, active duration, recovery duration, projectile speed/range, projectile cap, spawn origins, safe-route rule and cleanup event. Pattern tests use the level caps defined by [GDD-BULLET-01] and must clear all bullets on phase change, death, retry and scene exit.
 
 ## 6. Workstreams and Ownership Evidence
 
@@ -167,6 +186,8 @@ Art concepts, music exploration and translation drafting may proceed in parallel
 | DEV-RISK-05 | Radio text harms combat readability | Compact safe-area layout, queueing, combat screenshot review | Dialogue covers HUD/telegraph or blocks input |
 | DEV-RISK-06 | Save migration loses player progress | Versioned migration, backups, fixtures for old schemas | Any migrated fixture changes unlocks/currency unexpectedly |
 | DEV-RISK-07 | Agent work overwrites unrelated edits | Explicit permitted-file list and diff review | Diff includes an undeclared file |
+| DEV-RISK-08 | Dense boss bullets become unfair or exceed Web performance | Pattern caps, pooled projectiles, deterministic safe routes, contrast tests and worst-case profiling | Safe route disappears, frame target fails or projectile count exceeds contract |
+| DEV-RISK-09 | Biomes feel like palette swaps or diversity scope grows without control | One approved tile/background/landmark kit and roster matrix per level; reuse systems rather than visual identity | Two levels share a primary tile kit, route silhouette or boss pattern set |
 
 ## 8. Definition of Ready
 
@@ -185,4 +206,3 @@ A feature is ready for implementation when:
 [DEV-DONE-01] A feature is done only when code/content, English and Thai text, save behavior, tests, evidence, documentation and asset state are all updated together. “Works in editor” is not sufficient.
 
 For release, use the scoring and checklists in [Validation Protocol](VALIDATION_PROTOCOL.md) and status ownership in [Asset Register](ASSET_REGISTER.md).
-

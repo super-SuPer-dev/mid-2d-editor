@@ -26,7 +26,7 @@
 
 กลุ่มเป้าหมายคือผู้เล่นแอ็กชันอินดี้ที่ชอบภารกิจสั้น ระบบอ่านง่าย กลิ่นอายไทย และการพัฒนาตัวละครแบบกระชับ รองรับคีย์บอร์ดและเมาส์เป็นหลัก
 
-แต่ละภารกิจยาวเป้าหมาย 10–15 นาที แคมเปญครั้งแรก 60–90 นาที ใช้ระดับความยากหลักหนึ่งระดับตอนเปิดตัว และมีภารกิจห้าด่าน บอสเฉพาะห้าตัว เจ้าหน้าที่สี่คน เนื้อเรื่องเส้นตรง และตอนจบหนึ่งแบบ
+แต่ละภารกิจยาวเป้าหมาย **5–7 นาที** ตั้งแต่เริ่มควบคุมจนถอนกำลัง แคมเปญครั้งแรกประมาณ 35–50 นาทีรวมเมนูและ retry ตามปกติ ใช้ระดับความยากหลักหนึ่งระดับตอนเปิดตัว และมีภารกิจห้าด่าน บอสเฉพาะห้าตัว ศัตรูมาตรฐานหกตระกูล เจ้าหน้าที่สี่คน เนื้อเรื่องเส้นตรง และตอนจบหนึ่งแบบ
 
 สิ่งที่ไม่รวม: multiplayer, online ranking, branching quest, หลายสกุลเงิน, ฐานที่เดินสำรวจได้, moveset เฉพาะตัวเต็มรูปแบบ และเสียงพากย์ `[GDD-SCOPE-01]`
 
@@ -48,6 +48,12 @@
 3. `EXTRACTION` — หลังบอสแพ้จึงเปิดจุดถอนกำลังและจบภารกิจได้
 
 ฐาน ACO แสดงผ่านเมนู เลือกตัวละคร อัปเกรด สรุปภารกิจ การสื่อสาร NPC และผลภารกิจ ไม่มีฉากฐานที่เดินสำรวจ
+
+### 4.1 สัญญาจังหวะด่าน
+
+Critical path ของทุกด่านใช้เวลา 5–7 นาที ไม่รวม briefing/debriefing `[GDD-LEVEL-01]`: เปิดด่านและสอนกลไก 30–45 วินาที, encounter A 60–90 วินาที, traversal set piece 60–90 วินาที, encounter B/ทางเข้าบอส 60–90 วินาที, บอส 75–120 วินาที และถอนกำลัง 15–30 วินาที
+
+ทุกด่านมี gameplay beat ที่ออกแบบไว้สามช่วงก่อนบอส ห้ามยืดเวลาโดยทำ corridor ซ้ำหรือเพิ่ม HP อย่างเดียว เส้นทางตัวอย่างเสริมเพิ่มเวลา critical path ได้ไม่เกิน 45 วินาที และบอสวัดการเรียนรู้ pattern มากกว่าการเป็น damage sponge
 
 ## 5. การควบคุมและกติกาผู้เล่น
 
@@ -89,17 +95,36 @@
 
 ## 8. ศัตรูและบอส
 
-ศัตรูมาตรฐานห้าตระกูล:
+ศัตรูมาตรฐานหกตระกูล:
 
 - `thornling` หน่วยประชิดพื้นฐาน
 - `spitter` ยิงกระสุนและควบคุมพื้นที่
 - `maw` ประชิดแรงพร้อมจังหวะเตรียมชัด
+- `capsule_husk` เกราะเปิด weak core หลังพุ่งควบคุมเลน เริ่มในด่าน 3
 - `root_skitter` มุดดินและโจมตีจากเส้นทางพื้น
 - `eye_wisp` ภัยคุกคามบิน/พลังงานในช่วงท้าย
 
 แต่ละตระกูลต้องมี silhouette, telegraph, timing และบทบาทต่างกัน ไม่ใช่เพียงย้อมสีหรือขยาย placeholder `[GDD-ENEMY-01]`
 
 ทุกด่านมีบอสเฉพาะตัว บอสต้องมี lifecycle, phase, health และ defeat signal มาตรฐาน มีอย่างน้อยสองรูปแบบการโจมตี การเปลี่ยนเฟสที่อ่านได้ และ death sequence ที่ชัด ความเสียหายสำคัญต้องมี telegraph ก่อน hitbox ทำงาน `[GDD-BOSS-01]`
+
+บอสบางตัวใช้ **Touhou-inspired danmaku ที่ปรับให้อ่านง่ายใน platformer** `[GDD-BULLET-01]` ได้แก่ fan, aimed burst, rotating ring, alternating lane wall, arc และ spiral ทุก pattern ต้องมี ID, telegraph, ช่วง active, recovery, speed band, projectile cap และ cleanup ที่ deterministic ทางปลอดภัยกว้างอย่างน้อย 1.75 เท่าตัวผู้เล่นและต้องใช้ได้จริงเมื่อกระโดด/ตก/แดช ห้ามเกิดกระสุนในตัวผู้เล่นหรือยิงจากนอกกล้องโดยไม่มีสัญญาณ
+
+ช่วงกระสุนหนาแน่นยาว 3–6 วินาทีและมีช่วงผ่อนแรงหรือ punish window อย่างน้อย 0.75 วินาที cap แนะนำคือด่าน 1/2/3/4/5 เท่ากับ 18/32/36/48/64 นัด กระสุนต้องหายเมื่อเปลี่ยน phase บอสตาย retry หรือออก arena และ Web ลดได้เฉพาะกระสุนตกแต่ง ห้ามทำลายตรรกะ safe lane
+
+### 8.1 เมทริกซ์ความหลากหลายของด่าน
+
+ด่านติดกันห้ามใช้ primary tile kit, silhouette ฉากหลัง, traversal rhythm, encounter composition หรือภาษา pattern บอสแบบเดียวกัน การเปลี่ยนสีอย่างเดียวไม่นับ `[GDD-DIVERSITY-01]`
+
+| ด่าน | Traversal/set piece | ศัตรู | Background/tiles | Pattern บอส |
+|---|---|---|---|---|
+| 1 Grassland | ทางไร่แนวนอน ช่องชลประทาน ถนนอพยพยกระดับ | Thornling + Spitter | ทุ่ง/ภูเขา/สิ่งปลูกสร้างเกษตร; grass-soil/concrete/thorn-root | fan สามทางและ thorn lane สลับช่องกว้าง |
+| 2 Forest | ปีน canopy สั้น ๆ ชั้นเห็ดพังได้และกระเป๋าสปอร์บดบัง | Spitter บนที่สูง + Maw + Thornling variant | canopy/รากห้อย/หมอก; bark/moss/fungal shelf/hollow trunk | spore arc, rotating five-way bloom, aimed burst |
+| 3 Capsule | อุโมงค์ลงลึก root lift และ arena หัวใจแคปซูล | Maw + Capsule Husk + ambush root | ซากแคปซูล/ผนังโลหะ-ชีวภาพ; shell/root/membrane | seed column ตกและเส้นรากทแยงเปลี่ยน safe platform |
+| 4 Marsh | เกาะแห้ง root raft จมและข้ามน้ำพิษตามจังหวะ | Root Skitter + marsh Spitter + Maw | wetland/conduit/น้ำพิษ; mud/reed/root raft/conduit | crossfire หลายหัว, radial ring เหลื่อม, water-lane wall |
+| 5 Nexus | combat ascent บน eye platform ที่เคลื่อนและพื้นปลอดภัยพัง | Eye Wisp + elite Capsule Husk + mixed elite | alien eye/network depth; eye membrane/neural root/core shell | spiral, aimed burst, radial ring และ bullet curtain สลับ |
+
+ทุก biome ต้องมี parallax อย่างน้อย 4 ชั้น, foreground set, landmark, tile kit ที่มี cap/corner/transition, signature hazard และ extraction treatment ทุกด่านแนะนำศัตรูใหม่หรือ variant ที่เปลี่ยนกลไกจริงพร้อม silhouette/animation/timing เฉพาะ
 
 ## 9. เนื้อเรื่อง ตัวละคร และแคมเปญ
 
@@ -124,6 +149,8 @@ NPC ปรากฏผ่าน portrait ใน briefing, debriefing และ r
 เป้าหมาย: เปิดเส้นทางอพยพผ่านไร่กลายพันธุ์ เก็บตัวอย่างแรก  
 โควตาเป้าหมาย: 4; ตัวอย่าง: 6; บอส: `thorn_matriarch`
 
+- Level design: ทางไร่เปิด → ช่องชลประทาน → ถนนอพยพยกระดับ; บอสสอน fan สามทางและช่อง thorn สลับ
+
 - Briefing: ผู้การอนันต์สั่งเปิดเส้นทาง ดร.มะลิขอตัวอย่างเป็น ช่างชัยเตือนว่าเครื่องตัด “ไม่ชอบเถาวัลย์ที่ตัดกลับ”
 - Radio 1: พบว่าพืชหลายชนิดหันตอบสัญญาณพร้อมกัน
 - Radio 2: ตัวอย่างส่งพัลส์แทนการตอบสนองเดี่ยว
@@ -137,7 +164,9 @@ NPC ปรากฏผ่าน portrait ใน briefing, debriefing และ r
 
 `level_02` / **Mutated Forest**  
 เป้าหมาย: ตามสปอร์เข้าสู่เขตกักกันป่า  
-โควตา: 6; ตัวอย่าง: 8; บอส: `maw_bloom_sovereign`
+โควตา: 5; ตัวอย่าง: 8; บอส: `maw_bloom_sovereign`
+
+- Level design: ปีน canopy, ชั้นเห็ดพังได้, กระเป๋าสปอร์; บอสใช้ spore rain, rotating bloom และ aimed seed พร้อม punish window
 
 - สปอร์ไม่ได้แพร่พันธุ์แบบสุ่ม แต่บรรทุกข้อมูลเส้นทางและคำสั่ง
 - ป่ากลายเป็นเสาอากาศชีวภาพและบีบเส้นทางผู้เล่น
@@ -152,6 +181,8 @@ NPC ปรากฏผ่าน portrait ใน briefing, debriefing และ r
 เป้าหมาย: เข้าถึงหลุมกระแทกและห้องรากใต้แคปซูล  
 โควตา: 5; ตัวอย่าง: 5; บอส: `possessed_banyan`
 
+- Level design: ลงอุโมงค์กระแทก, root lift และ capsule-heart arena; Capsule Husk เปิด weak core ตามจังหวะ บอสใช้ seed column และเส้นรากเปลี่ยนพื้นที่ปลอดภัย
+
 - ต้นไทรท้องถิ่นถูกเชื่อมเข้ากับระบบประสาทราก
 - Possessed Banyan เปลี่ยนสนามด้วยรากและเนื้อเยื่อต่างดาว
 - จุดพลิกกลางเรื่อง: Capsule 07 ไม่ใช่ยาน แต่เป็นเมล็ด รีเลย์ และเครื่องเก็บเกี่ยวดาวเคราะห์
@@ -163,7 +194,9 @@ NPC ปรากฏผ่าน portrait ใน briefing, debriefing และ r
 
 `level_04` / **Devouring Root Marsh**  
 เป้าหมาย: ตัดท่อส่งธาตุอาหารหลักใต้พื้นที่ชุ่มน้ำ  
-โควตา: 7; ตัวอย่าง: 8; บอส: `root_hydra`
+โควตา: 6; ตัวอย่าง: 8; บอส: `root_hydra`
+
+- Level design: เกาะแห้ง, root raft จมและน้ำพิษ; บอสยิง crossfire/radial ring/lane wall จากหลายหัว
 
 - น้ำและชีวมวลถูกสูบไปยังแกนกลาง
 - Root Hydra เฝ้าท่อส่งและโจมตีหลายเลน
@@ -175,7 +208,9 @@ NPC ปรากฏผ่าน portrait ใน briefing, debriefing และ r
 
 `level_05` / **Alien Eye Nexus**  
 เป้าหมาย: บุกเครือข่ายที่ตื่นเต็มที่และทำลายแกนงอก  
-โควตา: 8; ตัวอย่าง: 10; บอส: `root_core_eye`
+โควตา: 6; ตัวอย่าง: 10; บอส: `root_core_eye`
+
+- Level design: combat ascent บน eye platform และพื้นพัง; เป็นด่าน danmaku หนาแน่นที่สุดด้วย spiral/ring/aimed burst/bullet curtain แต่มี safe route แน่นอน
 
 - Root-Core Eye ใช้พลังงาน ลำราก และข้อมูลที่สะสมจากทั้งภูมิภาค
 - ทำลายเกราะราก เปิดแกน และหยุดการงอก

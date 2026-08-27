@@ -58,8 +58,8 @@ authoritative. `[GDD-VISION-01]`
 
 ### 2.2 Session and Campaign Targets
 
-- One mission: 10–15 minutes on a first successful clear
-- First campaign clear: approximately 60–90 minutes including menus and retries
+- One mission: 5–7 minutes from player control to successful extraction
+- First campaign clear: approximately 35–50 minutes including menus and normal retries
 - Replay value: sample collection, operator mastery, improved clear consistency,
   and using all four operators
 - One tuned launch difficulty
@@ -68,7 +68,7 @@ authoritative. `[GDD-VISION-01]`
 
 - Five linear campaign missions
 - Four selectable operators
-- Five standard enemy families
+- Six standard enemy families, with one new family or mechanically distinct variant introduced in every mission
 - One dedicated boss in every mission
 - Threat-clear, boss, and extraction mission phases
 - Persistent Base Technology and Operator Mastery
@@ -120,6 +120,25 @@ Every mission uses three explicit phases: `[GDD-LOOP-01]`
 Samples are optional for mission completion but are the only persistent upgrade
 currency. Failure restarts the mission; collected samples are banked only after
 successful extraction.
+
+### 4.3 Mission Pacing Contract
+
+The critical path of every mission targets **5–7 minutes** for a competent
+first-time player, excluding briefing and debriefing. `[GDD-LEVEL-01]`
+
+| Segment | Target | Purpose |
+|---|---:|---|
+| Entry and mechanic introduction | 30–45 seconds | Establish the biome, route and first readable threat |
+| Encounter A | 60–90 seconds | Teach the level's signature enemy/hazard interaction |
+| Traversal set piece | 60–90 seconds | Change elevation, route shape or environmental pressure |
+| Encounter B and boss approach | 60–90 seconds | Remix threats and deliver the final radio beat |
+| Boss | 75–120 seconds | Two or three concise phases with recovery windows |
+| Extraction | 15–30 seconds | Release tension, collect nearby samples and exit |
+
+Each level contains three authored gameplay beats before its boss rather than a
+long repeated corridor. Optional samples may reward a short side route but may
+not add more than 45 seconds to the critical path. Boss health is tuned around
+pattern mastery rather than extended damage sponging.
 
 ## 5. Controls and Player Rules
 
@@ -216,6 +235,7 @@ Exact capstone values are balance data, not new active abilities.
 | `thornling` | Basic melee pursuer | Low body and forward contact attack | Level 1 |
 | `spore_spitter` | Ranged pressure | Swells before firing a visible projectile | Level 1 |
 | `carnivorous_maw` | Durable bruiser | Opens before a short-range bite | Level 2 |
+| `capsule_husk` | Armored lane controller | Shell opens to expose a weak core after a charge | Level 3 |
 | `root_skitter` | Ambush/flanker | Ground disturbance precedes emergence | Level 4 |
 | `eye_wisp` | Floating ranged support | Eye glow precedes aimed shot | Level 5 |
 
@@ -232,6 +252,48 @@ coloring or scaling a single placeholder sprite. `[GDD-ENEMY-01]`
 - Boss health and phase changes remain visible without obscuring the player.
 - A boss may reuse systemic projectiles or hazards, but not another boss's full
   visual identity. `[GDD-BOSS-01]`
+
+Selected bosses use **Touhou-inspired, platformer-readable danmaku**: authored
+bullet formations with recognizable rhythm and safe lanes, not uncontrolled
+random projectile spam. `[GDD-BULLET-01]`
+
+- Every pattern has a named ID, preview tell, active interval, recovery window,
+  projectile speed band, active-projectile cap and deterministic cleanup rule.
+- Bullets may form fans, aimed bursts, rotating rings, alternating lane walls,
+  arcs or spirals. Randomness may vary an angle or starting side but may not
+  remove the guaranteed safe route.
+- The safe route is at least 1.75 player widths and accounts for jump, fall and
+  dash recovery. No projectile may spawn inside the player or hit from beyond
+  the visible camera without an on-screen tell.
+- A dense pattern lasts 3–6 seconds, followed by at least 0.75 seconds of
+  reduced pressure or a punish window. Melee contact and floor hazards may not
+  close every bullet-safe route simultaneously.
+- Suggested active caps at 1280 × 720 are 18 for Level 1, 32 for Level 2, 36
+  for Level 3, 48 for Level 4 and 64 for Level 5. Lower Web caps may reduce
+  decorative bullets, never the pattern's safe-lane logic.
+- Projectiles clear on phase transition, boss defeat, retry and arena exit.
+  High-contrast outlines and color/shape coding must remain readable without
+  relying only on red/green differences.
+
+### 8.3 Level Diversity Matrix
+
+No two consecutive levels may reuse the same primary tile kit, background
+silhouette, traversal rhythm, encounter composition or boss projectile grammar.
+Palette swaps do not satisfy this requirement. `[GDD-DIVERSITY-01]`
+
+| Level | Traversal/set-piece identity | Enemy composition | Background and tile identity | Boss projectile identity |
+|---|---|---|---|---|
+| 1 — Contaminated Grassland | Open horizontal farm route, irrigation gaps and one elevated evacuation-road sequence | Thornling melee packs plus Spitter crossfire | Sunlit fields, distant hills, farm structures; grass/soil, irrigation concrete and thorn-root tiles | Tutorial three-way fans and alternating thorn lanes with large safe gaps |
+| 2 — Mutated Forest | Short vertical canopy climb, collapsing fungal shelves and spore-visibility pockets | Spitters at elevation, Carnivorous Maws in confined clearings, aggressive Thornling variant | Dense canopy silhouettes, hanging roots and mist; bark, moss, fungal shelf and hollow-trunk tiles | Arcing spore rain, rotating five-way blooms and aimed seed bursts |
+| 3 — Roots Beneath Capsule 07 | Descending impact tunnel, moving root lifts and an arena that opens the capsule heart | Carnivorous Maws, armored Capsule Husks and ambush roots | Capsule wreck landmark, metal-organic walls and underground pulse; shell, fibrous root and living membrane tiles | Falling seed columns and diagonal root lines that reshape platform-safe zones |
+| 4 — Devouring Root Marsh | Alternating dry islands, sinking root rafts and toxic-water timing | Root Skitters, marsh Spitter variant and conduit-fed Maw encounters | Wetland horizon, conduit landmark and reflective toxic water; mud, reed mat, root raft and conduit tiles | Hydra-head crossfire, offset radial rings and alternating water-lane walls |
+| 5 — Alien Eye Nexus | Compact combat ascent through shifting eye platforms and collapsing safe ground | Eye Wisps, elite Capsule Husks and advanced mixed-family encounters | Alien-eye landmark, pulsing network layers and impossible organic depth; eye membrane, neural root and core-shell tiles | Dense rotating spirals, aimed bursts, radial rings and final alternating bullet curtains |
+
+Each biome ships with at least four parallax layers, one foreground framing set,
+one unmistakable landmark, one primary tile kit with caps/corners/transitions,
+one signature hazard and one extraction treatment. Each mission introduces at
+least one new enemy family or mechanically distinct variant with unique
+silhouette, animation and attack timing.
 
 ## 9. Story, Cast, and Campaign
 
@@ -270,8 +332,13 @@ is no explorable NPC hub. `[GDD-NARRATIVE-01]`
 The operator reopens the evacuation route through mutated farmland. The first
 samples prove that separate plants are responding to one coordinated pulse.
 
-Boss attacks: telegraphed ground thorns, a short root charge, and a half-health
-thorn volley. The fight teaches jumping and dashing through clear tells.
+**Level-design identity:** open farm lanes lead into an irrigation-gap set piece
+and an elevated evacuation road. Thornlings pressure movement while Spitters
+teach crossfire and safe-lane recognition.
+
+Boss attacks: telegraphed ground thorns, a short root charge, tutorial
+three-way fans and alternating thorn lanes. The fight teaches jumping and
+dashing through deterministic gaps.
 
 **Dialogue anchors:**
 
@@ -290,7 +357,7 @@ thorn volley. The fight teaches jumping and dashing through clear tells.
 ### 9.4 Act II — Mutated Forest
 
 **Mission ID:** `level_02`  
-**Threat quota target:** 6  
+**Threat quota target:** 5
 **Boss:** Maw Bloom Sovereign (`boss_maw_sovereign`)  
 **Samples target:** 8
 
@@ -298,8 +365,13 @@ Airborne spores lead the team into the containment forest. Mali discovers that
 the spores carry encoded biological instructions. The source is beneath the
 Capsule 07 impact site.
 
-Boss attacks: bite cone, arcing spore pods, root slam, and a half-health summon
-of lesser growths.
+**Level-design identity:** a short vertical canopy climb connects fungal shelves
+and low-visibility spore pockets. Elevated Spitters control space while Maws
+force decisive close-range movement.
+
+Boss attacks: bite cone, arcing spore rain, rotating five-way bloom bursts,
+aimed seed volleys and a short half-health summon. Each dense formation ends in
+a clear melee punish window.
 
 **Dialogue anchors:**
 
@@ -327,8 +399,14 @@ A banyan has fused with the alien structure. Destroying it exposes the midpoint
 truth: Capsule 07 is a seed, relay, and planetary harvester—not a spacecraft.
 The surviving network withdraws toward the marsh.
 
-Boss attacks: sweeping roots, falling spore clusters, a mobile trunk charge,
-and an exposed-heart vulnerability window.
+**Level-design identity:** the route descends through a metal-organic impact
+tunnel, uses moving root lifts, and ends in a capsule-heart arena. Armored
+Capsule Husks create timed weak-point encounters distinct from forest combat.
+
+Boss attacks: sweeping roots, falling seed columns, diagonal root lines, a
+mobile trunk charge and an exposed-heart vulnerability window. Arena-control
+patterns reshape safe platforms without becoming the campaign's densest
+danmaku encounter.
 
 **Dialogue anchors:**
 
@@ -348,7 +426,7 @@ and an exposed-heart vulnerability window.
 ### 9.6 Act IV — Devouring Root Marsh
 
 **Mission ID:** `level_04`  
-**Threat quota target:** 7  
+**Threat quota target:** 6
 **Boss:** Root Hydra (`boss_root_hydra`)  
 **Samples target:** 8
 
@@ -356,8 +434,13 @@ The operator cuts through a wetland transformed into the network's main
 nutrient conduit. The Root Hydra protects the flow. After it falls, the team
 learns that harvested biomass is awakening an alien sensory core.
 
-Boss attacks: three independently telegraphed tendrils, toxic water zones,
-root sweeps, and a vulnerable central core after tendril breaks.
+**Level-design identity:** dry islands alternate with sinking root rafts and
+timed toxic-water crossings. Root Skitters attack from disturbed mud while
+marsh Spitters use slower arcing shots around conduit structures.
+
+Boss attacks: independently telegraphed tendrils, toxic water zones,
+Hydra-head crossfire, offset radial rings and alternating water-lane walls. A
+central core becomes vulnerable after head breaks.
 
 **Dialogue anchors:**
 
@@ -376,7 +459,7 @@ root sweeps, and a vulnerable central core after tendril breaks.
 ### 9.7 Act V — Alien Eye Nexus
 
 **Mission ID:** `level_05`  
-**Threat quota target:** 8  
+**Threat quota target:** 6
 **Boss:** Root-Core Eye (`boss_root_core_eye`)  
 **Samples target:** 10
 
@@ -384,8 +467,14 @@ The operator assaults the awakened alien nexus. The eye uses the full network
 as its body. Destroying its germination core begins ecological recovery, but a
 dormant signal fragment remains as a restrained continuation hook.
 
-Boss phases: aimed eye beam and wisps; floor-root patterns and collapsing safe
-zones; combined attacks with a final exposed-core burn phase.
+**Level-design identity:** a compact combat ascent uses shifting eye platforms,
+collapsing safe ground and advanced mixed-family encounters. Eye Wisps add
+vertical aimed pressure not present in earlier missions.
+
+Boss phases: aimed beam and Wisp support; rotating spirals and radial rings;
+floor-root patterns with alternating bullet curtains; then a short exposed-core
+burn phase. This is the campaign's densest Touhou-inspired encounter, but every
+pattern preserves a deterministic platform-safe route.
 
 **Dialogue anchors:**
 
