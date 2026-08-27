@@ -70,8 +70,8 @@ Every production entry must ultimately record source/runtime paths, dimensions, 
 
 | Asset ID | Family | Priority | Runtime/source status | Required set | State |
 |---|---|---:|---|---|---|
-| ENEMY-THORNLING | Thornling | P0 | Shared plant placeholder | Idle/move, attack, hurt, death, telegraph, hit VFX | Placeholder |
-| ENEMY-SPITTER | Spitter | P0 | Shared plant placeholder + projectile | Idle/move, ranged attack, hurt, death, projectile, impact/telegraph | Placeholder |
+| ENEMY-THORNLING | Thornling | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/thornling.png`; runtime scale and baseline approved | Idle/move, attack, hurt, death, telegraph, hit VFX | Integrated |
+| ENEMY-SPITTER | Spitter | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/spitter.png`; runtime scale and baseline approved | Idle/move, ranged attack, hurt, death, projectile, impact/telegraph | Integrated |
 | ENEMY-MAW | Maw | P0 | Shared plant placeholder | Idle/move, bite, hurt, death, anticipation/recovery | Placeholder |
 | ENEMY-ROOT-SKITTER | Root Skitter | P1 | None | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Missing |
 | ENEMY-EYE-WISP | Eye Wisp | P1 | None | Fly, charge, beam/bolt, hurt, death, aerial tell | Missing |

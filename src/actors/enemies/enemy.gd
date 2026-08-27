@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://Scenes/gameplay/enemy_projectile.tscn")
+const THORNLING_TEXTURE := preload("res://Assets/Enemies/Standard/thornling.png")
+const SPITTER_TEXTURE := preload("res://Assets/Enemies/Standard/spitter.png")
 const THORN_MATRIARCH_TEXTURE := preload("res://Assets/Enemies/Bosses/thorn_matriarch.png")
 
 @onready var visual: Sprite2D = $Visual
@@ -28,11 +30,21 @@ func configure(type_id: String) -> void:
 	if is_boss:
 		add_to_group("Boss")
 	match enemy_type:
+		"thornling":
+			move_speed = 85.0
+			health.max_health = 3
+			visual.texture = THORNLING_TEXTURE
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.035, 0.035)
+			visual.position = Vector2(0.0, 1.5)
 		"spitter":
 			move_speed = 35.0
 			health.max_health = 5
 			contact_damage = 2
-			visual.modulate = Color("b7d46c")
+			visual.texture = SPITTER_TEXTURE
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.04, 0.04)
+			visual.position = Vector2(0.0, -1.5)
 		"maw":
 			move_speed = 70.0
 			health.max_health = 8

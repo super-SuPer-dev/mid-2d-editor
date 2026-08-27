@@ -55,8 +55,8 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 
 | Asset ID | ชุดที่ต้องมี | สถานะ |
 |---|---|---|
-| ENEMY-THORNLING | move/attack/hurt/death/telegraph/hit VFX | Placeholder |
-| ENEMY-SPITTER | move/ranged/hurt/death/projectile/impact | Placeholder |
+| ENEMY-THORNLING | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/attack/hurt/death/telegraph/hit VFX | Integrated |
+| ENEMY-SPITTER | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/ranged/hurt/death/projectile/impact | Integrated |
 | ENEMY-MAW | move/bite/hurt/death/anticipation/recovery | Placeholder |
 | ENEMY-ROOT-SKITTER | burrow/emerge/scuttle/attack/hurt/death/tell | Missing |
 | ENEMY-EYE-WISP | fly/charge/beam/bolt/hurt/death/tell | Missing |
