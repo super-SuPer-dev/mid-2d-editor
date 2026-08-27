@@ -61,7 +61,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | ENEMY-SPITTER | มะกรูด | integrate idle anchor และ baseline แล้ว; ต้อง retrofit fruit cue และยังขาด move/ranged/hurt/death/projectile/impact | Integrated |
 | ENEMY-MAW | มังคุดอ่อน | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/maw/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ fruit-read review และ integration | Review |
 | ENEMY-ROOT-SKITTER | สละ | มี source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/root_skitter/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ runtime integration | Review |
-| ENEMY-EYE-WISP | ลำไย | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/eye_wisp_idle_v2.png`; รอ fruit-read review และแอนิเมชัน | Review |
+| ENEMY-EYE-WISP | ลำไย | มี body source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/eye_wisp/`; normalized 4 x 1, cell 700 x 800, lower visual guide 740; ยังขาด projectile/VFX และ runtime integration | Review |
 | ENEMY-CAPSULE-HUSK | กระท้อน | มี source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/capsule_husk/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ runtime integration | Review |
 
 ## 5. บอส
