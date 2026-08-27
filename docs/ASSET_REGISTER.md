@@ -26,6 +26,11 @@ Priorities: **P0** blocks the core campaign or legal release; **P1** is required
 
 Every production entry must ultimately record source/runtime paths, dimensions, format, dependencies, author/source/license, acceptance criteria, evidence, localization impact and current state. Unknown provenance prevents Release-ready status.
 
+The campaign-wide visual source reference `ARTREF-CAMPAIGN-ANCHOR` is in Review
+at `art_refs/generated_campaign_style_anchor.png`. It establishes five-biome
+palette, depth, landmark, tile-silhouette and alien-organic language only; it is
+not a runtime asset. Its generation record is stored beside the image.
+
 ## 2. Technical Acceptance Rules
 
 [ASSET-TECH-01]
@@ -72,10 +77,10 @@ Every production entry must ultimately record source/runtime paths, dimensions, 
 |---|---|---:|---|---|---|
 | ENEMY-THORNLING | Thornling | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/thornling.png`; runtime scale and baseline approved | Idle/move, attack, hurt, death, telegraph, hit VFX | Integrated |
 | ENEMY-SPITTER | Spitter | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/spitter.png`; runtime scale and baseline approved | Idle/move, ranged attack, hurt, death, projectile, impact/telegraph | Integrated |
-| ENEMY-MAW | Maw | P0 | Shared plant placeholder | Idle/move, bite, hurt, death, anticipation/recovery | Placeholder |
-| ENEMY-ROOT-SKITTER | Root Skitter | P1 | None | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Missing |
-| ENEMY-EYE-WISP | Eye Wisp | P1 | None | Fly, charge, beam/bolt, hurt, death, aerial tell | Missing |
-| ENEMY-CAPSULE-HUSK | Capsule Husk | P0 | None | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Missing |
+| ENEMY-MAW | Maw | P0 | True-alpha idle candidate at `Generated-Assets/enemies/maw_idle_v2.png`; shared plant remains the runtime placeholder | Idle/move, bite, hurt, death, anticipation/recovery | Review |
+| ENEMY-ROOT-SKITTER | Root Skitter | P1 | True-alpha idle candidate at `Generated-Assets/enemies/root_skitter_idle_v2.png`; not integrated | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Review |
+| ENEMY-EYE-WISP | Eye Wisp | P1 | True-alpha idle candidate at `Generated-Assets/enemies/eye_wisp_idle_v2.png`; not integrated | Fly, charge, beam/bolt, hurt, death, aerial tell | Review |
+| ENEMY-CAPSULE-HUSK | Capsule Husk | P0 | True-alpha idle candidate at `Generated-Assets/enemies/capsule_husk_idle_v2.png`; not integrated | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Review |
 
 Production sets must expose consistent damage/hurt timing while preserving distinct silhouettes and attack tells. Color swaps alone do not count as separate families.
 

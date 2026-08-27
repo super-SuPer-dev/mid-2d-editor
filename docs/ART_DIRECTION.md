@@ -9,7 +9,11 @@ horizon, middle vegetation, and transparent foreground. The reusable scenes
 live under `Scenes/backgrounds/`; layer textures and scroll scales are editable
 directly in the Inspector.
 
-The `art_refs/` boards define the production target. The game should feel like
+The `art_refs/` boards define the production target. The generated five-biome
+campaign anchor is stored at
+`art_refs/generated_campaign_style_anchor.png`; its prompt and provenance are
+recorded beside it. It is a source reference only and must never be imported as
+a runtime background. The game should feel like
 a grounded Thai rural survival story disrupted by alien biology—not a clean
 space-station adventure.
 
@@ -52,6 +56,12 @@ The following are outside the art direction: photorealism, realistic skin
 texture, painterly concept-art brushwork, soft airbrushing, vector-smooth
 characters, 3D renders, PBR materials, cinematic depth of field, and generated
 images that only imitate pixels with a noisy texture overlay.
+
+For isolated generated sprites, prompts should stay concise: identify the
+subject, facing direction, gameplay scale, reference role, pose, no baked text,
+and `Transparent background.` Do not describe checkerboards or transparency
+failure modes in the generation prompt; technical alpha, matte and edge checks
+belong in post-generation validation.
 
 Every source file declares its logical pixel canvas. A typical portrait may be
 authored at 256 × 256 logical pixels and displayed at an integer multiple; a

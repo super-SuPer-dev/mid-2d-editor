@@ -21,6 +21,8 @@
 
 P0 ขวางแคมเปญหรือกฎหมาย/การวางจำหน่าย, P1 จำเป็นต่อคุณภาพเปิดตัว, P2 เป็น polish ที่เลื่อนได้เมื่ออนุมัติขอบเขตเท่านั้น
 
+Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อยู่สถานะ Review ที่ `art_refs/generated_campaign_style_anchor.png` ใช้กำหนด palette, depth, landmark, tile silhouette และภาษาชีวภาพต่างดาวของห้า biome เท่านั้น ห้ามใช้เป็น runtime asset และมี generation record อยู่ข้างไฟล์ภาพ
+
 ## 2. กฎเทคนิค
 
 [ASSET-TECH-01]
@@ -57,10 +59,10 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 |---|---|---|
 | ENEMY-THORNLING | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/attack/hurt/death/telegraph/hit VFX | Integrated |
 | ENEMY-SPITTER | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/ranged/hurt/death/projectile/impact | Integrated |
-| ENEMY-MAW | move/bite/hurt/death/anticipation/recovery | Placeholder |
-| ENEMY-ROOT-SKITTER | burrow/emerge/scuttle/attack/hurt/death/tell | Missing |
-| ENEMY-EYE-WISP | fly/charge/beam/bolt/hurt/death/tell | Missing |
-| ENEMY-CAPSULE-HUSK | idle/move/armored charge/exposed-core attack/hurt/death/shell-break tell | Missing |
+| ENEMY-MAW | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/maw_idle_v2.png`; ยังใช้ placeholder ใน runtime และยังขาด move/bite/hurt/death/anticipation/recovery | Review |
+| ENEMY-ROOT-SKITTER | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/root_skitter_idle_v2.png`; ยังขาด burrow/emerge/scuttle/attack/hurt/death/tell | Review |
+| ENEMY-EYE-WISP | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/eye_wisp_idle_v2.png`; ยังขาด fly/charge/beam/bolt/hurt/death/tell | Review |
+| ENEMY-CAPSULE-HUSK | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/capsule_husk_idle_v2.png`; ยังขาด idle/move/armored charge/exposed-core attack/hurt/death/shell-break tell | Review |
 
 ## 5. บอส
 
