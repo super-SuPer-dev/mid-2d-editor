@@ -90,7 +90,7 @@ Production sets must expose consistent damage/hurt timing while preserving disti
 
 | Asset ID | Level | Fruit identity | Priority | Required production package | State |
 |---|---:|---|---:|---|---|
-| BOSS-THORN-MATRIARCH | 1 | Rambutan queen cluster | P0 | Detailed true-alpha nine-action body source set is in Review at `Generated-Assets/bosses/thorn_matriarch/`: armored/exposed idles, phase break, sweep tell/attack, mine/fan casts, hurt and death on a normalized 1200 x 900 cell contract; runtime integration, mines, hair-thorn/lane hazards, portrait/HUD, final VFX/SFX and gameplay validation remain | Review |
+| BOSS-THORN-MATRIARCH | 1 | Rambutan queen cluster | P0 | Detailed true-alpha nine-action body set plus rolling mine/burst, spinning hair-thorn/impact and telegraphed lane-hazard source sets are in Review at `Generated-Assets/bosses/thorn_matriarch/`; runtime integration, portrait/HUD, remaining final VFX/SFX and gameplay validation remain | Review |
 | BOSS-MAW-SOVEREIGN | 2 | Durian crown + mangosteen anatomy | P0 | Multi-phase armored rind/bloom set, spore rain, rotating five-way and aimed seed-burst projectiles, tells, portrait treatment, health bar, death sequence, VFX/SFX | Missing |
 | BOSS-POSSESSED-BANYAN | 3 | Jackfruit + banyan fig | P0 | Current generic scaled behavior replaced by trunk/fibrous-fruit/possession phases, seed-column and diagonal-root-line projectiles, sticky sap zones, tells, portrait, death sequence | Placeholder |
 | BOSS-ROOT-HYDRA | 4 | Nipa-palm fruit cluster | P0 | Multiple segmented fruit heads/root lanes, crossfire/ring/lane-wall projectiles, conduit hazards, phase damage states, portrait, death sequence | Missing |
