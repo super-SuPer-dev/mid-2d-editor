@@ -31,6 +31,7 @@
 - [DEV-PRINCIPLE-06] เขียนอังกฤษก่อนและส่งภาษาไทยใน feature slice เดียวกัน
 - [DEV-PRINCIPLE-07] ทุกด่านออกแบบให้จบใน 5–7 นาที และต้องมีจังหวะ traversal, encounter mix, enemy roster, tile kit, background stack และรูปแบบบอสที่แตกต่างกัน
 - [DEV-PRINCIPLE-08] Hollow Knight และ Castlevania เป็น reference หลักด้าน feel; Touhou เป็น reference รองเฉพาะ projectile phase บางช่วง วิเคราะห์หลักการได้แต่ production content ต้องเป็นต้นฉบับทั้งภาพ กลไก และเนื้อเรื่อง
+- [DEV-PRINCIPLE-09] รูปทรงผลไม้ท้องถิ่นไทยเป็นธีมหลักของศัตรูและบอส ทุกตระกูลต้องล็อกผลไม้อ้างอิง silhouette วัสดุ และกลไกก่อนผลิตแอนิเมชัน ห้ามลดความอ่านง่ายในการต่อสู้หรือใช้เพียงการย้อมสี
 
 ## 3. สัญญางาน Agent
 
@@ -104,17 +105,19 @@ redesign Contaminated Grassland ให้มีสามช่วงก่อน
 
 [DEV-LEVEL-01] ทุกด่านส่งผ่าน milestone เดียวกันห้าขั้น: timing graybox, enemy/hazard pass, boss-pattern laboratory, biome art pass และ integrated timing/polish review
 
-| ด่าน | เอกลักษณ์ traversal/encounter | เอกลักษณ์กระสุนบอส | ความหลากหลายภาพที่ต้องมี |
-|---|---|---|---|
-| 1 — Contaminated Grassland | คลองชลประทาน หลังคาฟาร์มเตี้ย และทางพืชผลทำลายได้ | fan หนามและ lane ปิดพร้อม recovery กว้าง | ชุดหญ้า/ดิน/คอนกรีต, prop ชนบท, parallax 4 ชั้น และ landmark ควันจุดตก |
-| 2 — Mutated Forest | ทาง canopy แนวตั้ง ชั้นเห็ด และการตัดสินใจผ่านฝนสปอร์ | spore rain, rotating five-way, aimed burst | ชุดเปลือกไม้/มอส/เห็ด, canopy หนา, สปอร์เรืองแสง และ Maw Bloom landmark |
-| 3 — Roots Beneath Capsule 07 | อุโมงค์จุดตก root lift และห้องต่อสู้สั้น | seed columns และ diagonal root lines | ชุดเปลือก capsule/root/membrane, ชั้นใต้ดิน และ seed landmark |
-| 4 — Devouring Root Marsh | เกาะจม แพรากเคลื่อนที่ และเส้นทางสลับตามน้ำพิษ | multi-head crossfire, expanding rings, moving lane walls | ชุดโคลน/กก/conduit, หมอก/น้ำหลายชั้น และ nutrient-conduit landmark |
-| 5 — Alien Eye Nexus | eye platform เปลี่ยนตำแหน่ง elite remix และ final ascent กระชับ | spirals, aimed rings, bullet curtains พร้อม safe route คงที่ | ชุด membrane/neural-root/core, ชั้นลึกเต้นเป็นจังหวะ และ Root-Core Eye landmark |
+| ด่าน | เอกลักษณ์ traversal/encounter | เอกลักษณ์ผลไม้กลายพันธุ์ | เอกลักษณ์กระสุนบอส | ความหลากหลายภาพที่ต้องมี |
+|---|---|---|---|---|
+| 1 — Contaminated Grassland | คลองชลประทาน หลังคาฟาร์มเตี้ย และทางพืชผลทำลายได้ | Thornling เงาะ + Spitter มะกรูด | fan ขนหนามและ lane เมล็ดพร้อม recovery กว้าง | ชุดหญ้า/ดิน/คอนกรีต, prop ชนบท, parallax 4 ชั้น และ landmark ควันจุดตก |
+| 2 — Mutated Forest | ทาง canopy แนวตั้ง ชั้นเห็ด และการตัดสินใจผ่านฝนสปอร์ | Maw มังคุดอ่อน + บอสมงกุฎทุเรียน | spore rain, rotating five-way, aimed seed burst | ชุดเปลือกไม้/มอส/เห็ด, canopy หนา, สปอร์เรืองแสง และ Maw Bloom landmark |
+| 3 — Roots Beneath Capsule 07 | อุโมงค์จุดตก root lift และห้องต่อสู้สั้น | Capsule Husk กระท้อน + บอสขนุน-ไทร | เสาเมล็ดขนุนและ diagonal root lines | ชุดเปลือก capsule/root/membrane, ชั้นใต้ดิน และ seed landmark |
+| 4 — Devouring Root Marsh | เกาะจม แพรากเคลื่อนที่ และเส้นทางสลับตามน้ำพิษ | Root Skitter สละ + Hydra พวงลูกจาก | multi-head cluster crossfire, expanding rings, moving lane walls | ชุดโคลน/กก/conduit, หมอก/น้ำหลายชั้น และ nutrient-conduit landmark |
+| 5 — Alien Eye Nexus | eye platform เปลี่ยนตำแหน่ง elite remix และ final ascent กระชับ | Eye Wisp ลำไย + Root-Core Eye กลีบแก้วมังกร | seed-eye spirals, aimed rings, bullet curtains | ชุด membrane/neural-root/core, ชั้นลึกเต้นเป็นจังหวะ และ Root-Core Eye landmark |
 
 ก่อนเริ่ม final art ทุก graybox ต้องบรรจุ entry, สามช่วงก่อนบอส, บอส 75–120 วินาที และ extraction ภายใน 5–7 นาที เส้นทาง sample เสริมเพิ่มได้ไม่เกิน 45 วินาที ห้ามเพิ่ม HP, ระยะเดิน หรือ wave ซ้ำเพียงเพื่อถ่วงเวลา
 
 ข้อมูล boss pattern ต้องมี `pattern_id`, phase, telegraph duration, active duration, recovery duration, projectile speed/range, projectile cap, spawn origins, safe-route rule และ cleanup event ใช้ cap ตาม [GDD-BULLET-01] และล้างกระสุนทั้งหมดเมื่อเปลี่ยน phase, บอสตาย, retry หรือออก scene
+
+งาน asset ศัตรู/บอสทุกชิ้นต้องระบุผลไม้อ้างอิงหลักและอธิบายว่าเปลือก เมล็ด เนื้อ กลีบเลี้ยง พวง ยาง หรือรากช่วย silhouette, telegraph และการโจมตีอย่างไร Human art review ต้องปฏิเสธงานพืชต่างดาวทั่วไปก่อนผลิตแอนิเมชันเต็ม และควรเติม fruit cue ให้แอนิเมชันที่อนุมัติแล้วก่อนทิ้งทำใหม่
 
 ## 6. Workstream และหลักฐาน
 

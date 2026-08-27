@@ -36,6 +36,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 - [DEV-PRINCIPLE-06] English content is written first; Thai content is delivered in the same feature slice.
 - [DEV-PRINCIPLE-07] Every mission is authored for a 5–7 minute completion target and must have a distinct traversal rhythm, encounter mix, enemy roster, tile kit, background stack and boss pattern identity.
 - [DEV-PRINCIPLE-08] Hollow Knight and Castlevania are the primary feel references; Touhou is secondary and applies only to selected projectile phases. Reference analysis may identify principles, but production content must remain visually, mechanically and narratively original.
+- [DEV-PRINCIPLE-09] Thai local fruit morphology is the primary enemy and boss theme. Every family locks one fruit reference, silhouette, material language and mechanic before animation production; fruit recognition may not reduce combat readability or become a palette-only variant.
 
 ## 3. Agentic Task Contract
 
@@ -62,7 +63,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 [DEV-GATE-00]
 
 **Inputs:** Current prototype, old design notes, the rewritten GDD, current asset directories.  
-**Work:** Finalize English documents and Thai companions; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve the inspiration hierarchy, originality boundaries, glossary terms, five-act progression, the 5–7 minute mission budget, biome diversity matrix, boss pattern IDs and per-level projectile caps.
+**Work:** Finalize English documents and Thai companions; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve the inspiration hierarchy, originality boundaries, glossary terms, five-act progression, the 5–7 minute mission budget, Thai-fruit mutation matrix, biome diversity matrix, boss pattern IDs and per-level projectile caps.
 **Exit criteria:**
 
 - All eight documents exist and cross-link correctly.
@@ -153,17 +154,24 @@ Art concepts, music exploration and translation drafting may proceed in parallel
 
 [DEV-LEVEL-01] Each level is delivered through the same five milestones: timing graybox, enemy/hazard pass, boss-pattern laboratory, biome art pass, and integrated timing/polish review.
 
-| Level | Traversal and encounter identity | Boss projectile identity | Required visual diversity |
-|---|---|---|---|
-| 1 — Contaminated Grassland | Irrigation channels, low farm roofs and destructible crop lanes; three teaching beats | Thorn fans and closing lanes with generous recovery | Grass/soil/concrete tile kit, rural props, four-layer farmland parallax and crash-smoke landmark |
-| 2 — Mutated Forest | Vertical canopy routes, fungal shelves and falling-spore decisions | Spore rain, rotating five-way volleys and player-aimed bursts | Bark/moss/fungal tile kit, dense canopy layers, luminous spores and Maw Bloom landmark |
-| 3 — Roots Beneath Capsule 07 | Impact tunnels, root lifts and short chamber locks | Seed columns and diagonal root lines supporting arena control | Capsule shell/root/membrane kit, subterranean depth layers and exposed seed landmark |
-| 4 — Devouring Root Marsh | Sinking islands, moving root rafts and toxic-water route swaps | Multi-head crossfire, expanding rings and moving lane walls | Mud/reed/conduit kit, mist/water parallax and nutrient-conduit landmark |
-| 5 — Alien Eye Nexus | Shifting eye platforms, elite remixes and a compact final ascent | Spirals, aimed rings and bullet curtains with deterministic safe routes | Membrane/neural-root/core kit, pulsing depth layers and the Root-Core Eye landmark |
+| Level | Traversal and encounter identity | Fruit mutation identity | Boss projectile identity | Required visual diversity |
+|---|---|---|---|---|
+| 1 — Contaminated Grassland | Irrigation channels, low farm roofs and destructible crop lanes; three teaching beats | Rambutan Thornlings and makrut-lime Spitters | Hair-thorn fans and citrus-seed lanes with generous recovery | Grass/soil/concrete tile kit, rural props, four-layer farmland parallax and crash-smoke landmark |
+| 2 — Mutated Forest | Vertical canopy routes, fungal shelves and falling-spore decisions | Young-mangosteen Maws; durian-crown Sovereign | Spore rain, rotating five-way volleys and player-aimed seed bursts | Bark/moss/fungal tile kit, dense canopy layers, luminous spores and Maw Bloom landmark |
+| 3 — Roots Beneath Capsule 07 | Impact tunnels, root lifts and short chamber locks | Santol Capsule Husks and jackfruit-banyan boss | Jackfruit seed columns and diagonal root lines supporting arena control | Capsule shell/root/membrane kit, subterranean depth layers and exposed seed landmark |
+| 4 — Devouring Root Marsh | Sinking islands, moving root rafts and toxic-water route swaps | Salak Root Skitters and nipa-palm Hydra | Multi-head cluster crossfire, expanding rings and moving water-lane walls | Mud/reed/conduit kit, mist/water parallax and nutrient-conduit landmark |
+| 5 — Alien Eye Nexus | Shifting eye platforms, elite remixes and a compact final ascent | Longan Eye Wisps and dragon-fruit-bract Root-Core Eye | Seed-eye spirals, aimed rings and bullet curtains with deterministic safe routes | Membrane/neural-root/core kit, pulsing depth layers and the Root-Core Eye landmark |
 
 Every graybox must fit entry, three authored pre-boss beats, a 75–120 second boss and extraction inside the 5–7 minute target before final art begins. Optional sample routes may add no more than 45 seconds. Enemy health, travel distance and repeated waves may not be increased merely to fill time.
 
 Boss pattern data must expose `pattern_id`, phase, telegraph duration, active duration, recovery duration, projectile speed/range, projectile cap, spawn origins, safe-route rule and cleanup event. Pattern tests use the level caps defined by [GDD-BULLET-01] and must clear all bullets on phase change, death, retry and scene exit.
+
+Enemy and boss asset tasks must name the primary fruit reference and identify
+which rind, seed, flesh, calyx, cluster, sap or root traits support silhouette,
+telegraph and attack behavior. Human art review confirms cultural
+recognizability and rejects generic alien-plant designs before full animation.
+Previously approved animation is revised with targeted fruit cues where
+possible rather than discarded automatically.
 
 ## 6. Workstreams and Ownership Evidence
 

@@ -73,14 +73,14 @@ not a runtime asset. Its generation record is stored beside the image.
 
 [ASSET-ENEMY-01]
 
-| Asset ID | Family | Priority | Runtime/source status | Required set | State |
-|---|---|---:|---|---|---|
-| ENEMY-THORNLING | Thornling | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/thornling.png`; runtime scale and baseline approved | Idle/move, attack, hurt, death, telegraph, hit VFX | Integrated |
-| ENEMY-SPITTER | Spitter | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/spitter.png`; runtime scale and baseline approved | Idle/move, ranged attack, hurt, death, projectile, impact/telegraph | Integrated |
-| ENEMY-MAW | Maw | P0 | Detailed true-alpha six-action source set at `Generated-Assets/enemies/maw/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; shared plant remains the runtime placeholder | Idle/move, bite, hurt, death, anticipation/recovery | Review |
-| ENEMY-ROOT-SKITTER | Root Skitter | P1 | True-alpha idle candidate at `Generated-Assets/enemies/root_skitter_idle_v2.png`; not integrated | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Review |
-| ENEMY-EYE-WISP | Eye Wisp | P1 | True-alpha idle candidate at `Generated-Assets/enemies/eye_wisp_idle_v2.png`; not integrated | Fly, charge, beam/bolt, hurt, death, aerial tell | Review |
-| ENEMY-CAPSULE-HUSK | Capsule Husk | P0 | True-alpha idle candidate at `Generated-Assets/enemies/capsule_husk_idle_v2.png`; not integrated | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Review |
+| Asset ID | Family | Fruit identity | Priority | Runtime/source status | Required set | State |
+|---|---|---|---:|---|---|---|
+| ENEMY-THORNLING | Thornling | Rambutan / เงาะ | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/thornling.png`; runtime scale and baseline approved; fruit-read retrofit remains | Idle/move, attack, hurt, death, telegraph, hit VFX | Integrated |
+| ENEMY-SPITTER | Spitter | Makrut lime / มะกรูด | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/spitter.png`; runtime scale and baseline approved; fruit-read retrofit remains | Idle/move, ranged attack, hurt, death, projectile, impact/telegraph | Integrated |
+| ENEMY-MAW | Maw | Young mangosteen / มังคุดอ่อน | P0 | Detailed true-alpha six-action source set at `Generated-Assets/enemies/maw/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; fruit-read review and runtime integration remain | Idle/move, bite, hurt, death, anticipation/recovery | Review |
+| ENEMY-ROOT-SKITTER | Root Skitter | Salak / สละ | P1 | True-alpha idle candidate at `Generated-Assets/enemies/root_skitter_idle_v2.png`; fruit-read review and animation remain | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Review |
+| ENEMY-EYE-WISP | Eye Wisp | Longan / ลำไย | P1 | True-alpha idle candidate at `Generated-Assets/enemies/eye_wisp_idle_v2.png`; fruit-read review and animation remain | Fly, charge, beam/bolt, hurt, death, aerial tell | Review |
+| ENEMY-CAPSULE-HUSK | Capsule Husk | Santol / กระท้อน | P0 | True-alpha idle candidate at `Generated-Assets/enemies/capsule_husk_idle_v2.png`; fruit-read review and animation remain | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Review |
 
 Production sets must expose consistent damage/hurt timing while preserving distinct silhouettes and attack tells. Color swaps alone do not count as separate families.
 
@@ -88,13 +88,13 @@ Production sets must expose consistent damage/hurt timing while preserving disti
 
 [ASSET-BOSS-01]
 
-| Asset ID | Level | Priority | Required production package | State |
-|---|---:|---:|---|---|
-| BOSS-THORN-MATRIARCH | 1 | P0 | Base true-alpha boss sprite integrated at `Assets/Enemies/Bosses/thorn_matriarch.png`; phases, thorn hazards, fan/lane projectile set, tells, portrait treatment, death sequence and final VFX/SFX remain | Integrated |
-| BOSS-MAW-SOVEREIGN | 2 | P0 | Multi-phase bloom/maw set, spore rain, rotating five-way and aimed-burst projectiles, tells, portrait treatment, health bar, death sequence, VFX/SFX | Missing |
-| BOSS-POSSESSED-BANYAN | 3 | P0 | Current generic scaled behavior replaced by trunk/root/possession phases, seed-column and diagonal-root-line projectiles, tells, portrait, death sequence | Placeholder |
-| BOSS-ROOT-HYDRA | 4 | P0 | Multiple heads/root lanes, crossfire/ring/lane-wall projectiles, conduit hazards, phase damage states, portrait, death sequence | Missing |
-| BOSS-ROOT-CORE-EYE | 5 | P0 | Sensory-core phases, spirals/aimed rings/bullet curtains, beam/root hazards, final core exposure, portrait, campaign-ending death sequence | Missing |
+| Asset ID | Level | Fruit identity | Priority | Required production package | State |
+|---|---:|---|---:|---|---|
+| BOSS-THORN-MATRIARCH | 1 | Rambutan queen cluster | P0 | Base true-alpha boss sprite integrated at `Assets/Enemies/Bosses/thorn_matriarch.png`; fruit-read retrofit, phases, hair-thorn hazards, fan/lane projectile set, tells, portrait treatment, death sequence and final VFX/SFX remain | Integrated |
+| BOSS-MAW-SOVEREIGN | 2 | Durian crown + mangosteen anatomy | P0 | Multi-phase armored rind/bloom set, spore rain, rotating five-way and aimed seed-burst projectiles, tells, portrait treatment, health bar, death sequence, VFX/SFX | Missing |
+| BOSS-POSSESSED-BANYAN | 3 | Jackfruit + banyan fig | P0 | Current generic scaled behavior replaced by trunk/fibrous-fruit/possession phases, seed-column and diagonal-root-line projectiles, sticky sap zones, tells, portrait, death sequence | Placeholder |
+| BOSS-ROOT-HYDRA | 4 | Nipa-palm fruit cluster | P0 | Multiple segmented fruit heads/root lanes, crossfire/ring/lane-wall projectiles, conduit hazards, phase damage states, portrait, death sequence | Missing |
+| BOSS-ROOT-CORE-EYE | 5 | Longan eye cluster + dragon-fruit bracts | P0 | Sensory-core phases, seed-eye spirals/aimed rings/bract curtains, beam/root hazards, final flesh-core exposure, portrait, campaign-ending death sequence | Missing |
 
 Each boss package includes phase-readable silhouettes, pre-damage telegraphs, hit/death feedback, boss-introduction presentation, health-bar elements, projectiles/hazards and source masters. Boss mechanics remain functional if presentation assets fail to load.
 

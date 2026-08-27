@@ -116,6 +116,19 @@ Critical path ของทุกด่านใช้เวลา 5–7 นา�
 
 แต่ละตระกูลต้องมี silhouette, telegraph, timing และบทบาทต่างกัน ไม่ใช่เพียงย้อมสีหรือขยาย placeholder `[GDD-ENEMY-01]`
 
+ผลไม้ท้องถิ่นและผลไม้ที่ปลูก/ค้าขายในไทยเป็นธีมภาพหลักของศัตรูและบอส Capsule 07 ยึดพันธุกรรมพืชในพื้นที่แล้วเปลี่ยนเปลือก เมล็ด เนื้อ กลีบเลี้ยง พวง ยาง และรากให้เป็นเกราะ อวัยวะรับรู้ อาวุธ และระบบยิงกระสุน `[GDD-FRUIT-01]` การอ่านการต่อสู้สำคัญกว่าความเหมือนผลไม้ แต่ละตระกูลต้องมีผลไม้อ้างอิงหลักเพียงหนึ่งชนิด silhouette และกลไกเฉพาะ ห้ามทำเป็นมาสคอตผลไม้น่ารักหรือใช้ทรงกลมเดิมแล้วย้อมสี
+
+| ศัตรู | ผลไม้อ้างอิง | ภาษาการกลายพันธุ์ |
+|---|---|---|
+| Thornling | เงาะ | ขนเปลือกเป็นหนามพุ่งและเกราะสัมผัส |
+| Spitter | มะกรูด | ผิวขรุขระพองก่อนยิงถุงเมล็ด/สปอร์กรด |
+| Maw | มังคุดอ่อน | เปลือกเขียว-ม่วงหนาแยกเป็นกรามรอบแกนเป็นพู |
+| Capsule Husk | กระท้อน | เปลือกหนาและเนื้อเป็นพูเปิดเผย weak seed core |
+| Root Skitter | สละ | เกล็ดเปลือกและรากปาล์มเป็นตัวมุดดินทรงเตี้ย |
+| Eye Wisp | ลำไย | เนื้อซีดและเมล็ดดำเป็นดวงตาในพวงลอยได้ |
+
+บอสยกระดับภาษาเดียวกัน: Thorn Matriarch เป็นพวงราชินีเงาะ, Maw Sovereign ใช้มงกุฎทุเรียนบนกายมังคุด, Possessed Banyan ใช้ขนุนผสานลูกไทร, Root Hydra ใช้พวงลูกจาก และ Root-Core Eye ใช้พวงตาลำไยในกลีบแก้วมังกร ด่าน 1–5 จึงไล่จาก เงาะ/มะกรูด → มังคุด/ทุเรียน → กระท้อน/ขนุน → สละ/ลูกจาก → ลำไย/แก้วมังกร แอนิเมชันที่อนุมัติแล้วให้เติมรายละเอียดผลไม้เฉพาะจุดก่อนพิจารณาทิ้งใหม่ทั้งหมด
+
 ทุกด่านมีบอสเฉพาะตัว บอสต้องมี lifecycle, phase, health และ defeat signal มาตรฐาน มีอย่างน้อยสองรูปแบบการโจมตี การเปลี่ยนเฟสที่อ่านได้ และ death sequence ที่ชัด ความเสียหายสำคัญต้องมี telegraph ก่อน hitbox ทำงาน `[GDD-BOSS-01]`
 
 พื้นฐานบอสยึด Hollow Knight/Castlevania: ระยะประชิดชัด, anticipation อ่านได้, การโจมตีมี commitment และ punish window บาง phase จึงเสริม **Touhou-inspired danmaku ที่ปรับให้อ่านง่ายใน platformer** `[GDD-BULLET-01]` ได้แก่ fan, aimed burst, rotating ring, alternating lane wall, arc และ spiral ทุก pattern ต้องมี ID, telegraph, ช่วง active, recovery, speed band, projectile cap และ cleanup ที่ deterministic ทางปลอดภัยกว้างอย่างน้อย 1.75 เท่าตัวผู้เล่นและต้องใช้ได้จริงเมื่อกระโดด/ตก/แดช ห้ามเกิดกระสุนในตัวผู้เล่นหรือยิงจากนอกกล้องโดยไม่มีสัญญาณ
@@ -128,11 +141,11 @@ Critical path ของทุกด่านใช้เวลา 5–7 นา�
 
 | ด่าน | Traversal/set piece | ศัตรู | Background/tiles | Pattern บอส |
 |---|---|---|---|---|
-| 1 Grassland | ทางไร่แนวนอน ช่องชลประทาน ถนนอพยพยกระดับ | Thornling + Spitter | ทุ่ง/ภูเขา/สิ่งปลูกสร้างเกษตร; grass-soil/concrete/thorn-root | fan สามทางและ thorn lane สลับช่องกว้าง |
-| 2 Forest | ปีน canopy สั้น ๆ ชั้นเห็ดพังได้และกระเป๋าสปอร์บดบัง | Spitter บนที่สูง + Maw + Thornling variant | canopy/รากห้อย/หมอก; bark/moss/fungal shelf/hollow trunk | spore arc, rotating five-way bloom, aimed burst |
-| 3 Capsule | อุโมงค์ลงลึก root lift และ arena หัวใจแคปซูล | Maw + Capsule Husk + ambush root | ซากแคปซูล/ผนังโลหะ-ชีวภาพ; shell/root/membrane | seed column ตกและเส้นรากทแยงเปลี่ยน safe platform |
-| 4 Marsh | เกาะแห้ง root raft จมและข้ามน้ำพิษตามจังหวะ | Root Skitter + marsh Spitter + Maw | wetland/conduit/น้ำพิษ; mud/reed/root raft/conduit | crossfire หลายหัว, radial ring เหลื่อม, water-lane wall |
-| 5 Nexus | combat ascent บน eye platform ที่เคลื่อนและพื้นปลอดภัยพัง | Eye Wisp + elite Capsule Husk + mixed elite | alien eye/network depth; eye membrane/neural root/core shell | spiral, aimed burst, radial ring และ bullet curtain สลับ |
+| 1 Grassland | ทางไร่แนวนอน ช่องชลประทาน ถนนอพยพยกระดับ | Thornling เงาะ + Spitter มะกรูด | ทุ่ง/ภูเขา/สิ่งปลูกสร้างเกษตร; grass-soil/concrete/thorn-root | fan ขนหนามและ lane เมล็ดส้มสลับช่องกว้าง |
+| 2 Forest | ปีน canopy สั้น ๆ ชั้นเห็ดพังได้และกระเป๋าสปอร์บดบัง | Spitter บนที่สูง + Maw มังคุด + Thornling variant | canopy/รากห้อย/หมอก; bark/moss/fungal shelf/hollow trunk | ฝนสปอร์ทุเรียน, rotating bloom, aimed seed burst |
+| 3 Capsule | อุโมงค์ลงลึก root lift และ arena หัวใจแคปซูล | Maw + Capsule Husk กระท้อน + ambush root | ซากแคปซูล/ผนังโลหะ-ชีวภาพ; shell/root/membrane | เสาเมล็ดขนุนและเส้นรากทแยงเปลี่ยน safe platform |
+| 4 Marsh | เกาะแห้ง root raft จมและข้ามน้ำพิษตามจังหวะ | Root Skitter สละ + marsh Spitter + Maw | wetland/conduit/น้ำพิษ; mud/reed/root raft/conduit | crossfire พวงลูกจาก, radial ring เหลื่อม, water-lane wall |
+| 5 Nexus | combat ascent บน eye platform ที่เคลื่อนและพื้นปลอดภัยพัง | Eye Wisp ลำไย + elite Capsule Husk + mixed elite | alien eye/network depth; eye membrane/neural root/core shell | spiral เมล็ดตา, aimed burst, radial ring และม่านกลีบแก้วมังกร |
 
 ทุก biome ต้องมี parallax อย่างน้อย 4 ชั้น, foreground set, landmark, tile kit ที่มี cap/corner/transition, signature hazard และ extraction treatment ทุกด่านแนะนำศัตรูใหม่หรือ variant ที่เปลี่ยนกลไกจริงพร้อม silhouette/animation/timing เฉพาะ
 

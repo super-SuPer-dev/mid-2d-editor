@@ -96,6 +96,29 @@ only on small screens, instruments, or rare alien effects.
 - Pixel assets use deliberate clusters, stepped curves, and restrained
   highlights. Do not use smooth vector gradients or continuous painted shading.
 
+## Thai fruit enemy language
+
+Thai local fruit is the primary enemy motif. Designs translate recognizable
+fruit structures into hostile anatomy: rind becomes armor, calyx becomes jaws
+or crowns, seeds become eyes and projectiles, fibrous flesh becomes muscle,
+sap becomes area denial, and fruit clusters become multi-origin attack nodes.
+The result remains alien horror/action pixel art, not a cute fruit mascot.
+
+| Campaign use | Primary fruit reads |
+|---|---|
+| Level 1 | Rambutan hair-thorns; makrut-lime dimpled spitter sacs |
+| Level 2 | Young-mangosteen shell jaws; durian crown and armored boss rind |
+| Level 3 | Santol segmented husk; jackfruit fibers and seed columns |
+| Level 4 | Salak scale armor; nipa-palm cluster heads |
+| Level 5 | Longan seed eyes; dragon-fruit bracts around the final core |
+
+Use one dominant fruit identity per standard family. Bosses may combine one
+secondary fruit only when the primary read remains obvious. Do not create
+families by recoloring the same round fruit body. Preserve distinct height,
+width, locomotion, facing direction, attack reach and weak-point placement.
+Fruit colors are starting references rather than strict palettes; gameplay
+contrast and biome separation take priority.
+
 ## UI language
 
 Use dense military field-journal panels with square corners, fine borders,

@@ -55,26 +55,26 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 
 [ASSET-ENEMY-01]
 
-| Asset ID | ชุดที่ต้องมี | สถานะ |
-|---|---|---|
-| ENEMY-THORNLING | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/attack/hurt/death/telegraph/hit VFX | Integrated |
-| ENEMY-SPITTER | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/ranged/hurt/death/projectile/impact | Integrated |
-| ENEMY-MAW | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/maw/`; normalized เป็น 4 x 1, cell 700 x 800, baseline 740; runtime ยังใช้ placeholder | Review |
-| ENEMY-ROOT-SKITTER | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/root_skitter_idle_v2.png`; ยังขาด burrow/emerge/scuttle/attack/hurt/death/tell | Review |
-| ENEMY-EYE-WISP | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/eye_wisp_idle_v2.png`; ยังขาด fly/charge/beam/bolt/hurt/death/tell | Review |
-| ENEMY-CAPSULE-HUSK | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/capsule_husk_idle_v2.png`; ยังขาด idle/move/armored charge/exposed-core attack/hurt/death/shell-break tell | Review |
+| Asset ID | ผลไม้อ้างอิง | ชุดที่ต้องมี | สถานะ |
+|---|---|---|---|
+| ENEMY-THORNLING | เงาะ | integrate idle anchor และ baseline แล้ว; ต้อง retrofit fruit cue และยังขาด move/attack/hurt/death/telegraph/hit VFX | Integrated |
+| ENEMY-SPITTER | มะกรูด | integrate idle anchor และ baseline แล้ว; ต้อง retrofit fruit cue และยังขาด move/ranged/hurt/death/projectile/impact | Integrated |
+| ENEMY-MAW | มังคุดอ่อน | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/maw/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ fruit-read review และ integration | Review |
+| ENEMY-ROOT-SKITTER | สละ | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/root_skitter_idle_v2.png`; รอ fruit-read review และแอนิเมชัน | Review |
+| ENEMY-EYE-WISP | ลำไย | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/eye_wisp_idle_v2.png`; รอ fruit-read review และแอนิเมชัน | Review |
+| ENEMY-CAPSULE-HUSK | กระท้อน | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/capsule_husk_idle_v2.png`; รอ fruit-read review และแอนิเมชัน | Review |
 
 ## 5. บอส
 
 [ASSET-BOSS-01]
 
-| Asset ID | ด่าน | ชุด production | สถานะ |
-|---|---:|---|---|
-| BOSS-THORN-MATRIARCH | 1 | integrate ภาพบอส true-alpha ที่ `Assets/Enemies/Bosses/thorn_matriarch.png` แล้ว; ยังขาด phases, hazards, fan/lane projectile set, tells, portrait, death และ VFX/SFX ขั้นสุดท้าย | Integrated |
-| BOSS-MAW-SOVEREIGN | 2 | bloom/maw phases, spore rain, rotating five-way, aimed burst, tells, portrait, HUD, death | Missing |
-| BOSS-POSSESSED-BANYAN | 3 | แทน generic scale ด้วย trunk/root/possession phases, seed columns และ diagonal root lines | Placeholder |
-| BOSS-ROOT-HYDRA | 4 | multi-head/root lanes, crossfire/rings/lane walls, conduit hazards/phase states | Missing |
-| BOSS-ROOT-CORE-EYE | 5 | eye/core phases, spirals/aimed rings/bullet curtains, beams, roots, core exposure, ending death | Missing |
+| Asset ID | ด่าน | ผลไม้อ้างอิง | ชุด production | สถานะ |
+|---|---:|---|---|---|
+| BOSS-THORN-MATRIARCH | 1 | พวงราชินีเงาะ | integrate ภาพบอส true-alpha แล้ว; ต้อง retrofit fruit cue และยังขาด phases/hair-thorn hazards/projectiles/tells/portrait/death/VFX/SFX | Integrated |
+| BOSS-MAW-SOVEREIGN | 2 | มงกุฎทุเรียน + กายมังคุด | armored rind/bloom phases, spore rain, rotating five-way, aimed seed burst, tells, portrait, HUD, death | Missing |
+| BOSS-POSSESSED-BANYAN | 3 | ขนุน + ลูกไทร | trunk/fibrous-fruit/possession phases, seed columns, diagonal roots, sticky sap | Placeholder |
+| BOSS-ROOT-HYDRA | 4 | พวงลูกจาก | segmented heads/root lanes, crossfire/rings/lane walls, conduit hazards/phase states | Missing |
+| BOSS-ROOT-CORE-EYE | 5 | พวงตาลำไย + กลีบแก้วมังกร | seed-eye/core phases, spirals/aimed rings/bract curtains, beams, roots, core exposure, ending death | Missing |
 
 ชุดกระสุนต้องใช้ shape coding ที่ contrast สูง มี spawn/impact tell, editable master, atlas ที่เหมาะกับ pooling และ variant name ที่จับคู่กับ `pattern_id` แบบหนึ่งต่อหนึ่ง แต่ละด่านใช้ shader/particle เชิงเทคนิคร่วมได้ แต่ห้ามใช้ silhouette และ palette หลักเดียวกันโดยไม่ผ่าน readability review
 

@@ -268,6 +268,47 @@ Exact capstone values are balance data, not new active abilities.
 Standard enemies require dedicated visual identities and animation rather than
 coloring or scaling a single placeholder sprite. `[GDD-ENEMY-01]`
 
+#### Thai Fruit Mutation Language
+
+Thai-grown and locally traded fruit is the primary visual theme for enemies
+and bosses. Capsule 07 does not create generic alien plants: it hijacks local
+fruit genetics and repurposes rind, seed, flesh, calyx, cluster, sap and root
+structures as armor, sensory organs, weapons and projectile systems.
+`[GDD-FRUIT-01]`
+
+Fruit recognition is secondary to gameplay readability. Each family has one
+primary fruit reference, one readable combat role and one distinct silhouette;
+enemies must not become round palette swaps or cute food mascots. Fruit traits
+drive mechanics as well as decoration: thorny rind communicates armor, split
+shells expose weak cores, clustered seeds support projectile patterns, and
+sticky flesh or sap supports area denial.
+
+| Enemy family | Primary Thai fruit reference | Mutation and gameplay read |
+|---|---|---|
+| Thornling | Rambutan / เงาะ | Hair-like rind spines become forward thorns and contact armor |
+| Spore Spitter | Makrut lime / มะกรูด | Dimpled citrus rind swells before ejecting acidic seed/spore sacs |
+| Carnivorous Maw | Young mangosteen / มังคุดอ่อน | Thick green-purple rind separates into a jaw around a segmented core |
+| Capsule Husk | Santol / กระท้อน | Dense rind and segmented pulp form opening armor around a weak seed core |
+| Root Skitter | Salak / สละ | Scaled snake-fruit skin and palm roots form a low burrowing arthropod |
+| Eye Wisp | Longan / ลำไย | Pale flesh and glossy black seed become an eye within a floating fruit cluster |
+
+Bosses escalate the same language without simply enlarging standard enemies:
+
+| Boss | Primary fruit mutation | Mechanical expression |
+|---|---|---|
+| Thorn Matriarch | Rambutan queen cluster | Sweeping hair-thorns, rolling fruit mines and opening cluster weak points |
+| Maw Bloom Sovereign | Durian crown over mangosteen anatomy | Armored rind phases, spore rain and seed-burst volleys |
+| Possessed Banyan | Jackfruit fused with banyan fig | Fibrous trunk armor, falling seed columns and sticky sap zones |
+| Root Hydra | Nipa-palm fruit cluster | Multiple segmented heads, water-lane shots and regenerating cluster nodes |
+| Root-Core Eye | Longan eye cluster within dragon-fruit bracts | Seed-eye rings, bract spirals, aimed pupils and final exposed flesh core |
+
+The five-level progression therefore moves from familiar orchard reads to
+increasingly alien recombinations: rambutan and makrut lime in Level 1;
+mangosteen and durian in Level 2; santol and jackfruit in Level 3; salak and
+nipa palm in Level 4; longan and dragon fruit in Level 5. Existing approved
+animation may be retained when targeted rind, calyx, seed and palette details
+make the assigned fruit readable without damaging its timing or silhouette.
+
 ### 8.2 Boss Rules
 
 - Every level has one dedicated boss scene, silhouette, health bar, attack set,
@@ -312,11 +353,11 @@ Palette swaps do not satisfy this requirement. `[GDD-DIVERSITY-01]`
 
 | Level | Traversal/set-piece identity | Enemy composition | Background and tile identity | Boss projectile identity |
 |---|---|---|---|---|
-| 1 — Contaminated Grassland | Open horizontal farm route, irrigation gaps and one elevated evacuation-road sequence | Thornling melee packs plus Spitter crossfire | Sunlit fields, distant hills, farm structures; grass/soil, irrigation concrete and thorn-root tiles | Tutorial three-way fans and alternating thorn lanes with large safe gaps |
-| 2 — Mutated Forest | Short vertical canopy climb, collapsing fungal shelves and spore-visibility pockets | Spitters at elevation, Carnivorous Maws in confined clearings, aggressive Thornling variant | Dense canopy silhouettes, hanging roots and mist; bark, moss, fungal shelf and hollow-trunk tiles | Arcing spore rain, rotating five-way blooms and aimed seed bursts |
-| 3 — Roots Beneath Capsule 07 | Descending impact tunnel, moving root lifts and an arena that opens the capsule heart | Carnivorous Maws, armored Capsule Husks and ambush roots | Capsule wreck landmark, metal-organic walls and underground pulse; shell, fibrous root and living membrane tiles | Falling seed columns and diagonal root lines that reshape platform-safe zones |
-| 4 — Devouring Root Marsh | Alternating dry islands, sinking root rafts and toxic-water timing | Root Skitters, marsh Spitter variant and conduit-fed Maw encounters | Wetland horizon, conduit landmark and reflective toxic water; mud, reed mat, root raft and conduit tiles | Hydra-head crossfire, offset radial rings and alternating water-lane walls |
-| 5 — Alien Eye Nexus | Compact combat ascent through shifting eye platforms and collapsing safe ground | Eye Wisps, elite Capsule Husks and advanced mixed-family encounters | Alien-eye landmark, pulsing network layers and impossible organic depth; eye membrane, neural root and core-shell tiles | Dense rotating spirals, aimed bursts, radial rings and final alternating bullet curtains |
+| 1 — Contaminated Grassland | Open horizontal farm route, irrigation gaps and one elevated evacuation-road sequence | Rambutan Thornling melee packs plus makrut-lime Spitter crossfire | Sunlit fields, distant hills, farm structures; grass/soil, irrigation concrete and thorn-root tiles | Tutorial three-way fans and alternating thorn lanes with large safe gaps |
+| 2 — Mutated Forest | Short vertical canopy climb, collapsing fungal shelves and spore-visibility pockets | Spitters at elevation, young-mangosteen Maws in confined clearings, aggressive Thornling variant | Dense canopy silhouettes, hanging roots and mist; bark, moss, fungal shelf and hollow-trunk tiles | Durian spore rain, rotating five-way blooms and aimed seed bursts |
+| 3 — Roots Beneath Capsule 07 | Descending impact tunnel, moving root lifts and an arena that opens the capsule heart | Carnivorous Maws, santol Capsule Husks and ambush roots | Capsule wreck landmark, metal-organic walls and underground pulse; shell, fibrous root and living membrane tiles | Jackfruit seed columns and diagonal root lines that reshape platform-safe zones |
+| 4 — Devouring Root Marsh | Alternating dry islands, sinking root rafts and toxic-water timing | Salak Root Skitters, marsh Spitter variant and conduit-fed Maw encounters | Wetland horizon, conduit landmark and reflective toxic water; mud, reed mat, root raft and conduit tiles | Nipa-cluster crossfire, offset radial rings and alternating water-lane walls |
+| 5 — Alien Eye Nexus | Compact combat ascent through shifting eye platforms and collapsing safe ground | Longan Eye Wisps, elite Capsule Husks and advanced mixed-family encounters | Alien-eye landmark, pulsing network layers and impossible organic depth; eye membrane, neural root and core-shell tiles | Seed-eye spirals, aimed bursts, radial rings and final dragon-fruit-bract curtains |
 
 Each biome ships with at least four parallax layers, one foreground framing set,
 one unmistakable landmark, one primary tile kit with caps/corners/transitions,
