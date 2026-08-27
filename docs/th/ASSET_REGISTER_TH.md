@@ -57,7 +57,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 
 | Asset ID | ผลไม้อ้างอิง | ชุดที่ต้องมี | สถานะ |
 |---|---|---|---|
-| ENEMY-THORNLING | เงาะ | integrate idle anchor และ baseline แล้ว; ต้อง retrofit fruit cue และยังขาด move/attack/hurt/death/telegraph/hit VFX | Integrated |
+| ENEMY-THORNLING | เงาะ | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/thornling/`; normalized 4 x 1, cell 700 x 800, baseline 740; runtime ยังใช้ static idle เก่าและยังขาด integration/hit VFX | Review |
 | ENEMY-SPITTER | มะกรูด | integrate idle anchor และ baseline แล้ว; ต้อง retrofit fruit cue และยังขาด move/ranged/hurt/death/projectile/impact | Integrated |
 | ENEMY-MAW | มังคุดอ่อน | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/maw/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ fruit-read review และ integration | Review |
 | ENEMY-ROOT-SKITTER | สละ | มี source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/root_skitter/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ runtime integration | Review |

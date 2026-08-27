@@ -75,7 +75,7 @@ not a runtime asset. Its generation record is stored beside the image.
 
 | Asset ID | Family | Fruit identity | Priority | Runtime/source status | Required set | State |
 |---|---|---|---:|---|---|---|
-| ENEMY-THORNLING | Thornling | Rambutan / เงาะ | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/thornling.png`; runtime scale and baseline approved; fruit-read retrofit remains | Idle/move, attack, hurt, death, telegraph, hit VFX | Integrated |
+| ENEMY-THORNLING | Thornling | Rambutan / เงาะ | P0 | Detailed true-alpha six-action source set at `Generated-Assets/enemies/thornling/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; old static idle remains integrated while runtime retrofit and hit VFX remain | Idle/run, attack tell, attack, hurt, death, contact-hit VFX | Review |
 | ENEMY-SPITTER | Spitter | Makrut lime / มะกรูด | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/spitter.png`; runtime scale and baseline approved; fruit-read retrofit remains | Idle/move, ranged attack, hurt, death, projectile, impact/telegraph | Integrated |
 | ENEMY-MAW | Maw | Young mangosteen / มังคุดอ่อน | P0 | Detailed true-alpha six-action source set at `Generated-Assets/enemies/maw/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; fruit-read review and runtime integration remain | Idle/move, bite, hurt, death, anticipation/recovery | Review |
 | ENEMY-ROOT-SKITTER | Root Skitter | Salak / สละ | P1 | Detailed true-alpha seven-action source set at `Generated-Assets/enemies/root_skitter/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; runtime integration remains | Idle/scuttle, burrow tell, burrow, emerge attack, hurt, death | Review |
