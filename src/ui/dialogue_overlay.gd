@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func show_sequence(requested_sequence_id: String) -> void:
-	var requested_entries := DialogueCatalog.get_sequence(requested_sequence_id)
+	var requested_entries := DialogueCatalog.get_sequence(requested_sequence_id, GameManager.selected_character_id)
 	if requested_entries.is_empty():
 		return
 	if visible:

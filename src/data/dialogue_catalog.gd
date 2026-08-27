@@ -8,7 +8,12 @@ const SEQUENCES := {
 		{"speaker_id": "commander_anan", "text_key": "STORY_L1_BRIEF_01", "portrait_expression": "urgent", "presentation_mode": "briefing", "skippable": true, "pause_game": true, "one_shot": true},
 		{"speaker_id": "dr_mali", "text_key": "STORY_L1_BRIEF_02", "portrait_expression": "analytical", "presentation_mode": "briefing", "skippable": true, "pause_game": true, "one_shot": true},
 		{"speaker_id": "technician_chai", "text_key": "STORY_L1_BRIEF_03", "portrait_expression": "amused", "presentation_mode": "briefing", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "commander_anan", "text_key": "STORY_L1_BRIEF_05", "portrait_expression": "urgent", "presentation_mode": "briefing", "skippable": true, "pause_game": true, "one_shot": true},
 		{"speaker_id": "selected_operator", "text_key": "STORY_L1_BRIEF_04", "portrait_expression": "determined", "presentation_mode": "briefing", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_BRIEF_TONKLA", "portrait_expression": "determined", "presentation_mode": "briefing", "operator_condition": "tonkla", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_BRIEF_RIN", "portrait_expression": "determined", "presentation_mode": "briefing", "operator_condition": "rin", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_BRIEF_KHEM", "portrait_expression": "determined", "presentation_mode": "briefing", "operator_condition": "khem", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_BRIEF_T800", "portrait_expression": "determined", "presentation_mode": "briefing", "operator_condition": "t800", "skippable": true, "pause_game": true, "one_shot": true},
 	],
 	"level_01_radio_signal": [
 		{"speaker_id": "dr_mali", "text_key": "STORY_L1_RADIO_01", "portrait_expression": "alarmed", "presentation_mode": "radio", "skippable": false, "pause_game": false, "one_shot": true},
@@ -21,6 +26,11 @@ const SEQUENCES := {
 	"level_01_debrief": [
 		{"speaker_id": "dr_mali", "text_key": "STORY_L1_DEBRIEF_01", "portrait_expression": "analytical", "presentation_mode": "debrief", "skippable": true, "pause_game": true, "one_shot": true},
 		{"speaker_id": "commander_anan", "text_key": "STORY_L1_DEBRIEF_02", "portrait_expression": "relieved", "presentation_mode": "debrief", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "technician_chai", "text_key": "STORY_L1_DEBRIEF_03", "portrait_expression": "amused", "presentation_mode": "debrief", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_DEBRIEF_TONKLA", "portrait_expression": "determined", "presentation_mode": "debrief", "operator_condition": "tonkla", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_DEBRIEF_RIN", "portrait_expression": "determined", "presentation_mode": "debrief", "operator_condition": "rin", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_DEBRIEF_KHEM", "portrait_expression": "determined", "presentation_mode": "debrief", "operator_condition": "khem", "skippable": true, "pause_game": true, "one_shot": true},
+		{"speaker_id": "selected_operator", "text_key": "STORY_L1_DEBRIEF_T800", "portrait_expression": "determined", "presentation_mode": "debrief", "operator_condition": "t800", "skippable": true, "pause_game": true, "one_shot": true},
 	],
 	"level_02_briefing": [{"speaker_id": "commander_anan", "text_key": "STORY_L2_BRIEF_01", "portrait_expression": "urgent", "presentation_mode": "briefing", "skippable": true, "pause_game": true, "one_shot": true}],
 	"level_02_radio_01": [{"speaker_id": "dr_mali", "text_key": "STORY_L2_RADIO_01", "portrait_expression": "analytical", "presentation_mode": "radio", "skippable": false, "pause_game": false, "one_shot": true}],
@@ -49,8 +59,15 @@ const SEQUENCES := {
 }
 
 
-static func get_sequence(sequence_id: String) -> Array:
-	return SEQUENCES.get(sequence_id, []).duplicate(true)
+static func get_sequence(sequence_id: String, operator_id: String = "") -> Array:
+	var sequence: Array = SEQUENCES.get(sequence_id, []).duplicate(true)
+	if operator_id.is_empty():
+		return sequence
+	var resolved_operator := CharacterCatalog.resolve_character_id(operator_id)
+	return sequence.filter(func(entry: Dictionary) -> bool:
+		var condition := str(entry.get("operator_condition", ""))
+		return condition.is_empty() or condition == resolved_operator
+	)
 
 
 static func validate_sequence(sequence_id: String) -> Array[String]:
@@ -67,4 +84,7 @@ static func validate_sequence(sequence_id: String) -> Array[String]:
 			errors.append("%s[%d] has an invalid presentation mode." % [sequence_id, index])
 		if not LocalizationManager.has_key(str(entry.get("text_key", ""))):
 			errors.append("%s[%d] has a missing text key." % [sequence_id, index])
+		var operator_condition := str(entry.get("operator_condition", ""))
+		if not operator_condition.is_empty() and operator_condition not in CharacterCatalog.CHARACTERS:
+			errors.append("%s[%d] has an invalid operator condition." % [sequence_id, index])
 	return errors

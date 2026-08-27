@@ -109,6 +109,13 @@ func _validate_localization_and_dialogue() -> void:
 	for sequence_id in DialogueCatalog.SEQUENCES:
 		for error in DialogueCatalog.validate_sequence(sequence_id):
 			_check(false, error)
+	for character_id in CharacterCatalog.get_ids():
+		var briefing := DialogueCatalog.get_sequence("level_01_briefing", character_id)
+		var debrief := DialogueCatalog.get_sequence("level_01_debrief", character_id)
+		_check(briefing.size() == 6, "Level 1 briefing does not contain six exchanges for %s." % character_id)
+		_check(debrief.size() == 4, "Level 1 debrief does not contain four exchanges for %s." % character_id)
+		_check(_count_operator_entries(briefing, character_id) == 1, "Level 1 briefing bark is missing or mismatched for %s." % character_id)
+		_check(_count_operator_entries(debrief, character_id) == 1, "Level 1 debrief bark is missing or mismatched for %s." % character_id)
 
 
 func _validate_ui_scenes() -> void:
@@ -215,3 +222,11 @@ func _validate_jump_routes(level_id: String, world_geometry: Node) -> void:
 func _check(condition: bool, message: String) -> void:
 	if not condition:
 		failures.append(message)
+
+
+func _count_operator_entries(entries: Array, character_id: String) -> int:
+	var count := 0
+	for entry: Dictionary in entries:
+		if str(entry.get("operator_condition", "")) == character_id:
+			count += 1
+	return count
