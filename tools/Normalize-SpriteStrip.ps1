@@ -9,6 +9,8 @@ param(
     [int]$CellWidth = 700,
     [int]$CellHeight = 800,
     [int]$BaselineY = 740,
+    [ValidateSet('Bottom', 'Center')]
+    [string]$VerticalAlignment = 'Bottom',
     [ValidateRange(1, 255)]
     [int]$AlphaThreshold = 128
 )
@@ -38,6 +40,7 @@ $report = [SpriteStripNormalizer]::Normalize(
     $CellWidth,
     $CellHeight,
     $BaselineY,
+    $VerticalAlignment,
     $AlphaThreshold
 )
 

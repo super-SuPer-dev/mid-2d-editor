@@ -21,6 +21,7 @@ public static class SpriteStripNormalizer
         int cellWidth,
         int cellHeight,
         int baselineY,
+        string verticalAlignment,
         int alphaThreshold)
     {
         using var source = new Bitmap(inputPath);
@@ -128,12 +129,19 @@ public static class SpriteStripNormalizer
             Component frame = bestComponents[frameIndex];
             int frameWidth = frame.MaxX - frame.MinX + 1;
             int frameHeight = frame.MaxY - frame.MinY + 1;
-            if (frameWidth > cellWidth || frameHeight > baselineY + 1)
+            bool centerVertically = string.Equals(
+                verticalAlignment,
+                "Center",
+                StringComparison.OrdinalIgnoreCase);
+            int availableHeight = centerVertically ? cellHeight : baselineY + 1;
+            if (frameWidth > cellWidth || frameHeight > availableHeight)
                 throw new Exception(
                     $"Frame {frameIndex} ({frameWidth}x{frameHeight}) does not fit {cellWidth}x{cellHeight}.");
 
             int destinationLeft = frameIndex * cellWidth + (cellWidth - frameWidth) / 2;
-            int destinationTop = baselineY - frameHeight + 1;
+            int destinationTop = centerVertically
+                ? (cellHeight - frameHeight) / 2
+                : baselineY - frameHeight + 1;
 
             for (int y = frame.MinY; y <= frame.MaxY; y++)
             {
