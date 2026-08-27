@@ -2,6 +2,7 @@ extends Node
 
 const LEVEL_ONE := preload("res://Scenes/levels/level_01.tscn")
 const OUTPUT_PATH := "res://validation/screenshots/gate2_standard_enemies.png"
+const WORLD_OUTPUT_PATH := "res://validation/screenshots/gate2_grassland_world.png"
 
 
 func _ready() -> void:
@@ -32,12 +33,21 @@ func _ready() -> void:
 	player.get_node("Camera2D").position_smoothing_enabled = false
 	for frame in 30:
 		await get_tree().process_frame
-	var absolute_output := ProjectSettings.globalize_path(OUTPUT_PATH)
-	DirAccess.make_dir_recursive_absolute(absolute_output.get_base_dir())
-	var result := get_viewport().get_texture().get_image().save_png(absolute_output)
-	if result == OK:
+	var enemy_result := _save_capture(OUTPUT_PATH)
+	player.global_position = Vector2(1370, 560)
+	for frame in 10:
+		await get_tree().process_frame
+	var world_result := _save_capture(WORLD_OUTPUT_PATH)
+	if enemy_result == OK and world_result == OK:
 		print("STANDARD ENEMY CAPTURE PASS: %s" % OUTPUT_PATH)
+		print("GRASSLAND WORLD CAPTURE PASS: %s" % WORLD_OUTPUT_PATH)
 		get_tree().quit(0)
 	else:
-		push_error("Could not save standard enemy capture: %d" % result)
+		push_error("Visual capture failed: enemies=%d world=%d" % [enemy_result, world_result])
 		get_tree().quit(1)
+
+
+func _save_capture(output_path: String) -> Error:
+	var absolute_output := ProjectSettings.globalize_path(output_path)
+	DirAccess.make_dir_recursive_absolute(absolute_output.get_base_dir())
+	return get_viewport().get_texture().get_image().save_png(absolute_output)

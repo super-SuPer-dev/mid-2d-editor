@@ -98,8 +98,8 @@ Each boss package includes phase-readable silhouettes, pre-damage telegraphs, hi
 
 | Asset ID | Use | Priority | Current condition | State |
 |---|---|---:|---|---|
-| WORLD-PLATFORM-SET | Traversal surfaces | P0 | Placeholder SVG shapes | Placeholder |
-| WORLD-HAZARD-SET | Thorns, spores, roots, marsh, nexus hazards | P0 | Generic placeholder | Placeholder |
+| WORLD-PLATFORM-SET | Traversal surfaces | P0 | Level 1 pixel-art repeat tile integrated without bitmap stretching; biome variants remain | Integrated |
+| WORLD-HAZARD-SET | Thorns, spores, roots, marsh, nexus hazards | P0 | Level 1 pixel-art thorn bed integrated with approved baseline/collision; biome variants and animation remain | Integrated |
 | WORLD-SAMPLE | Living sample pickup | P0 | Placeholder | Placeholder |
 | WORLD-PROJECTILE-SET | Enemy/boss ranged attacks | P0 | Generic projectile placeholder | Placeholder |
 | WORLD-EXTRACTION-PORTAL | Mission extraction | P0 | Placeholder | Placeholder |

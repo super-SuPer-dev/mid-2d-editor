@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
-[ext_resource type="PackedScene" path="res://Scenes/gameplay/platform.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Scenes/gameplay/platform_grassland.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://Scenes/actors/player.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://Scenes/actors/enemy.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://Scenes/gameplay/crystal.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://Scenes/gameplay/hazard.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://Scenes/gameplay/hazard_grassland.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://Scenes/gameplay/portal.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/game_hud.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://Scenes/backgrounds/grassland_parallax.tscn" id="9_bg"]
@@ -46,41 +46,46 @@ color = Color(0.55, 0.61, 0.62, 1)
 
 [node name="WorldGeometry" type="Node2D" parent="."]
 
+[node name="GroundFill" type="Polygon2D" parent="WorldGeometry"]
+z_index = -1
+polygon = PackedVector2Array(0, 640, 2700, 640, 2700, 900, 0, 900)
+color = Color(0.176, 0.105, 0.067, 1)
+
 [node name="Ground" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1350, 680)
-scale = Vector2(27, 4)
+position = Vector2(1350, 650)
+scale = Vector2(27, 1)
 
 [node name="Platform01" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(510, 554)
-scale = Vector2(2.6, 1.4)
+scale = Vector2(2.6, 1)
 
 [node name="Platform02" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(875, 464)
-scale = Vector2(2.3, 1.4)
+scale = Vector2(2.3, 1)
 
 [node name="Platform03" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(1260, 574)
-scale = Vector2(3, 1.4)
+scale = Vector2(3, 1)
 
 [node name="Platform04" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(1640, 489)
-scale = Vector2(2.6, 1.4)
+scale = Vector2(2.6, 1)
 
 [node name="Platform05" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(2050, 569)
-scale = Vector2(3, 1.4)
+scale = Vector2(3, 1)
 
 [node name="Platform06" parent="WorldGeometry" instance=ExtResource("2")]
 position = Vector2(2360, 479)
-scale = Vector2(2.2, 1.4)
+scale = Vector2(2.2, 1)
 
 [node name="Hazard01" parent="WorldGeometry" instance=ExtResource("6")]
 position = Vector2(705, 632)
-scale = Vector2(1.09, 0.94)
+scale = Vector2(1, 1)
 
 [node name="Hazard02" parent="WorldGeometry" instance=ExtResource("6")]
 position = Vector2(1455, 632)
-scale = Vector2(1.09, 0.94)
+scale = Vector2(1, 1)
 
 [node name="Player" parent="." instance=ExtResource("3")]
 position = Vector2(120, 560)

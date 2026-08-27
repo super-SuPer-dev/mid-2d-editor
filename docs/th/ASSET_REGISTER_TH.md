@@ -79,8 +79,8 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 
 | Asset ID | การใช้ | สถานะ |
 |---|---|---|
-| WORLD-PLATFORM-SET | พื้น/แพลตฟอร์ม | Placeholder |
-| WORLD-HAZARD-SET | hazard ทุก biome | Placeholder |
+| WORLD-PLATFORM-SET | integrate repeat tile แบบ pixel art ของด่าน 1 โดยไม่ยืดภาพแล้ว; ยังขาด biome variants | Integrated |
+| WORLD-HAZARD-SET | integrate thorn bed แบบ pixel art ของด่าน 1 และ baseline/collision ผ่านแล้ว; ยังขาด biome variants/animation | Integrated |
 | WORLD-SAMPLE | sample pickup | Placeholder |
 | WORLD-PROJECTILE-SET | กระสุนศัตรู/บอส | Placeholder |
 | WORLD-EXTRACTION-PORTAL | ถอนกำลัง | Placeholder |
