@@ -77,7 +77,7 @@ not a runtime asset. Its generation record is stored beside the image.
 |---|---|---:|---|---|---|
 | ENEMY-THORNLING | Thornling | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/thornling.png`; runtime scale and baseline approved | Idle/move, attack, hurt, death, telegraph, hit VFX | Integrated |
 | ENEMY-SPITTER | Spitter | P0 | Pixel-art idle anchor integrated at `Assets/Enemies/Standard/spitter.png`; runtime scale and baseline approved | Idle/move, ranged attack, hurt, death, projectile, impact/telegraph | Integrated |
-| ENEMY-MAW | Maw | P0 | True-alpha idle candidate at `Generated-Assets/enemies/maw_idle_v2.png`; shared plant remains the runtime placeholder | Idle/move, bite, hurt, death, anticipation/recovery | Review |
+| ENEMY-MAW | Maw | P0 | Detailed true-alpha six-action source set at `Generated-Assets/enemies/maw/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; shared plant remains the runtime placeholder | Idle/move, bite, hurt, death, anticipation/recovery | Review |
 | ENEMY-ROOT-SKITTER | Root Skitter | P1 | True-alpha idle candidate at `Generated-Assets/enemies/root_skitter_idle_v2.png`; not integrated | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Review |
 | ENEMY-EYE-WISP | Eye Wisp | P1 | True-alpha idle candidate at `Generated-Assets/enemies/eye_wisp_idle_v2.png`; not integrated | Fly, charge, beam/bolt, hurt, death, aerial tell | Review |
 | ENEMY-CAPSULE-HUSK | Capsule Husk | P0 | True-alpha idle candidate at `Generated-Assets/enemies/capsule_husk_idle_v2.png`; not integrated | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Review |

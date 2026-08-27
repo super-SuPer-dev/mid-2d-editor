@@ -59,7 +59,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 |---|---|---|
 | ENEMY-THORNLING | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/attack/hurt/death/telegraph/hit VFX | Integrated |
 | ENEMY-SPITTER | integrate idle anchor แบบ pixel art และ baseline ผ่านแล้ว; ยังขาด move/ranged/hurt/death/projectile/impact | Integrated |
-| ENEMY-MAW | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/maw_idle_v2.png`; ยังใช้ placeholder ใน runtime และยังขาด move/bite/hurt/death/anticipation/recovery | Review |
+| ENEMY-MAW | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/maw/`; normalized เป็น 4 x 1, cell 700 x 800, baseline 740; runtime ยังใช้ placeholder | Review |
 | ENEMY-ROOT-SKITTER | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/root_skitter_idle_v2.png`; ยังขาด burrow/emerge/scuttle/attack/hurt/death/tell | Review |
 | ENEMY-EYE-WISP | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/eye_wisp_idle_v2.png`; ยังขาด fly/charge/beam/bolt/hurt/death/tell | Review |
 | ENEMY-CAPSULE-HUSK | มี idle candidate true-alpha ที่ `Generated-Assets/enemies/capsule_husk_idle_v2.png`; ยังขาด idle/move/armored charge/exposed-core attack/hurt/death/shell-break tell | Review |
