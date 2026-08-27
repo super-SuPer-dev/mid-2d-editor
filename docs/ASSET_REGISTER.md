@@ -80,7 +80,7 @@ not a runtime asset. Its generation record is stored beside the image.
 | ENEMY-MAW | Maw | Young mangosteen / มังคุดอ่อน | P0 | Detailed true-alpha six-action source set at `Generated-Assets/enemies/maw/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; fruit-read review and runtime integration remain | Idle/move, bite, hurt, death, anticipation/recovery | Review |
 | ENEMY-ROOT-SKITTER | Root Skitter | Salak / สละ | P1 | True-alpha idle candidate at `Generated-Assets/enemies/root_skitter_idle_v2.png`; fruit-read review and animation remain | Burrow/emerge, scuttle, attack, hurt, death, ground tell | Review |
 | ENEMY-EYE-WISP | Eye Wisp | Longan / ลำไย | P1 | True-alpha idle candidate at `Generated-Assets/enemies/eye_wisp_idle_v2.png`; fruit-read review and animation remain | Fly, charge, beam/bolt, hurt, death, aerial tell | Review |
-| ENEMY-CAPSULE-HUSK | Capsule Husk | Santol / กระท้อน | P0 | True-alpha idle candidate at `Generated-Assets/enemies/capsule_husk_idle_v2.png`; fruit-read review and animation remain | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Review |
+| ENEMY-CAPSULE-HUSK | Capsule Husk | Santol / กระท้อน | P0 | Detailed true-alpha seven-action source set at `Generated-Assets/enemies/capsule_husk/`; normalized 4 x 1 strips use 700 x 800 cells and baseline 740; runtime integration remains | Idle/move, armored charge, exposed-core attack, hurt, death, shell-break tell | Review |
 
 Production sets must expose consistent damage/hurt timing while preserving distinct silhouettes and attack tells. Color swaps alone do not count as separate families.
 
