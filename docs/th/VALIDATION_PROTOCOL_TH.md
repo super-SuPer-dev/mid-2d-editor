@@ -126,6 +126,16 @@ Defect ที่เปิดใหม่ทำให้ evidence/score เดิ
 
 Source ต้องบันทึก dimensions/format/color/alpha/editable master, grid/cell/gutter, crop/pivot, provenance/license Runtime ต้องไม่มี halo/matte/neighboring frame/seam/bleed; เท้าไม่ลอย; animation timing ลื่นและอ่านได้; filtering ไม่ blur; panel ไม่ยืด; ตรวจทุกหน้าที่ 1280×720 ใน English/Thai/pseudo; level icon ไม่บัง landmark; telegraph เห็นชัด; วัด Web texture memory จริง แต่ละ biome ต้องมี parallax อย่างน้อย 4 ชั้น, foreground, landmark, primary tile kit ที่มี caps/corners/transitions, hazard และ extraction treatment เฉพาะ ห้ามผ่าน diversity review ด้วย palette swap หรือ primary tiles ร่วมกันเพียงอย่างเดียว ทุกด่านต้องเพิ่ม enemy family ใหม่หรือ mechanic variant ที่มีความหมาย
 
+### ตรวจแรงบันดาลใจและความเป็นต้นฉบับ
+
+[VAL-REFERENCE-01]
+
+- ตรวจ movement response, melee spacing, enemy placement, atmosphere และ boss rhythm เทียบกับหลักการ Hollow Knight/Castlevania ที่อนุมัติ
+- Build ไม่ต้องสร้างโลก Metroidvania เชื่อมต่อกัน แคมเปญสั้นเส้นตรงห้าด่านยังเป็นมาตรฐาน
+- ความหนาแน่นแบบ Touhou ปรากฏเฉพาะ boss phase ที่อนุมัติและห้ามแทน combat platform-ประชิดปกติ
+- map, room layout, silhouette, animation pose, UI frame, icon, dialogue, music และ attack pattern ต้องผ่าน originality review; การลอกที่จดจำได้ทำให้ Gate ไม่ผ่าน
+- screenshot อ้างอิงใช้ภายในเพื่ออธิบายหลักการได้ แต่ห้าม trace, ship หรือใช้เป็น texture ของ asset ขั้นสุดท้าย
+
 ## 10. ตรวจเสียง
 
 เพลง loop ไม่มี click/gap, cutter/threat/boss tells แยกได้, repetition ไม่เกิด pitch artifact รุนแรง, event ไม่ trigger ซ้ำ, scene/pause/retry ไม่ซ้อน loop, Windows/Web timing ใกล้เคียง และทุกไฟล์มี provenance/license

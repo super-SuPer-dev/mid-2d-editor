@@ -13,6 +13,21 @@ The `art_refs/` boards define the production target. The game should feel like
 a grounded Thai rural survival story disrupted by alien biology—not a clean
 space-station adventure.
 
+## Reference hierarchy
+
+Hollow Knight and Castlevania are the primary references for silhouette
+clarity, atmospheric depth, dramatic monster staging, readable combat spaces
+and strong landmark progression. Hollow Knight informs restraint, clean combat
+readability and layered mood; Castlevania informs deliberate architecture,
+monster composition and biome escalation. These qualities are translated into
+high-resolution pixel art, northeastern Thai rural environments and ACO field
+technology rather than copied visual motifs.
+
+Touhou is a secondary gameplay reference for selected projectile formations
+only. It does not set the general art style, UI language or normal encounter
+density. Do not copy or trace reference maps, characters, silhouettes, UI,
+icons, animation poses, music imagery or exact projectile arrangements.
+
 ## Core statement
 
 **Thai field equipment versus invasive alien plant life.** Familiar soil,

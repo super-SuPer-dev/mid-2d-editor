@@ -198,6 +198,16 @@ Record completion time, segment splits, deaths, damage sources, currency earned/
 - Enemy silhouette, movement role and attack tell diversity match the approved per-level roster; every level introduces at least one new family or meaningful mechanic variant.
 - Texture and atlas memory is measured on Web, not inferred from disk size.
 
+### Inspiration and Originality Review
+
+[VAL-REFERENCE-01]
+
+- Movement response, melee spacing, enemy placement, atmosphere and boss rhythm are reviewed against the approved Hollow Knight/Castlevania principles.
+- The build is not required to reproduce an interconnected Metroidvania structure; the five short linear missions remain authoritative.
+- Touhou-style density appears only in approved boss phases and never replaces normal melee-platform combat.
+- Maps, room layouts, silhouettes, animation poses, UI frames, icons, dialogue, music and exact attack patterns receive an originality review; recognizable copying fails the gate.
+- Reference screenshots may explain a principle internally but may not be traced, shipped, or used as final asset texture content.
+
 ## 10. Audio Validation
 
 - Music loops without audible clicks or silence gaps.

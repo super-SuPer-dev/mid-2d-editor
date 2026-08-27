@@ -22,6 +22,16 @@
 
 เกมเป็น side-scrolling action-platformer พร้อม light RPG progression สำหรับ Windows และ Web การออกแบบแบบ top-down ในเอกสารเก่าถูกยกเลิก ฉาก การชน การเคลื่อนที่ และการต่อสู้ด้านข้างที่ใช้งานจริงคือมาตรฐาน
 
+### 1.3 ลำดับแรงบันดาลใจ
+
+[GDD-INSPIRATION-01] **Hollow Knight และ Castlevania เป็นแรงบันดาลใจหลักด้าน gameplay และ presentation** ใช้เป็นมาตรฐานสำหรับการเคลื่อนที่ด้านข้างที่ตอบสนองแม่นยำ, ระยะประชิดที่จงใจ, การวางศัตรูที่มีหน้าที่, ฉากหลายชั้นมีบรรยากาศ, set piece ระดับห้อง และบอสที่ให้ผู้เล่นอ่าน telegraph ก่อนลงมือ
+
+- **Hollow Knight:** ความแม่นของ movement/attack, silhouette สะอาด, combat UI ที่ไม่รบกวน, mood ของฉาก และ phase บอสที่เรียนรู้เป็นจังหวะได้
+- **Castlevania:** การจัด platform ร่วมกับศัตรู, biome/landmark ที่ไต่ระดับชัด, การเปิดตัวสัตว์ประหลาด, วิถีกระสุนอ่านง่าย และ encounter ที่ทวีความเข้มข้นโดยดัดแปลงเข้าชนบทไทย
+- **Touhou:** เป็นแรงบันดาลใจรองเฉพาะ formation, rhythm และ safe-lane logic ของกระสุนในบอสบาง phase ไม่ได้กำหนดโครงสร้างแคมเปญ ความหนาแน่น combat ปกติ visual style หรือระดับความยากรวม
+
+แรงบันดาลใจเหล่านี้กำหนดคุณภาพและความรู้สึก ไม่ใช่ให้ลอก content เกมยังเป็นแคมเปญเส้นตรงห้าภารกิจ ไม่ใช่โลก Metroidvania เชื่อมต่อกัน และ map, character, creature, UI, music, animation silhouette และ attack pattern ต้องเป็นงานต้นฉบับของ ACO และไซไฟไทย
+
 ## 2. ขอบเขตผลิตภัณฑ์
 
 กลุ่มเป้าหมายคือผู้เล่นแอ็กชันอินดี้ที่ชอบภารกิจสั้น ระบบอ่านง่าย กลิ่นอายไทย และการพัฒนาตัวละครแบบกระชับ รองรับคีย์บอร์ดและเมาส์เป็นหลัก
@@ -108,7 +118,7 @@ Critical path ของทุกด่านใช้เวลา 5–7 นา�
 
 ทุกด่านมีบอสเฉพาะตัว บอสต้องมี lifecycle, phase, health และ defeat signal มาตรฐาน มีอย่างน้อยสองรูปแบบการโจมตี การเปลี่ยนเฟสที่อ่านได้ และ death sequence ที่ชัด ความเสียหายสำคัญต้องมี telegraph ก่อน hitbox ทำงาน `[GDD-BOSS-01]`
 
-บอสบางตัวใช้ **Touhou-inspired danmaku ที่ปรับให้อ่านง่ายใน platformer** `[GDD-BULLET-01]` ได้แก่ fan, aimed burst, rotating ring, alternating lane wall, arc และ spiral ทุก pattern ต้องมี ID, telegraph, ช่วง active, recovery, speed band, projectile cap และ cleanup ที่ deterministic ทางปลอดภัยกว้างอย่างน้อย 1.75 เท่าตัวผู้เล่นและต้องใช้ได้จริงเมื่อกระโดด/ตก/แดช ห้ามเกิดกระสุนในตัวผู้เล่นหรือยิงจากนอกกล้องโดยไม่มีสัญญาณ
+พื้นฐานบอสยึด Hollow Knight/Castlevania: ระยะประชิดชัด, anticipation อ่านได้, การโจมตีมี commitment และ punish window บาง phase จึงเสริม **Touhou-inspired danmaku ที่ปรับให้อ่านง่ายใน platformer** `[GDD-BULLET-01]` ได้แก่ fan, aimed burst, rotating ring, alternating lane wall, arc และ spiral ทุก pattern ต้องมี ID, telegraph, ช่วง active, recovery, speed band, projectile cap และ cleanup ที่ deterministic ทางปลอดภัยกว้างอย่างน้อย 1.75 เท่าตัวผู้เล่นและต้องใช้ได้จริงเมื่อกระโดด/ตก/แดช ห้ามเกิดกระสุนในตัวผู้เล่นหรือยิงจากนอกกล้องโดยไม่มีสัญญาณ
 
 ช่วงกระสุนหนาแน่นยาว 3–6 วินาทีและมีช่วงผ่อนแรงหรือ punish window อย่างน้อย 0.75 วินาที cap แนะนำคือด่าน 1/2/3/4/5 เท่ากับ 18/32/36/48/64 นัด กระสุนต้องหายเมื่อเปลี่ยน phase บอสตาย retry หรือออก arena และ Web ลดได้เฉพาะกระสุนตกแต่ง ห้ามทำลายตรรกะ safe lane
 
@@ -210,7 +220,7 @@ NPC ปรากฏผ่าน portrait ใน briefing, debriefing และ r
 เป้าหมาย: บุกเครือข่ายที่ตื่นเต็มที่และทำลายแกนงอก  
 โควตา: 6; ตัวอย่าง: 10; บอส: `root_core_eye`
 
-- Level design: combat ascent บน eye platform และพื้นพัง; เป็นด่าน danmaku หนาแน่นที่สุดด้วย spiral/ring/aimed burst/bullet curtain แต่มี safe route แน่นอน
+- Level design: combat ascent บน eye platform และพื้นพัง; เป็นด่านกระสุน pattern หนาแน่นที่สุดด้วย spiral/ring/aimed burst/bullet curtain แต่มี safe route และ melee punish window แน่นอน
 
 - Root-Core Eye ใช้พลังงาน ลำราก และข้อมูลที่สะสมจากทั้งภูมิภาค
 - ทำลายเกราะราก เปิดแกน และหยุดการงอก

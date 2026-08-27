@@ -46,6 +46,32 @@ The top-down Action RPG direction in the original concept is retired. The
 implemented side-scrolling movement, jumping, dashing, and melee structure is
 authoritative. `[GDD-VISION-01]`
 
+### 1.3 Inspiration Hierarchy
+
+[GDD-INSPIRATION-01] **Hollow Knight and Castlevania are the primary gameplay
+and presentation references.** They guide responsive side-scrolling movement,
+deliberate melee spacing, purposeful enemy placement, atmospheric layered
+environments, memorable room-scale set pieces, and bosses that reward reading
+telegraphs before committing to an attack.
+
+The project takes different strengths from the two reference families:
+
+- **Hollow Knight:** precise movement and attack response, clean silhouettes,
+  restrained combat UI, environmental mood, and boss phases built around
+  learnable movement rhythms.
+- **Castlevania:** deliberate platform-and-enemy composition, strong biome and
+  landmark progression, dramatic monster staging, readable projectile arcs,
+  and escalating castle-like encounter structure adapted to rural Thailand.
+- **Touhou:** a secondary reference limited to selected boss projectile
+  formations, rhythm, and safe-lane logic. It does not define the campaign
+  structure, normal combat density, visual style, or overall difficulty.
+
+These references guide quality and feel, not content replication. The game
+remains a linear five-mission campaign rather than an interconnected
+Metroidvania. Maps, characters, creatures, UI, music, animation silhouettes,
+and exact attack patterns must be original to the ACO setting and Thai
+science-fiction identity.
+
 ## 2. Product Scope
 
 ### 2.1 Audience
@@ -253,9 +279,12 @@ coloring or scaling a single placeholder sprite. `[GDD-ENEMY-01]`
 - A boss may reuse systemic projectiles or hazards, but not another boss's full
   visual identity. `[GDD-BOSS-01]`
 
-Selected bosses use **Touhou-inspired, platformer-readable danmaku**: authored
-bullet formations with recognizable rhythm and safe lanes, not uncontrolled
-random projectile spam. `[GDD-BULLET-01]`
+Boss fundamentals follow the Hollow Knight/Castlevania reference hierarchy:
+strong melee spacing, clear anticipation, committed attacks and punish
+windows. Selected phases additionally use **Touhou-inspired,
+platformer-readable danmaku**: authored bullet formations with recognizable
+rhythm and safe lanes, not uncontrolled random projectile spam.
+`[GDD-BULLET-01]`
 
 - Every pattern has a named ID, preview tell, active interval, recovery window,
   projectile speed band, active-projectile cap and deterministic cleanup rule.
@@ -473,8 +502,9 @@ vertical aimed pressure not present in earlier missions.
 
 Boss phases: aimed beam and Wisp support; rotating spirals and radial rings;
 floor-root patterns with alternating bullet curtains; then a short exposed-core
-burn phase. This is the campaign's densest Touhou-inspired encounter, but every
-pattern preserves a deterministic platform-safe route.
+burn phase. This is the campaign's densest projectile-pattern encounter, but
+every pattern preserves a deterministic platform-safe route and melee punish
+window.
 
 **Dialogue anchors:**
 

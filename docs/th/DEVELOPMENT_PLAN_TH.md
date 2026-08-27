@@ -30,6 +30,7 @@
 - [DEV-PRINCIPLE-05] มนุษย์ต้องอนุมัติน้ำเสียงเรื่อง คำแปลไทย แอนิเมชัน ภาพ boss feel accessibility และ balance
 - [DEV-PRINCIPLE-06] เขียนอังกฤษก่อนและส่งภาษาไทยใน feature slice เดียวกัน
 - [DEV-PRINCIPLE-07] ทุกด่านออกแบบให้จบใน 5–7 นาที และต้องมีจังหวะ traversal, encounter mix, enemy roster, tile kit, background stack และรูปแบบบอสที่แตกต่างกัน
+- [DEV-PRINCIPLE-08] Hollow Knight และ Castlevania เป็น reference หลักด้าน feel; Touhou เป็น reference รองเฉพาะ projectile phase บางช่วง วิเคราะห์หลักการได้แต่ production content ต้องเป็นต้นฉบับทั้งภาพ กลไก และเนื้อเรื่อง
 
 ## 3. สัญญางาน Agent
 
@@ -41,7 +42,7 @@
 
 [DEV-GATE-00]
 
-จัดทำเอกสารอังกฤษ 4 ฉบับและไทย 4 ฉบับ ล็อก NPC/operator/enemy/boss/level/localization IDs, glossary, ห้า act, งบเวลา 5–7 นาที, biome diversity matrix, boss pattern IDs, projectile caps และ asset inventory
+จัดทำเอกสารอังกฤษ 4 ฉบับและไทย 4 ฉบับ ล็อก NPC/operator/enemy/boss/level/localization IDs, inspiration hierarchy, originality boundary, glossary, ห้า act, งบเวลา 5–7 นาที, biome diversity matrix, boss pattern IDs, projectile caps และ asset inventory
 **ออก Gate:** เอกสารเชื่อมถึงกัน, ID อังกฤษ/ไทยตรงกัน, story/scope ผ่าน human review, asset ที่ทราบมีใน register และ Must-have ไม่กำกวม
 
 ### Gate 1 — รากฐานการผลิต
@@ -56,7 +57,7 @@
 [DEV-GATE-02]
 
 redesign Contaminated Grassland ให้มีสามช่วงก่อนบอสและจบใน 5–7 นาที ผลิต Thorn Matriarch พร้อมกระสุน fan/lane สำหรับสอนผู้เล่น, briefing/radio/boss/debrief/operator barks สองภาษา, tile/parallax ชนบท, roster ศัตรู, VFX, เพลง, SFX และแทน placeholder P0 ของด่าน 1
-**ออก Gate:** เล่นตั้งแต่ briefing ถึง debrief บน Windows/Web ใน 5–7 นาที ไม่มีทางเดินว่างหรือยืด combat, safe route/projectile cap ผ่าน และได้มาตรฐานภาพ/เสียง/UI/เรื่อง/บอสที่อนุมัติ ไม่มี P0/P1
+**ออก Gate:** เล่นตั้งแต่ briefing ถึง debrief บน Windows/Web ใน 5–7 นาที movement/melee response, enemy placement, atmosphere และ boss punish window ถึงมาตรฐาน reference หลักโดยไม่ลอก protected expression ไม่มีทางเดินว่างหรือยืด combat, safe route/projectile cap ผ่าน และได้มาตรฐานภาพ/เสียง/UI/เรื่อง/บอสที่อนุมัติ ไม่มี P0/P1
 
 ### Gate 3 — ปรับด่าน 2–3
 
@@ -132,6 +133,7 @@ Systems ต้องมี test/migration logs; Gameplay ต้องมี enco
 | DEV-RISK-07 | agent ทับงานอื่น | permitted-file list และ diff review |
 | DEV-RISK-08 | กระสุนบอสหนาแน่นไม่ยุติธรรมหรือทำ Web ช้า | cap, pooling, safe route คงที่, contrast test และ worst-case profile |
 | DEV-RISK-09 | biome เป็นเพียง palette swap หรือ scope ความหลากหลายบาน | อนุมัติ tile/background/landmark kit และ roster matrix ต่อด่าน; reuse ระบบแต่ไม่ reuse visual identity |
+| DEV-RISK-10 | ใช้ reference จนเหมือนการลอกหรือให้กระสุนแบบ Touhou กลบแกนเกม | แยกหลักการออกจาก protected expression, บังคับ ACO silhouette/map/UI/music/pattern ต้นฉบับ และจำกัดช่วง projectile-heavy |
 
 ## 8. Definition of Ready
 

@@ -35,6 +35,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 - [DEV-PRINCIPLE-05] Human review is mandatory for story tone, Thai translation quality, animation, artwork, boss feel, accessibility, and final balance.
 - [DEV-PRINCIPLE-06] English content is written first; Thai content is delivered in the same feature slice.
 - [DEV-PRINCIPLE-07] Every mission is authored for a 5–7 minute completion target and must have a distinct traversal rhythm, encounter mix, enemy roster, tile kit, background stack and boss pattern identity.
+- [DEV-PRINCIPLE-08] Hollow Knight and Castlevania are the primary feel references; Touhou is secondary and applies only to selected projectile phases. Reference analysis may identify principles, but production content must remain visually, mechanically and narratively original.
 
 ## 3. Agentic Task Contract
 
@@ -61,7 +62,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 [DEV-GATE-00]
 
 **Inputs:** Current prototype, old design notes, the rewritten GDD, current asset directories.  
-**Work:** Finalize English documents and Thai companions; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve glossary terms, five-act progression, the 5–7 minute mission budget, biome diversity matrix, boss pattern IDs and per-level projectile caps.
+**Work:** Finalize English documents and Thai companions; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve the inspiration hierarchy, originality boundaries, glossary terms, five-act progression, the 5–7 minute mission budget, biome diversity matrix, boss pattern IDs and per-level projectile caps.
 **Exit criteria:**
 
 - All eight documents exist and cross-link correctly.
@@ -97,7 +98,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 **Inputs:** Gate 1 foundation and approved Level 1 asset concepts.  
 **Work:** Redesign and produce the complete Contaminated Grassland mission around three authored pre-boss beats and a 5–7 minute completion target. Produce the Thorn Matriarch with tutorial fan/lane projectile patterns, briefing, three radio events, boss introduction, debriefing, operator barks, English/Thai text, a distinct farmland tile/parallax kit, enemy composition, VFX, music and SFX. Replace all Level 1 placeholders required by the asset register.
 
-**Exit criteria:** Level 1 is playable from briefing through debriefing on Windows and Web in 5–7 minutes; its three beats remain readable without empty travel or combat padding; the boss preserves its safe routes and projectile cap; it sets the approved art, animation, audio, encounter, UI and localization standard; no P0/P1 defects remain.
+**Exit criteria:** Level 1 is playable from briefing through debriefing on Windows and Web in 5–7 minutes; movement/melee response, enemy placement, atmosphere and boss punish windows meet the primary reference benchmark without copying protected expression; its three beats remain readable without empty travel or combat padding; the boss preserves its safe routes and projectile cap; it sets the approved art, animation, audio, encounter, UI and localization standard; no P0/P1 defects remain.
 
 ### Gate 3 — Retrofit Levels 2–3
 
@@ -188,6 +189,7 @@ Boss pattern data must expose `pattern_id`, phase, telegraph duration, active du
 | DEV-RISK-07 | Agent work overwrites unrelated edits | Explicit permitted-file list and diff review | Diff includes an undeclared file |
 | DEV-RISK-08 | Dense boss bullets become unfair or exceed Web performance | Pattern caps, pooled projectiles, deterministic safe routes, contrast tests and worst-case profiling | Safe route disappears, frame target fails or projectile count exceeds contract |
 | DEV-RISK-09 | Biomes feel like palette swaps or diversity scope grows without control | One approved tile/background/landmark kit and roster matrix per level; reuse systems rather than visual identity | Two levels share a primary tile kit, route silhouette or boss pattern set |
+| DEV-RISK-10 | Reference use drifts into imitation or makes Touhou-style bullets dominate the core game | Review principles separately from protected expression; require original ACO silhouettes, maps, UI, music and patterns; keep projectile-heavy phases bounded | A review identifies a recognizable copied asset/layout/pattern or normal encounters become bullet-hell combat |
 
 ## 8. Definition of Ready
 
