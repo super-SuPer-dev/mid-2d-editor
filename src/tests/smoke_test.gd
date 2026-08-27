@@ -172,9 +172,26 @@ func _validate_levels() -> void:
 		if dialogue.visible:
 			dialogue._on_skip_pressed()
 		var boss := level.get_node("Enemies").get_children().filter(func(node: Node) -> bool: return node is EnemyController and node.is_boss)[0] as EnemyController
+		var pattern_runner := boss.get_node("BossProjectilePatternRunner") as BossProjectilePatternRunner
+		_check(pattern_runner.active, "%s boss projectile runner did not activate." % level_id)
+		_check(pattern_runner.projectile_cap == int(LevelCatalog.get_level(level_id)["projectile_cap"]), "%s boss projectile runner ignored its cap." % level_id)
+		for _frame in range(50):
+			await get_tree().physics_frame
+		_check(pattern_runner.get_active_projectile_count() > 0, "%s boss did not emit its opening projectile pattern." % level_id)
+		_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s boss exceeded its projectile cap." % level_id)
+		_check(pattern_runner.all_projectiles.size() <= pattern_runner.projectile_cap, "%s boss projectile pool exceeded its cap." % level_id)
+		if level_id == "level_01":
+			boss.set_combat_active(false)
+			await get_tree().process_frame
+			_check(get_tree().get_nodes_in_group("BossProjectile").is_empty(), "%s boss projectiles survived combat shutdown." % level_id)
+			boss.set_combat_active(true)
+			for _frame in range(50):
+				await get_tree().physics_frame
+			_check(pattern_runner.get_active_projectile_count() > 0, "%s boss projectile runner did not resume after reactivation." % level_id)
 		boss.take_damage(999, Vector2.RIGHT)
 		await get_tree().process_frame
 		await get_tree().process_frame
+		_check(get_tree().get_nodes_in_group("BossProjectile").is_empty(), "%s boss projectiles survived boss defeat." % level_id)
 		_check(GameManager.mission_phase == GameManager.PHASE_EXTRACTION, "%s did not enter extraction." % level_id)
 		_check(portal != null and portal.active, "%s exit portal did not activate after boss defeat." % level_id)
 		level.queue_free()

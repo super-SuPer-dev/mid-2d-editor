@@ -68,6 +68,8 @@ func _on_player_died() -> void:
 	if mission_ended:
 		return
 	mission_ended = true
+	if is_instance_valid(boss):
+		boss.set_combat_active(false)
 	GameManager.finish_run(false)
 	hud.show_game_over()
 

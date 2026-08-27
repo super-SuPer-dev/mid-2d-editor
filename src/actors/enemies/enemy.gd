@@ -10,6 +10,7 @@ const THORN_MATRIARCH_TEXTURE := preload("res://Assets/Enemies/Bosses/thorn_matr
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var pattern_runner: BossProjectilePatternRunner = $BossProjectilePatternRunner
 
 @export_enum("thornling", "spitter", "maw", "thorn_matriarch_boss", "maw_sovereign_boss", "banyan_boss", "root_hydra_boss", "root_core_eye_boss") var enemy_type: String = "thornling"
 var target: PlayerController
@@ -22,6 +23,8 @@ var facing: float = -1.0
 var defeated: bool = false
 var is_boss: bool = false
 var combat_active: bool = true
+var pattern_attack_locked: bool = false
+var base_visual_modulate: Color = Color.WHITE
 
 
 func configure(type_id: String) -> void:
@@ -86,6 +89,13 @@ func configure(type_id: String) -> void:
 
 func _ready() -> void:
 	configure(enemy_type)
+	base_visual_modulate = visual.modulate
+	if is_boss:
+		pattern_runner.configure(self, _get_boss_pattern_set_id(), contact_damage)
+		pattern_runner.telegraph_started.connect(_on_pattern_telegraph_started)
+		pattern_runner.pattern_started.connect(_on_pattern_started)
+		pattern_runner.recovery_started.connect(_on_pattern_recovery_started)
+		pattern_runner.set_active(combat_active)
 	health.health_changed.connect(_on_health_changed)
 	health.died.connect(_on_died)
 	call_deferred("_find_target")
@@ -109,7 +119,9 @@ func _physics_process(delta: float) -> void:
 		var offset := target.global_position - global_position
 		if absf(offset.x) < detection_range and absf(offset.y) < 180.0:
 			facing = signf(offset.x)
-			if enemy_type == "spitter":
+			if pattern_attack_locked:
+				velocity.x = 0.0
+			elif enemy_type == "spitter":
 				velocity.x = 0.0
 				if shoot_cooldown <= 0.0:
 					_shoot(offset.normalized())
@@ -152,6 +164,7 @@ func _on_died() -> void:
 	if defeated:
 		return
 	defeated = true
+	pattern_runner.dispose_projectiles()
 	AudioManager.play_sfx(0.55 if is_boss else 0.85, -8.0)
 	if is_boss:
 		GameManager.register_boss_defeated()
@@ -164,9 +177,42 @@ func set_combat_active(active: bool) -> void:
 	if defeated:
 		return
 	combat_active = active
+	if is_boss:
+		pattern_runner.set_active(active)
 	visible = active
 	process_mode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
 	$CollisionShape2D.set_deferred("disabled", not active)
 	$HurtBox/CollisionShape2D.set_deferred("disabled", not active)
 	if active:
 		GameManager.update_boss_health(health.current_health, health.max_health)
+
+
+func _get_boss_pattern_set_id() -> String:
+	match enemy_type:
+		"thorn_matriarch_boss":
+			return "thorn_matriarch_tutorial"
+		"maw_sovereign_boss":
+			return "maw_sovereign_spore"
+		"banyan_boss":
+			return "possessed_banyan_control"
+		"root_hydra_boss":
+			return "root_hydra_crossfire"
+		"root_core_eye_boss":
+			return "root_core_eye_final"
+	return ""
+
+
+func _on_pattern_telegraph_started(_pattern_id: String) -> void:
+	pattern_attack_locked = true
+	velocity.x = 0.0
+	visual.modulate = Color(1.35, 1.1, 0.72, 1.0)
+
+
+func _on_pattern_started(_pattern_id: String) -> void:
+	pattern_attack_locked = true
+	visual.modulate = base_visual_modulate
+
+
+func _on_pattern_recovery_started(_pattern_id: String) -> void:
+	pattern_attack_locked = false
+	visual.modulate = base_visual_modulate.darkened(0.18)

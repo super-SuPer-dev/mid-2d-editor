@@ -61,6 +61,10 @@ layouts with `new()` and `add_child()`.
 - `HealthComponent` owns reusable health, healing, damage, and death signals.
 - Standard-enemy death registers with `GameManager`; quota completion starts
   the boss phase, and only boss defeat activates extraction.
+- `BossProjectilePatternRunner` consumes `BossPatternCatalog`, telegraphs and
+  cycles authored formations, pools transient projectiles, enforces the level
+  cap, and clears owned shots on combat shutdown, pattern transition, defeat,
+  retry, or scene teardown.
 - The HUD binds to player health and manager signals. It also owns pause,
   defeat, completion, and campaign-completion modals.
 

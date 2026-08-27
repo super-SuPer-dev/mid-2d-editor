@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://src/actors/enemies/enemy.gd" id="1_enemy"]
 [ext_resource type="Script" path="res://src/core/components/health_component.gd" id="2_health"]
 [ext_resource type="Texture2D" path="res://Assets/placeholders/enemy_plant.svg" id="3_art"]
+[ext_resource type="Script" path="res://src/gameplay/enemies/boss_projectile_pattern_runner.gd" id="4_pattern"]
 
 [sub_resource type="RectangleShape2D" id="BodyShape"]
 size = Vector2(34, 38)
@@ -36,3 +37,6 @@ offset_right = 24.0
 offset_bottom = -39.0
 show_percentage = false
 visible = false
+
+[node name="BossProjectilePatternRunner" type="Node" parent="."]
+script = ExtResource("4_pattern")
