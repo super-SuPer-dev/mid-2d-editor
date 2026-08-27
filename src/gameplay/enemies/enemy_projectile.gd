@@ -7,6 +7,10 @@ var damage: int = 1
 var lifetime: float = 4.0
 
 
+func _ready() -> void:
+	rotation = direction.angle() - PI
+
+
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
 	lifetime -= delta

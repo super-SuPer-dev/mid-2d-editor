@@ -8,12 +8,17 @@ signal player_entered
 
 var active: bool = false
 var elapsed: float = 0.0
+var base_visual_scale: Vector2
+
+
+func _ready() -> void:
+	base_visual_scale = visual.scale
 
 
 func _process(delta: float) -> void:
 	elapsed += delta
 	visual.modulate = Color("c9ff8c") if active else Color("9a9d91")
-	visual.scale = Vector2.ONE * (1.0 + sin(elapsed * (4.0 if active else 1.5)) * 0.025)
+	visual.scale = base_visual_scale * (1.0 + sin(elapsed * (4.0 if active else 1.5)) * 0.025)
 	label.text = LocalizationManager.text("PORTAL_READY" if active else "PORTAL_LOCKED")
 
 

@@ -81,9 +81,9 @@ P0 ขวางแคมเปญหรือกฎหมาย/การวา�
 |---|---|---|
 | WORLD-PLATFORM-SET | integrate repeat tile แบบ pixel art ของด่าน 1 โดยไม่ยืดภาพแล้ว; ยังขาด biome variants | Integrated |
 | WORLD-HAZARD-SET | integrate thorn bed แบบ pixel art ของด่าน 1 และ baseline/collision ผ่านแล้ว; ยังขาด biome variants/animation | Integrated |
-| WORLD-SAMPLE | sample pickup | Placeholder |
-| WORLD-PROJECTILE-SET | กระสุนศัตรู/บอส | Placeholder |
-| WORLD-EXTRACTION-PORTAL | ถอนกำลัง | Placeholder |
+| WORLD-SAMPLE | integrate sample canister แบบ pixel art และขอบภาพผ่านที่ runtime scale แล้ว | Integrated |
+| WORLD-PROJECTILE-SET | integrate กระสุน Spitter แบบ pixel art และหมุนตามทิศทางแล้ว; ยังขาด boss variants | Integrated |
+| WORLD-EXTRACTION-PORTAL | integrate ACO extraction beacon แบบ pixel art พร้อม localized label แล้ว; ยังขาด activation VFX/biome treatment | Integrated |
 | WORLD-L1-GRASSLAND | Contaminated Grassland | Review |
 | WORLD-L2-FOREST | Mutated Forest | Placeholder |
 | WORLD-L3-CAPSULE | Capsule/root chamber | Placeholder |

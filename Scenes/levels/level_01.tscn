@@ -128,6 +128,6 @@ position = Vector2(1990, 510)
 position = Vector2(2320, 420)
 
 [node name="Portal" parent="." instance=ExtResource("7")]
-position = Vector2(2520, 515)
+position = Vector2(2520, 585)
 
 [node name="HUD" parent="." instance=ExtResource("8")]
