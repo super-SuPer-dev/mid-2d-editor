@@ -1,6 +1,6 @@
 # BOSS-ROOT-CORE-EYE fruit identity v1
 
-**State:** Review (identity and first body-animation batch only)
+**State:** Review (identity and complete body-animation source contract)
 
 **Primary fruit identity:** Longan eye cluster within dragon-fruit bracts /
 พวงตาลำไยในกลีบแก้วมังกร
@@ -9,7 +9,7 @@
 
 - A huge glossy black longan seed becomes the central pupil, surrounded by a
   segmented ring of pale translucent longan flesh.
-- Eight smaller longan seed-eyes form a broken sensory crown and provide
+- Five smaller longan seed-eyes form a broken sensory crown and provide
   separate aimed/radial/spiral projectile origins.
 - Crimson-magenta dragon-fruit skin and green-tipped bracts become layered
   eyelids, directional blades and bullet-curtain fins.
