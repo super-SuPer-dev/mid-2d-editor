@@ -70,7 +70,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 
 | Asset ID | ด่าน | ผลไม้อ้างอิง | ชุด production | สถานะ |
 |---|---:|---|---|---|
-| BOSS-THORN-MATRIARCH | 1 | พวงราชินีเงาะ | ชุดตัวบอส true-alpha 9 action พร้อม rolling mine/burst, spinning hair-thorn/impact และ lane hazard ที่มี tell อยู่ใน Review ที่ `Generated-Assets/bosses/thorn_matriarch/`; ยังต้อง integrate runtime, ทำ portrait/HUD, VFX/SFX ที่เหลือ และตรวจ gameplay | Review |
+| BOSS-THORN-MATRIARCH | 1 | พวงราชินีเงาะ | ชุดตัวบอส true-alpha 9 action พร้อม mine/burst, hair-thorn/impact, lane hazard ที่มี tell, portrait 3 สถานะ, intro/HUD frame และ phase marker อยู่ใน Review ที่ `Generated-Assets/bosses/thorn_matriarch/`; ยังต้อง integrate runtime, ทำ VFX/SFX ที่เหลือ และตรวจ gameplay | Review |
 | BOSS-MAW-SOVEREIGN | 2 | มงกุฎทุเรียน + กายมังคุด | armored rind/bloom phases, spore rain, rotating five-way, aimed seed burst, tells, portrait, HUD, death | Missing |
 | BOSS-POSSESSED-BANYAN | 3 | ขนุน + ลูกไทร | trunk/fibrous-fruit/possession phases, seed columns, diagonal roots, sticky sap | Placeholder |
 | BOSS-ROOT-HYDRA | 4 | พวงลูกจาก | segmented heads/root lanes, crossfire/rings/lane walls, conduit hazards/phase states | Missing |
@@ -113,8 +113,8 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | UI-RADIO-OVERLAY | integrate โหมด compact ด้านขวาบนใต้ safe area ของ HUD/บอสแล้ว; หลักฐาน runtime ที่ `validation/screenshots/gate2_radio_overlay.png`; ยังขาด portrait expressions และกรอบ pixel art ขั้นสุดท้าย | Placeholder |
 | UI-BRIEFING-PANEL | briefing | Missing |
 | UI-DEBRIEF-PANEL | debrief | Missing |
-| UI-BOSS-HUD | boss name/phase/health | Missing |
-| UI-BOSS-INTRO | boss introduction | Missing |
+| UI-BOSS-HUD | frame, portrait state และ phase marker แบบไม่มีข้อความของ Thorn Matriarch อยู่ใน Review ที่ `Generated-Assets/bosses/thorn_matriarch/presentation/`; ยังต้องทำ reusable runtime component และ skin ของบอสอื่น | Review |
+| UI-BOSS-INTRO | intro frame และ portrait state แบบไม่มีข้อความของ Thorn Matriarch อยู่ใน Review ที่ `Generated-Assets/bosses/thorn_matriarch/presentation/`; ยังต้องทำ presentation ที่รองรับ localization และ skin ของบอสอื่น | Review |
 | UI-MASTERY | mastery screen | Missing |
 | VFX-CUTTER-SET | cutter swing/contact | Placeholder |
 | VFX-DAMAGE-SET | hit/status feedback | Placeholder |

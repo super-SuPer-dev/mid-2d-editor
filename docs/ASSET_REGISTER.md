@@ -90,7 +90,7 @@ Production sets must expose consistent damage/hurt timing while preserving disti
 
 | Asset ID | Level | Fruit identity | Priority | Required production package | State |
 |---|---:|---|---:|---|---|
-| BOSS-THORN-MATRIARCH | 1 | Rambutan queen cluster | P0 | Detailed true-alpha nine-action body set plus rolling mine/burst, spinning hair-thorn/impact and telegraphed lane-hazard source sets are in Review at `Generated-Assets/bosses/thorn_matriarch/`; runtime integration, portrait/HUD, remaining final VFX/SFX and gameplay validation remain | Review |
+| BOSS-THORN-MATRIARCH | 1 | Rambutan queen cluster | P0 | Detailed true-alpha nine-action body, rolling mine/burst, spinning hair-thorn/impact, telegraphed lane hazard, three-state portrait, intro/HUD frames and phase markers are in Review at `Generated-Assets/bosses/thorn_matriarch/`; runtime integration, remaining final VFX/SFX and gameplay validation remain | Review |
 | BOSS-MAW-SOVEREIGN | 2 | Durian crown + mangosteen anatomy | P0 | Multi-phase armored rind/bloom set, spore rain, rotating five-way and aimed seed-burst projectiles, tells, portrait treatment, health bar, death sequence, VFX/SFX | Missing |
 | BOSS-POSSESSED-BANYAN | 3 | Jackfruit + banyan fig | P0 | Current generic scaled behavior replaced by trunk/fibrous-fruit/possession phases, seed-column and diagonal-root-line projectiles, sticky sap zones, tells, portrait, death sequence | Placeholder |
 | BOSS-ROOT-HYDRA | 4 | Nipa-palm fruit cluster | P0 | Multiple segmented fruit heads/root lanes, crossfire/ring/lane-wall projectiles, conduit hazards, phase damage states, portrait, death sequence | Missing |
@@ -135,8 +135,8 @@ Each biome needs at least four parallax layers, gameplay ground/platforms, foreg
 | UI-RADIO-OVERLAY | Compact non-pausing radio | P0 | Native compact top-right mode integrated below HUD/boss safe areas; runtime evidence at `validation/screenshots/gate2_radio_overlay.png`; final portrait expressions and pixel-art frame remain | Placeholder |
 | UI-BRIEFING-PANEL | Mission briefing presentation | P0 | Not present | Missing |
 | UI-DEBRIEF-PANEL | Mission results/story presentation | P0 | Not present | Missing |
-| UI-BOSS-HUD | Boss name, phase and health | P0 | Not present | Missing |
-| UI-BOSS-INTRO | Boss introduction treatment | P1 | Not present | Missing |
+| UI-BOSS-HUD | Boss name, phase and health | P0 | Text-free Thorn Matriarch frame, portrait states and phase markers are in Review at `Generated-Assets/bosses/thorn_matriarch/presentation/`; reusable runtime component and other boss skins remain | Review |
+| UI-BOSS-INTRO | Boss introduction treatment | P1 | Text-free Thorn Matriarch intro frame and portrait states are in Review at `Generated-Assets/bosses/thorn_matriarch/presentation/`; reusable localized presentation and other boss skins remain | Review |
 | UI-MASTERY | Operator mastery screen/components | P0 | Not present | Missing |
 | VFX-CUTTER-SET | Swing, contact, charged/upgrade feedback | P0 | Old/provisional attack effect | Placeholder |
 | VFX-DAMAGE-SET | Player/enemy/boss hit and status feedback | P0 | Minimal/provisional | Placeholder |
