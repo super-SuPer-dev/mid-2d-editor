@@ -98,7 +98,8 @@ only on small screens, instruments, or rare alien effects.
 
 ## Thai fruit enemy language
 
-Thai local fruit is the primary enemy motif. Designs translate recognizable
+Thai local fruit is the mandatory primary motif for every organic enemy and
+boss. Designs translate recognizable
 fruit structures into hostile anatomy: rind becomes armor, calyx becomes jaws
 or crowns, seeds become eyes and projectiles, fibrous flesh becomes muscle,
 sap becomes area denial, and fruit clusters become multi-origin attack nodes.
@@ -118,6 +119,11 @@ families by recoloring the same round fruit body. Preserve distinct height,
 width, locomotion, facing direction, attack reach and weak-point placement.
 Fruit colors are starting references rather than strict palettes; gameplay
 contrast and biome separation take priority.
+
+Each concept sheet names one primary fruit, labels at least three structural
+translations, and identifies the one that drives gameplay. A concept fails the
+art gate if removing its color makes the fruit identity disappear, or if its
+body is a reused round silhouette with different surface decoration.
 
 ## UI language
 

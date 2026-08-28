@@ -2,7 +2,7 @@
 
 **Document status:** Authoritative English design specification  
 **Version:** 2.0  
-**Updated:** 2026-08-26  
+**Updated:** 2026-08-28
 **Engine:** Godot 4.7  
 **Target platforms:** Windows and Web  
 **Native presentation:** 1280 × 720  
@@ -18,7 +18,8 @@ wins until the translation is synchronized.
 **Low Altitude Warrior** is a Thai science-fiction side-scrolling action
 platformer with light persistent progression. A seed-like alien capsule has
 crashed in northeastern Thailand and is converting farmland, forests, and
-wetlands into a connected predatory ecosystem. A field operator uses a locally
+wetlands into a connected predatory ecosystem by absorbing and weaponizing the
+genetics of Thai-grown fruit. A field operator uses a locally
 available backpack brush cutter—modified by the Alien Containment Organization
 (ACO)—to cut through hostile growth, defeat the organism protecting each root
 node, and prevent planetary germination.
@@ -111,9 +112,9 @@ or recorded voice-over. `[GDD-SCOPE-01]`
 
 ## 3. Design Pillars
 
-1. **Thai field equipment versus invasive alien biology.** Rural tools,
-   workwear, soil, crops, and local terrain must remain recognizable beside the
-   alien mutation. `[GDD-PILLAR-01]`
+1. **Thai field equipment versus fruit-derived alien biology.** Rural tools,
+   workwear, soil, crops, local terrain, and recognizable Thai fruit anatomy
+   must remain visible within the alien mutation. `[GDD-PILLAR-01]`
 2. **Readable brush-cutter combat.** Enemy tells, cutter reach, hit feedback,
    invulnerability, and boss hazards must be understandable at 1280 × 720.
    `[GDD-PILLAR-02]`
@@ -270,8 +271,9 @@ coloring or scaling a single placeholder sprite. `[GDD-ENEMY-01]`
 
 #### Thai Fruit Mutation Language
 
-Thai-grown and locally traded fruit is the primary visual theme for enemies
-and bosses. Capsule 07 does not create generic alien plants: it hijacks local
+Thai-grown and locally traded fruit is the mandatory primary visual theme for
+all organic enemies and bosses. Capsule 07 does not create generic alien
+plants: it hijacks local
 fruit genetics and repurposes rind, seed, flesh, calyx, cluster, sap and root
 structures as armor, sensory organs, weapons and projectile systems.
 `[GDD-FRUIT-01]`
@@ -282,6 +284,12 @@ enemies must not become round palette swaps or cute food mascots. Fruit traits
 drive mechanics as well as decoration: thorny rind communicates armor, split
 shells expose weak cores, clustered seeds support projectile patterns, and
 sticky flesh or sap supports area denial.
+
+Every enemy concept sheet must name its primary fruit and show how at least
+three recognizable structures—such as rind, seed, flesh, calyx, cluster, sap,
+fiber, or root—map to anatomy, telegraph, defense, locomotion, or attack. At
+least one mapped structure must affect gameplay. A generic alien-plant concept
+with a fruit palette or fruit pasted onto its body fails the theme review.
 
 | Enemy family | Primary Thai fruit reference | Mutation and gameplay read |
 |---|---|---|

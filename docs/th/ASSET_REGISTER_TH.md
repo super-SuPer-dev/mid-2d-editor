@@ -64,6 +64,8 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | ENEMY-EYE-WISP | ลำไย | มี body source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/eye_wisp/`; normalized 4 x 1, cell 700 x 800, lower visual guide 740; ยังขาด projectile/VFX และ runtime integration | Review |
 | ENEMY-CAPSULE-HUSK | กระท้อน | มี source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/capsule_husk/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ runtime integration | Review |
 
+ก่อนศัตรูหรือบอสเลื่อนจาก `Missing`/`Placeholder` เป็น `Review` source package ต้องมี fruit identity sheet ที่ระบุผลไม้ไทยหลัก, structural mapping อย่างน้อย 3 จุด, จุดที่มีผลต่อ gameplay และ grayscale silhouette check หากขาดหลักฐานนี้ห้ามเลื่อนสถานะงานภาพ
+
 ## 5. บอส
 
 [ASSET-BOSS-01]

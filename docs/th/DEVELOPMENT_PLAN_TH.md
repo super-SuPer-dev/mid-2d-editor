@@ -31,7 +31,8 @@
 - [DEV-PRINCIPLE-06] เขียนอังกฤษก่อนและส่งภาษาไทยใน feature slice เดียวกัน
 - [DEV-PRINCIPLE-07] ทุกด่านออกแบบให้จบใน 5–7 นาที และต้องมีจังหวะ traversal, encounter mix, enemy roster, tile kit, background stack และรูปแบบบอสที่แตกต่างกัน
 - [DEV-PRINCIPLE-08] Hollow Knight และ Castlevania เป็น reference หลักด้าน feel; Touhou เป็น reference รองเฉพาะ projectile phase บางช่วง วิเคราะห์หลักการได้แต่ production content ต้องเป็นต้นฉบับทั้งภาพ กลไก และเนื้อเรื่อง
-- [DEV-PRINCIPLE-09] รูปทรงผลไม้ท้องถิ่นไทยเป็นธีมหลักของศัตรูและบอส ทุกตระกูลต้องล็อกผลไม้อ้างอิง silhouette วัสดุ และกลไกก่อนผลิตแอนิเมชัน ห้ามลดความอ่านง่ายในการต่อสู้หรือใช้เพียงการย้อมสี
+- [DEV-PRINCIPLE-09] รูปทรงผลไม้ท้องถิ่นไทยเป็นธีมหลักที่บังคับใช้กับศัตรูอินทรีย์และบอส ทุกตระกูลต้องล็อกผลไม้อ้างอิง silhouette วัสดุ และกลไกก่อนผลิตแอนิเมชัน ห้ามลดความอ่านง่ายในการต่อสู้หรือใช้เพียงการย้อมสี
+- [DEV-PRINCIPLE-10] การอนุมัติ concept ศัตรู/บอสต้องมี fruit identity sheet ที่จับคู่โครงสร้างผลไม้อย่างน้อย 3 อย่างกับกายวิภาคศัตรู และอย่างน้อย 1 อย่างกับ gameplay งานพืชต่างดาวทั่วไป ผลไม้ที่เพียงติดบนตัว และ body เดิมที่ย้อมสีใหม่ห้ามเข้าสู่ขั้น animation
 
 ## 3. สัญญางาน Agent
 
@@ -118,6 +119,8 @@ redesign Contaminated Grassland ให้มีสามช่วงก่อน
 ข้อมูล boss pattern ต้องมี `pattern_id`, phase, telegraph duration, active duration, recovery duration, projectile speed/range, projectile cap, spawn origins, safe-route rule และ cleanup event ใช้ cap ตาม [GDD-BULLET-01] และล้างกระสุนทั้งหมดเมื่อเปลี่ยน phase, บอสตาย, retry หรือออก scene
 
 งาน asset ศัตรู/บอสทุกชิ้นต้องระบุผลไม้อ้างอิงหลักและอธิบายว่าเปลือก เมล็ด เนื้อ กลีบเลี้ยง พวง ยาง หรือรากช่วย silhouette, telegraph และการโจมตีอย่างไร Human art review ต้องปฏิเสธงานพืชต่างดาวทั่วไปก่อนผลิตแอนิเมชันเต็ม และควรเติม fruit cue ให้แอนิเมชันที่อนุมัติแล้วก่อนทิ้งทำใหม่
+
+ลำดับผลิตของศัตรูแต่ละตระกูลคือ fruit identity sheet → ทดสอบ silhouette/value → key pose idle/attack → review ความอ่านง่ายในการเล่น → animation/projectile set เต็ม → runtime validation ห้ามเริ่ม full animation ก่อน sheet บันทึก structural mapping 3 จุดและ mechanic mapping 1 จุด ภาพถ่ายหรือข้อมูลผลไม้ใช้เป็น reference เท่านั้น งานที่ ship ต้องเป็นการกลายพันธุ์ต่างดาวต้นฉบับ
 
 ## 6. Workstream และหลักฐาน
 

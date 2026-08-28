@@ -84,6 +84,11 @@ not a runtime asset. Its generation record is stored beside the image.
 
 Production sets must expose consistent damage/hurt timing while preserving distinct silhouettes and attack tells. Color swaps alone do not count as separate families.
 
+Before an enemy or boss advances from `Missing`/`Placeholder` to `Review`, its
+source package must include a fruit identity sheet naming the primary Thai
+fruit, at least three mapped structures, the gameplay-bearing structure, and a
+grayscale silhouette check. Missing fruit evidence blocks art-state promotion.
+
 ## 5. Boss Assets
 
 [ASSET-BOSS-01]

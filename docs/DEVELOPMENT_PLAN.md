@@ -36,7 +36,8 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 - [DEV-PRINCIPLE-06] English content is written first; Thai content is delivered in the same feature slice.
 - [DEV-PRINCIPLE-07] Every mission is authored for a 5–7 minute completion target and must have a distinct traversal rhythm, encounter mix, enemy roster, tile kit, background stack and boss pattern identity.
 - [DEV-PRINCIPLE-08] Hollow Knight and Castlevania are the primary feel references; Touhou is secondary and applies only to selected projectile phases. Reference analysis may identify principles, but production content must remain visually, mechanically and narratively original.
-- [DEV-PRINCIPLE-09] Thai local fruit morphology is the primary enemy and boss theme. Every family locks one fruit reference, silhouette, material language and mechanic before animation production; fruit recognition may not reduce combat readability or become a palette-only variant.
+- [DEV-PRINCIPLE-09] Thai local fruit morphology is the mandatory primary enemy and boss theme. Every organic hostile family locks one fruit reference, silhouette, material language and mechanic before animation production; fruit recognition may not reduce combat readability or become a palette-only variant.
+- [DEV-PRINCIPLE-10] Enemy and boss concept approval requires a fruit identity sheet mapping at least three fruit structures to hostile anatomy and at least one to gameplay. Generic alien plants, pasted-on fruit, and recolored shared bodies do not proceed to animation.
 
 ## 3. Agentic Task Contract
 
@@ -172,6 +173,13 @@ telegraph and attack behavior. Human art review confirms cultural
 recognizability and rejects generic alien-plant designs before full animation.
 Previously approved animation is revised with targeted fruit cues where
 possible rather than discarded automatically.
+
+Production order for each hostile family is: fruit identity sheet → silhouette
+and value test → idle/attack key pose → gameplay-readability review → complete
+animation and projectile set → runtime validation. The family cannot enter
+full animation production until the identity sheet records three structural
+mappings and one mechanic mapping. Fruit reference photography or research is
+reference-only; shipped designs remain original alien mutations.
 
 ## 6. Workstreams and Ownership Evidence
 
