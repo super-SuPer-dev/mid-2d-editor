@@ -74,7 +74,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 |---|---:|---|---|---|
 | BOSS-THORN-MATRIARCH | 1 | พวงราชินีเงาะ | ชุดตัวบอส true-alpha 9 action พร้อม mine/burst, hair-thorn/impact, lane hazard ที่มี tell, portrait 3 สถานะ, intro/HUD frame และ phase marker อยู่ใน Review ที่ `Generated-Assets/bosses/thorn_matriarch/`; ยังต้อง integrate runtime, ทำ VFX/SFX ที่เหลือ และตรวจ gameplay | Review |
 | BOSS-MAW-SOVEREIGN | 2 | มงกุฎทุเรียน + กายมังคุด | body true-alpha แบบละเอียด 12 action, projectile/hazard แยก 5 ชุด, portrait 3 สถานะ, intro/HUD frame และ phase marker อยู่ใน Review ที่ `Generated-Assets/bosses/maw_sovereign/`; บันทึก fruit identity sheet, normalized grids, hashes และ provenance แล้ว; ยังขาด runtime integration, VFX/SFX ขั้นสุดท้าย และ gameplay validation | Review |
-| BOSS-POSSESSED-BANYAN | 3 | ขนุน + ลูกไทร | trunk/fibrous-fruit/possession phases, seed columns, diagonal roots, sticky sap | Placeholder |
+| BOSS-POSSESSED-BANYAN | 3 | ขนุน + ลูกไทร | ชุด body true-alpha แบบละเอียด 13 action อยู่ใน Review ที่ `Generated-Assets/bosses/possessed_banyan/`: armored/exposed idle, movement, charge และ root-sweep tell/attack, seed-column/diagonal-root/sap cast, phase break, hurt และ death แบบยุบตัวบน cell 900 x 900; บันทึก fruit identity sheet, normalized grids, hashes และ provenance แล้ว; ยังขาด projectile/hazard แยก, presentation, runtime integration, VFX/SFX และ gameplay validation | Review |
 | BOSS-ROOT-HYDRA | 4 | พวงลูกจาก | segmented heads/root lanes, crossfire/rings/lane walls, conduit hazards/phase states | Missing |
 | BOSS-ROOT-CORE-EYE | 5 | พวงตาลำไย + กลีบแก้วมังกร | seed-eye/core phases, spirals/aimed rings/bract curtains, beams, roots, core exposure, ending death | Missing |
 
