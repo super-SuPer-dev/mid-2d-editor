@@ -74,7 +74,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 |---|---:|---|---|---|
 | BOSS-THORN-MATRIARCH | 1 | พวงราชินีเงาะ | ชุดตัวบอส true-alpha 9 action พร้อม mine/burst, hair-thorn/impact, lane hazard ที่มี tell, portrait 3 สถานะ, intro/HUD frame และ phase marker อยู่ใน Review ที่ `Generated-Assets/bosses/thorn_matriarch/`; ยังต้อง integrate runtime, ทำ VFX/SFX ที่เหลือ และตรวจ gameplay | Review |
 | BOSS-MAW-SOVEREIGN | 2 | มงกุฎทุเรียน + กายมังคุด | body true-alpha แบบละเอียด 12 action, projectile/hazard แยก 5 ชุด, portrait 3 สถานะ, intro/HUD frame และ phase marker อยู่ใน Review ที่ `Generated-Assets/bosses/maw_sovereign/`; บันทึก fruit identity sheet, normalized grids, hashes และ provenance แล้ว; ยังขาด runtime integration, VFX/SFX ขั้นสุดท้าย และ gameplay validation | Review |
-| BOSS-POSSESSED-BANYAN | 3 | ขนุน + ลูกไทร | body true-alpha แบบละเอียด 13 action และ projectile/hazard/death-VFX แยก 6 ชุดอยู่ใน Review ที่ `Generated-Assets/bosses/possessed_banyan/`: falling jackfruit seed, impact, ground tell, diagonal fig-root line, sticky sap pool และ heart break รวมกับ body contract; บันทึก fruit identity sheet, normalized grids, hashes และ provenance แล้ว; ยังขาด presentation, runtime integration, VFX/SFX ขั้นสุดท้าย และ gameplay validation | Review |
+| BOSS-POSSESSED-BANYAN | 3 | ขนุน + ลูกไทร | body true-alpha แบบละเอียด 13 action, projectile/hazard/death-VFX แยก 6 ชุด และ presentation แบบไม่มีข้อความอยู่ใน Review ที่ `Generated-Assets/bosses/possessed_banyan/`; presentation มี portrait 3 สถานะ, intro frame, compact HUD frame และ phase marker 3 แบบ พร้อมตรวจ alpha opening แล้ว; บันทึก identity sheet, normalized grids, hashes และ provenance ครบ; ยังขาด runtime integration, VFX/SFX ขั้นสุดท้าย และ gameplay validation | Review |
 | BOSS-ROOT-HYDRA | 4 | พวงลูกจาก | segmented heads/root lanes, crossfire/rings/lane walls, conduit hazards/phase states | Missing |
 | BOSS-ROOT-CORE-EYE | 5 | พวงตาลำไย + กลีบแก้วมังกร | seed-eye/core phases, spirals/aimed rings/bract curtains, beams, roots, core exposure, ending death | Missing |
 
@@ -115,8 +115,8 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | UI-RADIO-OVERLAY | integrate โหมด compact ด้านขวาบนใต้ safe area ของ HUD/บอสแล้ว; หลักฐาน runtime ที่ `validation/screenshots/gate2_radio_overlay.png`; ยังขาด portrait expressions และกรอบ pixel art ขั้นสุดท้าย | Placeholder |
 | UI-BRIEFING-PANEL | briefing | Missing |
 | UI-DEBRIEF-PANEL | debrief | Missing |
-| UI-BOSS-HUD | frame, portrait state และ phase marker แบบไม่มีข้อความของ Thorn Matriarch และ Maw Sovereign อยู่ใน Review ใต้ `Generated-Assets/bosses/*/presentation/`; ยังต้องทำ reusable runtime component และ skin อีก 3 บอส | Review |
-| UI-BOSS-INTRO | intro frame และ portrait state แบบไม่มีข้อความของ Thorn Matriarch และ Maw Sovereign อยู่ใน Review; ยังต้องทำ presentation runtime ที่รองรับ localization และ skin อีก 3 บอส | Review |
+| UI-BOSS-HUD | frame, portrait state และ phase marker แบบไม่มีข้อความของ Thorn Matriarch, Maw Sovereign และ Possessed Banyan อยู่ใน Review ใต้ `Generated-Assets/bosses/*/presentation/`; ยังต้องทำ reusable runtime component และ skin อีก 2 บอส | Review |
+| UI-BOSS-INTRO | intro frame และ portrait state แบบไม่มีข้อความของ Thorn Matriarch, Maw Sovereign และ Possessed Banyan อยู่ใน Review; ยังต้องทำ presentation runtime ที่รองรับ localization และ skin อีก 2 บอส | Review |
 | UI-MASTERY | mastery screen | Missing |
 | VFX-CUTTER-SET | cutter swing/contact | Placeholder |
 | VFX-DAMAGE-SET | hit/status feedback | Placeholder |
