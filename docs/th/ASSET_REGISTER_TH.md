@@ -57,8 +57,8 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 
 | Asset ID | ผลไม้อ้างอิง | ชุดที่ต้องมี | สถานะ |
 |---|---|---|---|
-| ENEMY-THORNLING | เงาะ | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/thornling/`; normalized 4 x 1, cell 700 x 800, baseline 740; runtime ยังใช้ static idle เก่าและยังขาด integration/hit VFX | Review |
-| ENEMY-SPITTER | มะกรูด | มี body source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/spitter/`; normalized 4 x 1, cell 700 x 800, baseline 740; runtime ยังใช้ static idle เก่าและยังขาด projectile/VFX/integration | Review |
+| ENEMY-THORNLING | เงาะ | body true-alpha แบบละเอียด 6 action และ contact-hit VFX เงาะแยก 4 เฟรมอยู่ใน Review ที่ `Generated-Assets/enemies/thornling/`; body ใช้ cell 700 x 800 baseline 740 และ VFX ใช้ cell 700 x 700 ที่ขอบสะอาดพร้อม hash/provenance; runtime ยังใช้ static idle เก่าและยังขาด integration/gameplay validation | Review |
+| ENEMY-SPITTER | มะกรูด | body true-alpha แบบละเอียด 7 action และ seed/glob/impact VFX มะกรูดแยก 4 ชุดอยู่ใน Review ที่ `Generated-Assets/enemies/spitter/`; body ใช้ cell 700 x 800 baseline 740 ส่วน VFX ใช้ cell จัตุรัส 700/800 px ที่ขอบสะอาด มี silhouette, hash และ provenance แยกชัดเจน; runtime ยังใช้ static idle เก่าและยังขาด integration/gameplay validation | Review |
 | ENEMY-MAW | มังคุดอ่อน | มี source set แบบละเอียด true-alpha 6 action ที่ `Generated-Assets/enemies/maw/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ fruit-read review และ integration | Review |
 | ENEMY-ROOT-SKITTER | สละ | มี source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/root_skitter/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ runtime integration | Review |
 | ENEMY-EYE-WISP | ลำไย | มี body source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/eye_wisp/`; normalized 4 x 1, cell 700 x 800, lower visual guide 740; ยังขาด projectile/VFX และ runtime integration | Review |
