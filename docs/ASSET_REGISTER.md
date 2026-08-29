@@ -88,6 +88,10 @@ Before an enemy or boss advances from `Missing`/`Placeholder` to `Review`, its
 source package must include a fruit identity sheet naming the primary Thai
 fruit, at least three mapped structures, the gameplay-bearing structure, and a
 grayscale silhouette check. Missing fruit evidence blocks art-state promotion.
+The sheet also records `fruit_identity_id`, English/Thai common names,
+local-growth or cultural-reference notes, dominant gameplay-scale read, and any
+secondary fruit used by a boss. Roots, vines, fungi, and alien tissue are
+supporting biology and cannot substitute for the primary fruit identity.
 
 ## 5. Boss Assets
 

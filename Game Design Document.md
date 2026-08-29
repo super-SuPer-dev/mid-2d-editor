@@ -269,13 +269,18 @@ Exact capstone values are balance data, not new active abilities.
 Standard enemies require dedicated visual identities and animation rather than
 coloring or scaling a single placeholder sprite. `[GDD-ENEMY-01]`
 
-#### Thai Fruit Mutation Language
+#### Thai Local-Fruit Enemy Theme (Canonical)
 
-Thai-grown and locally traded fruit is the mandatory primary visual theme for
-all organic enemies and bosses. Capsule 07 does not create generic alien
-plants: it hijacks local
-fruit genetics and repurposes rind, seed, flesh, calyx, cluster, sap and root
-structures as armor, sensory organs, weapons and projectile systems.
+Thai local fruit—defined here as fruit grown in Thailand and familiar through
+local farms, markets, kitchens, and regional food culture—is the canonical main
+theme for every organic enemy and boss. The fruit identity must drive the
+silhouette, surface material, locomotion, attack language, projectiles, and
+hazards rather than appearing as decoration. Capsule 07 does not create generic
+alien plants: it hijacks local fruit genetics and repurposes rind, seed, flesh,
+calyx, cluster, sap, fiber, and root structures as armor, sensory organs,
+weapons, and projectile systems. Roots, vines, fungi, and capsule tissue may be
+used as secondary connective biology, but they may not replace the assigned
+fruit as the hostile's primary read.
 `[GDD-FRUIT-01]`
 
 Fruit recognition is secondary to gameplay readability. Each family has one
@@ -290,6 +295,9 @@ three recognizable structures—such as rind, seed, flesh, calyx, cluster, sap,
 fiber, or root—map to anatomy, telegraph, defense, locomotion, or attack. At
 least one mapped structure must affect gameplay. A generic alien-plant concept
 with a fruit palette or fruit pasted onto its body fails the theme review.
+Within one level, standard families must use different primary fruit identities.
+A boss may combine at most two fruit references, but one must remain visually
+dominant at gameplay scale so the design does not become an unreadable collage.
 
 | Enemy family | Primary Thai fruit reference | Mutation and gameplay read |
 |---|---|---|

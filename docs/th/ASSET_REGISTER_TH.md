@@ -64,7 +64,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | ENEMY-EYE-WISP | ลำไย | body true-alpha แบบละเอียด 7 action และ seed-bolt/impact/beam VFX ลำไยแยก 4 ชุดอยู่ใน Review ที่ `Generated-Assets/enemies/eye_wisp/`; body ใช้ cell 700 x 800 และ lower visual guide 740 ส่วน VFX ใช้ cell 700 x 700 ที่ขอบสะอาด มี silhouette คงที่, hash และ provenance ครบ; ยังขาด runtime integration/gameplay validation | Review |
 | ENEMY-CAPSULE-HUSK | กระท้อน | มี source set แบบละเอียด true-alpha 7 action ที่ `Generated-Assets/enemies/capsule_husk/`; normalized 4 x 1, cell 700 x 800, baseline 740; รอ runtime integration | Review |
 
-ก่อนศัตรูหรือบอสเลื่อนจาก `Missing`/`Placeholder` เป็น `Review` source package ต้องมี fruit identity sheet ที่ระบุผลไม้ไทยหลัก, structural mapping อย่างน้อย 3 จุด, จุดที่มีผลต่อ gameplay และ grayscale silhouette check หากขาดหลักฐานนี้ห้ามเลื่อนสถานะงานภาพ
+ก่อนศัตรูหรือบอสเลื่อนจาก `Missing`/`Placeholder` เป็น `Review` source package ต้องมี fruit identity sheet ที่ระบุผลไม้ไทยหลัก, structural mapping อย่างน้อย 3 จุด, จุดที่มีผลต่อ gameplay และ grayscale silhouette check หากขาดหลักฐานนี้ห้ามเลื่อนสถานะงานภาพ sheet ต้องบันทึก `fruit_identity_id`, ชื่อสามัญอังกฤษ/ไทย, หลักฐานการปลูกหรือความคุ้นเคยในวัฒนธรรมท้องถิ่นไทย, จุดอ่านหลักในขนาด gameplay และผลไม้รองของบอส (ถ้ามี) ราก เถาวัลย์ เห็ดรา และเนื้อเยื่อต่างดาวเป็นชีววิทยารองและห้ามใช้แทนเอกลักษณ์ผลไม้หลัก
 
 ## 5. บอส
 

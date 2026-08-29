@@ -197,7 +197,13 @@ Record completion time, segment splits, deaths, damage sources, currency earned/
 - Two levels may reuse shaders, tools and technical materials, but may not pass diversity review through palette swaps or shared primary tiles alone.
 - Enemy silhouette, movement role and attack tell diversity match the approved per-level roster; every level introduces at least one new family or meaningful mechanic variant.
 - Every organic enemy and boss has one approved primary Thai-fruit identity; its source sheet maps at least three fruit structures to anatomy and at least one to a mechanic.
+- Each source sheet records English/Thai fruit names and evidence that the fruit
+  is grown in Thailand or is clearly familiar in Thai local food/market culture.
 - Fruit identity remains recognizable in silhouette/value review rather than depending only on hue; generic alien plants, pasted-on fruit and palette-only variants fail validation.
+- Roots, vines, fungi and capsule tissue read as secondary connective biology,
+  never as a replacement for the primary fruit identity.
+- Standard families sharing a level use different primary fruits. A two-fruit
+  boss retains one dominant gameplay-scale identity and passes a clutter review.
 - Fruit-derived projectiles and hazards remain distinguishable from pickups, scenery, player VFX and one another at gameplay scale.
 - Texture and atlas memory is measured on Web, not inferred from disk size.
 

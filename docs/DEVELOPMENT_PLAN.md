@@ -70,6 +70,9 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 - All eight documents exist and cross-link correctly.
 - English/Thai companion files contain identical canonical IDs.
 - Story and scope receive human approval.
+- The Thai local-fruit enemy bible is approved: every planned organic enemy and
+  boss has a locked fruit identity, structural/mechanical mapping, and distinct
+  per-level silhouette role.
 - Every known asset is represented in the asset register.
 - No Must-have requirement is ambiguous.
 
@@ -100,7 +103,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 **Inputs:** Gate 1 foundation and approved Level 1 asset concepts.  
 **Work:** Redesign and produce the complete Contaminated Grassland mission around three authored pre-boss beats and a 5–7 minute completion target. Produce the Thorn Matriarch with tutorial fan/lane projectile patterns, briefing, three radio events, boss introduction, debriefing, operator barks, English/Thai text, a distinct farmland tile/parallax kit, enemy composition, VFX, music and SFX. Replace all Level 1 placeholders required by the asset register.
 
-**Exit criteria:** Level 1 is playable from briefing through debriefing on Windows and Web in 5–7 minutes; movement/melee response, enemy placement, atmosphere and boss punish windows meet the primary reference benchmark without copying protected expression; its three beats remain readable without empty travel or combat padding; the boss preserves its safe routes and projectile cap; it sets the approved art, animation, audio, encounter, UI and localization standard; no P0/P1 defects remain.
+**Exit criteria:** Level 1 is playable from briefing through debriefing on Windows and Web in 5–7 minutes; movement/melee response, enemy placement, atmosphere and boss punish windows meet the primary reference benchmark without copying protected expression; its three beats remain readable without empty travel or combat padding; Rambutan Thornlings, makrut-lime Spitters, and the Thorn Matriarch prove the Thai local-fruit identity standard at gameplay scale; the boss preserves its safe routes and projectile cap; it sets the approved art, animation, audio, encounter, UI and localization standard; no P0/P1 defects remain.
 
 ### Gate 3 — Retrofit Levels 2–3
 
@@ -173,6 +176,14 @@ telegraph and attack behavior. Human art review confirms cultural
 recognizability and rejects generic alien-plant designs before full animation.
 Previously approved animation is revised with targeted fruit cues where
 possible rather than discarded automatically.
+
+Each hostile source package records `fruit_identity_id`, English and Thai fruit
+names, local-growth/cultural reference notes, three or more structural mappings,
+one or more mechanic mappings, the dominant gameplay-scale read, and grayscale
+silhouette evidence. Roots, vines, fungi, and alien tissue are supporting
+materials only. Two standard families in the same level cannot share a primary
+fruit; a boss may recombine no more than two fruits and must retain one dominant
+identity.
 
 Production order for each hostile family is: fruit identity sheet → silhouette
 and value test → idle/attack key pose → gameplay-readability review → complete

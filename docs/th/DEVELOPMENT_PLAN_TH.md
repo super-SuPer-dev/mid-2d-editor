@@ -44,8 +44,8 @@
 
 [DEV-GATE-00]
 
-จัดทำเอกสารอังกฤษ 4 ฉบับและไทย 4 ฉบับ ล็อก NPC/operator/enemy/boss/level/localization IDs, inspiration hierarchy, originality boundary, glossary, ห้า act, งบเวลา 5–7 นาที, biome diversity matrix, boss pattern IDs, projectile caps และ asset inventory
-**ออก Gate:** เอกสารเชื่อมถึงกัน, ID อังกฤษ/ไทยตรงกัน, story/scope ผ่าน human review, asset ที่ทราบมีใน register และ Must-have ไม่กำกวม
+จัดทำเอกสารอังกฤษ 4 ฉบับและไทย 4 ฉบับ ล็อก NPC/operator/enemy/boss/level/localization IDs, inspiration hierarchy, originality boundary, glossary, ห้า act, งบเวลา 5–7 นาที, เมทริกซ์การกลายพันธุ์จากผลไม้ท้องถิ่นไทย, biome diversity matrix, boss pattern IDs, projectile caps และ asset inventory
+**ออก Gate:** เอกสารเชื่อมถึงกัน, ID อังกฤษ/ไทยตรงกัน, story/scope ผ่าน human review, enemy bible ผลไม้ไทยกำหนดผลไม้ โครงสร้างที่แปลงเป็นกายวิภาค/กลไก และ silhouette role ของศัตรูอินทรีย์/บอสทุกตัวครบ, asset ที่ทราบมีใน register และ Must-have ไม่กำกวม
 
 ### Gate 1 — รากฐานการผลิต
 
@@ -59,7 +59,7 @@
 [DEV-GATE-02]
 
 redesign Contaminated Grassland ให้มีสามช่วงก่อนบอสและจบใน 5–7 นาที ผลิต Thorn Matriarch พร้อมกระสุน fan/lane สำหรับสอนผู้เล่น, briefing/radio/boss/debrief/operator barks สองภาษา, tile/parallax ชนบท, roster ศัตรู, VFX, เพลง, SFX และแทน placeholder P0 ของด่าน 1
-**ออก Gate:** เล่นตั้งแต่ briefing ถึง debrief บน Windows/Web ใน 5–7 นาที movement/melee response, enemy placement, atmosphere และ boss punish window ถึงมาตรฐาน reference หลักโดยไม่ลอก protected expression ไม่มีทางเดินว่างหรือยืด combat, safe route/projectile cap ผ่าน และได้มาตรฐานภาพ/เสียง/UI/เรื่อง/บอสที่อนุมัติ ไม่มี P0/P1
+**ออก Gate:** เล่นตั้งแต่ briefing ถึง debrief บน Windows/Web ใน 5–7 นาที movement/melee response, enemy placement, atmosphere และ boss punish window ถึงมาตรฐาน reference หลักโดยไม่ลอก protected expression ไม่มีทางเดินว่างหรือยืด combat, Thornling เงาะ, Spitter มะกรูด และ Thorn Matriarch พิสูจน์มาตรฐานเอกลักษณ์ผลไม้ไทยในขนาด gameplay, safe route/projectile cap ผ่าน และได้มาตรฐานภาพ/เสียง/UI/เรื่อง/บอสที่อนุมัติ ไม่มี P0/P1
 
 ### Gate 3 — ปรับด่าน 2–3
 
@@ -119,6 +119,8 @@ redesign Contaminated Grassland ให้มีสามช่วงก่อน
 ข้อมูล boss pattern ต้องมี `pattern_id`, phase, telegraph duration, active duration, recovery duration, projectile speed/range, projectile cap, spawn origins, safe-route rule และ cleanup event ใช้ cap ตาม [GDD-BULLET-01] และล้างกระสุนทั้งหมดเมื่อเปลี่ยน phase, บอสตาย, retry หรือออก scene
 
 งาน asset ศัตรู/บอสทุกชิ้นต้องระบุผลไม้อ้างอิงหลักและอธิบายว่าเปลือก เมล็ด เนื้อ กลีบเลี้ยง พวง ยาง หรือรากช่วย silhouette, telegraph และการโจมตีอย่างไร Human art review ต้องปฏิเสธงานพืชต่างดาวทั่วไปก่อนผลิตแอนิเมชันเต็ม และควรเติม fruit cue ให้แอนิเมชันที่อนุมัติแล้วก่อนทิ้งทำใหม่
+
+source package ของศัตรูแต่ละชุดต้องบันทึก `fruit_identity_id`, ชื่อผลไม้ภาษาอังกฤษ/ไทย, หลักฐานการปลูกหรือความคุ้นเคยในวัฒนธรรมท้องถิ่นไทย, structural mapping อย่างน้อย 3 จุด, mechanic mapping อย่างน้อย 1 จุด, จุดอ่านหลักในขนาด gameplay และหลักฐาน grayscale silhouette ราก เถาวัลย์ เห็ดรา และเนื้อเยื่อต่างดาวเป็นวัสดุรองเท่านั้น ศัตรูมาตรฐานในด่านเดียวกันห้ามใช้ผลไม้หลักซ้ำ บอสผสมได้ไม่เกิน 2 ผลไม้และต้องมีหนึ่งชนิดเด่นชัด
 
 ลำดับผลิตของศัตรูแต่ละตระกูลคือ fruit identity sheet → ทดสอบ silhouette/value → key pose idle/attack → review ความอ่านง่ายในการเล่น → animation/projectile set เต็ม → runtime validation ห้ามเริ่ม full animation ก่อน sheet บันทึก structural mapping 3 จุดและ mechanic mapping 1 จุด ภาพถ่ายหรือข้อมูลผลไม้ใช้เป็น reference เท่านั้น งานที่ ship ต้องเป็นการกลายพันธุ์ต่างดาวต้นฉบับ
 
