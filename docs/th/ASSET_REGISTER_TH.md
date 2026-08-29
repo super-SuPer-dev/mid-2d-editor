@@ -119,7 +119,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | UI-BOSS-INTRO | intro frame และ portrait state แบบไม่มีข้อความของบอสครบทั้ง 5 ตัวอยู่ใน Review; ยังต้องทำ presentation runtime ที่รองรับ localization, timing และตรวจที่ 1280 x 720 | Review |
 | UI-MASTERY | mastery screen true-alpha ไม่มีข้อความ 1800 × 1000 px พร้อม rank node 6 สถานะ cell 750 px อยู่ใน Review ที่ `Generated-Assets/ui/mastery/`; ยังขาด runtime binding/state/ข้อความสองภาษา | Review |
 | VFX-CUTTER-SET | source true-alpha แยก 4 ชุดสำหรับ swing, organic contact, charged swing และ upgrade activation อยู่ใน Review ที่ `Generated-Assets/vfx/cutter/`; runtime ยังใช้ effect เก่าจนกว่าจะ integrate timing/collision | Review |
-| VFX-DAMAGE-SET | hit/status feedback | Placeholder |
+| VFX-DAMAGE-SET | source true-alpha แยก 5 ชุดสำหรับ player hit, organic hit, armored hit, final-boss-core hit และ loop สถานะ root contamination อยู่ใน Review ที่ `Generated-Assets/vfx/damage/`; ทุกชุดใช้ cell 800 px ขอบสะอาดพร้อม hash/provenance แต่ยังขาด runtime event binding, scale, timing, blend mode และ gameplay validation | Review |
 
 UI ต้องรองรับ 1280×720, keyboard focus, safe area, English expansion, Thai line break และ pseudo-localization ใช้ nine-slice/container แทนการยืด raster
 
