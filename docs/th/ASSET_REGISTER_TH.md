@@ -39,10 +39,10 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | CHAR-RIN-SHEET | Rin / ริน | P0 | animation contract เดียวกัน silhouette ชัด | Review |
 | CHAR-KHEM-SHEET | Khem / เข้ม | P0 | contract เดียวกัน reach ขับด้วย data | Review |
 | CHAR-T800-SHEET | T-800 | P0 | contract เดียวกัน damage readability | Review |
-| ICON-PASSIVE-TONKLA | Field Recovery / ฟื้นฟูภาคสนาม | P1 | icon ไม่มีข้อความ | Missing |
-| ICON-PASSIVE-RIN | Rapid Relay / รีเลย์ฉับไว | P1 | สื่อ dash cooldown | Missing |
-| ICON-PASSIVE-KHEM | Wide Cut / คมกว้าง | P1 | สื่อพื้นที่โจมตี | Missing |
-| ICON-PASSIVE-T800 | Reinforced Chassis / โครงเสริมเกราะ | P1 | สื่อ damage reduction | Missing |
+| ICON-PASSIVE-TONKLA | Field Recovery / ฟื้นฟูภาคสนาม | P1 | source true-alpha ไม่มีข้อความ 1400 px อ่านได้ที่ 64 px; ยังขาด runtime import/mastery state | Review |
+| ICON-PASSIVE-RIN | Rapid Evade / หลบฉับไว | P1 | source true-alpha 1400 px สื่อ dash/cooldown ชัดที่ 64 px; ยังขาด runtime import/mastery state | Review |
+| ICON-PASSIVE-KHEM | Wide Cut / คมกว้าง | P1 | source true-alpha 1400 px สื่อพื้นที่โจมตีชัดที่ 64 px; ยังขาด runtime import/mastery state | Review |
+| ICON-PASSIVE-T800 | Reinforced Chassis / โครงเสริมเกราะ | P1 | source true-alpha 1400 px สื่อ damage reduction ชัดที่ 64 px; ยังขาด runtime import/mastery state | Review |
 | PORTRAIT-OP-TONKLA | ภาพต้นกล้า | P1 | อย่างน้อย 2 expression | Missing |
 | PORTRAIT-OP-RIN | ภาพริน | P1 | อย่างน้อย 2 expression | Missing |
 | PORTRAIT-OP-KHEM | ภาพเข้ม | P1 | อย่างน้อย 2 expression | Missing |

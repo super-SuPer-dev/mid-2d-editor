@@ -57,10 +57,10 @@ not a runtime asset. Its generation record is stored beside the image.
 | CHAR-RIN-SHEET | Rin / ริน | P0 | `Generated-Assets/character/` / current character runtime | Same shared animation contract; visually distinct silhouette | Name/description only | Review |
 | CHAR-KHEM-SHEET | Khem / เข้ม | P0 | `Generated-Assets/character/` / current character runtime | Same shared animation contract; attack reach remains data-driven | Name/description only | Review |
 | CHAR-T800-SHEET | T-800 / T-800 | P0 | `Generated-Assets/character/` / current character runtime | Same shared animation contract; mechanical damage readability | Name/description only | Review |
-| ICON-PASSIVE-TONKLA | Field Recovery / ฟื้นฟูภาคสนาม | P1 | TBD / `Assets/UI/icons/` | Clear at HUD/mastery sizes, no text | Tooltip keys | Missing |
-| ICON-PASSIVE-RIN | Rapid Relay / รีเลย์ฉับไว | P1 | TBD / `Assets/UI/icons/` | Clear dash/cooldown meaning, no text | Tooltip keys | Missing |
-| ICON-PASSIVE-KHEM | Wide Cut / คมกว้าง | P1 | TBD / `Assets/UI/icons/` | Clear attack-area meaning, no text | Tooltip keys | Missing |
-| ICON-PASSIVE-T800 | Reinforced Chassis / โครงเสริมเกราะ | P1 | TBD / `Assets/UI/icons/` | Clear mitigation meaning, no text | Tooltip keys | Missing |
+| ICON-PASSIVE-TONKLA | Field Recovery / ฟื้นฟูภาคสนาม | P1 | `Generated-Assets/ui/operator_passives/passive_tonkla_field_recovery_normalized_v1.png` / `Assets/UI/icons/` | Text-free true-alpha source is readable at 64 px; runtime import and mastery-state framing remain | Tooltip keys | Review |
+| ICON-PASSIVE-RIN | Rapid Evade / หลบฉับไว | P1 | `Generated-Assets/ui/operator_passives/passive_rin_rapid_evade_normalized_v1.png` / `Assets/UI/icons/` | Dash/cooldown read is distinct at 64 px; runtime import and mastery-state framing remain | Tooltip keys | Review |
+| ICON-PASSIVE-KHEM | Wide Cut / คมกว้าง | P1 | `Generated-Assets/ui/operator_passives/passive_khem_wide_cut_normalized_v1.png` / `Assets/UI/icons/` | Cutter-area read is distinct at 64 px; runtime import and mastery-state framing remain | Tooltip keys | Review |
+| ICON-PASSIVE-T800 | Reinforced Chassis / โครงเสริมเกราะ | P1 | `Generated-Assets/ui/operator_passives/passive_t800_reinforced_chassis_normalized_v1.png` / `Assets/UI/icons/` | Mitigation/armor read is distinct at 64 px; runtime import and mastery-state framing remain | Tooltip keys | Review |
 | PORTRAIT-OP-TONKLA | Tonkla Portrait / ภาพต้นกล้า | P1 | TBD / `Assets/Portraits/operators/` | Neutral + determined expressions; radio crop safe | Speaker/display keys | Missing |
 | PORTRAIT-OP-RIN | Rin Portrait / ภาพริน | P1 | TBD / `Assets/Portraits/operators/` | Neutral + determined expressions; radio crop safe | Speaker/display keys | Missing |
 | PORTRAIT-OP-KHEM | Khem Portrait / ภาพเข้ม | P1 | TBD / `Assets/Portraits/operators/` | Neutral + determined expressions; radio crop safe | Speaker/display keys | Missing |
