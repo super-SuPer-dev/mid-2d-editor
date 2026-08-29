@@ -121,7 +121,7 @@ Projectile production sets require high-contrast shape coding, spawn and impact 
 | WORLD-PROJECTILE-SET | Enemy/boss ranged attacks | P0 | Pixel-art Spitter projectile integrated with direction-aligned rotation; boss variants remain | Integrated |
 | WORLD-EXTRACTION-PORTAL | Mission extraction | P0 | Pixel-art ACO extraction beacon integrated with localized world-space label; biome treatment/activation VFX remain | Integrated |
 | WORLD-L1-GRASSLAND | Contaminated Grassland environment | P0 | Generated/current background candidates | Review |
-| WORLD-L2-FOREST | Mutated Forest environment | P0 | Provisional reuse/tint and authored layout | Placeholder |
+| WORLD-L2-FOREST | Mutated Forest environment | P0 | A detailed high-resolution pixel-art source package is in Review at `Generated-Assets/world/level_02_mutated_forest/`: five-layer parallax stack, seven-piece modular tile source set with mirrored/rotated derivatives specified, animated mangosteen spore vent, biome extraction beacon, Maw Bloom landmark and field-shrine prop; alpha/hash/provenance evidence is recorded, while runtime slicing, collisions, placement, memory and 1280 × 720 gameplay validation remain | Review |
 | WORLD-L3-CAPSULE | Capsule 07 impact/root chamber | P0 | Provisional reuse/tint and authored layout | Placeholder |
 | WORLD-L4-MARSH | Devouring Root Marsh environment | P0 | No production set | Missing |
 | WORLD-L5-NEXUS | Alien Eye Nexus environment | P0 | No production set | Missing |

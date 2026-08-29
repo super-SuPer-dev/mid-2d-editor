@@ -92,7 +92,7 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | WORLD-PROJECTILE-SET | integrate กระสุน Spitter แบบ pixel art และหมุนตามทิศทางแล้ว; ยังขาด boss variants | Integrated |
 | WORLD-EXTRACTION-PORTAL | integrate ACO extraction beacon แบบ pixel art พร้อม localized label แล้ว; ยังขาด activation VFX/biome treatment | Integrated |
 | WORLD-L1-GRASSLAND | Contaminated Grassland | Review |
-| WORLD-L2-FOREST | Mutated Forest | Placeholder |
+| WORLD-L2-FOREST | ชุด source pixel art รายละเอียดสูงอยู่ใน Review ที่ `Generated-Assets/world/level_02_mutated_forest/` มี parallax 5 ชั้น, tile source แบบ modular 7 ชิ้นพร้อมข้อกำหนด variant mirror/rotate, hazard spore vent มังคุดแบบ animation, extraction beacon เฉพาะ biome, Maw Bloom landmark และ prop ศาลภาคสนาม; บันทึก alpha/hash/provenance แล้ว แต่ยังขาด runtime slicing, collision, placement, memory และ gameplay validation ที่ 1280 × 720 | Review |
 | WORLD-L3-CAPSULE | Capsule/root chamber | Placeholder |
 | WORLD-L4-MARSH | Devouring Root Marsh | Missing |
 | WORLD-L5-NEXUS | Alien Eye Nexus | Missing |
