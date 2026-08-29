@@ -142,7 +142,7 @@ Each biome needs at least four parallax layers, gameplay ground/platforms, foreg
 | UI-DEBRIEF-PANEL | Mission results/story presentation | P0 | Text-free true-alpha 1800 × 1000 px results/debrief shell is in Review at `Generated-Assets/ui/narrative/`; runtime composition and bilingual fitting remain | Review |
 | UI-BOSS-HUD | Boss name, phase and health | P0 | Text-free frames, portrait states and phase markers for all five bosses are in Review under their `Generated-Assets/bosses/*/presentation/` packages; reusable runtime component, localization fitting and gameplay-scale validation remain | Review |
 | UI-BOSS-INTRO | Boss introduction treatment | P1 | Text-free intro frames and portrait states for all five bosses are in Review under their presentation packages; reusable localized presentation, timing and 1280 x 720 validation remain | Review |
-| UI-MASTERY | Operator mastery screen/components | P0 | Not present | Missing |
+| UI-MASTERY | Operator mastery screen/components | P0 | Text-free true-alpha 1800 × 1000 px screen shell plus six clean 750 px rank-node states are in Review at `Generated-Assets/ui/mastery/`; runtime data binding, interaction states and bilingual fitting remain | Review |
 | VFX-CUTTER-SET | Swing, contact, charged/upgrade feedback | P0 | Old/provisional attack effect | Placeholder |
 | VFX-DAMAGE-SET | Player/enemy/boss hit and status feedback | P0 | Minimal/provisional | Placeholder |
 
