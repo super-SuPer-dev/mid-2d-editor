@@ -43,10 +43,10 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | ICON-PASSIVE-RIN | Rapid Evade / หลบฉับไว | P1 | source true-alpha 1400 px สื่อ dash/cooldown ชัดที่ 64 px; ยังขาด runtime import/mastery state | Review |
 | ICON-PASSIVE-KHEM | Wide Cut / คมกว้าง | P1 | source true-alpha 1400 px สื่อพื้นที่โจมตีชัดที่ 64 px; ยังขาด runtime import/mastery state | Review |
 | ICON-PASSIVE-T800 | Reinforced Chassis / โครงเสริมเกราะ | P1 | source true-alpha 1400 px สื่อ damage reduction ชัดที่ 64 px; ยังขาด runtime import/mastery state | Review |
-| PORTRAIT-OP-TONKLA | ภาพต้นกล้า | P1 | อย่างน้อย 2 expression | Missing |
-| PORTRAIT-OP-RIN | ภาพริน | P1 | อย่างน้อย 2 expression | Missing |
-| PORTRAIT-OP-KHEM | ภาพเข้ม | P1 | อย่างน้อย 2 expression | Missing |
-| PORTRAIT-OP-T800 | ภาพ T-800 | P1 | อย่างน้อย 2 expression | Missing |
+| PORTRAIT-OP-TONKLA | ภาพต้นกล้า | P1 | source true-alpha neutral/determined แบบ 2 × 900 px ขอบสะอาดและ radio-crop safe; ยังขาด runtime integration | Review |
+| PORTRAIT-OP-RIN | ภาพริน | P1 | source true-alpha neutral/determined แบบ 2 × 900 px ขอบสะอาดและ radio-crop safe; ยังขาด runtime integration | Review |
+| PORTRAIT-OP-KHEM | ภาพเข้ม | P1 | source true-alpha neutral/determined แบบ 2 × 900 px ขอบสะอาดและ radio-crop safe; ยังขาด runtime integration | Review |
+| PORTRAIT-OP-T800 | ภาพ T-800 | P1 | source true-alpha neutral/alert แบบ 2 × 900 px ขอบสะอาดและ radio-crop safe; ยังขาด runtime integration | Review |
 | PORTRAIT-NPC-ANAN | ผู้การอนันต์ | P0 | integrate neutral anchor แล้ว; ยังขาด urgent/relieved | Integrated |
 | PORTRAIT-NPC-MALI | ดร.มะลิ | P0 | integrate analytical anchor แล้ว; ยังขาด alarmed/hopeful | Integrated |
 | PORTRAIT-NPC-CHAI | ช่างชัย | P0 | integrate neutral anchor แล้ว; ยังขาด amused/concerned | Integrated |
