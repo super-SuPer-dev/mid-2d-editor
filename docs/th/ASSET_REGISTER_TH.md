@@ -47,9 +47,9 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | PORTRAIT-OP-RIN | ภาพริน | P1 | source true-alpha neutral/determined แบบ 2 × 900 px ขอบสะอาดและ radio-crop safe; ยังขาด runtime integration | Review |
 | PORTRAIT-OP-KHEM | ภาพเข้ม | P1 | source true-alpha neutral/determined แบบ 2 × 900 px ขอบสะอาดและ radio-crop safe; ยังขาด runtime integration | Review |
 | PORTRAIT-OP-T800 | ภาพ T-800 | P1 | source true-alpha neutral/alert แบบ 2 × 900 px ขอบสะอาดและ radio-crop safe; ยังขาด runtime integration | Review |
-| PORTRAIT-NPC-ANAN | ผู้การอนันต์ | P0 | integrate neutral anchor แล้ว; ยังขาด urgent/relieved | Integrated |
-| PORTRAIT-NPC-MALI | ดร.มะลิ | P0 | integrate analytical anchor แล้ว; ยังขาด alarmed/hopeful | Integrated |
-| PORTRAIT-NPC-CHAI | ช่างชัย | P0 | integrate neutral anchor แล้ว; ยังขาด amused/concerned | Integrated |
+| PORTRAIT-NPC-ANAN | ผู้การอนันต์ | P0 | source true-alpha neutral/urgent/relieved ครบแบบ 3 × 900 px; runtime ยังใช้ neutral anchor เดิมและยังขาด full integration | Review |
+| PORTRAIT-NPC-MALI | ดร.มะลิ | P0 | source true-alpha analytical/alarmed/hopeful ครบแบบ 3 × 900 px; runtime ยังใช้ analytical anchor เดิมและยังขาด full integration | Review |
+| PORTRAIT-NPC-CHAI | ช่างชัย | P0 | source true-alpha neutral/amused/concerned ครบแบบ 3 × 900 px; runtime ยังใช้ neutral anchor เดิมและยังขาด full integration | Review |
 
 ## 4. ศัตรูมาตรฐาน
 
