@@ -93,10 +93,10 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | WORLD-EXTRACTION-PORTAL | integrate ACO extraction beacon แบบ pixel art พร้อม localized label แล้ว; ยังขาด activation VFX/biome treatment | Integrated |
 | WORLD-L1-GRASSLAND | Contaminated Grassland | Review |
 | WORLD-L2-FOREST | ชุด source pixel art รายละเอียดสูงอยู่ใน Review ที่ `Generated-Assets/world/level_02_mutated_forest/` มี parallax 5 ชั้น, tile source แบบ modular 7 ชิ้นพร้อมข้อกำหนด variant mirror/rotate, hazard spore vent มังคุดแบบ animation, extraction beacon เฉพาะ biome, Maw Bloom landmark และ prop ศาลภาคสนาม; บันทึก alpha/hash/provenance แล้ว แต่ยังขาด runtime slicing, collision, placement, memory และ gameplay validation ที่ 1280 × 720 | Review |
-| WORLD-L3-CAPSULE | Capsule/root chamber | Placeholder |
+| WORLD-L3-CAPSULE | ชุด source pixel art รายละเอียดสูงอยู่ใน Review ที่ `Generated-Assets/world/level_03_capsule_07/` มี parallax ถ้ำ/เปลือก 5 ชั้น, tile source capsule-root แบบ modular 7 ชิ้นพร้อมข้อกำหนด variant mirror/rotate, hazard seed piston กระท้อนแบบ animation, extraction beacon ห้องราก และ Capsule 07 seed-harvester landmark; บันทึก alpha/hash/provenance แล้ว แต่ยังขาด runtime slicing, collision, placement, memory และ gameplay validation ที่ 1280 × 720 | Review |
 | WORLD-L4-MARSH | Devouring Root Marsh | Missing |
 | WORLD-L5-NEXUS | Alien Eye Nexus | Missing |
-| LANDMARK-CAPSULE-07 | Capsule/seed | Missing |
+| LANDMARK-CAPSULE-07 | source true-alpha ของ Capsule 07 แบบ seed harvester อยู่ใน Review ที่ `Generated-Assets/world/level_03_capsule_07/landmarks/capsule_07_seed_harvester_v1.png` แสดง germination core ทรงกระท้อน, silhouette เปลือก/นั่งร้าน และรากดูดทรัพยากรโดยไม่มีข้อความ baked; ยังขาด runtime scale, placement, occlusion และ validation ของ midpoint reveal | Review |
 | LANDMARK-ROOT-CONDUIT | nutrient conduit | Missing |
 | LANDMARK-ALIEN-EYE | sensory nexus | Missing |
 
