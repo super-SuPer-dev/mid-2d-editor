@@ -143,7 +143,7 @@ Each biome needs at least four parallax layers, gameplay ground/platforms, foreg
 | UI-BOSS-HUD | Boss name, phase and health | P0 | Text-free frames, portrait states and phase markers for all five bosses are in Review under their `Generated-Assets/bosses/*/presentation/` packages; reusable runtime component, localization fitting and gameplay-scale validation remain | Review |
 | UI-BOSS-INTRO | Boss introduction treatment | P1 | Text-free intro frames and portrait states for all five bosses are in Review under their presentation packages; reusable localized presentation, timing and 1280 x 720 validation remain | Review |
 | UI-MASTERY | Operator mastery screen/components | P0 | Text-free true-alpha 1800 × 1000 px screen shell plus six clean 750 px rank-node states are in Review at `Generated-Assets/ui/mastery/`; runtime data binding, interaction states and bilingual fitting remain | Review |
-| VFX-CUTTER-SET | Swing, contact, charged/upgrade feedback | P0 | Old/provisional attack effect | Placeholder |
+| VFX-CUTTER-SET | Swing, contact, charged/upgrade feedback | P0 | Four detached true-alpha four-frame strips for standard swing, organic contact, charged swing and upgrade activation are in Review at `Generated-Assets/vfx/cutter/`; runtime still uses the old/provisional effect until timing and collision integration | Review |
 | VFX-DAMAGE-SET | Player/enemy/boss hit and status feedback | P0 | Minimal/provisional | Placeholder |
 
 UI source masters must support 1280×720, safe areas, keyboard focus, English expansion, Thai line breaking and pseudo-localization. Nine-slice or layout-native panels are preferred over stretched raster panels.
