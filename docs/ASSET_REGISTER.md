@@ -136,10 +136,10 @@ Each biome needs at least four parallax layers, gameplay ground/platforms, foreg
 | UI-MENU-ATLAS | Menu/button/panel art | P0 | Generated atlas integrated provisionally | Review |
 | UI-LEVEL-MAP | Five-level selection map | P0 | Generated map/atlas integrated; icons repositioned | Review |
 | UI-HUD-ICON-ATLAS | Health, sample, objective and ability icons | P0 | Generated atlas integrated provisionally | Review |
-| UI-DIALOGUE-FRAME | Briefing/debrief dialogue | P0 | Not present | Missing |
-| UI-RADIO-OVERLAY | Compact non-pausing radio | P0 | Native compact top-right mode integrated below HUD/boss safe areas; runtime evidence at `validation/screenshots/gate2_radio_overlay.png`; final portrait expressions and pixel-art frame remain | Placeholder |
-| UI-BRIEFING-PANEL | Mission briefing presentation | P0 | Not present | Missing |
-| UI-DEBRIEF-PANEL | Mission results/story presentation | P0 | Not present | Missing |
+| UI-DIALOGUE-FRAME | Briefing/debrief dialogue | P0 | Text-free true-alpha source and clean 2300 × 800 px normalized frame are in Review at `Generated-Assets/ui/narrative/`; runtime slicing, portraits and bilingual fitting remain | Review |
+| UI-RADIO-OVERLAY | Compact non-pausing radio | P0 | Native compact top-right mode is integrated below HUD/boss safe areas; a final text-free true-alpha pixel-art frame is in Review at `Generated-Assets/ui/narrative/`; runtime skin replacement and bilingual fitting remain | Review |
+| UI-BRIEFING-PANEL | Mission briefing presentation | P0 | Text-free true-alpha 1800 × 1000 px tactical briefing shell is in Review at `Generated-Assets/ui/narrative/`; runtime composition and bilingual fitting remain | Review |
+| UI-DEBRIEF-PANEL | Mission results/story presentation | P0 | Text-free true-alpha 1800 × 1000 px results/debrief shell is in Review at `Generated-Assets/ui/narrative/`; runtime composition and bilingual fitting remain | Review |
 | UI-BOSS-HUD | Boss name, phase and health | P0 | Text-free frames, portrait states and phase markers for all five bosses are in Review under their `Generated-Assets/bosses/*/presentation/` packages; reusable runtime component, localization fitting and gameplay-scale validation remain | Review |
 | UI-BOSS-INTRO | Boss introduction treatment | P1 | Text-free intro frames and portrait states for all five bosses are in Review under their presentation packages; reusable localized presentation, timing and 1280 x 720 validation remain | Review |
 | UI-MASTERY | Operator mastery screen/components | P0 | Not present | Missing |

@@ -111,10 +111,10 @@ Reference ภาพรวมแคมเปญ `ARTREF-CAMPAIGN-ANCHOR` อย�
 | UI-MENU-ATLAS | menu/button/panel | Review |
 | UI-LEVEL-MAP | แผนที่ 5 ด่าน | Review |
 | UI-HUD-ICON-ATLAS | HUD icons | Review |
-| UI-DIALOGUE-FRAME | dialogue | Missing |
-| UI-RADIO-OVERLAY | integrate โหมด compact ด้านขวาบนใต้ safe area ของ HUD/บอสแล้ว; หลักฐาน runtime ที่ `validation/screenshots/gate2_radio_overlay.png`; ยังขาด portrait expressions และกรอบ pixel art ขั้นสุดท้าย | Placeholder |
-| UI-BRIEFING-PANEL | briefing | Missing |
-| UI-DEBRIEF-PANEL | debrief | Missing |
+| UI-DIALOGUE-FRAME | source true-alpha ไม่มีข้อความ 2300 × 800 px อยู่ใน Review ที่ `Generated-Assets/ui/narrative/`; ยังขาด runtime slicing/portrait/ข้อความสองภาษา | Review |
+| UI-RADIO-OVERLAY | runtime มีโหมด compact ด้านขวาบนแล้ว และกรอบ pixel art true-alpha ไม่มีข้อความอยู่ใน Review ที่ `Generated-Assets/ui/narrative/`; ยังขาด skin replacement/ข้อความสองภาษา | Review |
+| UI-BRIEFING-PANEL | briefing shell true-alpha ไม่มีข้อความ 1800 × 1000 px อยู่ใน Review; ยังขาด runtime composition/ข้อความสองภาษา | Review |
+| UI-DEBRIEF-PANEL | debrief/results shell true-alpha ไม่มีข้อความ 1800 × 1000 px อยู่ใน Review; ยังขาด runtime composition/ข้อความสองภาษา | Review |
 | UI-BOSS-HUD | frame, portrait state และ phase marker แบบไม่มีข้อความของบอสครบทั้ง 5 ตัวอยู่ใน Review ใต้ `Generated-Assets/bosses/*/presentation/`; ยังต้องทำ reusable runtime component, ตรวจข้อความสองภาษา และ gameplay-scale validation | Review |
 | UI-BOSS-INTRO | intro frame และ portrait state แบบไม่มีข้อความของบอสครบทั้ง 5 ตัวอยู่ใน Review; ยังต้องทำ presentation runtime ที่รองรับ localization, timing และตรวจที่ 1280 x 720 | Review |
 | UI-MASTERY | mastery screen | Missing |
