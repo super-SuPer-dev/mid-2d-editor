@@ -440,6 +440,11 @@ func _validate_levels() -> void:
 			for _pilot_frame in range(8):
 				await get_tree().physics_frame
 			_check(root_skitter_visual.frame != pilot_frame or root_skitter_visual.texture.resource_path.ends_with("root_skitter_scuttle_strip_normalized_v2.png"), "Level 4 root-skitter pilot frame did not advance.")
+			var root_hydra := level.get_node("Enemies/RootHydra") as EnemyController
+			var root_hydra_visual := root_hydra.get_node("Visual") as Sprite2D
+			_check(root_hydra_visual.hframes == 4 and root_hydra_visual.vframes == 1, "Level 4 Root Hydra pilot lost its four-frame grid.")
+			_check(absf(root_hydra_visual.position.y + 105.0) < 0.01, "Level 4 Root Hydra pilot lost its 840 px baseline offset.")
+			_check(str(root_hydra_visual.texture.resource_path).ends_with("root_hydra_idle_strip_normalized_v2.png"), "Level 4 Root Hydra pilot is not using the promoted runtime texture.")
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)

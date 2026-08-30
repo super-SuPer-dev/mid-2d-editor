@@ -11,6 +11,7 @@ const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
 const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
 const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
+const ROOT_HYDRA_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_strip_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
@@ -34,6 +35,7 @@ var boss_phase_count: int = 1
 var base_visual_modulate: Color = Color.WHITE
 var root_skitter_action: StringName = &"idle"
 var root_skitter_frame_clock: float = 0.0
+var root_hydra_frame_clock: float = 0.0
 
 
 func configure(type_id: String) -> void:
@@ -113,7 +115,15 @@ func configure(type_id: String) -> void:
 			health.max_health = 40
 			contact_damage = 3
 			detection_range = 820.0
-			visual.modulate = Color("4f9e9a")
+			visual.texture = ROOT_HYDRA_IDLE_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.12, 0.12)
+			# The 1000 x 900 body cell is bottom-aligned to the 840 px baseline.
+			visual.position = Vector2(0.0, -105.0)
 			scale = Vector2(2.25, 2.25)
 		"root_core_eye_boss":
 			move_speed = 48.0
@@ -198,6 +208,7 @@ func _physics_process(delta: float) -> void:
 	visual.scale.x = absf(visual.scale.x) * facing
 	move_and_slide()
 	_update_root_skitter_animation(delta)
+	_update_root_hydra_animation(delta)
 
 
 func _update_root_skitter_animation(delta: float) -> void:
@@ -214,6 +225,13 @@ func _update_root_skitter_animation(delta: float) -> void:
 	var frame_rate := 8.0 if next_action == &"scuttle" else 5.5
 	root_skitter_frame_clock = fmod(root_skitter_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(root_skitter_frame_clock)
+
+
+func _update_root_hydra_animation(delta: float) -> void:
+	if enemy_type != "root_hydra_boss":
+		return
+	root_hydra_frame_clock = fmod(root_hydra_frame_clock + delta * 3.0, 4.0)
+	visual.frame = int(root_hydra_frame_clock)
 
 
 func _shoot(direction: Vector2) -> void:
