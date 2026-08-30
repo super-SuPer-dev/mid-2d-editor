@@ -14,6 +14,8 @@ const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/st
 const ROOT_HYDRA_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_strip_normalized_v2.png")
 const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png")
 const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
+const ROOT_CORE_EYE_SEALED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_sealed_normalized_v2.png")
+const ROOT_CORE_EYE_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_exposed_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
@@ -40,6 +42,8 @@ var root_skitter_frame_clock: float = 0.0
 var root_hydra_frame_clock: float = 0.0
 var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
+var root_core_eye_frame_clock: float = 0.0
+var root_core_eye_visual_phase: int = 0
 
 
 func configure(type_id: String) -> void:
@@ -140,7 +144,15 @@ func configure(type_id: String) -> void:
 			health.max_health = 48
 			contact_damage = 4
 			detection_range = 900.0
-			visual.modulate = Color("c75eaf")
+			visual.texture = ROOT_CORE_EYE_SEALED_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.10, 0.10)
+			# The 1000 x 900 body cell is bottom-aligned to the 840 px baseline.
+			visual.position = Vector2(0.0, -105.0)
 			scale = Vector2(2.5, 2.5)
 		"thorn_matriarch_boss":
 			move_speed = 82.0
@@ -220,6 +232,7 @@ func _physics_process(delta: float) -> void:
 	_update_root_skitter_animation(delta)
 	_update_root_hydra_animation(delta)
 	_update_eye_wisp_animation(delta)
+	_update_root_core_eye_animation(delta)
 
 
 func _update_root_skitter_animation(delta: float) -> void:
@@ -261,6 +274,19 @@ func _update_eye_wisp_animation(delta: float) -> void:
 	visual.frame = int(eye_wisp_frame_clock)
 
 
+func _update_root_core_eye_animation(delta: float) -> void:
+	if enemy_type != "root_core_eye_boss":
+		return
+	if root_core_eye_visual_phase != boss_phase:
+		root_core_eye_visual_phase = boss_phase
+		visual.texture = ROOT_CORE_EYE_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_CORE_EYE_SEALED_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	root_core_eye_frame_clock = fmod(root_core_eye_frame_clock + delta * 3.0, 4.0)
+	visual.frame = int(root_core_eye_frame_clock)
+
+
 func _shoot(direction: Vector2) -> void:
 	shoot_cooldown = 1.8
 	var projectile := PROJECTILE_SCENE.instantiate() as EnemyProjectile
@@ -297,6 +323,8 @@ func _update_boss_phase(current_health: int, maximum_health: int) -> void:
 	pattern_runner.set_phase(boss_phase)
 	boss_phase_changed.emit(boss_phase, boss_phase_count)
 	GameManager.update_boss_phase(boss_phase, boss_phase_count)
+	if enemy_type == "root_core_eye_boss":
+		_update_root_core_eye_animation(0.0)
 
 
 func _on_died() -> void:
