@@ -1,6 +1,6 @@
 # Asset Register
 
-**Project:** ACO: Capsule 07  
+**Project:** Low Attitude Warrior
 **Version:** 2.0  
 **Status:** Living production inventory  
 **Authority:** This English register is maintained. Existing Thai documents are frozen references.

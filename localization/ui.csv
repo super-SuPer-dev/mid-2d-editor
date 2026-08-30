@@ -78,7 +78,7 @@ UPGRADE_MAX,MAX,สูงสุด
 UPGRADE_PURCHASE,Upgrade • {cost},อัปเกรด • {cost}
 MASTERY_TITLE,Operator Mastery,ความชำนาญเจ้าหน้าที่
 MASTERY_OPERATOR,Operator: {name},เจ้าหน้าที่: {name}
-MASTERY_DESC,Improve this operator's passive and milestone bonuses.,พัฒนา passive และโบนัส milestone ของเจ้าหน้าที่คนนี้
+MASTERY_DESC,Improve this operator's passive and milestone bonuses.,พัฒนาความสามารถติดตัวและโบนัสตามระดับของเจ้าหน้าที่คนนี้
 MASTERY_RANK,Rank {rank}/5,แรงก์ {rank}/5
 MASTERY_PURCHASE,Train • {cost},ฝึกฝน • {cost}
 MASTERY_MAX,Maximum Mastery,ความชำนาญสูงสุด

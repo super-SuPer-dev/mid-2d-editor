@@ -3,6 +3,7 @@ extends Node
 const MAIN_ENTRANCE := preload("res://scenes/main.tscn")
 const DIALOGUE_OVERLAY_SCENE := preload("res://scenes/ui/dialogue_overlay.tscn")
 const CHARACTER_SELECT_SCENE := preload("res://scenes/ui/character_select.tscn")
+const UPGRADES_SCENE := preload("res://scenes/ui/upgrades.tscn")
 const GAME_LEVELS := {
 	"level_01": preload("res://scenes/levels/level_01.tscn"),
 	"level_02": preload("res://scenes/levels/level_02.tscn"),
@@ -66,6 +67,7 @@ func _ready() -> void:
 	await _validate_dialogue_presentations()
 	await _validate_ui_scenes()
 	await _validate_character_select_layout()
+	await _validate_upgrade_layout()
 	await _validate_levels()
 	AudioManager.stop_all_sfx()
 	AudioManager.muted_for_tests = false
@@ -143,6 +145,8 @@ func _validate_localization_and_dialogue() -> void:
 	_check(LocalizationManager.text("MENU_START_MISSION") == "Start Mission", "English localization did not load.")
 	LocalizationManager.set_language("th")
 	_check(LocalizationManager.text("MENU_START_MISSION") == "เริ่มภารกิจ", "Thai localization did not load.")
+	var thai_mastery_copy := LocalizationManager.text("MASTERY_DESC").to_lower()
+	_check(not thai_mastery_copy.contains("passive") and not thai_mastery_copy.contains("milestone"), "Thai mastery description still exposes untranslated English design terms.")
 	LocalizationManager.set_language("en")
 	for sequence_id in DialogueCatalog.SEQUENCES:
 		for error in DialogueCatalog.validate_sequence(sequence_id):
@@ -228,6 +232,35 @@ func _validate_character_select_layout() -> void:
 			_check(not description.clip_text and description.autowrap_mode == TextServer.AUTOWRAP_OFF, "%s %s description can still clip or split words automatically (clip=%s, wrap=%d)." % [locale, character_id, description.clip_text, description.autowrap_mode])
 			_check(card.get_global_rect().end.x <= screen.size.x and card.get_global_rect().end.y <= screen.size.y, "%s %s card extends outside 1280x720 (card_end=%s, screen=%s)." % [locale, character_id, card.get_global_rect().end, screen.size])
 			_check(deploy.get_global_rect().end.y <= card.get_global_rect().end.y, "%s %s deploy button extends outside its card." % [locale, character_id])
+	LocalizationManager.set_language("en")
+	screen.queue_free()
+	await get_tree().process_frame
+
+
+func _validate_upgrade_layout() -> void:
+	const DESCRIPTION_KEYS := {
+		"blade": "UPGRADE_BLADE_DESC",
+		"engine": "UPGRADE_ENGINE_DESC",
+		"armor": "UPGRADE_ARMOR_DESC",
+	}
+	var screen := UPGRADES_SCENE.instantiate() as Control
+	add_child(screen)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	for locale in ["en", "th"]:
+		LocalizationManager.set_language(locale)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		for upgrade_id in DESCRIPTION_KEYS:
+			var card := screen.get_node("Layout/Cards/%s" % upgrade_id) as Control
+			var description := card.get_node("Row/Copy/Description") as Label
+			var purchase := card.get_node("Row/Purchase") as Button
+			var expected_description := LocalizationManager.text(DESCRIPTION_KEYS[upgrade_id])
+			_check(description.text.replace("\n", " ") == expected_description, "%s %s upgrade description lost or split characters during wrapping." % [locale, upgrade_id])
+			_check(description.text.count("\n") <= 2, "%s %s upgrade description exceeded three lines." % [locale, upgrade_id])
+			_check(not description.clip_text and description.autowrap_mode == TextServer.AUTOWRAP_OFF, "%s %s upgrade description can still clip or split words automatically." % [locale, upgrade_id])
+			_check(card.get_global_rect().end.x <= screen.size.x and card.get_global_rect().end.y <= screen.size.y, "%s %s upgrade card extends outside 1280x720." % [locale, upgrade_id])
+			_check(purchase.get_global_rect().end.y <= card.get_global_rect().end.y, "%s %s upgrade button extends outside its card." % [locale, upgrade_id])
 	LocalizationManager.set_language("en")
 	screen.queue_free()
 	await get_tree().process_frame

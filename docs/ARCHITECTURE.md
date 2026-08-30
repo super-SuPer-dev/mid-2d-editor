@@ -31,6 +31,12 @@ placement. Character-select runtime binding may insert font-measured line
 breaks only at localized word boundaries and must reflow on resize; language-
 specific text must never be baked into the scene.
 
+`scenes/ui/upgrade_row.tscn` is likewise the single source for Base Workshop
+card sizing and typography. Its runtime binder owns font-measured description
+wrapping, inserts line breaks only at spaces, and reflows after localization or
+viewport changes. Upgrade descriptions keep engine autowrap disabled so the
+renderer cannot split a word to satisfy a narrow line.
+
 ## Runtime services
 
 - `GameManager` owns the current run: operative, mission, crystals, enemy
