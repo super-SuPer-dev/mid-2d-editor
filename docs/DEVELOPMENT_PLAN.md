@@ -129,6 +129,13 @@ idle/walk from grounded velocity at 4/7 fps. Smoke coverage checks the texture,
 grid and baseline. Pressure/attack/death art, VFX, audio and human silhouette
 review remain open.
 
+**Spitter cast promotion evidence — 2026-08-31:** The generated four-frame
+makrut seed-burst strip is now selected immediately when the Spitter fires and
+cycles at 8 fps for a 0.5 second cast window. The strict asset validator and
+Level 1 smoke suite cover the 2800 × 800 binary-alpha strip, runtime import and
+cast texture binding; pressure tell, juice lob, VFX and human readability
+review remain open.
+
 **Maw-asset promotion evidence — 2026-08-31:** The shared Level 2–3 Maw now
 uses generated mangosteen idle/move strips instead of the placeholder plant.
 Both 2800 × 800 runtime strips use four 700 px cells, a 740 px foot baseline,

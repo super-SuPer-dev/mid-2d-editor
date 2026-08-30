@@ -439,6 +439,9 @@ func _validate_levels() -> void:
 			_check(spitter_visual.hframes == 4 and spitter_visual.vframes == 1, "Level 1 Spitter pilot lost its four-frame grid.")
 			_check(absf(spitter_visual.position.y + 18.0) < 0.01, "Level 1 Spitter pilot lost its 740 px baseline offset.")
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png") or str(spitter_visual.texture.resource_path).ends_with("spitter_walk_strip_normalized_v2.png"), "Level 1 Spitter pilot is not using the promoted runtime texture.")
+			spitter._shoot(Vector2.RIGHT)
+			await get_tree().physics_frame
+			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_seed_burst_strip_normalized_v2.png"), "Level 1 Spitter did not bind its seed-burst cast animation.")
 		if level_id == "level_02":
 			var maw := level.get_node("Enemies/Maw01") as EnemyController
 			var maw_visual := maw.get_node("Visual") as Sprite2D

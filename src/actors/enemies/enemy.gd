@@ -12,6 +12,7 @@ const THORNLING_RUN_TEXTURE: Texture2D = preload("res://assets/enemies/standard/
 const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
 const SPITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_idle_strip_normalized_v2.png")
 const SPITTER_WALK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_walk_strip_normalized_v2.png")
+const SPITTER_SEED_BURST_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_seed_burst_strip_normalized_v2.png")
 const MAW_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_idle_strip_normalized_v2.png")
 const MAW_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_move_strip_normalized_v2.png")
 const CAPSULE_HUSK_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_idle_strip_normalized_v2.png")
@@ -71,6 +72,7 @@ var thornling_action: StringName = &"idle"
 var thornling_frame_clock: float = 0.0
 var spitter_action: StringName = &"idle"
 var spitter_frame_clock: float = 0.0
+var spitter_attack_timer: float = 0.0
 var maw_action: StringName = &"idle"
 var maw_frame_clock: float = 0.0
 var capsule_husk_action: StringName = &"idle"
@@ -301,6 +303,7 @@ func _physics_process(delta: float) -> void:
 		return
 	attack_cooldown = maxf(attack_cooldown - delta, 0.0)
 	shoot_cooldown = maxf(shoot_cooldown - delta, 0.0)
+	spitter_attack_timer = maxf(spitter_attack_timer - delta, 0.0)
 	velocity.y += GRAVITY * delta
 	if is_instance_valid(target):
 		var offset := target.global_position - global_position
@@ -353,15 +356,21 @@ func _update_thornling_animation(delta: float) -> void:
 func _update_spitter_animation(delta: float) -> void:
 	if enemy_type != "spitter":
 		return
-	var next_action: StringName = &"walk" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"
+	var next_action: StringName = &"seed_burst" if spitter_attack_timer > 0.0 else (&"walk" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")
 	if next_action != spitter_action:
 		spitter_action = next_action
 		spitter_frame_clock = 0.0
-		visual.texture = SPITTER_WALK_TEXTURE if next_action == &"walk" else SPITTER_IDLE_TEXTURE
+		match next_action:
+			&"seed_burst":
+				visual.texture = SPITTER_SEED_BURST_TEXTURE
+			&"walk":
+				visual.texture = SPITTER_WALK_TEXTURE
+			_:
+				visual.texture = SPITTER_IDLE_TEXTURE
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 7.0 if next_action == &"walk" else 4.0
+	var frame_rate := 8.0 if next_action == &"seed_burst" else (7.0 if next_action == &"walk" else 4.0)
 	spitter_frame_clock = fmod(spitter_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(spitter_frame_clock)
 
@@ -536,6 +545,14 @@ func _update_possessed_banyan_animation(delta: float) -> void:
 
 func _shoot(direction: Vector2) -> void:
 	shoot_cooldown = 1.8
+	if enemy_type == "spitter":
+		spitter_attack_timer = 0.5
+		spitter_action = &"seed_burst"
+		spitter_frame_clock = 0.0
+		visual.texture = SPITTER_SEED_BURST_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
 	var projectile := PROJECTILE_SCENE.instantiate() as EnemyProjectile
 	projectile.direction = direction
 	projectile.damage = contact_damage
