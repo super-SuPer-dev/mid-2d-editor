@@ -439,6 +439,12 @@ func _validate_levels() -> void:
 			_check(spitter_visual.hframes == 4 and spitter_visual.vframes == 1, "Level 1 Spitter pilot lost its four-frame grid.")
 			_check(absf(spitter_visual.position.y + 18.0) < 0.01, "Level 1 Spitter pilot lost its 740 px baseline offset.")
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png") or str(spitter_visual.texture.resource_path).ends_with("spitter_walk_strip_normalized_v2.png"), "Level 1 Spitter pilot is not using the promoted runtime texture.")
+		if level_id == "level_02":
+			var maw := level.get_node("Enemies/Maw01") as EnemyController
+			var maw_visual := maw.get_node("Visual") as Sprite2D
+			_check(maw_visual.hframes == 4 and maw_visual.vframes == 1, "Level 2 Maw pilot lost its four-frame grid.")
+			_check(absf(maw_visual.position.y + 18.0) < 0.01, "Level 2 Maw pilot lost its 740 px baseline offset.")
+			_check(str(maw_visual.texture.resource_path).ends_with("maw_idle_strip_normalized_v2.png") or str(maw_visual.texture.resource_path).ends_with("maw_move_strip_normalized_v2.png"), "Level 2 Maw pilot is not using the promoted runtime texture.")
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController

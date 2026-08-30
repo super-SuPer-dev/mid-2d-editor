@@ -12,6 +12,8 @@ const THORNLING_RUN_TEXTURE: Texture2D = preload("res://assets/enemies/standard/
 const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
 const SPITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_idle_strip_normalized_v2.png")
 const SPITTER_WALK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_walk_strip_normalized_v2.png")
+const MAW_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_idle_strip_normalized_v2.png")
+const MAW_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_move_strip_normalized_v2.png")
 const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
 const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
@@ -47,6 +49,8 @@ var thornling_action: StringName = &"idle"
 var thornling_frame_clock: float = 0.0
 var spitter_action: StringName = &"idle"
 var spitter_frame_clock: float = 0.0
+var maw_action: StringName = &"idle"
+var maw_frame_clock: float = 0.0
 var root_hydra_frame_clock: float = 0.0
 var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
@@ -89,7 +93,15 @@ func configure(type_id: String) -> void:
 			move_speed = 70.0
 			health.max_health = 8
 			contact_damage = 2
-			visual.modulate = Color("9b6b78")
+			visual.texture = MAW_IDLE_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.06, 0.06)
+			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
+			visual.position = Vector2(0.0, -18.0)
 			scale = Vector2(1.25, 1.25)
 		"root_skitter":
 			move_speed = 110.0
@@ -250,6 +262,7 @@ func _physics_process(delta: float) -> void:
 	_update_root_skitter_animation(delta)
 	_update_thornling_animation(delta)
 	_update_spitter_animation(delta)
+	_update_maw_animation(delta)
 	_update_root_hydra_animation(delta)
 	_update_eye_wisp_animation(delta)
 	_update_root_core_eye_animation(delta)
@@ -285,6 +298,22 @@ func _update_spitter_animation(delta: float) -> void:
 	var frame_rate := 7.0 if next_action == &"walk" else 4.0
 	spitter_frame_clock = fmod(spitter_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(spitter_frame_clock)
+
+
+func _update_maw_animation(delta: float) -> void:
+	if enemy_type != "maw":
+		return
+	var next_action: StringName = &"move" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"
+	if next_action != maw_action:
+		maw_action = next_action
+		maw_frame_clock = 0.0
+		visual.texture = MAW_MOVE_TEXTURE if next_action == &"move" else MAW_IDLE_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	var frame_rate := 6.0 if next_action == &"move" else 3.5
+	maw_frame_clock = fmod(maw_frame_clock + delta * frame_rate, 4.0)
+	visual.frame = int(maw_frame_clock)
 
 
 func _update_root_skitter_animation(delta: float) -> void:
