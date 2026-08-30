@@ -546,6 +546,9 @@ func _validate_levels() -> void:
 		if level_id == "level_03":
 			var banyan_cast_visual := boss.get_node("Visual") as Sprite2D
 			_check(str(banyan_cast_visual.texture.resource_path).ends_with("possessed_banyan_seed_column_cast_strip_normalized_v2.png"), "Level 3 Possessed Banyan did not bind its seed-column cast animation to the opening pattern.")
+		if level_id == "level_04":
+			var hydra_cast_visual := boss.get_node("Visual") as Sprite2D
+			_check(str(hydra_cast_visual.texture.resource_path).ends_with("root_hydra_crossfire_cast_strip_normalized_v2.png"), "Level 4 Root Hydra did not bind its crossfire cast animation to the opening pattern.")
 		if level_id == "level_05":
 			var pilot_projectile := pattern_runner.active_projectiles[0] as EnemyProjectile
 			var pilot_projectile_visual := pilot_projectile.get_node("Visual") as Sprite2D
@@ -571,7 +574,7 @@ func _validate_levels() -> void:
 					_check(str(banyan_phase_visual.texture.resource_path).ends_with("possessed_banyan_diagonal_root_cast_strip_normalized_v2.png"), "Level 3 Possessed Banyan did not bind its phase-2 diagonal-root visual.")
 				if level_id == "level_04" and expected_phase == 2:
 					var hydra_phase_visual := boss.get_node("Visual") as Sprite2D
-					_check(str(hydra_phase_visual.texture.resource_path).ends_with("root_hydra_idle_exposed_strip_normalized_v2.png"), "Level 4 Root Hydra did not expose its phase-2 idle visual.")
+					_check(str(hydra_phase_visual.texture.resource_path).ends_with("root_hydra_radial_ring_cast_strip_normalized_v2.png"), "Level 4 Root Hydra did not bind its phase-2 radial-ring cast visual.")
 				if level_id == "level_02" and expected_phase == 2:
 					var maw_rotating_visual := boss.get_node("Visual") as Sprite2D
 					_check(str(maw_rotating_visual.texture.resource_path).ends_with("maw_sovereign_rotating_volley_cast_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not bind its rotating-volley cast animation.")
@@ -586,6 +589,10 @@ func _validate_levels() -> void:
 				for _phase_frame in range(50):
 					await get_tree().physics_frame
 				_check(pattern_runner.get_active_projectile_count() > 0, "%s phase %d did not emit its projectile pattern." % [level_id, expected_phase])
+				if level_id == "level_04":
+					var hydra_cast_visual := boss.get_node("Visual") as Sprite2D
+					var expected_hydra_cast := "root_hydra_radial_ring_cast_strip_normalized_v2.png" if expected_phase == 2 else "root_hydra_lane_wall_cast_strip_normalized_v2.png"
+					_check(str(hydra_cast_visual.texture.resource_path).ends_with(expected_hydra_cast), "Level 4 Root Hydra did not bind its phase-%d cast animation." % expected_phase)
 				_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s phase %d exceeded its projectile cap." % [level_id, expected_phase])
 		if level_id == "level_01":
 			_check(boss.boss_phase == 1 and pattern_runner.current_phase == 1, "%s boss did not begin in phase 1." % level_id)
