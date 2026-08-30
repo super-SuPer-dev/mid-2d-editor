@@ -3,7 +3,7 @@
 **Project:** ACO: Capsule 07  
 **Version:** 2.0  
 **Status:** Living production inventory  
-**Authority:** English is authoritative. See [Thai companion](th/ASSET_REGISTER_TH.md).
+**Authority:** This English register is maintained. Existing Thai documents are frozen references.
 
 This register records the assets required to ship the five-level campaign. Paths beginning with `art_source/generated/` are source candidates only. They are not production-approved until validated, reviewed, moved into `assets/`, integrated and evidenced.
 

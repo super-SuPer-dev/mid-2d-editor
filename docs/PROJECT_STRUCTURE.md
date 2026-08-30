@@ -13,7 +13,7 @@ art_source/             Non-runtime source material; ignored by Godot
   legacy/               Superseded, unreferenced art retained for review
   references/           Art-direction boards and external visual references
 docs/                   English-authoritative design and production documents
-  th/                   Thai companion documents
+  th/                   Frozen historical Thai documents; non-authoritative
 localization/           English/Thai translation tables and glossary
 scenes/                 Godot scenes and scene-local resources
   actors/

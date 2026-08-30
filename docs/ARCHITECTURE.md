@@ -25,6 +25,12 @@ the Godot scene tree. Scripts may bind catalog/save data, connect behavior, and
 spawn transient gameplay effects, but must not construct screen or level
 layouts with `new()` and `add_child()`.
 
+`scenes/ui/character_card.tscn` is the single source for operator-card
+spacing, aspect-correct portrait allocation, type scale, and deploy-button
+placement. Character-select runtime binding may insert font-measured line
+breaks only at localized word boundaries and must reflow on resize; language-
+specific text must never be baked into the scene.
+
 ## Runtime services
 
 - `GameManager` owns the current run: operative, mission, crystals, enemy

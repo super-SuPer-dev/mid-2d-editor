@@ -3,13 +3,13 @@
 **Project:** ACO: Capsule 07  
 **Version:** 2.0  
 **Status:** Mandatory gate and release protocol  
-**Authority:** English is authoritative. See [Thai companion](th/VALIDATION_PROTOCOL_TH.md).
+**Authority:** This English protocol is the only maintained documentation authority. Existing Thai documents are frozen references.
 
 This protocol determines whether a requirement, asset, gate or build is complete. It supplements the design acceptance criteria; it does not replace human review.
 
 ## 1. Traceability
 
-[VAL-TRACE-01] Every test result must reference at least one Requirement ID, build identifier and platform. Canonical IDs are English, stable and identical in English and Thai documents.
+[VAL-TRACE-01] Every test result must reference at least one Requirement ID, build identifier and platform. Canonical IDs are English, stable and must match runtime data.
 
 Minimum trace chain:
 

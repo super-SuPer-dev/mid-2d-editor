@@ -6,12 +6,13 @@
 **Engine:** Godot 4.7  
 **Target platforms:** Windows and Web  
 **Native presentation:** 1280 × 720  
-**Companion translation:** [Thai GDD](docs/th/GDD_TH.md)
+**Documentation policy:** English-only maintenance; existing Thai documents are frozen references.
 
 English is the source of truth for IDs, mechanics, balance targets, interfaces,
-and acceptance criteria. Thai is a complete optional runtime language and has a
-maintained companion document. If the two documents conflict, this document
-wins until the translation is synchronized.
+and acceptance criteria. Thai remains a complete optional runtime language, but
+the production documentation is maintained in English only. Existing Thai
+documents are historical references and must not be used as implementation
+authority.
 
 ## 1. High Concept
 
@@ -745,4 +746,3 @@ Detailed production gates, asset states, and validation procedures live in:
 - [Development Plan](docs/DEVELOPMENT_PLAN.md)
 - [Asset Register](docs/ASSET_REGISTER.md)
 - [Validation Protocol](docs/VALIDATION_PROTOCOL.md)
-- [Thai GDD](docs/th/GDD_TH.md)

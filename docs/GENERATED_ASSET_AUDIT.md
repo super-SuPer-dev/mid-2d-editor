@@ -3,7 +3,7 @@
 **Project:** Low Attitude Warrior  
 **Audit date:** 2026-08-30  
 **Scope:** `art_source/generated/`  
-**Authority:** English is authoritative. See [Thai companion](th/GENERATED_ASSET_AUDIT_TH.md).
+**Authority:** This English audit is maintained. Existing Thai documents are frozen references.
 
 This is a source-candidate audit, not production approval. Generated files remain outside Godot's runtime import tree and retain the `Review` state until visual, integration, platform, and human-review gates pass.
 
@@ -45,4 +45,3 @@ Semi-transparent pixels may be intentional for glow, smoke, projectile trails, o
 - Runtime integration: pending candidate remediation and selection.
 - Platform verification: pending integration.
 - Overall generated-source state: `Review`.
-

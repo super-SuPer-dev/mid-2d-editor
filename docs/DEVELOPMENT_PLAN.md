@@ -3,7 +3,7 @@
 **Project:** Low Attitude Warrior
 **Version:** 2.0  
 **Status:** Production roadmap  
-**Authority:** English is authoritative. See [Thai companion](th/DEVELOPMENT_PLAN_TH.md).
+**Authority:** This English document is the only maintained production roadmap. Existing Thai documents are frozen references.
 
 This plan converts the design in [Game Design Document](../Game%20Design%20Document.md) into reviewable production gates. It is organized for a solo developer using agent-assisted implementation. Dates are intentionally omitted: a gate closes only when its exit criteria are evidenced.
 
@@ -21,7 +21,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 | Progression | Base Technology, Operator Mastery, save schema v2, legacy ID/track migration, and story-stage advancement are implemented | Economy and milestone tuning, recovery testing, and full-campaign persistence validation |
 | Story | Data-driven briefing, quota-radio, boss-introduction and debrief flow with one-shot state; Level 1 handoff is runtime-validated | Complete Level 2–5 narrative volume, authored trigger review, pacing and human story approval |
 | Localization | English-default live switching, English fallback, three bilingual tables, and localization-key-only scene defaults are implemented and validated | Pseudo-localization, human Thai review, and Windows/Web parity evidence |
-| UI/UX | Main flows work; several screens use provisional generated assets | Responsive layout, dialogue UI, boss UI, accessibility and text expansion |
+| UI/UX | Main flows work; dialogue/boss HUD and shared operator cards are bilingual and runtime-validated at 1280×720 | Audit remaining screens, pseudo-localization, accessibility options, responsive resolutions and Windows/Web evidence |
 | Art | 474 generated PNG candidates inventoried; 474/474 decode, but all 188 normalized candidates fail the current hard-edge alpha gate; runtime still contains placeholders | Remediate/select candidates, verify package grids and animation, integrate approved art, then validate Windows/Web appearance and memory |
 | Audio | One click sound is repitched for multiple events | Music suite, approximately 40 SFX, mix and platform validation |
 | QA | Isolated smoke test covers four operators, five-level catalogs/dialogue references, three runtime levels, boss patterns, v1→v2 migration, one-shot story state, and language fallback | Runtime Levels 4–5, retry/recovery, pseudo-localization, export, performance, and soak coverage |
@@ -65,11 +65,11 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 [DEV-GATE-00]
 
 **Inputs:** Current prototype, old design notes, the rewritten GDD, current asset directories.  
-**Work:** Finalize English documents and Thai companions; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve the inspiration hierarchy, originality boundaries, glossary terms, five-act progression, the 5–7 minute mission budget, Thai-fruit mutation matrix, biome diversity matrix, boss pattern IDs and per-level projectile caps.
+**Work:** Finalize the authoritative English documents; lock NPC, operator, enemy, boss, level, localization and requirement IDs; approve the inspiration hierarchy, originality boundaries, glossary terms, five-act progression, the 5–7 minute mission budget, Thai-fruit mutation matrix, biome diversity matrix, boss pattern IDs and per-level projectile caps. Existing Thai documents are frozen references and are not gate deliverables.
 **Exit criteria:**
 
-- All eight documents exist and cross-link correctly.
-- English/Thai companion files contain identical canonical IDs.
+- The authoritative GDD, development plan, asset register and validation protocol exist and cross-link correctly.
+- Canonical IDs are defined once in English documentation and match runtime data.
 - Story and scope receive human approval.
 - The Thai local-fruit enemy bible is approved: every planned organic enemy and
   boss has a locked fruit identity, structural/mechanical mapping, and distinct
@@ -112,6 +112,8 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 **Implementation progress — 2026-08-30:** The native Level 1 route is extended from 2,700 to 4,300 px and now contains three reusable encounter gates with 2/3/3 threat assignments, eight total standard threats, nine traversal platforms, four thorn hazards, six samples, and a 375-second authored pacing budget. Automated tests prove unique threat assignment, physical player-overlap activation, barrier release, quota → boss → extraction, projectile cleanup, and jump-step reachability. Live Godot MCP play confirms the first gate activates both assigned Thornlings. The Thorn Matriarch now uses a health-driven two-phase contract: the readable three-way fan is isolated to phase 1, half health starts the alternating-lane phase, the transition clears all owned bullets before the new telegraph, and the bilingual HUD displays the current phase. The smoke suite verifies phase selection, GameManager propagation, phase-change cleanup, phase-2 emission, cap enforcement, shutdown cleanup, and defeat cleanup; live Godot MCP inspection confirmed `Phase 1/2 → Phase 2/2` with zero active bullets at the transition. Timed human 5–7 minute playtesting, final art/animation, music/SFX, Windows/Web evidence, safe-route and punish-window approval, and human feel review remain before Gate 2 can close.
 
 **Narrative handoff evidence — 2026-08-30:** Level 1's three quota-driven radio sequences are requested exactly once in canonical order and remain non-pausing. When several calls are queued, the Thorn Matriarch and its projectile runner now stay disabled until the radio queue reaches the boss introduction and that introduction completes. The pre-fight HUD is initialized with full health and the correct `Phase 1/2` contract instead of stale defaults. Automated tests cover order, duplicates, pause state, pre-intro inactivity, HUD preview data, and post-intro activation across the implemented levels. Live Godot MCP inspection confirmed a compact radio call at `Threats 2/8`, then the paused boss introduction with boss combat inactive, full health, and `Phase 1/2`; completing the introduction changed both boss and runner to active.
+
+**Operator-select UI evidence — 2026-08-30:** The shared operator-card source now reserves a compact aspect-correct portrait column, uses a consistent two-line statistics hierarchy, and gives localized role and description text the remaining width. Font-measured wrapping inserts breaks only at spaces, so English no longer splits words such as “repositions,” “wider,” or “advancing”; Thai glyphs and longer labels remain inside the same 1280×720 cards. Smoke tests validate both locales, character preservation across inserted line breaks, maximum line counts, non-clipping descriptions, card bounds, and button bounds. Live Godot MCP screenshots verified all four English and Thai cards without stretch, overlap, clipping, or mid-word breaks. Remaining screens still require the same bilingual expansion audit before Gate 2 closes.
 
 ### Gate 3 — Retrofit Levels 2–3
 
