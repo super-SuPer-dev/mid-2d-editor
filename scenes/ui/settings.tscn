@@ -47,7 +47,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.74, 0.27, 1)
 theme_override_font_sizes/font_size = 60
-text = "ตั้งค่าระบบ"
+text = "SETTINGS_TITLE"
 horizontal_alignment = 1
 
 [node name="VolumeRow" type="HBoxContainer" parent="Center/Panel/Content" unique_id=1939028833]
@@ -57,7 +57,7 @@ alignment = 1
 [node name="Caption" type="Label" parent="Center/Panel/Content/VolumeRow" unique_id=68098493]
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
-text = "ระดับเสียงหลัก"
+text = "SETTINGS_MASTER_VOLUME"
 
 [node name="Volume" type="HSlider" parent="Center/Panel/Content/VolumeRow" unique_id=1099727395]
 custom_minimum_size = Vector2(460, 64)
@@ -69,33 +69,32 @@ step = 0.05
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
-text = "100%"
 
 [node name="Fullscreen" type="CheckButton" parent="Center/Panel/Content" unique_id=1754889876]
 layout_mode = 2
 text = "SETTINGS_FULLSCREEN"
 
-[node name="LanguageRow" type="HBoxContainer" parent="Center/Panel/Content"]
+[node name="LanguageRow" type="HBoxContainer" parent="Center/Panel/Content" unique_id=441246653]
 layout_mode = 2
 alignment = 1
 
-[node name="Caption" type="Label" parent="Center/Panel/Content/LanguageRow"]
+[node name="Caption" type="Label" parent="Center/Panel/Content/LanguageRow" unique_id=1802754788]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "SETTINGS_LANGUAGE"
 
-[node name="Language" type="OptionButton" parent="Center/Panel/Content/LanguageRow"]
+[node name="Language" type="OptionButton" parent="Center/Panel/Content/LanguageRow" unique_id=1481108377]
 custom_minimum_size = Vector2(360, 58)
 layout_mode = 2
 
 [node name="ResetCampaign" type="Button" parent="Center/Panel/Content" unique_id=1803358293]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.94, 0.28, 0.43, 1)
-text = "ล้างความคืบหน้า"
+text = "SETTINGS_RESET"
 
 [node name="Back" type="Button" parent="Center/Panel/Content" unique_id=1249614609]
 layout_mode = 2
-text = "บันทึกและกลับ"
+text = "SETTINGS_SAVE_BACK"
 
 [connection signal="value_changed" from="Center/Panel/Content/VolumeRow/Volume" to="." method="_on_volume_changed"]
 [connection signal="toggled" from="Center/Panel/Content/Fullscreen" to="." method="_on_fullscreen_toggled"]

@@ -53,18 +53,18 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.82, 0.65, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
-text = "เอาชีวิตรอดไซไฟ • ชนบทไทย"
+text = "MENU_SUBTITLE"
 horizontal_alignment = 1
 
 [node name="StartMission" type="Button" parent="Center/Content" unique_id=740037755]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-text = "เริ่มภารกิจ"
+text = "MENU_START_MISSION"
 
 [node name="FieldMap" type="Button" parent="Center/Content" unique_id=1097794591]
 custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
-text = "แผนที่ภารกิจ"
+text = "MENU_FIELD_MAP"
 
 [node name="Footer" type="HBoxContainer" parent="Center/Content" unique_id=1096903553]
 layout_mode = 2
@@ -74,17 +74,17 @@ alignment = 1
 [node name="Settings" type="Button" parent="Center/Content/Footer" unique_id=1831597533]
 custom_minimum_size = Vector2(136, 54)
 layout_mode = 2
-text = "ตั้งค่า"
+text = "MENU_SETTINGS"
 
-[node name="Credits" type="Button" parent="Center/Content/Footer"]
+[node name="Credits" type="Button" parent="Center/Content/Footer" unique_id=1938806641]
 custom_minimum_size = Vector2(136, 54)
 layout_mode = 2
-text = "เครดิต"
+text = "MENU_CREDITS"
 
 [node name="Exit" type="Button" parent="Center/Content/Footer" unique_id=1430948299]
 custom_minimum_size = Vector2(136, 54)
 layout_mode = 2
-text = "ออกจากเกม"
+text = "MENU_EXIT"
 
 [connection signal="pressed" from="Center/Content/StartMission" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Center/Content/FieldMap" to="." method="_on_field_map_pressed"]

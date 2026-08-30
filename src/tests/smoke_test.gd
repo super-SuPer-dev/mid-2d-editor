@@ -50,15 +50,18 @@ var failures: Array[String] = []
 
 
 func _ready() -> void:
+	SaveManager.begin_test_session()
 	await get_tree().process_frame
 	AudioManager.muted_for_tests = true
 	_validate_catalogs()
 	_validate_localization_and_dialogue()
+	_validate_save_and_story_foundation()
 	await _validate_dialogue_presentations()
 	await _validate_ui_scenes()
 	await _validate_levels()
 	AudioManager.stop_all_sfx()
 	AudioManager.muted_for_tests = false
+	SaveManager.end_test_session()
 	await get_tree().process_frame
 	await get_tree().process_frame
 	if failures.is_empty():
@@ -98,12 +101,24 @@ func _validate_catalogs() -> void:
 		_check(int(pattern_set.get("max_projectiles", 0)) == int(data.get("projectile_cap", 0)), "%s pattern-set cap does not match its level cap." % level_id)
 		for error in BossPatternCatalog.validate_pattern_set(pattern_set_id):
 			_check(false, error)
+		var required_sequences: Array[String] = [
+			str(data.get("briefing_sequence", "")),
+			str(data.get("boss_sequence", "")),
+			str(data.get("debrief_sequence", "")),
+		]
+		for radio_sequence: Variant in data.get("radio_sequences", []):
+			required_sequences.append(str(radio_sequence))
+		for sequence_id: String in required_sequences:
+			_check(not sequence_id.is_empty(), "%s contains an empty story sequence reference." % level_id)
+			_check(not DialogueCatalog.get_sequence(sequence_id).is_empty(), "%s references missing story sequence %s." % [level_id, sequence_id])
 	_check(CharacterCatalog.resolve_character_id("ranger") == "rin", "Legacy ranger ID did not migrate to rin.")
 	_check(CharacterCatalog.resolve_character_id("villager") == "khem", "Legacy villager ID did not migrate to khem.")
 
 
 func _validate_localization_and_dialogue() -> void:
 	LocalizationManager.set_language("en")
+	LocalizationManager.set_language("unsupported-locale")
+	_check(LocalizationManager.current_language == LocalizationManager.DEFAULT_LANGUAGE, "Invalid language did not fall back to English.")
 	_check(LocalizationManager.text("MENU_START_MISSION") == "Start Mission", "English localization did not load.")
 	LocalizationManager.set_language("th")
 	_check(LocalizationManager.text("MENU_START_MISSION") == "เริ่มภารกิจ", "Thai localization did not load.")
@@ -118,6 +133,38 @@ func _validate_localization_and_dialogue() -> void:
 		_check(debrief.size() == 4, "Level 1 debrief does not contain four exchanges for %s." % character_id)
 		_check(_count_operator_entries(briefing, character_id) == 1, "Level 1 briefing bark is missing or mismatched for %s." % character_id)
 		_check(_count_operator_entries(debrief, character_id) == 1, "Level 1 debrief bark is missing or mismatched for %s." % character_id)
+
+
+func _validate_save_and_story_foundation() -> void:
+	var legacy_profile := {
+		"version": 1,
+		"selected_character": "ranger",
+		"character_upgrade_levels": {
+			"ranger": {"blade": 2, "engine": 4, "armor": 1},
+			"villager": {"blade": 3, "engine": 1, "armor": 2},
+		},
+		"settings": {"master_volume": 0.5, "fullscreen": false},
+	}
+	var migrated := SaveManager._migrate_profile(legacy_profile)
+	_check(int(migrated.get("version", 0)) == SaveManager.CURRENT_VERSION, "Legacy profile did not migrate to save schema v2.")
+	_check(str(migrated.get("selected_character", "")) == "rin", "Legacy ranger selection did not migrate to Rin.")
+	_check(int(migrated.get("operator_mastery", {}).get("rin", -1)) == 4, "Legacy Ranger upgrades did not migrate to Rin mastery.")
+	_check(int(migrated.get("operator_mastery", {}).get("khem", -1)) == 3, "Legacy Villager upgrades did not migrate to Khem mastery.")
+	_check(not migrated.has("character_upgrade_levels"), "Legacy per-character upgrade tracks survived migration.")
+	_check(str(migrated.get("settings", {}).get("language", "")) == LocalizationManager.DEFAULT_LANGUAGE, "Migrated profile did not default to English.")
+
+	SaveManager.begin_test_session()
+	_check(str(SaveManager.profile.get("settings", {}).get("language", "")) == "en", "Fresh test profile did not default to English.")
+	SaveManager.complete_level("level_01", 3)
+	_check("level_01" in SaveManager.profile.get("completed_levels", []), "Level completion was not recorded.")
+	_check("level_02" in SaveManager.profile.get("unlocked_levels", []), "Level 2 did not unlock after Level 1 completion.")
+	_check(int(SaveManager.profile.get("story_stage", 0)) == 2, "Story stage did not advance after Level 1 completion.")
+	SaveManager.complete_level("level_01", 2)
+	_check(int(SaveManager.profile.get("story_stage", 0)) == 2, "Replaying Level 1 changed the story stage incorrectly.")
+	StoryManager.complete_sequence("level_01_briefing")
+	StoryManager.complete_sequence("level_01_briefing")
+	var seen: Array = SaveManager.profile.get("seen_dialogue_sequences", [])
+	_check(seen.count("level_01_briefing") == 1, "One-shot story sequence was recorded more than once.")
 
 
 func _validate_ui_scenes() -> void:

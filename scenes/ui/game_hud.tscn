@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpr5ii86tyln3"]
+[gd_scene format=3 uid="uid://dpr5ii86tyln3"]
 
 [ext_resource type="Script" uid="uid://c0xra83sxow4g" path="res://src/ui/game_hud.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="2"]
-[ext_resource type="Texture2D" path="res://assets/images/ui/atlases/game_hud_icons.png" id="3_icons"]
+[ext_resource type="Texture2D" uid="uid://day8jxkivypuy" path="res://assets/images/ui/atlases/game_hud_icons.png" id="3_icons"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dialogue_overlay.tscn" id="4_dialogue"]
 
 [sub_resource type="AtlasTexture" id="LevelIcon"]
@@ -88,9 +88,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
-text = "ภารกิจ"
 
-[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Level"]
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Level" unique_id=1742804462]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -107,9 +106,8 @@ layout_mode = 2
 theme_type_variation = &"HUDHealth"
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
-text = "ชีวิต --/--"
 
-[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Health"]
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Health" unique_id=54081242]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -127,9 +125,8 @@ theme_type_variation = &"HUDSamples"
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
-text = "ตัวอย่าง 0"
 
-[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Samples"]
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Samples" unique_id=2082240291]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -146,9 +143,8 @@ layout_mode = 2
 theme_type_variation = &"HUDObjective"
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 24
-text = "ศัตรู 0/0"
 
-[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Objective"]
+[node name="Icon" type="TextureRect" parent="Root/TopMargin/Row/Objective" unique_id=858214312]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -168,12 +164,12 @@ offset_bottom = 710.0
 theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 18
-text = "A/D เคลื่อนที่   W/SPACE กระโดด   SHIFT หลบ   คลิกซ้าย ตัด   ESC หยุดเกม"
+text = "HUD_HINT"
 
-[node name="BossPanel" type="PanelContainer" parent="Root"]
+[node name="BossPanel" type="PanelContainer" parent="Root" unique_id=1126058829]
 visible = false
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -280.0
@@ -182,22 +178,21 @@ offset_right = 280.0
 offset_bottom = 178.0
 grow_horizontal = 2
 
-[node name="Content" type="VBoxContainer" parent="Root/BossPanel"]
+[node name="Content" type="VBoxContainer" parent="Root/BossPanel" unique_id=773603433]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Root/BossPanel/Content"]
+[node name="Name" type="Label" parent="Root/BossPanel/Content" unique_id=407399875]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.52, 0.63, 1)
 theme_override_font_sizes/font_size = 24
-text = "BOSS"
 horizontal_alignment = 1
 
-[node name="Health" type="ProgressBar" parent="Root/BossPanel/Content"]
+[node name="Health" type="ProgressBar" parent="Root/BossPanel/Content" unique_id=1778776993]
 custom_minimum_size = Vector2(520, 20)
 layout_mode = 2
-show_percentage = false
 theme_override_styles/background = SubResource("BossTrack")
 theme_override_styles/fill = SubResource("BossFill")
+show_percentage = false
 
 [node name="Modal" type="ColorRect" parent="Root" unique_id=1406394126]
 visible = false
@@ -230,7 +225,6 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 56
-text = "หยุดภารกิจชั่วคราว"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="Root/Modal/Center/Panel/Content" unique_id=1132650952]
@@ -238,7 +232,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.616, 0.608, 0.525, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 28
-text = "ระบบพักการทำงาน"
 horizontal_alignment = 1
 
 [node name="Action1" type="Button" parent="Root/Modal/Center/Panel/Content" unique_id=160375771]
@@ -250,7 +243,8 @@ layout_mode = 2
 [node name="Action3" type="Button" parent="Root/Modal/Center/Panel/Content" unique_id=550508025]
 layout_mode = 2
 
-[node name="DialogueOverlay" parent="Root" instance=ExtResource("4_dialogue")]
+[node name="DialogueOverlay" parent="Root" unique_id=1193366916 instance=ExtResource("4_dialogue")]
+layout_mode = 1
 
 [connection signal="pressed" from="Root/Modal/Center/Panel/Content/Action1" to="." method="_on_action_1"]
 [connection signal="pressed" from="Root/Modal/Center/Panel/Content/Action2" to="." method="_on_action_2"]

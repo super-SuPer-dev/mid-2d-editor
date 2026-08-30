@@ -1,6 +1,7 @@
 key,en,th
 LANGUAGE_ENGLISH,English,English
 LANGUAGE_THAI,ไทย,ไทย
+GAME_TITLE,Low Altitude Warrior,Low Altitude Warrior
 MENU_SUBTITLE,Thai Rural Sci-Fi Action,แอ็กชันไซไฟชนบทไทย
 MENU_START_MISSION,Start Mission,เริ่มภารกิจ
 MENU_FIELD_MAP,Field Map,แผนที่ภารกิจ
@@ -107,4 +108,5 @@ HUD_MAIN_MENU,Main Menu,เมนูหลัก
 DIALOGUE_CONTINUE,Continue,ต่อไป
 DIALOGUE_SKIP,Skip,ข้าม
 CREDITS_TITLE,Credits,เครดิต
+CREDITS_TEAM,673380322-2  Tham Athoiram  CP-AI,673380322-2  นายธาม อะทอยรัมย์  CP-AI
 CREDITS_THANKS,Thank you for protecting the land.,ขอบคุณที่ร่วมปกป้องผืนดิน

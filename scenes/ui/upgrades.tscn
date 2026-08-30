@@ -57,7 +57,7 @@ theme_override_constants/separation = 20
 [node name="Back" type="Button" parent="Layout/Header" unique_id=1975195704]
 custom_minimum_size = Vector2(240, 76)
 layout_mode = 2
-text = "< แผนที่ภารกิจ"
+text = "UI_BACK_MAP"
 
 [node name="Title" type="Label" parent="Layout/Header" unique_id=1357904392]
 layout_mode = 2
@@ -65,24 +65,23 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 42
-text = "โรงช่างประจำฐาน"
+text = "UPGRADES_TITLE"
 horizontal_alignment = 1
 
 [node name="Samples" type="Label" parent="Layout/Header" unique_id=433273187]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.74, 0.27, 1)
 theme_override_font_sizes/font_size = 30
-text = "ตัวอย่าง 0"
 
 [node name="Intro" type="Label" parent="Layout" unique_id=1241145443]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 26
-text = "อัปเกรดเครื่องตัด • ใช้ชีวมวลต่างดาวเพื่อเพิ่มความสามารถให้เจ้าหน้าที่ทุกคน"
+text = "UPGRADES_INTRO"
 horizontal_alignment = 1
 
-[node name="Cards" type="HBoxContainer" parent="Layout"]
+[node name="Cards" type="HBoxContainer" parent="Layout" unique_id=958946599]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 16

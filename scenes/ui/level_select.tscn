@@ -151,7 +151,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.92, 0.84, 0.62, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 38
-text = "เลือกด่าน"
+text = "LEVEL_SELECT_TITLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -161,7 +161,6 @@ offset_left = 22.0
 offset_top = 18.0
 offset_right = 320.0
 offset_bottom = 70.0
-text = "เจ้าหน้าที่"
 
 [node name="Samples" type="Label" parent="." unique_id=1677026164]
 layout_mode = 0
@@ -172,7 +171,6 @@ offset_bottom = 68.0
 theme_override_colors/font_color = Color(0.89, 0.57, 1, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("Style_sample")
-text = "ตัวอย่างต่างดาว  0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -213,7 +211,6 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.95, 0.87, 0.64, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
-text = "1"
 horizontal_alignment = 1
 
 [node name="Status" type="Label" parent="MissionMarkers/level_01" unique_id=1833842449]
@@ -258,7 +255,6 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.95, 0.87, 0.64, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
-text = "2"
 horizontal_alignment = 1
 
 [node name="Status" type="Label" parent="MissionMarkers/level_02" unique_id=547246634]
@@ -303,7 +299,6 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.95, 0.87, 0.64, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
-text = "3"
 horizontal_alignment = 1
 
 [node name="Status" type="Label" parent="MissionMarkers/level_03" unique_id=1604466674]
@@ -347,7 +342,6 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.74, 0.72, 0.65, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
-text = "4"
 horizontal_alignment = 1
 
 [node name="level_05" type="TextureButton" parent="MissionMarkers" unique_id=338623841]
@@ -377,7 +371,6 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.74, 0.72, 0.65, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
-text = "5"
 horizontal_alignment = 1
 
 [node name="MissionDetails" type="NinePatchRect" parent="." unique_id=1023175227]
@@ -414,7 +407,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.77, 0.32, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 22
-text = "ด่าน 01"
 
 [node name="Description" type="Label" parent="MissionDetails/Content" unique_id=2015663616]
 layout_mode = 2
@@ -422,7 +414,6 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.85, 0.84, 0.76, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 16
-text = "รายละเอียดภารกิจ"
 autowrap_mode = 2
 
 [node name="Progress" type="Label" parent="MissionDetails/Content" unique_id=1824335435]
@@ -430,7 +421,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.71, 0.38, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 16
-text = "เป้าหมาย"
 
 [node name="FooterActions" type="HBoxContainer" parent="." unique_id=1606655712]
 layout_mode = 1
@@ -449,17 +439,17 @@ theme_override_constants/separation = 10
 [node name="Back" type="Button" parent="FooterActions" unique_id=1202718395]
 custom_minimum_size = Vector2(145, 54)
 layout_mode = 2
-text = "ย้อนกลับ"
+text = "UI_BACK"
 
 [node name="Upgrades" type="Button" parent="FooterActions" unique_id=798162861]
 custom_minimum_size = Vector2(190, 54)
 layout_mode = 2
-text = "อัปเกรดฐาน"
+text = "LEVEL_BASE_UPGRADES"
 
 [node name="CharacterUpgrades" type="Button" parent="FooterActions" unique_id=1419960572]
 custom_minimum_size = Vector2(210, 54)
 layout_mode = 2
-text = "อัปเกรดตัวละคร"
+text = "LEVEL_OPERATOR_MASTERY"
 
 [node name="StartMission" type="Button" parent="." unique_id=1372859082]
 layout_mode = 1
@@ -478,7 +468,6 @@ theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("Style_start")
 theme_override_styles/pressed = SubResource("Style_start_hover")
 theme_override_styles/hover = SubResource("Style_start_hover")
-text = "เริ่มภารกิจ"
 
 [connection signal="pressed" from="Operator" to="." method="_on_operator_pressed"]
 [connection signal="pressed" from="FooterActions/Back" to="." method="_on_back_pressed"]

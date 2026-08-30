@@ -8,6 +8,8 @@ func _ready() -> void:
 
 func _refresh_text(_locale: String) -> void:
 	$Center/Panel/Margin/Content/Title.text = LocalizationManager.text("CREDITS_TITLE")
+	$Center/Panel/Margin/Content/GameTitle.text = LocalizationManager.text("GAME_TITLE")
+	$Center/Panel/Margin/Content/CreditsText.text = LocalizationManager.text("CREDITS_TEAM")
 	$Center/Panel/Margin/Content/ThankYou.text = LocalizationManager.text("CREDITS_THANKS")
 	$Center/Panel/Margin/Content/Back.text = LocalizationManager.text("UI_BACK_MENU")
 

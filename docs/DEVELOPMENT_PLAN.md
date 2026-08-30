@@ -18,13 +18,13 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 | Operators | Tonkla, Rin, Khem, and T-800 share controls and animation structure | Passives, mastery, full production animation contracts |
 | Enemies | Thornling, spitter, and maw behaviors | Three more standard families, biome-specific rosters, distinct art, tuning and telegraphs |
 | Bosses | Generic enlarged enemy behavior used in Level 3 | Five dedicated, multi-phase bosses |
-| Progression | Shared upgrades plus duplicate per-character tracks | Base Technology + Operator Mastery and save migration v2 |
+| Progression | Base Technology, Operator Mastery, save schema v2, legacy ID/track migration, and story-stage advancement are implemented | Economy and milestone tuning, recovery testing, and full-campaign persistence validation |
 | Story | No complete runtime narrative flow | Briefings, radio events, boss introductions, debriefings, story state |
-| Localization | User-facing text is partly hardcoded, primarily Thai | English-default key-based localization with complete Thai parity |
+| Localization | English-default live switching, English fallback, three bilingual tables, and localization-key-only scene defaults are implemented and validated | Pseudo-localization, human Thai review, and Windows/Web parity evidence |
 | UI/UX | Main flows work; several screens use provisional generated assets | Responsive layout, dialogue UI, boss UI, accessibility and text expansion |
 | Art | 474 generated PNG candidates inventoried; 474/474 decode, but all 188 normalized candidates fail the current hard-edge alpha gate; runtime still contains placeholders | Remediate/select candidates, verify package grids and animation, integrate approved art, then validate Windows/Web appearance and memory |
 | Audio | One click sound is repitched for multiple events | Music suite, approximately 40 SFX, mix and platform validation |
-| QA | Smoke test covers four operators and three levels | Five-level, boss, dialogue, migration, localization and export coverage |
+| QA | Isolated smoke test covers four operators, five-level catalogs/dialogue references, three runtime levels, boss patterns, v1→v2 migration, one-shot story state, and language fallback | Runtime Levels 4–5, retry/recovery, pseudo-localization, export, performance, and soak coverage |
 
 ## 2. Production Principles
 
@@ -97,6 +97,8 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 - Extend automated validation to five-level catalogs and localization parity.
 
 **Exit criteria:** Fresh and migrated profiles load safely; language switching is live and persistent; a test mission can execute all three phases; dialogue can be shown/skipped without changing results; automated contract checks pass.
+
+**Implementation evidence — 2026-08-30:** Foundation code is implemented. The headless smoke suite passes with in-memory save isolation and covers v1→v2 migration, story-stage advancement, duplicate-safe one-shot state, all five levels' story references, localization fallback, three mission phases, and pooled boss-projectile caps. The localization validator passes 165 English/Thai entries and rejects any non-key scene text. Live Godot MCP inspection confirms the fresh-profile main menu renders English. Release-platform persistence, pseudo-localization, and Windows/Web parity remain later-gate work.
 
 ### Gate 2 — Level 1 Production Slice
 

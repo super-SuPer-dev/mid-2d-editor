@@ -107,6 +107,24 @@ foreach ($relativePath in $tablePaths) {
     }
 }
 
+$sceneRoot = Join-Path $resolvedRoot 'scenes'
+if (Test-Path -LiteralPath $sceneRoot -PathType Container) {
+    foreach ($sceneFile in Get-ChildItem -LiteralPath $sceneRoot -Recurse -File -Filter '*.tscn') {
+        $relativePath = $sceneFile.FullName.Substring($resolvedRoot.Length + 1)
+        $lineNumber = 0
+        foreach ($line in [System.IO.File]::ReadLines($sceneFile.FullName)) {
+            $lineNumber++
+            if ($line -notmatch '^\s*text\s*=\s*"(?<value>[^"]*)"\s*$') {
+                continue
+            }
+            $value = $Matches.value
+            if ($value.Length -gt 0 -and -not $allKeys.ContainsKey($value)) {
+                Add-Failure "Scene text must be empty or a localization key at ${relativePath}:${lineNumber}: $value"
+            }
+        }
+    }
+}
+
 if ($failures.Count -gt 0) {
     Write-Output "LOCALIZATION VALIDATION FAILED ($($failures.Count))"
     foreach ($failure in $failures) {

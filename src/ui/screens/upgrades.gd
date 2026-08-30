@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 func _refresh_text(_locale: String = "") -> void:
-	$Layout/Header/Back.text = "< " + LocalizationManager.text("UI_BACK_MAP")
+	$Layout/Header/Back.text = LocalizationManager.text("UI_BACK_MAP")
 	$Layout/Header/Title.text = LocalizationManager.text("UPGRADES_TITLE")
 	$Layout/Intro.text = LocalizationManager.text("UPGRADES_INTRO")
 	$Layout/Header/Samples.text = LocalizationManager.text("UPGRADE_SAMPLES", {"count": int(SaveManager.profile.get("total_crystals", 0))})

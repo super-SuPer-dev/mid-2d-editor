@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdpkufuwvbum4" path="res://src/ui/screens/character_select.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/character_card.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://c7kurbnqk5kei" path="res://scenes/ui/character_card.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://c02tfrdibcle2" path="res://assets/images/ui/backgrounds/menu_background.png" id="3_l8ele"]
 
 [node name="CharacterSelect" type="Control" unique_id=1633543802]
@@ -46,7 +46,7 @@ layout_mode = 2
 [node name="Back" type="Button" parent="Layout/Header" unique_id=180881449]
 custom_minimum_size = Vector2(210, 68)
 layout_mode = 2
-text = "< ย้อนกลับ"
+text = "UI_BACK"
 
 [node name="Title" type="Label" parent="Layout/Header" unique_id=319402980]
 layout_mode = 2
@@ -54,7 +54,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
-text = "เลือกเจ้าหน้าที่ภาคสนาม"
+text = "CHARACTER_SELECT_TITLE"
 horizontal_alignment = 1
 
 [node name="Cards" type="GridContainer" parent="Layout" unique_id=532075837]

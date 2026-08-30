@@ -16,10 +16,10 @@
 | แคมเปญ | 3 ด่าน | ปรับด่าน 1–3 และสร้างด่าน 4–5 |
 | เจ้าหน้าที่ | 4 คน ใช้ระบบร่วม | passive, Mastery, animation production set |
 | ศัตรู/บอส | behavior ศัตรู 3 แบบและบอสขยายชั่วคราว | ศัตรูอีก 3 ตระกูล roster เฉพาะ biome และบอสเฉพาะ 5 ตัว |
-| Progression | อัปเกรดรวมและแทร็กซ้ำรายตัว | Base Technology + Mastery และ migration v2 |
-| Story/Localization | ยังไม่มี narrative flow; string แข็งหลายจุด | English-default, Thai parity, dialogue/story state |
+| Progression | implement Base Technology, Operator Mastery, save schema v2, migration ID/track เก่า และการเลื่อน story stage แล้ว | ปรับ economy/milestone, ทดสอบ recovery และตรวจ persistence ตลอดแคมเปญ |
+| Story/Localization | มี English-default/live switching/fallback, ตารางสองภาษา 3 ชุด, dialogue/story state และ scene default ที่ใช้ localization key เท่านั้นพร้อม validator | pseudo-localization, human Thai review และหลักฐาน parity บน Windows/Web |
 | ภาพ/เสียง | สำรวจ generated PNG 474 ไฟล์และเปิดได้ 474/474 แต่ normalized candidate ทั้ง 188 ไฟล์ไม่ผ่าน hard-edge alpha gate; runtime ยังมี placeholder มาก | แก้/คัดเลือก candidate, ตรวจ grid/animation ราย package, integrate งานที่อนุมัติ แล้วตรวจภาพและ memory บน Windows/Web; เพลงและ ~40 SFX |
-| QA | smoke test 4 ตัวละคร/3 ด่าน | 5 ด่าน บอส dialogue migration export |
+| QA | smoke test แบบไม่เขียน save จริงครอบคลุม 4 ตัวละคร, catalog/story reference 5 ด่าน, runtime 3 ด่าน, boss pattern, migration v1→v2, one-shot state และ language fallback | runtime ด่าน 4–5, retry/recovery, pseudo-localization, export, performance และ soak |
 
 ## 2. หลักการผลิต
 
@@ -54,6 +54,8 @@
 
 สร้าง localization CSV, English default/live selector/fallback, mission phases, boss signals, dialogue/story data, passives, Mastery, save v2 migration และ automated validation ห้าด่าน ขยาย level data ให้มี encounter segments, enemy roster, tile/background kit IDs, boss pattern set และ projectile cap พร้อมระบบกระสุนบอสแบบ pooled ที่มี telegraph/recovery/safe-route/cleanup contract
 **ออก Gate:** โปรไฟล์ใหม่/เก่าโหลดปลอดภัย, สลับภาษาทันทีและจำค่า, test mission ผ่าน 3 phases, dialogue skip ให้ผลเหมือนอ่านจบ, contract tests ผ่าน
+
+**หลักฐาน implementation — 2026-08-30:** Foundation code ถูก implement แล้ว Headless smoke suite ผ่านโดยใช้ save แบบ in-memory ที่ไม่แตะ profile จริง และตรวจ migration v1→v2, การเลื่อน story stage, one-shot state ไม่ซ้ำ, story reference ครบทั้ง 5 ด่าน, localization fallback, mission 3 phases และ projectile cap ของบอสแบบ pooled ตัว validator ผ่าน 165 English/Thai entries และปฏิเสธ scene text ที่ไม่ใช่ key การตรวจผ่าน Godot MCP ยืนยันว่า fresh-profile main menu แสดง English งาน persistence ระดับ release, pseudo-localization และ parity Windows/Web อยู่ใน Gate หลัง
 
 ### Gate 2 — Production Slice ด่าน 1
 

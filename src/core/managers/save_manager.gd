@@ -9,6 +9,8 @@ signal load_completed
 signal operation_failed(message: String)
 
 var profile: Dictionary = {}
+var persistence_enabled: bool = true
+var _test_profile_backup: Dictionary = {}
 
 
 func _ready() -> void:
@@ -37,6 +39,9 @@ func default_profile() -> Dictionary:
 
 
 func save_game() -> bool:
+	if not persistence_enabled:
+		save_completed.emit()
+		return true
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file == null:
 		operation_failed.emit("Could not open the profile for writing.")
@@ -121,11 +126,40 @@ func complete_level(level_id: String, crystals: int) -> void:
 	var best: Dictionary = profile["best_crystals"]
 	best[level_id] = maxi(int(best.get(level_id, 0)), crystals)
 	var next_level := str(LevelCatalog.get_level(level_id).get("next_level", ""))
+	var completed_act := LevelCatalog.get_level_number(level_id)
+	if completed_act > 0:
+		profile["story_stage"] = maxi(
+			int(profile.get("story_stage", 1)),
+			mini(completed_act + 1, LevelCatalog.LEVEL_ORDER.size())
+		)
 	var unlocked: Array = profile["unlocked_levels"]
 	if not next_level.is_empty() and next_level not in unlocked:
 		unlocked.append(next_level)
 	profile_changed.emit()
 	save_game()
+
+
+func begin_test_session(profile_override: Dictionary = {}) -> void:
+	if persistence_enabled:
+		_test_profile_backup = profile.duplicate(true)
+	persistence_enabled = false
+	profile = default_profile()
+	if not profile_override.is_empty():
+		_merge_profile(profile_override)
+	GameManager.select_character(str(profile["selected_character"]))
+	LocalizationManager.set_language(str(profile["settings"]["language"]))
+	profile_changed.emit()
+
+
+func end_test_session() -> void:
+	if persistence_enabled:
+		return
+	profile = _test_profile_backup.duplicate(true) if not _test_profile_backup.is_empty() else default_profile()
+	_test_profile_backup.clear()
+	persistence_enabled = true
+	GameManager.select_character(str(profile["selected_character"]))
+	LocalizationManager.set_language(str(profile.get("settings", {}).get("language", LocalizationManager.DEFAULT_LANGUAGE)))
+	profile_changed.emit()
 
 
 func is_level_unlocked(level_id: String) -> bool:

@@ -1,35 +1,35 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://cdsw7jwyrkbn6"]
 
-[ext_resource type="Theme" path="res://scenes/ui/field_theme.tres" id="1_theme"]
+[ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="1_theme"]
 
-[node name="UpgradeRow" type="PanelContainer"]
-custom_minimum_size = Vector2(380, 360)
+[node name="UpgradeRow" type="PanelContainer" unique_id=943087826]
 texture_filter = 1
+custom_minimum_size = Vector2(380, 360)
 theme = ExtResource("1_theme")
 theme_type_variation = &"UpgradeCard"
 
-[node name="Row" type="VBoxContainer" parent="."]
+[node name="Row" type="VBoxContainer" parent="." unique_id=517372025]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Badge" type="ColorRect" parent="Row"]
+[node name="Badge" type="ColorRect" parent="Row" unique_id=393863820]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Copy" type="VBoxContainer" parent="Row"]
+[node name="Copy" type="VBoxContainer" parent="Row" unique_id=1367335440]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Name" type="Label" parent="Row/Copy"]
+[node name="Name" type="Label" parent="Row/Copy" unique_id=156747634]
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 
-[node name="Description" type="Label" parent="Row/Copy"]
+[node name="Description" type="Label" parent="Row/Copy" unique_id=2055139295]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.68, 0.7, 0.62, 1)
@@ -38,15 +38,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="Level" type="Label" parent="Row"]
+[node name="Level" type="Label" parent="Row" unique_id=1018925913]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.82, 0.62, 1)
 theme_override_font_sizes/font_size = 25
-text = "ระดับ 0/5"
 horizontal_alignment = 1
 
-[node name="Purchase" type="Button" parent="Row"]
+[node name="Purchase" type="Button" parent="Row" unique_id=1480252858]
 custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
-text = "อัปเกรด"

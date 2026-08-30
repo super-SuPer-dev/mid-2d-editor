@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func _refresh_text(_locale: String) -> void:
-	$Layout/Header/Back.text = "< " + LocalizationManager.text("UI_BACK")
+	$Layout/Header/Back.text = LocalizationManager.text("UI_BACK")
 	$Layout/Header/Title.text = LocalizationManager.text("CHARACTER_SELECT_TITLE")
 	for character_id in CharacterCatalog.get_ids():
 		var card := $Layout/Cards.get_node(character_id)
