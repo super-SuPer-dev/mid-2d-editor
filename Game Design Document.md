@@ -411,16 +411,19 @@ is no explorable NPC hub. `[GDD-NARRATIVE-01]`
 ### 9.3 Act I — Contaminated Grassland
 
 **Mission ID:** `level_01`  
-**Threat quota target:** 4  
+**Threat quota target:** 8
 **Boss:** Thorn Matriarch (`boss_thorn_matriarch`)  
 **Samples target:** 6
 
 The operator reopens the evacuation route through mutated farmland. The first
 samples prove that separate plants are responding to one coordinated pulse.
 
-**Level-design identity:** open farm lanes lead into an irrigation-gap set piece
-and an elevated evacuation road. Thornlings pressure movement while Spitters
-teach crossfire and safe-lane recognition.
+**Level-design identity:** three locked pre-boss beats move from an irrigation
+bank (two Thornlings), through a collapsed crop lane (one Thornling and two
+Spitters), to the signal-root approach (two Thornlings and one Spitter).
+Each beat opens only after its assigned threats are cleared. Open farm lanes,
+staggered high ground, four thorn beds, and an elevated evacuation road teach
+movement, crossfire, and safe-lane recognition without repeated waves.
 
 Boss attacks: telegraphed ground thorns, a short root charge, tutorial
 three-way fans and alternating thorn lanes. The fight teaches jumping and

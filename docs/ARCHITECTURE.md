@@ -61,6 +61,10 @@ layouts with `new()` and `add_child()`.
 - `HealthComponent` owns reusable health, healing, damage, and death signals.
 - Standard-enemy death registers with `GameManager`; quota completion starts
   the boss phase, and only boss defeat activates extraction.
+- `EncounterGate` owns one authored pre-boss beat. It keeps its assigned
+  enemies dormant until physical player overlap, blocks forward travel during
+  combat, and removes its barrier only after every assigned enemy emits
+  `defeated_event`. Each standard threat belongs to exactly one gate.
 - `BossProjectilePatternRunner` consumes `BossPatternCatalog`, telegraphs and
   cycles authored formations, pools transient projectiles, enforces the level
   cap, and clears owned shots on combat shutdown, pattern transition, defeat,

@@ -9,9 +9,15 @@ const LEVELS := {
 	"level_01": {
 		"implemented": true,
 		"name_key": "LEVEL_01_NAME", "subtitle_key": "LEVEL_01_SUBTITLE", "location_key": "LEVEL_01_LOCATION",
-		"size": Vector2(2700, 720), "threat_quota": 4, "required_kills": 4, "sample_target": 6,
+		"size": Vector2(4300, 720), "threat_quota": 8, "required_kills": 8, "sample_target": 6,
 		"boss_id": "thorn_matriarch", "boss_name_key": "BOSS_THORN_MATRIARCH", "biome": "contaminated_grassland",
 		"target_duration_seconds": Vector2i(300, 420), "encounter_segments": MISSION_SEGMENTS,
+		"pacing_budget_seconds": {"briefing": 45, "traversal": 75, "encounters": 150, "boss": 90, "extraction": 15},
+		"encounter_contracts": [
+			{"encounter_id": "irrigation_bank", "x_range": Vector2(120, 1100), "threat_count": 2},
+			{"encounter_id": "collapsed_crop_lane", "x_range": Vector2(1100, 2300), "threat_count": 3},
+			{"encounter_id": "signal_root_approach", "x_range": Vector2(2300, 3420), "threat_count": 3},
+		],
 		"enemy_roster": ["thornling", "spitter"], "tile_kit_id": "grassland_field",
 		"background_kit_id": "grassland_parallax", "boss_pattern_set": "thorn_matriarch_tutorial", "projectile_cap": 18,
 		"briefing_sequence": "level_01_briefing", "radio_sequences": ["level_01_radio_signal", "level_01_radio_route", "level_01_radio_root"],

@@ -11,6 +11,7 @@ const REQUIRED_JUMP_ROUTES := {
 	"level_01": [
 		["Ground", "Platform01"], ["Platform01", "Platform02"],
 		["Platform03", "Platform04"], ["Platform05", "Platform06"],
+		["Platform06", "Platform07"], ["Platform07", "Platform08"], ["Platform08", "Platform09"],
 	],
 	"level_02": [
 		["GroundA", "Platform03"], ["GroundB", "Platform04"],
@@ -32,11 +33,16 @@ const UI_SCENES := [
 	preload("res://scenes/ui/upgrades.tscn"),
 ]
 const EXPECTED_THREAT_QUOTAS := {
-	"level_01": 4,
+	"level_01": 8,
 	"level_02": 5,
 	"level_03": 5,
 	"level_04": 6,
 	"level_05": 6,
+}
+const EXPECTED_LEVEL1_ENCOUNTERS := {
+	"irrigation_bank": 2,
+	"collapsed_crop_lane": 3,
+	"signal_root_approach": 3,
 }
 const EXPECTED_PROJECTILE_CAPS := {
 	"level_01": 18,
@@ -91,6 +97,18 @@ func _validate_catalogs() -> void:
 		_check(data.get("mission_phases", []) == ["CLEAR_THREATS", "BOSS_ACTIVE", "EXTRACTION"], "%s has an invalid phase contract." % level_id)
 		_check(data.get("target_duration_seconds", Vector2i.ZERO) == Vector2i(300, 420), "%s does not target 5–7 minutes." % level_id)
 		_check(data.get("encounter_segments", []) == LevelCatalog.MISSION_SEGMENTS, "%s has an invalid encounter-segment contract." % level_id)
+		if level_id == "level_01":
+			var pacing_budget: Dictionary = data.get("pacing_budget_seconds", {})
+			var pacing_total := 0
+			for seconds: Variant in pacing_budget.values():
+				pacing_total += int(seconds)
+			_check(pacing_total >= 300 and pacing_total <= 420, "Level 1 pacing budget is outside the 5–7 minute target.")
+			var contract_threat_total := 0
+			for contract: Dictionary in data.get("encounter_contracts", []):
+				var encounter_id := str(contract.get("encounter_id", ""))
+				_check(EXPECTED_LEVEL1_ENCOUNTERS.has(encounter_id), "Level 1 has unknown encounter contract %s." % encounter_id)
+				contract_threat_total += int(contract.get("threat_count", 0))
+			_check(contract_threat_total == int(data["threat_quota"]), "Level 1 encounter contracts do not cover its threat quota.")
 		_check(not data.get("enemy_roster", []).is_empty(), "%s has no enemy roster." % level_id)
 		_check(not str(data.get("tile_kit_id", "")).is_empty(), "%s has no tile kit ID." % level_id)
 		_check(not str(data.get("background_kit_id", "")).is_empty(), "%s has no background kit ID." % level_id)
@@ -223,6 +241,30 @@ func _validate_levels() -> void:
 				enemy_count += 1
 				_check(enemy.enemy_type in LevelCatalog.get_level(level_id).get("enemy_roster", []), "%s spawned enemy type %s outside its roster." % [level_id, enemy.enemy_type])
 		var player_count := get_tree().get_nodes_in_group("Player").size()
+		if level_id == "level_01":
+			var encounter_gates := level.get_node_or_null("EncounterGates")
+			_check(encounter_gates != null and encounter_gates.get_child_count() == 3, "Level 1 does not contain three encounter gates.")
+			var assigned_threats := 0
+			var physical_trigger_tested := false
+			var trigger_player := get_tree().get_first_node_in_group("Player") as PlayerController
+			if encounter_gates != null:
+				for gate: Node in encounter_gates.get_children():
+					_check(gate is EncounterGate, "Level 1 encounter gate has the wrong script type.")
+					if gate is EncounterGate:
+						var typed_gate := gate as EncounterGate
+						_check(EXPECTED_LEVEL1_ENCOUNTERS.has(typed_gate.encounter_id), "Unknown Level 1 gate %s." % typed_gate.encounter_id)
+						_check(typed_gate.enemy_paths.size() == int(EXPECTED_LEVEL1_ENCOUNTERS.get(typed_gate.encounter_id, -1)), "Gate %s has the wrong threat count." % typed_gate.encounter_id)
+						assigned_threats += typed_gate.enemy_paths.size()
+						if typed_gate.encounter_id == "irrigation_bank":
+							trigger_player.global_position = typed_gate.global_position + typed_gate.trigger_offset
+							for _trigger_frame in range(3):
+								await get_tree().physics_frame
+							physical_trigger_tested = typed_gate.started
+						else:
+							typed_gate.start_encounter()
+						_check(typed_gate.started, "Gate %s could not start." % typed_gate.encounter_id)
+			_check(physical_trigger_tested, "Level 1 irrigation gate did not start from physical player overlap.")
+			_check(assigned_threats == expected_enemies, "Level 1 encounter gates do not assign every threat exactly once.")
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
@@ -241,6 +283,10 @@ func _validate_levels() -> void:
 		await get_tree().process_frame
 		await get_tree().process_frame
 		_check(GameManager.is_objective_complete(), "%s combat objective did not complete." % level_id)
+		if level_id == "level_01":
+			for gate: EncounterGate in level.get_node("EncounterGates").get_children():
+				_check(gate.cleared, "Gate %s did not clear after its threats were defeated." % gate.encounter_id)
+				_check(gate.barrier_shape.disabled, "Gate %s barrier remained collidable after clear." % gate.encounter_id)
 		_check(GameManager.mission_phase == GameManager.PHASE_BOSS_ACTIVE, "%s did not enter the boss phase." % level_id)
 		var portal := level.get_node_or_null("Portal") as ExitPortal
 		_check(portal != null and not portal.active, "%s portal activated before boss defeat." % level_id)

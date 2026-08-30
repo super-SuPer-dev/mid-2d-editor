@@ -64,6 +64,8 @@
 redesign Contaminated Grassland ให้มีสามช่วงก่อนบอสและจบใน 5–7 นาที ผลิต Thorn Matriarch พร้อมกระสุน fan/lane สำหรับสอนผู้เล่น, briefing/radio/boss/debrief/operator barks สองภาษา, tile/parallax ชนบท, roster ศัตรู, VFX, เพลง, SFX และแทน placeholder P0 ของด่าน 1
 **ออก Gate:** เล่นตั้งแต่ briefing ถึง debrief บน Windows/Web ใน 5–7 นาที movement/melee response, enemy placement, atmosphere และ boss punish window ถึงมาตรฐาน reference หลักโดยไม่ลอก protected expression ไม่มีทางเดินว่างหรือยืด combat, Thornling เงาะ, Spitter มะกรูด และ Thorn Matriarch พิสูจน์มาตรฐานเอกลักษณ์ผลไม้ไทยในขนาด gameplay, safe route/projectile cap ผ่าน และได้มาตรฐานภาพ/เสียง/UI/เรื่อง/บอสที่อนุมัติ ไม่มี P0/P1
 
+**ความคืบหน้า implementation — 2026-08-30:** ขยาย route ด่าน 1 จาก 2,700 เป็น 4,300 px และเพิ่ม encounter gate ใช้ซ้ำได้ 3 ช่วงโดยแบ่งภัยคุกคาม 2/3/3 รวมศัตรูมาตรฐาน 8 ตัว platform 9 จุด thorn hazard 4 จุด sample 6 ชิ้น และ pacing budget 375 วินาที Test อัตโนมัติยืนยันการ assign ศัตรูไม่ซ้ำ การ activate จาก player overlap จริง การเปิด barrier, quota → boss → extraction, projectile cleanup และระยะก้าวกระโดด Godot MCP live play ยืนยัน gate แรกปลุก Thornling ทั้งสองตัวแล้ว ยังต้อง timed human playtest 5–7 นาที, final art/animation, เพลง/SFX, หลักฐาน Windows/Web และ human feel review ก่อนปิด Gate 2
+
 ### Gate 3 — ปรับด่าน 2–3
 
 [DEV-GATE-03]

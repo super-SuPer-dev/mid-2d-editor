@@ -1,6 +1,8 @@
 class_name EnemyController
 extends CharacterBody2D
 
+signal defeated_event(enemy: EnemyController)
+
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
 const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png")
@@ -164,6 +166,7 @@ func _on_died() -> void:
 	if defeated:
 		return
 	defeated = true
+	defeated_event.emit(self)
 	pattern_runner.dispose_projectiles()
 	AudioManager.play_sfx(0.55 if is_boss else 0.85, -8.0)
 	if is_boss:

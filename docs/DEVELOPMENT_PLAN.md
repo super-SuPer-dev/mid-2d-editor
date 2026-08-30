@@ -109,6 +109,8 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 
 **Exit criteria:** Level 1 is playable from briefing through debriefing on Windows and Web in 5–7 minutes; movement/melee response, enemy placement, atmosphere and boss punish windows meet the primary reference benchmark without copying protected expression; its three beats remain readable without empty travel or combat padding; Rambutan Thornlings, makrut-lime Spitters, and the Thorn Matriarch prove the Thai local-fruit identity standard at gameplay scale; the boss preserves its safe routes and projectile cap; it sets the approved art, animation, audio, encounter, UI and localization standard; no P0/P1 defects remain.
 
+**Implementation progress — 2026-08-30:** The native Level 1 route is extended from 2,700 to 4,300 px and now contains three reusable encounter gates with 2/3/3 threat assignments, eight total standard threats, nine traversal platforms, four thorn hazards, six samples, and a 375-second authored pacing budget. Automated tests prove unique threat assignment, physical player-overlap activation, barrier release, quota → boss → extraction, projectile cleanup, and jump-step reachability. Live Godot MCP play confirms the first gate activates both assigned Thornlings. Timed human 5–7 minute playtesting, final art/animation, music/SFX, Windows/Web evidence, and human feel review remain before Gate 2 can close.
+
 ### Gate 3 — Retrofit Levels 2–3
 
 [DEV-GATE-03]
