@@ -3,12 +3,33 @@ extends Area2D
 
 @export var damage: int = 2
 
+var _animation_clock: float = 0.0
+var _animation_fps: float = 0.0
+
 
 func set_size(size: Vector2) -> void:
 	var shape := RectangleShape2D.new()
 	shape.size = size
 	$CollisionShape2D.shape = shape
 	$Visual.scale = Vector2(size.x / 64.0, size.y / 20.0)
+
+
+func set_animation_texture(texture: Texture2D, frame_count: int = 4, fps: float = 8.0) -> void:
+	$Visual.texture = texture
+	$Visual.hframes = maxi(frame_count, 1)
+	$Visual.vframes = 1
+	$Visual.frame = 0
+	$Visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	$Visual.scale = Vector2(0.08, 0.08)
+	_animation_clock = 0.0
+	_animation_fps = fps
+
+
+func _process(delta: float) -> void:
+	if _animation_fps <= 0.0 or $Visual.hframes <= 1:
+		return
+	_animation_clock = fmod(_animation_clock + delta * _animation_fps, float($Visual.hframes))
+	$Visual.frame = int(_animation_clock)
 
 
 func _on_body_entered(body: Node2D) -> void:

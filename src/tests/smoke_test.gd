@@ -462,6 +462,20 @@ func _validate_levels() -> void:
 			_check(banyan_visual.hframes == 4 and banyan_visual.vframes == 1, "Level 3 Possessed Banyan pilot lost its four-frame grid.")
 			_check(absf(banyan_visual.position.y + 39.0) < 0.01, "Level 3 Possessed Banyan pilot lost its 840 px baseline offset.")
 			_check(str(banyan_visual.texture.resource_path).ends_with("possessed_banyan_idle_armored_strip_normalized_v2.png"), "Level 3 Possessed Banyan pilot did not begin in its armored visual state.")
+		var expected_hazard_texture := ""
+		match level_id:
+			"level_02":
+				expected_hazard_texture = "mangosteen_spore_vent_normalized_v1.png"
+			"level_03":
+				expected_hazard_texture = "santol_seed_piston_normalized_v1.png"
+			"level_04":
+				expected_hazard_texture = "nutrient_root_eruption_normalized_v2.png"
+			"level_05":
+				expected_hazard_texture = "sensory_platform_collapse_normalized_v2.png"
+		if not expected_hazard_texture.is_empty():
+			var hazard_visual := level.get_node("WorldGeometry/Hazard01/Visual") as Sprite2D
+			_check(hazard_visual.hframes == 4 and hazard_visual.vframes == 1, "%s biome hazard did not use a four-frame strip." % level_id)
+			_check(str(hazard_visual.texture.resource_path).ends_with(expected_hazard_texture), "%s biome hazard did not bind its generated texture." % level_id)
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController

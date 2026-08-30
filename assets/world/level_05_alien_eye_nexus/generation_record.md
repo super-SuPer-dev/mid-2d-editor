@@ -20,3 +20,8 @@ unchanged.
 
 Technical scene instantiation and campaign smoke coverage pass. Human pixel-art,
 composition, memory and 1280 × 720 playtest approval remain before Verified.
+
+The generated sensory-platform collapse strip is bound to every Level 5 hazard
+with a four-frame 800 px-cell animation at 8 fps. Source SHA-256:
+77F6ECACEC166C96D6B655EF48F71385BFA70B47779DCD2B685CC87E48593FA8.
+Runtime binary-alpha SHA-256: A08D373A9326437694D1FA004B67EF4EF8D0D4B9672BAAB79122224A45D5ADCF.

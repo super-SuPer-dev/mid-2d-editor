@@ -381,6 +381,17 @@ encounter contracts remain unchanged. The smoke suite still passes across all
 five levels; tile kits, landmarks, hazard art, memory, 1280 × 720 composition
 and human pixel-art review remain open.
 
+**Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
+bind their generated four-frame hazard strips through the shared DamageHazard
+contract at 8 fps: mangosteen spore vent, santol seed piston, nutrient-root
+eruption and sensory-platform collapse. Smoke checks each runtime texture and
+grid while strict asset validation passes; final VFX variants, collision
+alignment, memory and human pixel-art review remain open.
+
+The four runtime hazard strips were re-normalized with threshold-128 alpha
+quantization after the audit found soft edges; strict validation now reports
+zero semi-transparent pixels while preserving the 4 × 800 × 800 grids.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

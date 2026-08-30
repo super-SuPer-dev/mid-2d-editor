@@ -1,5 +1,12 @@
 extends Node2D
 
+const BIOME_HAZARD_TEXTURES: Dictionary = {
+	"level_02": preload("res://assets/world/level_02_mutated_forest/hazards/mangosteen_spore_vent_normalized_v1.png"),
+	"level_03": preload("res://assets/world/level_03_capsule_07/hazards/santol_seed_piston_normalized_v1.png"),
+	"level_04": preload("res://assets/world/level_04_root_marsh/hazards/nutrient_root_eruption_normalized_v2.png"),
+	"level_05": preload("res://assets/world/level_05_alien_eye_nexus/hazards/sensory_platform_collapse_normalized_v2.png")
+}
+
 @onready var hud: GameHUD = $HUD
 @onready var player: PlayerController = $Player
 @onready var portal: ExitPortal = $Portal
@@ -15,6 +22,7 @@ func _ready() -> void:
 	if not GameManager.run_active:
 		GameManager.start_level(GameManager.current_level_id)
 	level_data = LevelCatalog.get_level(GameManager.current_level_id)
+	_configure_biome_hazards()
 	RenderingServer.set_default_clear_color(level_data["background"])
 	player.set_camera_limits(level_data["size"])
 	player.died.connect(_on_player_died)
@@ -32,6 +40,15 @@ func _ready() -> void:
 	var briefing_id := str(level_data.get("briefing_sequence", ""))
 	if not briefing_id.is_empty():
 		StoryManager.request_sequence(briefing_id)
+
+
+func _configure_biome_hazards() -> void:
+	var texture := BIOME_HAZARD_TEXTURES.get(GameManager.current_level_id) as Texture2D
+	if texture == null:
+		return
+	for child: Node in get_node("WorldGeometry").get_children():
+		if child is DamageHazard:
+			(child as DamageHazard).set_animation_texture(texture, 4, 8.0)
 
 
 func _on_objective_changed(defeated: int, required: int) -> void:

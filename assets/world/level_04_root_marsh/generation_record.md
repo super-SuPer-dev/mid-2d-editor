@@ -19,3 +19,8 @@ are used; gameplay collision and mission logic are unchanged.
 
 Technical scene instantiation and campaign smoke coverage pass. Human pixel-art,
 composition, memory and 1280 × 720 playtest approval remain before Verified.
+
+The generated nutrient-root eruption strip is bound to every Level 4 hazard
+with a four-frame 800 px-cell animation at 8 fps. Source SHA-256:
+D5614E7297FE548997181321F9AF734D6DB0C69F18762A451BEB1A6CD657D316.
+Runtime binary-alpha SHA-256: B81146782D30498A90E4E8330651CFA6212A46F86E526C283540307C7CDD8F7A.

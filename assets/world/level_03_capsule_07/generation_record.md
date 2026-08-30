@@ -19,3 +19,8 @@ used; gameplay collision and mission logic are unchanged.
 
 Technical scene instantiation and campaign smoke coverage pass. Human pixel-art,
 composition, memory and 1280 × 720 playtest approval remain before Verified.
+
+The generated santol seed-piston strip is bound to every Level 3 hazard with a
+four-frame 800 px-cell animation at 8 fps. Source SHA-256:
+Source SHA-256: 599D1F0BE240FDCB7C2231C4688144D394895C6241388BB8FCF2102357E6BAC0.
+Runtime binary-alpha SHA-256: 09882826C19C4AA1774BAC5C124D93F9CFD47F49BC85F31F554333C0B8F66FE3.

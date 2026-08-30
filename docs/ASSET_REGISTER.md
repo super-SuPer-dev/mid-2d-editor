@@ -120,7 +120,7 @@ Projectile production sets require high-contrast shape coding, spawn and impact 
 | Asset ID | Use | Priority | Current condition | State |
 |---|---|---:|---|---|
 | WORLD-PLATFORM-SET | Traversal surfaces | P0 | Level 1 pixel-art repeat tile integrated without bitmap stretching; biome variants remain | Integrated |
-| WORLD-HAZARD-SET | Thorns, spores, roots, marsh, nexus hazards | P0 | Level 1 pixel-art thorn bed integrated with approved baseline/collision; biome variants and animation remain | Integrated |
+| WORLD-HAZARD-SET | Thorns, spores, roots, marsh, nexus hazards | P0 | Level 1 pixel-art thorn bed remains the baseline; generated four-frame spore-vent, santol-piston, nutrient-root and sensory-collapse strips are now integrated into Levels 2–5 through the shared DamageHazard animation contract with nearest filtering. Final VFX variants, collision alignment, memory and human pixel-art review remain open | Integrated |
 | WORLD-SAMPLE | Living sample pickup | P0 | Pixel-art ACO sample canister integrated; hard edge approved at runtime scale | Integrated |
 | WORLD-PROJECTILE-SET | Enemy/boss ranged attacks | P0 | Pixel-art Spitter projectile integrated with direction-aligned rotation; boss variants remain | Integrated |
 | WORLD-EXTRACTION-PORTAL | Mission extraction | P0 | Pixel-art ACO extraction beacon integrated with localized world-space label; biome treatment/activation VFX remain | Integrated |
