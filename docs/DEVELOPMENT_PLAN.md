@@ -22,7 +22,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 | Story | No complete runtime narrative flow | Briefings, radio events, boss introductions, debriefings, story state |
 | Localization | User-facing text is partly hardcoded, primarily Thai | English-default key-based localization with complete Thai parity |
 | UI/UX | Main flows work; several screens use provisional generated assets | Responsive layout, dialogue UI, boss UI, accessibility and text expansion |
-| Art | Generated operator/UI assets and many runtime placeholders | Approved production assets, alpha/grid validation, Levels 4–5 worlds |
+| Art | 474 generated PNG candidates inventoried; 474/474 decode, but all 188 normalized candidates fail the current hard-edge alpha gate; runtime still contains placeholders | Remediate/select candidates, verify package grids and animation, integrate approved art, then validate Windows/Web appearance and memory |
 | Audio | One click sound is repitched for multiple events | Music suite, approximately 40 SFX, mix and platform validation |
 | QA | Smoke test covers four operators and three levels | Five-level, boss, dialogue, migration, localization and export coverage |
 
@@ -38,6 +38,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 - [DEV-PRINCIPLE-08] Hollow Knight and Castlevania are the primary feel references; Touhou is secondary and applies only to selected projectile phases. Reference analysis may identify principles, but production content must remain visually, mechanically and narratively original.
 - [DEV-PRINCIPLE-09] Thai local fruit morphology is the mandatory primary enemy and boss theme. Every organic hostile family locks one fruit reference, silhouette, material language and mechanic before animation production; fruit recognition may not reduce combat readability or become a palette-only variant.
 - [DEV-PRINCIPLE-10] Enemy and boss concept approval requires a fruit identity sheet mapping at least three fruit structures to hostile anatomy and at least one to gameplay. Generic alien plants, pasted-on fruit, and recolored shared bodies do not proceed to animation.
+- [DEV-PRINCIPLE-11] The generated-source audit is evidence, not approval. Opaque sprites, tiles, portraits and UI must resolve the soft-alpha blocker before large-scale integration; intentional translucent VFX require a documented exception and runtime readability test.
 
 ## 3. Agentic Task Contract
 
@@ -74,6 +75,7 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
   boss has a locked fruit identity, structural/mechanical mapping, and distinct
   per-level silhouette role.
 - Every known asset is represented in the asset register.
+- The generated-source audit blockers have owners and remediation decisions; no candidate is called production-ready from file integrity alone.
 - No Must-have requirement is ambiguous.
 
 ### Gate 1 — Production Foundation

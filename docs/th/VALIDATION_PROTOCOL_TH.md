@@ -126,6 +126,9 @@ Defect ที่เปิดใหม่ทำให้ evidence/score เดิ
 
 Source ต้องบันทึก dimensions/format/color/alpha/editable master, grid/cell/gutter, crop/pivot, provenance/license Runtime ต้องไม่มี halo/matte/neighboring frame/seam/bleed; เท้าไม่ลอย; animation timing ลื่นและอ่านได้; filtering ไม่ blur; panel ไม่ยืด; ตรวจทุกหน้าที่ 1280×720 ใน English/Thai/pseudo; level icon ไม่บัง landmark; telegraph เห็นชัด; วัด Web texture memory จริง แต่ละ biome ต้องมี parallax อย่างน้อย 4 ชั้น, foreground, landmark, primary tile kit ที่มี caps/corners/transitions, hazard และ extraction treatment เฉพาะ ห้ามผ่าน diversity review ด้วย palette swap หรือ primary tiles ร่วมกันเพียงอย่างเดียว ทุกด่านต้องเพิ่ม enemy family ใหม่หรือ mechanic variant ที่มีความหมาย
 
+- sprite, tile, portrait และ UI แบบ opaque pixel art ใช้ binary alpha (0 หรือ 255) ยกเว้นมี asset-specific exception ที่ผ่าน review และกำหนด discrete alpha palette ขนาดเล็ก ขอบที่มี continuous anti-alias alpha ไม่ผ่าน
+- translucent VFX, fog และ glow ใช้ intermediate alpha ได้เฉพาะเมื่อบันทึกข้อยกเว้นและผ่านการตรวจ contrast, halo และความอ่านง่ายใน runtime
+
 - ศัตรูอินทรีย์และบอสทุกตัวต้องมีผลไม้ไทยหลักที่อนุมัติแล้ว โดย source sheet จับคู่โครงสร้างผลไม้อย่างน้อย 3 อย่างกับกายวิภาค และอย่างน้อย 1 อย่างกับกลไก
 - source sheet บันทึกชื่อผลไม้อังกฤษ/ไทยและหลักฐานว่าปลูกในประเทศไทยหรือคุ้นเคยชัดเจนในอาหาร/ตลาด/วัฒนธรรมท้องถิ่นไทย
 - เอกลักษณ์ผลไม้ต้องยังอ่านได้ในการตรวจ silhouette/value โดยไม่พึ่งสีเพียงอย่างเดียว งานพืชต่างดาวทั่วไป ผลไม้ที่เพียงติดบนตัว และ palette-only variant ไม่ผ่าน

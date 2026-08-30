@@ -18,7 +18,7 @@
 | ศัตรู/บอส | behavior ศัตรู 3 แบบและบอสขยายชั่วคราว | ศัตรูอีก 3 ตระกูล roster เฉพาะ biome และบอสเฉพาะ 5 ตัว |
 | Progression | อัปเกรดรวมและแทร็กซ้ำรายตัว | Base Technology + Mastery และ migration v2 |
 | Story/Localization | ยังไม่มี narrative flow; string แข็งหลายจุด | English-default, Thai parity, dialogue/story state |
-| ภาพ/เสียง | generated/provisional และ placeholder มาก; click sound เดียว | production art, Levels 4–5, เพลงและ ~40 SFX |
+| ภาพ/เสียง | สำรวจ generated PNG 474 ไฟล์และเปิดได้ 474/474 แต่ normalized candidate ทั้ง 188 ไฟล์ไม่ผ่าน hard-edge alpha gate; runtime ยังมี placeholder มาก | แก้/คัดเลือก candidate, ตรวจ grid/animation ราย package, integrate งานที่อนุมัติ แล้วตรวจภาพและ memory บน Windows/Web; เพลงและ ~40 SFX |
 | QA | smoke test 4 ตัวละคร/3 ด่าน | 5 ด่าน บอส dialogue migration export |
 
 ## 2. หลักการผลิต
@@ -33,6 +33,7 @@
 - [DEV-PRINCIPLE-08] Hollow Knight และ Castlevania เป็น reference หลักด้าน feel; Touhou เป็น reference รองเฉพาะ projectile phase บางช่วง วิเคราะห์หลักการได้แต่ production content ต้องเป็นต้นฉบับทั้งภาพ กลไก และเนื้อเรื่อง
 - [DEV-PRINCIPLE-09] รูปทรงผลไม้ท้องถิ่นไทยเป็นธีมหลักที่บังคับใช้กับศัตรูอินทรีย์และบอส ทุกตระกูลต้องล็อกผลไม้อ้างอิง silhouette วัสดุ และกลไกก่อนผลิตแอนิเมชัน ห้ามลดความอ่านง่ายในการต่อสู้หรือใช้เพียงการย้อมสี
 - [DEV-PRINCIPLE-10] การอนุมัติ concept ศัตรู/บอสต้องมี fruit identity sheet ที่จับคู่โครงสร้างผลไม้อย่างน้อย 3 อย่างกับกายวิภาคศัตรู และอย่างน้อย 1 อย่างกับ gameplay งานพืชต่างดาวทั่วไป ผลไม้ที่เพียงติดบนตัว และ body เดิมที่ย้อมสีใหม่ห้ามเข้าสู่ขั้น animation
+- [DEV-PRINCIPLE-11] Generated-source audit เป็นหลักฐาน ไม่ใช่การอนุมัติ sprite, tile, portrait และ UI แบบทึบต้องแก้ soft-alpha blocker ก่อน integrate จำนวนมาก ส่วน translucent VFX ที่ตั้งใจใช้ต้องบันทึกข้อยกเว้นและทดสอบความอ่านง่ายใน runtime
 
 ## 3. สัญญางาน Agent
 
@@ -44,7 +45,7 @@
 
 [DEV-GATE-00]
 
-จัดทำเอกสารอังกฤษ 4 ฉบับและไทย 4 ฉบับ ล็อก NPC/operator/enemy/boss/level/localization IDs, inspiration hierarchy, originality boundary, glossary, ห้า act, งบเวลา 5–7 นาที, เมทริกซ์การกลายพันธุ์จากผลไม้ท้องถิ่นไทย, biome diversity matrix, boss pattern IDs, projectile caps และ asset inventory
+จัดทำเอกสารอังกฤษ 4 ฉบับและไทย 4 ฉบับ ล็อก NPC/operator/enemy/boss/level/localization IDs, inspiration hierarchy, originality boundary, glossary, ห้า act, งบเวลา 5–7 นาที, เมทริกซ์การกลายพันธุ์จากผลไม้ท้องถิ่นไทย, biome diversity matrix, boss pattern IDs, projectile caps และ asset inventory พร้อมกำหนดผู้รับผิดชอบ/แนวทางแก้ blocker จาก generated-source audit ห้ามเรียก candidate ว่า production-ready จาก file integrity เพียงอย่างเดียว
 **ออก Gate:** เอกสารเชื่อมถึงกัน, ID อังกฤษ/ไทยตรงกัน, story/scope ผ่าน human review, enemy bible ผลไม้ไทยกำหนดผลไม้ โครงสร้างที่แปลงเป็นกายวิภาค/กลไก และ silhouette role ของศัตรูอินทรีย์/บอสทุกตัวครบ, asset ที่ทราบมีใน register และ Must-have ไม่กำกวม
 
 ### Gate 1 — รากฐานการผลิต

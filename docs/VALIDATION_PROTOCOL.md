@@ -179,6 +179,8 @@ Record completion time, segment splits, deaths, damage sources, currency earned/
 ### Source checks
 
 - Dimensions, format, color space, alpha mode and editable master are recorded.
+- Opaque pixel-art sprites, tiles, portraits and UI use binary alpha (0 or 255) unless a reviewed asset-specific exception defines a small discrete alpha palette; continuous anti-aliased edge alpha fails validation.
+- Translucent VFX, fog and glow may use intermediate alpha only when the exception is recorded and runtime contrast, halo and readability checks pass.
 - Sprite grid/cell/gutter mapping is exact; every animation frame belongs to only one cell.
 - Transparent borders are cropped enough for memory and pivot consistency without cutting motion.
 - Provenance and commercial-use rights are recorded.
