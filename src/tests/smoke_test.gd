@@ -434,6 +434,11 @@ func _validate_levels() -> void:
 			_check(thornling_visual.hframes == 4 and thornling_visual.vframes == 1, "Level 1 Thornling pilot lost its four-frame grid.")
 			_check(absf(thornling_visual.position.y + 18.0) < 0.01, "Level 1 Thornling pilot lost its 740 px baseline offset.")
 			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_idle_strip_normalized_v2.png") or str(thornling_visual.texture.resource_path).ends_with("thornling_run_strip_normalized_v2.png"), "Level 1 Thornling pilot is not using the promoted runtime texture.")
+			var spitter := level.get_node("Enemies/Spitter") as EnemyController
+			var spitter_visual := spitter.get_node("Visual") as Sprite2D
+			_check(spitter_visual.hframes == 4 and spitter_visual.vframes == 1, "Level 1 Spitter pilot lost its four-frame grid.")
+			_check(absf(spitter_visual.position.y + 18.0) < 0.01, "Level 1 Spitter pilot lost its 740 px baseline offset.")
+			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png") or str(spitter_visual.texture.resource_path).ends_with("spitter_walk_strip_normalized_v2.png"), "Level 1 Spitter pilot is not using the promoted runtime texture.")
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
