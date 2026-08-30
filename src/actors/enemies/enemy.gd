@@ -2,6 +2,7 @@ class_name EnemyController
 extends CharacterBody2D
 
 signal defeated_event(enemy: EnemyController)
+signal boss_phase_changed(current_phase: int, phase_count: int)
 
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
@@ -26,6 +27,8 @@ var defeated: bool = false
 var is_boss: bool = false
 var combat_active: bool = true
 var pattern_attack_locked: bool = false
+var boss_phase: int = 1
+var boss_phase_count: int = 1
 var base_visual_modulate: Color = Color.WHITE
 
 
@@ -94,6 +97,8 @@ func _ready() -> void:
 	base_visual_modulate = visual.modulate
 	if is_boss:
 		pattern_runner.configure(self, _get_boss_pattern_set_id(), contact_damage)
+		boss_phase = 1
+		boss_phase_count = pattern_runner.phase_count
 		pattern_runner.telegraph_started.connect(_on_pattern_telegraph_started)
 		pattern_runner.pattern_started.connect(_on_pattern_started)
 		pattern_runner.recovery_started.connect(_on_pattern_recovery_started)
@@ -159,7 +164,21 @@ func _on_health_changed(current_health: int, maximum_health: int) -> void:
 	health_bar.value = current_health
 	health_bar.visible = current_health < maximum_health
 	if is_boss:
+		_update_boss_phase(current_health, maximum_health)
 		GameManager.update_boss_health(current_health, maximum_health)
+
+
+func _update_boss_phase(current_health: int, maximum_health: int) -> void:
+	if current_health <= 0 or maximum_health <= 0:
+		return
+	var damage_fraction := float(maximum_health - current_health) / float(maximum_health)
+	var next_phase := clampi(floori(damage_fraction * boss_phase_count) + 1, 1, boss_phase_count)
+	if next_phase <= boss_phase:
+		return
+	boss_phase = next_phase
+	pattern_runner.set_phase(boss_phase)
+	boss_phase_changed.emit(boss_phase, boss_phase_count)
+	GameManager.update_boss_phase(boss_phase, boss_phase_count)
 
 
 func _on_died() -> void:
@@ -188,6 +207,7 @@ func set_combat_active(active: bool) -> void:
 	$HurtBox/CollisionShape2D.set_deferred("disabled", not active)
 	if active:
 		GameManager.update_boss_health(health.current_health, health.max_health)
+		GameManager.update_boss_phase(boss_phase, boss_phase_count)
 
 
 func _get_boss_pattern_set_id() -> String:

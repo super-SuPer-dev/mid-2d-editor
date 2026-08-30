@@ -31,6 +31,7 @@ func _ready() -> void:
 	GameManager.objective_changed.connect(_on_objective_changed)
 	GameManager.mission_phase_changed.connect(_on_mission_phase_changed)
 	GameManager.boss_health_changed.connect(_on_boss_health_changed)
+	GameManager.boss_phase_changed.connect(_on_boss_phase_changed)
 	LocalizationManager.language_changed.connect(_refresh_text)
 	StoryManager.sequence_completed.connect(_on_sequence_completed)
 	_on_currency_changed(GameManager.coin, 0)
@@ -148,7 +149,7 @@ func _refresh_text(_locale: String) -> void:
 	if last_health.y > 0:
 		_on_health_changed(last_health.x, last_health.y)
 	if GameManager.mission_phase == GameManager.PHASE_BOSS_ACTIVE:
-		boss_name.text = LocalizationManager.text(GameManager.current_boss_name_key)
+		_refresh_boss_name()
 
 
 func _on_health_changed(current_health: int, maximum_health: int) -> void:
@@ -172,7 +173,7 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 			objective_label.text = LocalizationManager.text("HUD_BOSS_INCOMING")
 			objective_label.add_theme_color_override("font_color", Color("ef9b6c"))
 			boss_panel.visible = true
-			boss_name.text = LocalizationManager.text(GameManager.current_boss_name_key)
+			_refresh_boss_name()
 		GameManager.PHASE_EXTRACTION:
 			objective_label.text = LocalizationManager.text("HUD_EXTRACTION")
 			objective_label.add_theme_color_override("font_color", Color("63ffb0"))
@@ -182,9 +183,21 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 			_on_objective_changed(GameManager.defeated_enemies, GameManager.required_enemies)
 
 
+func _refresh_boss_name() -> void:
+	boss_name.text = LocalizationManager.text("HUD_BOSS_ACTIVE", {
+		"name": LocalizationManager.text(GameManager.current_boss_name_key),
+		"current": GameManager.current_boss_phase,
+		"total": GameManager.current_boss_phase_count,
+	})
+
+
 func _on_boss_health_changed(current_health: int, maximum_health: int) -> void:
 	boss_health.max_value = maximum_health
 	boss_health.value = current_health
+
+
+func _on_boss_phase_changed(_current_phase: int, _phase_count: int) -> void:
+	_refresh_boss_name()
 
 
 func _on_sequence_completed(completed_sequence_id: String) -> void:

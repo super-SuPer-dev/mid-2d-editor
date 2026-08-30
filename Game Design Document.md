@@ -426,8 +426,10 @@ staggered high ground, four thorn beds, and an elevated evacuation road teach
 movement, crossfire, and safe-lane recognition without repeated waves.
 
 Boss attacks: telegraphed ground thorns, a short root charge, tutorial
-three-way fans and alternating thorn lanes. The fight teaches jumping and
-dashing through deterministic gaps.
+three-way fans and alternating thorn lanes. Phase 1 isolates the three-way fan
+so the player can learn its rhythm; at 50% health the boss clears its existing
+projectiles, telegraphs phase 2, and switches to the alternating lane pattern.
+The fight teaches jumping and dashing through deterministic gaps.
 
 **Dialogue anchors:**
 

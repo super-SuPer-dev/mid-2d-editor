@@ -180,7 +180,7 @@ NPC ปรากฏผ่าน portrait ใน briefing, debriefing และ r
 - Radio 1: พบว่าพืชหลายชนิดหันตอบสัญญาณพร้อมกัน
 - Radio 2: ตัวอย่างส่งพัลส์แทนการตอบสนองเดี่ยว
 - Radio 3: เส้นทางอพยพปลอดภัย แต่ศูนย์กลางรากเคลื่อนไหว
-- Boss: Thorn Matriarch ปกป้องจุดรวมสัญญาณ
+- Boss: Thorn Matriarch ปกป้องจุดรวมสัญญาณ Phase 1 แยกใช้ fan สามทางเพื่อสอนจังหวะ เมื่อพลังชีวิตเหลือ 50% ต้องล้างกระสุนเดิม telegraph phase 2 แล้วเปลี่ยนเป็น alternating thorn lane
 - Debrief: พืชแยกกันกำลังตอบเครือข่ายเดียว
 
 ประโยคหลัก: Anan — “Open the road. Every minute buys another family time.” / “เปิดถนน ทุกหนึ่งนาทีคือเวลาที่เพิ่มให้อีกหนึ่งครอบครัว”

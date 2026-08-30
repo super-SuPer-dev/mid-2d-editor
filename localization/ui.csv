@@ -86,7 +86,7 @@ HUD_HEALTH,HP {current}/{maximum},ชีวิต {current}/{maximum}
 HUD_SAMPLES,Samples {count},ตัวอย่าง {count}
 HUD_THREATS,Threats {current}/{required},ภัยคุกคาม {current}/{required}
 HUD_BOSS_INCOMING,Boss signal detected,ตรวจพบสัญญาณบอส
-HUD_BOSS_ACTIVE,{name}, {name}
+HUD_BOSS_ACTIVE,{name} · Phase {current}/{total},{name} · ระยะ {current}/{total}
 HUD_EXTRACTION,Extraction point open,จุดถอนกำลังเปิดแล้ว
 PORTAL_READY,Extraction Point,จุดถอนกำลัง
 PORTAL_LOCKED,Area Not Secure,พื้นที่ยังไม่ปลอดภัย

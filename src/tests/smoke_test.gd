@@ -117,6 +117,7 @@ func _validate_catalogs() -> void:
 		_check(int(data.get("projectile_cap", 0)) == EXPECTED_PROJECTILE_CAPS[level_id], "%s has an invalid projectile cap." % level_id)
 		var pattern_set := BossPatternCatalog.get_pattern_set(pattern_set_id)
 		_check(int(pattern_set.get("max_projectiles", 0)) == int(data.get("projectile_cap", 0)), "%s pattern-set cap does not match its level cap." % level_id)
+		_check(BossPatternCatalog.get_phase_count(pattern_set_id) >= 2, "%s boss pattern set is not multi-phase." % level_id)
 		for error in BossPatternCatalog.validate_pattern_set(pattern_set_id):
 			_check(false, error)
 		var required_sequences: Array[String] = [
@@ -302,6 +303,19 @@ func _validate_levels() -> void:
 		_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s boss exceeded its projectile cap." % level_id)
 		_check(pattern_runner.all_projectiles.size() <= pattern_runner.projectile_cap, "%s boss projectile pool exceeded its cap." % level_id)
 		if level_id == "level_01":
+			_check(boss.boss_phase == 1 and pattern_runner.current_phase == 1, "%s boss did not begin in phase 1." % level_id)
+			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 1, "%s boss opened with a pattern from the wrong phase." % level_id)
+			var phase_damage := ceili(float(boss.health.max_health) / float(boss.boss_phase_count))
+			boss.take_damage(phase_damage, Vector2.RIGHT)
+			await get_tree().process_frame
+			_check(boss.boss_phase == 2 and pattern_runner.current_phase == 2, "%s boss health threshold did not activate phase 2." % level_id)
+			_check(GameManager.current_boss_phase == 2 and GameManager.current_boss_phase_count == boss.boss_phase_count, "%s boss phase state did not propagate through GameManager." % level_id)
+			_check(pattern_runner.get_active_projectile_count() == 0, "%s phase transition did not clear active projectiles." % level_id)
+			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 2, "%s phase 2 selected a pattern from the wrong phase." % level_id)
+			for _phase_frame in range(50):
+				await get_tree().physics_frame
+			_check(pattern_runner.get_active_projectile_count() > 0, "%s phase 2 did not emit its projectile pattern." % level_id)
+			_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s phase 2 exceeded its projectile cap." % level_id)
 			boss.set_combat_active(false)
 			await get_tree().process_frame
 			_check(get_tree().get_nodes_in_group("BossProjectile").is_empty(), "%s boss projectiles survived combat shutdown." % level_id)

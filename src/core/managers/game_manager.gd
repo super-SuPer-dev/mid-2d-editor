@@ -10,6 +10,7 @@ signal objective_changed(defeated: int, required: int)
 signal mission_phase_changed(phase: StringName)
 signal boss_requested(boss_id: String, boss_name_key: String)
 signal boss_health_changed(current_health: int, maximum_health: int)
+signal boss_phase_changed(current_phase: int, phase_count: int)
 signal run_finished(won: bool)
 
 const PHASE_CLEAR_THREATS := &"CLEAR_THREATS"
@@ -28,6 +29,8 @@ var run_active: bool = false
 var mission_phase: StringName = PHASE_CLEAR_THREATS
 var current_boss_id: String = ""
 var current_boss_name_key: String = ""
+var current_boss_phase: int = 1
+var current_boss_phase_count: int = 1
 
 
 func select_character(character_id: String) -> void:
@@ -42,6 +45,8 @@ func start_level(level_id: String) -> void:
 	defeated_enemies = 0
 	current_boss_id = str(level_data.get("boss_id", ""))
 	current_boss_name_key = str(level_data.get("boss_name_key", ""))
+	current_boss_phase = 1
+	current_boss_phase_count = 1
 	mission_phase = PHASE_CLEAR_THREATS
 	coin = 0
 	run_active = true
@@ -72,6 +77,13 @@ func _start_boss_phase() -> void:
 func update_boss_health(current_health: int, maximum_health: int) -> void:
 	if mission_phase == PHASE_BOSS_ACTIVE:
 		boss_health_changed.emit(current_health, maximum_health)
+
+
+func update_boss_phase(current_phase: int, phase_count: int) -> void:
+	current_boss_phase = maxi(current_phase, 1)
+	current_boss_phase_count = maxi(phase_count, 1)
+	if mission_phase == PHASE_BOSS_ACTIVE:
+		boss_phase_changed.emit(current_boss_phase, current_boss_phase_count)
 
 
 func register_boss_defeated() -> void:
@@ -148,6 +160,8 @@ func reset_run() -> void:
 	mission_phase = PHASE_CLEAR_THREATS
 	current_boss_id = ""
 	current_boss_name_key = ""
+	current_boss_phase = 1
+	current_boss_phase_count = 1
 	set_player_movement_enabled(true)
 
 

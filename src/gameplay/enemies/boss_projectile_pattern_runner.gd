@@ -4,6 +4,7 @@ extends Node
 signal telegraph_started(pattern_id: String)
 signal pattern_started(pattern_id: String)
 signal recovery_started(pattern_id: String)
+signal phase_changed(current_phase: int, phase_count: int)
 
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
 const STATE_IDLE := &"idle"
@@ -15,7 +16,10 @@ var host: Node2D
 var target: Node2D
 var pattern_set_id: String = ""
 var pattern_set: Dictionary = {}
+var all_patterns: Array = []
 var patterns: Array = []
+var current_phase: int = 1
+var phase_count: int = 1
 var projectile_cap: int = 0
 var projectile_damage: int = 1
 var active: bool = false
@@ -34,11 +38,36 @@ func configure(host_node: Node2D, configured_set_id: String, configured_damage: 
 	host = host_node
 	pattern_set_id = configured_set_id
 	pattern_set = BossPatternCatalog.get_pattern_set(pattern_set_id)
-	patterns = pattern_set.get("patterns", [])
+	all_patterns = pattern_set.get("patterns", [])
+	phase_count = maxi(BossPatternCatalog.get_phase_count(pattern_set_id), 1)
+	current_phase = 1
+	_refresh_phase_patterns()
 	projectile_cap = int(pattern_set.get("max_projectiles", 0))
 	projectile_damage = maxi(configured_damage, 1)
 	if pattern_set.is_empty():
 		push_error("Boss projectile runner received an unknown pattern set: %s" % pattern_set_id)
+
+
+func set_phase(next_phase: int) -> bool:
+	var resolved_phase := clampi(next_phase, 1, phase_count)
+	if resolved_phase == current_phase:
+		return false
+	current_phase = resolved_phase
+	pattern_index = -1
+	current_pattern = {}
+	_refresh_phase_patterns()
+	cleanup_projectiles()
+	phase_changed.emit(current_phase, phase_count)
+	if active:
+		_begin_next_pattern()
+	return true
+
+
+func _refresh_phase_patterns() -> void:
+	patterns.clear()
+	for pattern: Dictionary in all_patterns:
+		if int(pattern.get("phase", 1)) == current_phase:
+			patterns.append(pattern)
 
 
 func set_active(enabled: bool) -> void:
