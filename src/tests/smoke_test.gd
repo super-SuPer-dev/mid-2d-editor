@@ -474,6 +474,19 @@ func _validate_levels() -> void:
 		_check(get_tree().get_nodes_in_group("BossProjectile").is_empty(), "%s boss projectiles survived boss defeat." % level_id)
 		_check(GameManager.mission_phase == GameManager.PHASE_EXTRACTION, "%s did not enter extraction." % level_id)
 		_check(portal != null and portal.active, "%s exit portal did not activate after boss defeat." % level_id)
+		if level_id == "level_05" and portal != null:
+			portal._on_body_entered(player)
+			await get_tree().process_frame
+			_check(not GameManager.run_active, "Level 5 extraction did not finish the campaign run.")
+			_check(level_hud.pending_complete, "Level 5 extraction did not wait for its debrief sequence.")
+			var debrief_id := str(current_level_data.get("debrief_sequence", ""))
+			_check(requested_sequences.count(debrief_id) == 1, "Level 5 debrief was not requested exactly once.")
+			await _drain_dialogue(dialogue)
+			_check(level_hud.modal.visible, "Level 5 campaign-complete modal did not open after debrief.")
+			_check(level_hud.modal_title.text == LocalizationManager.text("HUD_CAMPAIGN_COMPLETE"), "Level 5 did not show the campaign-complete title.")
+			_check("level_05" in SaveManager.profile.get("completed_levels", []), "Level 5 completion was not persisted.")
+			_check(int(SaveManager.profile.get("story_stage", 0)) >= 5, "Campaign story stage did not reach the ending act.")
+			_check(StoryManager.has_seen(debrief_id), "Level 5 debrief one-shot state was not recorded.")
 		StoryManager.sequence_requested.disconnect(capture_sequence)
 		level.queue_free()
 		await get_tree().process_frame
