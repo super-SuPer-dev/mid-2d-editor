@@ -79,6 +79,7 @@ func _ready() -> void:
 	await _validate_character_select_layout()
 	await _validate_upgrade_layout()
 	await _validate_pseudo_localization()
+	await _validate_retry_recovery()
 	await _validate_levels()
 	AudioManager.stop_all_sfx()
 	AudioManager.muted_for_tests = false
@@ -315,6 +316,48 @@ func _validate_pseudo_localization() -> void:
 	_check(LocalizationManager.text("MENU_START_MISSION") == "Start Mission", "Disabling pseudo-localization did not restore English text.")
 	LocalizationManager.set_language("en")
 	await get_tree().process_frame
+
+
+func _validate_retry_recovery() -> void:
+	SaveManager.begin_test_session()
+	LocalizationManager.set_language("en")
+	GameManager.start_level("level_01")
+	var requested_sequences: Array[String] = []
+	var capture_sequence := func(sequence_id: String) -> void: requested_sequences.append(sequence_id)
+	StoryManager.sequence_requested.connect(capture_sequence)
+	var failed_level: Node = GAME_LEVELS["level_01"].instantiate()
+	add_child(failed_level)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var failed_dialogue := failed_level.get_node("HUD/Root/DialogueOverlay") as DialogueOverlay
+	await _drain_dialogue(failed_dialogue)
+	_check(requested_sequences.count("level_01_briefing") == 1, "Retry setup did not request the Level 1 briefing exactly once.")
+	var failed_player := failed_level.get_node("Player") as PlayerController
+	failed_player.take_damage(999, Vector2.LEFT)
+	await get_tree().process_frame
+	_check(not GameManager.run_active, "Player defeat did not finish the failed run.")
+	_check(get_tree().paused, "Player defeat did not pause on the game-over modal.")
+	_check((failed_level.get_node("HUD") as GameHUD).modal.visible, "Player defeat did not show the game-over modal.")
+	get_tree().paused = false
+	failed_level.queue_free()
+	await get_tree().process_frame
+	GameManager.start_level("level_01")
+	var retry_level: Node = GAME_LEVELS["level_01"].instantiate()
+	add_child(retry_level)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var retry_dialogue := retry_level.get_node("HUD/Root/DialogueOverlay") as DialogueOverlay
+	_check(not retry_dialogue.visible and retry_dialogue.pending_sequences.is_empty(), "Retry replayed a completed one-shot briefing.")
+	_check(requested_sequences.count("level_01_briefing") == 1, "Retry duplicated the Level 1 briefing request.")
+	var retry_player := retry_level.get_node("Player") as PlayerController
+	_check(GameManager.run_active, "Retry did not reactivate the mission.")
+	_check(retry_player.health.current_health == retry_player.health.max_health, "Retry did not reset player health.")
+	StoryManager.sequence_requested.disconnect(capture_sequence)
+	retry_level.queue_free()
+	await get_tree().process_frame
+	GameManager.reset_run()
+	get_tree().paused = false
+	SaveManager.begin_test_session()
 
 
 func _validate_dialogue_presentations() -> void:
