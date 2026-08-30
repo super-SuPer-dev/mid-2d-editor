@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3egp0k6mjp04" path="res://src/ui/screens/character_upgrades.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="2_theme"]
-[ext_resource type="Texture2D" uid="uid://blpc2wto7xaal" path="res://assets/images/background/1.png" id="3_background"]
+[ext_resource type="Texture2D" uid="uid://dxqjdgpb71l0v" path="res://assets/images/background/sky.png" id="3_background"]
 
 [node name="CharacterUpgrades" type="Control" unique_id=707175976]
 texture_filter = 1

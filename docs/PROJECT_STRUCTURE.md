@@ -10,6 +10,7 @@ candidates, exports, editor caches, and validation evidence.
 assets/                 Runtime-importable art, audio, fonts, and data resources
 art_source/             Non-runtime source material; ignored by Godot
   generated/            AI/generated candidates and their provenance records
+  legacy/               Superseded, unreferenced art retained for review
   references/           Art-direction boards and external visual references
 docs/                   English-authoritative design and production documents
   th/                   Thai companion documents
@@ -49,6 +50,10 @@ An asset moves from source to runtime only when it has:
 
 Source-art `.import` files are forbidden. Runtime asset `.import` files remain
 tracked when they preserve import settings or resource UIDs.
+
+`art_source/`, `tools/`, and `validation/` contain `.gdignore` sentinels so a
+fresh Godot import does not scan source candidates, maintenance code, or QA
+evidence into a release build.
 
 ## Naming conventions
 

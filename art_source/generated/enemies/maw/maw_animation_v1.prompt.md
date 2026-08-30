@@ -31,7 +31,7 @@ lowest solid pixel to the shared baseline. It does not rescale or interpolate
 the art. The reusable command is:
 
 ```powershell
-./tools/Normalize-SpriteStrip.ps1 -InputPath <raw-strip> -OutputPath <normalized-strip>
+./tools/normalize_sprite_strip.ps1 -InputPath <raw-strip> -OutputPath <normalized-strip>
 ```
 
 ## Normalized validation

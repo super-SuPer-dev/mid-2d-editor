@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be7mfq68bmf6h"
-path="res://.godot/imported/W_Button Merged.PNG-6f90acb79f91581698889d878b178e63.ctex"
+uid="uid://yilwsl6gbsev"
+path="res://.godot/imported/grassland_near.png-a90836f3e5fd8c4a51d09a5d018b411b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/buttons/W_Button Merged.PNG"
-dest_files=["res://.godot/imported/W_Button Merged.PNG-6f90acb79f91581698889d878b178e63.ctex"]
+source_file="res://assets/images/background/grassland_near.png"
+dest_files=["res://.godot/imported/grassland_near.png-a90836f3e5fd8c4a51d09a5d018b411b.ctex"]
 
 [params]
 

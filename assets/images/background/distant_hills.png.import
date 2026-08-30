@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lodkyeqx3ond"
-path="res://.godot/imported/gate2_dialogue_anan.png-f15b40531388469720303bef74a95f15.ctex"
+uid="uid://4caiyv6luhua"
+path="res://.godot/imported/distant_hills.png-28c5d165e0fb99fb3faf21b46ce5e071.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://validation/screenshots/gate2_dialogue_anan.png"
-dest_files=["res://.godot/imported/gate2_dialogue_anan.png-f15b40531388469720303bef74a95f15.ctex"]
+source_file="res://assets/images/background/distant_hills.png"
+dest_files=["res://.godot/imported/distant_hills.png-28c5d165e0fb99fb3faf21b46ce5e071.ctex"]
 
 [params]
 

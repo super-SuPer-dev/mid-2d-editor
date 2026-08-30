@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ch8nn1sldhkhg"
-path="res://.godot/imported/UNK_Icon.PNG-352982c20e082ff5149d4301b4b06760.ctex"
+uid="uid://cl440rgpa631m"
+path="res://.godot/imported/forest_tiles.png-8ec511f0b72dd27532c2398468b92c49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/UNK_Icon.PNG"
-dest_files=["res://.godot/imported/UNK_Icon.PNG-352982c20e082ff5149d4301b4b06760.ctex"]
+source_file="res://assets/world/shared/forest_tiles.png"
+dest_files=["res://.godot/imported/forest_tiles.png-8ec511f0b72dd27532c2398468b92c49.ctex"]
 
 [params]
 

@@ -16,7 +16,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$normalizerSource = Join-Path $PSScriptRoot 'GridSpriteStripNormalizer.cs'
+$normalizerSource = Join-Path $PSScriptRoot 'grid_sprite_strip_normalizer.cs'
 if (-not ('GridSpriteStripNormalizer' -as [type])) {
     Add-Type -AssemblyName System.Drawing
     $drawingDirectory = [System.IO.Path]::GetDirectoryName(

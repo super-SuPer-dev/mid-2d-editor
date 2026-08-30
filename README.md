@@ -34,6 +34,17 @@ The active visual direction is documented in
 [docs/ART_DIRECTION.md](docs/ART_DIRECTION.md) and is derived from the boards in
 `art_source/references/`. Those boards are reference material, not runtime textures.
 
+## Project validation
+
+Run the repository structure checks before opening a pull request:
+
+```powershell
+./tools/validate_project_structure.ps1
+```
+
+The validator rejects missing `res://` targets, source-art imports, recovery
+files, legacy path casing, and nonconforming runtime names.
+
 ## Smoke test
 
 Run the project-level smoke scene headlessly with Godot 4.7:

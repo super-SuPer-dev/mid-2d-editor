@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brcm7r4nthab1"
-path="res://.godot/imported/S_Button Merged.PNG-88ba61335ea8ba29e24a9f82e7265329.ctex"
+uid="uid://c8e36r5hc3lnh"
+path="res://.godot/imported/forest_near.png-84d7237ec17ca68fa7d9bf138cb7c3c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/buttons/S_Button Merged.PNG"
-dest_files=["res://.godot/imported/S_Button Merged.PNG-88ba61335ea8ba29e24a9f82e7265329.ctex"]
+source_file="res://assets/images/background/forest_near.png"
+dest_files=["res://.godot/imported/forest_near.png-84d7237ec17ca68fa7d9bf138cb7c3c4.ctex"]
 
 [params]
 

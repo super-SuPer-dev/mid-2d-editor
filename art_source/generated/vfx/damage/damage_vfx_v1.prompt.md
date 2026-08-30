@@ -60,7 +60,7 @@ alien contamination rather than healing or fire.
 ## Processing and validation
 
 Each accepted `2172 × 724` source was normalized with
-`tools/Normalize-GridSpriteStrip.ps1` using four frames, `800 × 800` cells,
+`tools/normalize_grid_sprite_strip.ps1` using four frames, `800 × 800` cells,
 center alignment, and alpha threshold 1. Every normalized strip is
 `3200 × 800`, `Format32bppArgb`, and has zero non-transparent pixels on all four
 cell boundaries. A visual contact-sheet review confirmed isolated actions,

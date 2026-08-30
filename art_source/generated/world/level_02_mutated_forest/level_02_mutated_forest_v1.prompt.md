@@ -69,7 +69,7 @@ trap.
 
 ## Processing and validation
 
-The spore vent was normalized with `tools/Normalize-GridSpriteStrip.ps1` using
+The spore vent was normalized with `tools/normalize_grid_sprite_strip.ps1` using
 four frames, `800 × 800` cells, bottom alignment, baseline 740, and alpha
 threshold 1. The normalized file is `Format32bppArgb` and all four cell boundary
 counts are zero. The four overlay parallax layers and every tile, hazard,

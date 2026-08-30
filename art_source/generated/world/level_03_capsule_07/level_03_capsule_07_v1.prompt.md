@@ -67,7 +67,7 @@ supporting the midpoint story reveal without baked text.
 
 ## Processing and validation
 
-The seed piston was normalized with `tools/Normalize-GridSpriteStrip.ps1` using
+The seed piston was normalized with `tools/normalize_grid_sprite_strip.ps1` using
 four frames, `800 × 800` cells, bottom alignment, baseline 740, and alpha
 threshold 1. The normalized file is `Format32bppArgb`; all four cell boundary
 counts are zero. The four overlay parallax layers and every tile, hazard,

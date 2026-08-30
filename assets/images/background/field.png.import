@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc3i2nss7fj8b"
-path="res://.godot/imported/Boss_HealthBar.PNG-131ab351924c536ace7415677bcc37af.ctex"
+uid="uid://dt03bbpa6xgc5"
+path="res://.godot/imported/field.png-93940f2d1c061bdf19fc3d868fcc193d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Boss_HealthBar.PNG"
-dest_files=["res://.godot/imported/Boss_HealthBar.PNG-131ab351924c536ace7415677bcc37af.ctex"]
+source_file="res://assets/images/background/field.png"
+dest_files=["res://.godot/imported/field.png-93940f2d1c061bdf19fc3d868fcc193d.ctex"]
 
 [params]
 

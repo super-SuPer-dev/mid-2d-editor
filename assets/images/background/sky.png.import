@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cagwlpicm00fm"
-path="res://.godot/imported/gate2_thorn_matriarch.png-e26ab1d4a24614815651b526321a9462.ctex"
+uid="uid://dxqjdgpb71l0v"
+path="res://.godot/imported/sky.png-985040d1a549fde3336d0884ec7752ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://validation/screenshots/gate2_thorn_matriarch.png"
-dest_files=["res://.godot/imported/gate2_thorn_matriarch.png-e26ab1d4a24614815651b526321a9462.ctex"]
+source_file="res://assets/images/background/sky.png"
+dest_files=["res://.godot/imported/sky.png-985040d1a549fde3336d0884ec7752ef.ctex"]
 
 [params]
 
