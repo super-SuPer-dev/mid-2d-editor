@@ -429,6 +429,11 @@ func _validate_levels() -> void:
 						_check(typed_gate.started, "Gate %s could not start." % typed_gate.encounter_id)
 			_check(physical_trigger_tested, "Level 1 irrigation gate did not start from physical player overlap.")
 			_check(assigned_threats == expected_enemies, "Level 1 encounter gates do not assign every threat exactly once.")
+			var thornling := level.get_node("Enemies/Thornling01") as EnemyController
+			var thornling_visual := thornling.get_node("Visual") as Sprite2D
+			_check(thornling_visual.hframes == 4 and thornling_visual.vframes == 1, "Level 1 Thornling pilot lost its four-frame grid.")
+			_check(absf(thornling_visual.position.y + 18.0) < 0.01, "Level 1 Thornling pilot lost its 740 px baseline offset.")
+			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_idle_strip_normalized_v2.png") or str(thornling_visual.texture.resource_path).ends_with("thornling_run_strip_normalized_v2.png"), "Level 1 Thornling pilot is not using the promoted runtime texture.")
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController

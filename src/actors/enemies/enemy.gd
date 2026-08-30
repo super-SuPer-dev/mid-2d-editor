@@ -7,6 +7,8 @@ signal boss_phase_changed(current_phase: int, phase_count: int)
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
 const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png")
+const THORNLING_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_idle_strip_normalized_v2.png")
+const THORNLING_RUN_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_run_strip_normalized_v2.png")
 const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
 const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
@@ -39,6 +41,8 @@ var boss_phase_count: int = 1
 var base_visual_modulate: Color = Color.WHITE
 var root_skitter_action: StringName = &"idle"
 var root_skitter_frame_clock: float = 0.0
+var thornling_action: StringName = &"idle"
+var thornling_frame_clock: float = 0.0
 var root_hydra_frame_clock: float = 0.0
 var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
@@ -55,10 +59,15 @@ func configure(type_id: String) -> void:
 		"thornling":
 			move_speed = 85.0
 			health.max_health = 3
-			visual.texture = THORNLING_TEXTURE
+			visual.texture = THORNLING_IDLE_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.035, 0.035)
-			visual.position = Vector2(0.0, 1.5)
+			visual.scale = Vector2(0.06, 0.06)
+			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
+			visual.position = Vector2(0.0, -18.0)
 		"spitter":
 			move_speed = 35.0
 			health.max_health = 5
@@ -230,9 +239,26 @@ func _physics_process(delta: float) -> void:
 	visual.scale.x = absf(visual.scale.x) * facing
 	move_and_slide()
 	_update_root_skitter_animation(delta)
+	_update_thornling_animation(delta)
 	_update_root_hydra_animation(delta)
 	_update_eye_wisp_animation(delta)
 	_update_root_core_eye_animation(delta)
+
+
+func _update_thornling_animation(delta: float) -> void:
+	if enemy_type != "thornling":
+		return
+	var next_action: StringName = &"run" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"
+	if next_action != thornling_action:
+		thornling_action = next_action
+		thornling_frame_clock = 0.0
+		visual.texture = THORNLING_RUN_TEXTURE if next_action == &"run" else THORNLING_IDLE_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	var frame_rate := 7.0 if next_action == &"run" else 4.0
+	thornling_frame_clock = fmod(thornling_frame_clock + delta * frame_rate, 4.0)
+	visual.frame = int(thornling_frame_clock)
 
 
 func _update_root_skitter_animation(delta: float) -> void:
