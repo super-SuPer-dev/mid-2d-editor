@@ -143,6 +143,14 @@ Level 1 smoke suite cover the 2800 × 800 binary-alpha strip, runtime import and
 cast texture binding; pressure tell, juice lob, VFX and human readability
 review remain open.
 
+**Mutated Forest parallax promotion evidence — 2026-08-31:** Level 2 now uses
+the generated five-layer forest sky/tree-line/canopy/trunk/foreground package
+through `forest_generated_parallax.tscn`. Each layer uses nearest filtering,
+independent scroll scales and aspect-preserving runtime scale; Level 2 smoke
+instantiation remains green and the presentation-only change leaves combat,
+collision and extraction contracts untouched. Tile kit, spore vent, landmark,
+memory, 1280 × 720 composition and human pixel-art review remain open.
+
 **Maw-asset promotion evidence — 2026-08-31:** The shared Level 2–3 Maw now
 uses generated mangosteen idle/move strips instead of the placeholder plant.
 Both 2800 × 800 runtime strips use four 700 px cells, a 740 px foot baseline,
@@ -363,6 +371,15 @@ reference-only; shipped designs remain original alien mutations.
 | DEV-RISK-08 | Dense boss bullets become unfair or exceed Web performance | Pattern caps, pooled projectiles, deterministic safe routes, contrast tests and worst-case profiling | Safe route disappears, frame target fails or projectile count exceeds contract |
 | DEV-RISK-09 | Biomes feel like palette swaps or diversity scope grows without control | One approved tile/background/landmark kit and roster matrix per level; reuse systems rather than visual identity | Two levels share a primary tile kit, route silhouette or boss pattern set |
 | DEV-RISK-10 | Reference use drifts into imitation or makes Touhou-style bullets dominate the core game | Review principles separately from protected expression; require original ACO silhouettes, maps, UI, music and patterns; keep projectile-heavy phases bounded | A review identifies a recognizable copied asset/layout/pattern or normal encounters become bullet-hell combat |
+
+**Capsule, marsh and nexus parallax promotion evidence — 2026-08-31:** Levels
+3–5 now use generated five-layer biome stacks through
+capsule_generated_parallax.tscn, marsh_generated_parallax.tscn and
+nexus_generated_parallax.tscn. All layers use nearest filtering, independent
+scroll scales and aspect-preserving scale, while campaign collision and
+encounter contracts remain unchanged. The smoke suite still passes across all
+five levels; tile kits, landmarks, hazard art, memory, 1280 × 720 composition
+and human pixel-art review remain open.
 
 ## 8. Definition of Ready
 
