@@ -434,6 +434,9 @@ func _validate_levels() -> void:
 			_check(thornling_visual.hframes == 4 and thornling_visual.vframes == 1, "Level 1 Thornling pilot lost its four-frame grid.")
 			_check(absf(thornling_visual.position.y + 18.0) < 0.01, "Level 1 Thornling pilot lost its 740 px baseline offset.")
 			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_idle_strip_normalized_v2.png") or str(thornling_visual.texture.resource_path).ends_with("thornling_run_strip_normalized_v2.png"), "Level 1 Thornling pilot is not using the promoted runtime texture.")
+			thornling.thornling_attack_timer = 0.35
+			await get_tree().physics_frame
+			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_attack_strip_normalized_v2.png"), "Level 1 Thornling did not bind its contact-attack animation.")
 			var spitter := level.get_node("Enemies/Spitter") as EnemyController
 			var spitter_visual := spitter.get_node("Visual") as Sprite2D
 			_check(spitter_visual.hframes == 4 and spitter_visual.vframes == 1, "Level 1 Spitter pilot lost its four-frame grid.")
