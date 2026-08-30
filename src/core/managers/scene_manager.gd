@@ -11,6 +11,8 @@ const GAME_LEVELS := {
 	"level_01": "res://scenes/levels/level_01.tscn",
 	"level_02": "res://scenes/levels/level_02.tscn",
 	"level_03": "res://scenes/levels/level_03.tscn",
+	"level_04": "res://scenes/levels/level_04.tscn",
+	"level_05": "res://scenes/levels/level_05.tscn",
 }
 
 signal scene_change_started(scene_path: String)

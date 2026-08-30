@@ -15,7 +15,7 @@ const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matr
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var pattern_runner: BossProjectilePatternRunner = $BossProjectilePatternRunner
 
-@export_enum("thornling", "spitter", "maw", "thorn_matriarch_boss", "maw_sovereign_boss", "banyan_boss", "root_hydra_boss", "root_core_eye_boss") var enemy_type: String = "thornling"
+@export_enum("thornling", "spitter", "maw", "root_skitter", "marsh_spitter", "eye_wisp", "capsule_husk_elite", "mixed_elite", "thorn_matriarch_boss", "maw_sovereign_boss", "banyan_boss", "root_hydra_boss", "root_core_eye_boss") var enemy_type: String = "thornling"
 var target: PlayerController
 var move_speed: float = 85.0
 var contact_damage: int = 1
@@ -59,6 +59,37 @@ func configure(type_id: String) -> void:
 			contact_damage = 2
 			visual.modulate = Color("9b6b78")
 			scale = Vector2(1.25, 1.25)
+		"root_skitter":
+			move_speed = 110.0
+			health.max_health = 4
+			visual.modulate = Color("69a96d")
+			visual.scale = Vector2(0.05, 0.05)
+		"marsh_spitter":
+			move_speed = 28.0
+			health.max_health = 6
+			contact_damage = 2
+			visual.modulate = Color("6fabc0")
+			visual.scale = Vector2(0.045, 0.045)
+		"eye_wisp":
+			move_speed = 95.0
+			health.max_health = 5
+			contact_damage = 2
+			detection_range = 560.0
+			visual.modulate = Color("d27bc5")
+			visual.scale = Vector2(0.045, 0.045)
+		"capsule_husk_elite":
+			move_speed = 58.0
+			health.max_health = 12
+			contact_damage = 3
+			visual.modulate = Color("a77db9")
+			scale = Vector2(1.35, 1.35)
+		"mixed_elite":
+			move_speed = 82.0
+			health.max_health = 14
+			contact_damage = 3
+			detection_range = 600.0
+			visual.modulate = Color("d09562")
+			scale = Vector2(1.45, 1.45)
 		"banyan_boss":
 			move_speed = 105.0
 			health.max_health = 24
@@ -66,6 +97,20 @@ func configure(type_id: String) -> void:
 			detection_range = 700.0
 			visual.modulate = Color("a46aa4")
 			scale = Vector2(1.8, 1.8)
+		"root_hydra_boss":
+			move_speed = 58.0
+			health.max_health = 40
+			contact_damage = 3
+			detection_range = 820.0
+			visual.modulate = Color("4f9e9a")
+			scale = Vector2(2.25, 2.25)
+		"root_core_eye_boss":
+			move_speed = 48.0
+			health.max_health = 48
+			contact_damage = 4
+			detection_range = 900.0
+			visual.modulate = Color("c75eaf")
+			scale = Vector2(2.5, 2.5)
 		"thorn_matriarch_boss":
 			move_speed = 82.0
 			health.max_health = 28

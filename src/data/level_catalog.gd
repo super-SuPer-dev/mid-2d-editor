@@ -52,7 +52,7 @@ const LEVELS := {
 		"next_level": "level_04", "background": Color("241d25"), "accent": Color("a75ba9"),
 	},
 	"level_04": {
-		"implemented": false,
+		"implemented": true,
 		"name_key": "LEVEL_04_NAME", "subtitle_key": "LEVEL_04_SUBTITLE", "location_key": "LEVEL_04_LOCATION",
 		"size": Vector2(3400, 800), "threat_quota": 6, "required_kills": 6, "sample_target": 8,
 		"boss_id": "root_hydra", "boss_name_key": "BOSS_ROOT_HYDRA", "biome": "devouring_root_marsh",
@@ -65,7 +65,7 @@ const LEVELS := {
 		"next_level": "level_05", "background": Color("263b35"), "accent": Color("72aa75"),
 	},
 	"level_05": {
-		"implemented": false,
+		"implemented": true,
 		"name_key": "LEVEL_05_NAME", "subtitle_key": "LEVEL_05_SUBTITLE", "location_key": "LEVEL_05_LOCATION",
 		"size": Vector2(3600, 850), "threat_quota": 6, "required_kills": 6, "sample_target": 10,
 		"boss_id": "root_core_eye", "boss_name_key": "BOSS_ROOT_CORE_EYE", "biome": "alien_eye_nexus",

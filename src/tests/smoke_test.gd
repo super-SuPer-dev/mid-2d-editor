@@ -8,6 +8,8 @@ const GAME_LEVELS := {
 	"level_01": preload("res://scenes/levels/level_01.tscn"),
 	"level_02": preload("res://scenes/levels/level_02.tscn"),
 	"level_03": preload("res://scenes/levels/level_03.tscn"),
+	"level_04": preload("res://scenes/levels/level_04.tscn"),
+	"level_05": preload("res://scenes/levels/level_05.tscn"),
 }
 const REQUIRED_JUMP_ROUTES := {
 	"level_01": [
@@ -23,6 +25,14 @@ const REQUIRED_JUMP_ROUTES := {
 	"level_03": [
 		["Ground", "Platform01"], ["Platform01", "Platform02"],
 		["Platform03", "Platform04"],
+	],
+	"level_04": [
+		["Ground", "Platform01"], ["Platform01", "Platform02"],
+		["Platform03", "Platform04"], ["Platform05", "Platform06"], ["Platform06", "Platform07"],
+	],
+	"level_05": [
+		["Ground", "Platform01"], ["Platform01", "Platform02"],
+		["Platform03", "Platform04"], ["Platform05", "Platform06"], ["Platform07", "Platform08"],
 	],
 }
 const UI_SCENES := [
@@ -425,6 +435,18 @@ func _validate_levels() -> void:
 		_check(pattern_runner.get_active_projectile_count() > 0, "%s boss did not emit its opening projectile pattern." % level_id)
 		_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s boss exceeded its projectile cap." % level_id)
 		_check(pattern_runner.all_projectiles.size() <= pattern_runner.projectile_cap, "%s boss projectile pool exceeded its cap." % level_id)
+		if boss.boss_phase_count > 1 and level_id != "level_01":
+			var phase_damage := ceili(float(boss.health.max_health) / float(boss.boss_phase_count))
+			for expected_phase in range(2, boss.boss_phase_count + 1):
+				boss.take_damage(phase_damage, Vector2.RIGHT)
+				await get_tree().process_frame
+				_check(boss.boss_phase == expected_phase and pattern_runner.current_phase == expected_phase, "%s did not enter boss phase %d." % [level_id, expected_phase])
+				_check(pattern_runner.get_active_projectile_count() == 0, "%s phase %d did not clear active projectiles." % [level_id, expected_phase])
+				_check(int(pattern_runner.current_pattern.get("phase", 0)) == expected_phase, "%s phase %d selected a pattern from the wrong phase." % [level_id, expected_phase])
+				for _phase_frame in range(50):
+					await get_tree().physics_frame
+				_check(pattern_runner.get_active_projectile_count() > 0, "%s phase %d did not emit its projectile pattern." % [level_id, expected_phase])
+				_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s phase %d exceeded its projectile cap." % [level_id, expected_phase])
 		if level_id == "level_01":
 			_check(boss.boss_phase == 1 and pattern_runner.current_phase == 1, "%s boss did not begin in phase 1." % level_id)
 			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 1, "%s boss opened with a pattern from the wrong phase." % level_id)

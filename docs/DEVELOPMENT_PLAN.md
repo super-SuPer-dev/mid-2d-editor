@@ -24,7 +24,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 | UI/UX | Main flows work; dialogue/boss HUD, shared operator cards and Base Workshop cards are bilingual and runtime-validated at 1280×720; main menu, mission map, settings and mastery passed live bounds review | Pseudo-localization, accessibility options, responsive resolutions and Windows/Web evidence |
 | Art | 474 generated PNG candidates inventoried; 474/474 decode, but all 188 normalized candidates fail the current hard-edge alpha gate; runtime still contains placeholders | Remediate/select candidates, verify package grids and animation, integrate approved art, then validate Windows/Web appearance and memory |
 | Audio | One click sound is repitched for multiple events | Music suite, approximately 40 SFX, mix and platform validation |
-| QA | Isolated smoke test covers four operators, five-level catalogs/dialogue references, three runtime levels, boss patterns, v1→v2 migration, one-shot story state, and language fallback | Runtime Levels 4–5, retry/recovery, pseudo-localization, export, performance, and soak coverage |
+| QA | Isolated smoke test covers four operators, five-level catalogs/dialogue references, all five runtime levels, boss patterns, v1→v2 migration, one-shot story state, language fallback, and pseudo-localization | Retry/recovery, export, performance, soak coverage, and human campaign playtest |
 
 ## 2. Production Principles
 
@@ -134,6 +134,8 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 **Work:** Build separate 5–7 minute routes for Devouring Root Marsh and Alien Eye Nexus with unique traversal, tile/parallax kits, foregrounds, hazards, enemy rosters and landmarks. Produce the projectile-heavy Root Hydra with multi-origin crossfire, rings and lane walls, and the Root-Core Eye with spirals, aimed rings and bullet curtains. Complete final enemy families, ending sequences, campaign completion and post-ending state.
 
 **Exit criteria:** The five-level campaign is completable without developer intervention; ending and restrained sequel hook play once at the correct stage; Windows and Web campaign tests pass.
+
+**Greybox implementation evidence — 2026-08-31:** Dedicated `level_04.tscn` and `level_05.tscn` scenes now route through `SceneManager.play_level`, use distinct marsh/nexus parallax palettes and landmark overlays, provide seven/eight authored platform steps with hazards, six roster-valid threats, samples, portals and dedicated bosses. `root_skitter`, `marsh_spitter`, `eye_wisp`, `capsule_husk_elite`, `mixed_elite`, `root_hydra_boss` and `root_core_eye_boss` now have explicit runtime contracts instead of falling through to generic defaults. The Godot smoke suite validates both scenes through quota → queued radio/boss introduction → three-phase projectile pattern → boss defeat → extraction, plus projectile cleanup and 100 px jump-step reachability. Live Godot MCP screenshots verified `Devouring Root Marsh` and `Alien Eye Nexus` at 1280×720 with readable HUDs and no screen stretch. Final generated pixel-art tiles, foreground props, fruit-specific enemy art/animation, audio, ending polish, Windows/Web builds and human 5–7 minute playtest remain required before Gate 4 closes.
 
 ### Gate 5 — Campaign Polish
 
