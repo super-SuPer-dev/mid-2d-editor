@@ -1,7 +1,7 @@
 extends Node
 
-const LEVEL_ONE := preload("res://Scenes/levels/level_01.tscn")
-const PROJECTILE := preload("res://Scenes/gameplay/enemy_projectile.tscn")
+const LEVEL_ONE := preload("res://scenes/levels/level_01.tscn")
+const PROJECTILE := preload("res://scenes/gameplay/enemy_projectile.tscn")
 const OUTPUT_PATH := "res://validation/screenshots/gate2_interaction_objects.png"
 
 

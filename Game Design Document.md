@@ -688,7 +688,7 @@ Nearest-neighbor presentation is the default for pixel artwork. UI fonts,
 vector controls, and deliberately smooth accessibility elements are configured
 separately and must not force bilinear filtering onto sprites or environments.
 
-Approved generated art must move from `art_source/generated/` into `Assets/` after
+Approved generated art must move from `art_source/generated/` into `assets/` after
 technical, provenance, and visual validation.
 
 ## 14. Audio Direction

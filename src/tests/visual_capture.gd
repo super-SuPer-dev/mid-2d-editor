@@ -1,6 +1,6 @@
 extends Node
 
-const LEVEL_ONE := preload("res://Scenes/levels/level_01.tscn")
+const LEVEL_ONE := preload("res://scenes/levels/level_01.tscn")
 const OUTPUT_PATH := "res://validation/screenshots/gate2_thorn_matriarch.png"
 
 

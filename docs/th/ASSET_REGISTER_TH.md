@@ -4,7 +4,7 @@
 **สถานะ:** Production inventory ที่ต้องอัปเดตต่อเนื่อง  
 **เอกสารหลัก:** [Asset Register ภาษาอังกฤษ](../ASSET_REGISTER.md) เป็นฉบับอ้างอิงสูงสุด
 
-ไฟล์ใน `art_source/generated/` เป็น source candidate เท่านั้น ต้องตรวจเชิงเทคนิค อนุมัติภาพ ย้ายเข้า `Assets/` integrate และมีหลักฐานก่อนใช้เป็น production asset
+ไฟล์ใน `art_source/generated/` เป็น source candidate เท่านั้น ต้องตรวจเชิงเทคนิค อนุมัติภาพ ย้ายเข้า `assets/` integrate และมีหลักฐานก่อนใช้เป็น production asset
 
 ## 1. สถานะและความสำคัญ
 

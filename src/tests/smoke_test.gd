@@ -1,11 +1,11 @@
 extends Node
 
-const MAIN_ENTRANCE := preload("res://Scenes/main.tscn")
-const DIALOGUE_OVERLAY_SCENE := preload("res://Scenes/ui/dialogue_overlay.tscn")
+const MAIN_ENTRANCE := preload("res://scenes/main.tscn")
+const DIALOGUE_OVERLAY_SCENE := preload("res://scenes/ui/dialogue_overlay.tscn")
 const GAME_LEVELS := {
-	"level_01": preload("res://Scenes/levels/level_01.tscn"),
-	"level_02": preload("res://Scenes/levels/level_02.tscn"),
-	"level_03": preload("res://Scenes/levels/level_03.tscn"),
+	"level_01": preload("res://scenes/levels/level_01.tscn"),
+	"level_02": preload("res://scenes/levels/level_02.tscn"),
+	"level_03": preload("res://scenes/levels/level_03.tscn"),
 }
 const REQUIRED_JUMP_ROUTES := {
 	"level_01": [
@@ -23,13 +23,13 @@ const REQUIRED_JUMP_ROUTES := {
 	],
 }
 const UI_SCENES := [
-	preload("res://Scenes/ui/main_menu.tscn"),
-	preload("res://Scenes/ui/character_select.tscn"),
-	preload("res://Scenes/ui/level_select.tscn"),
-	preload("res://Scenes/ui/settings.tscn"),
-	preload("res://Scenes/ui/credits.tscn"),
-	preload("res://Scenes/ui/character_upgrades.tscn"),
-	preload("res://Scenes/ui/upgrades.tscn"),
+	preload("res://scenes/ui/main_menu.tscn"),
+	preload("res://scenes/ui/character_select.tscn"),
+	preload("res://scenes/ui/level_select.tscn"),
+	preload("res://scenes/ui/settings.tscn"),
+	preload("res://scenes/ui/credits.tscn"),
+	preload("res://scenes/ui/character_upgrades.tscn"),
+	preload("res://scenes/ui/upgrades.tscn"),
 ]
 const EXPECTED_THREAT_QUOTAS := {
 	"level_01": 4,

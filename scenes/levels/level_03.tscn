@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/actors/enemy.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/crystal.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/hazard.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/portal.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_hud.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/backgrounds/root_cave_parallax.tscn" id="9_bg"]
+
+[node name="AlienRootCave" type="Node2D"]
+script = ExtResource("1")
+[node name="Environment" type="Node2D" parent="."]
+[node name="ParallaxBackground" parent="Environment" instance=ExtResource("9_bg")]
+[node name="CaveBack" type="Polygon2D" parent="Environment"]
+visible = false
+z_index = -30
+polygon = PackedVector2Array(0, 720, 0, 300, 160, 250, 310, 340, 470, 220, 640, 310, 800, 195, 970, 290, 1140, 210, 1310, 320, 1480, 180, 1650, 300, 1820, 205, 1990, 315, 2160, 190, 2330, 290, 2500, 210, 2670, 320, 2900, 240, 2900, 720)
+color = Color(0.208, 0.133, 0.216, 1)
+[node name="RootVeinA" type="Line2D" parent="Environment"]
+visible = false
+z_index = -20
+points = PackedVector2Array(0, 260, 280, 330, 540, 250, 820, 350, 1120, 270)
+width = 9.0
+default_color = Color(0.55, 0.26, 0.57, 0.55)
+[node name="RootVeinB" type="Line2D" parent="Environment"]
+visible = false
+z_index = -20
+points = PackedVector2Array(1650, 260, 1900, 345, 2180, 245, 2470, 330, 2900, 250)
+width = 9.0
+default_color = Color(0.55, 0.26, 0.57, 0.55)
+
+[node name="WorldGeometry" type="Node2D" parent="."]
+[node name="Ground" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(1450, 680)
+scale = Vector2(29, 4)
+[node name="Platform01" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(565, 554)
+scale = Vector2(2.3, 1.4)
+[node name="Platform02" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(965, 464)
+scale = Vector2(2.3, 1.4)
+[node name="Platform03" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(1360, 534)
+scale = Vector2(2.6, 1.4)
+[node name="Platform04" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(1775, 444)
+scale = Vector2(2.3, 1.4)
+[node name="Platform05" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(2180, 534)
+scale = Vector2(2.6, 1.4)
+[node name="Hazard01" parent="WorldGeometry" instance=ExtResource("6")]
+position = Vector2(765, 632)
+scale = Vector2(1.4, 0.94)
+[node name="Hazard02" parent="WorldGeometry" instance=ExtResource("6")]
+position = Vector2(1575, 632)
+scale = Vector2(1.4, 0.94)
+[node name="Hazard03" parent="WorldGeometry" instance=ExtResource("6")]
+position = Vector2(1975, 632)
+scale = Vector2(1.09, 0.94)
+
+[node name="Player" parent="." instance=ExtResource("3")]
+position = Vector2(100, 560)
+[node name="Enemies" type="Node2D" parent="."]
+[node name="Maw" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(560, 475)
+enemy_type = "maw"
+[node name="Spitter01" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(960, 400)
+enemy_type = "spitter"
+[node name="Thornling" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(1360, 470)
+enemy_type = "thornling"
+[node name="Spitter02" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(1770, 380)
+enemy_type = "spitter"
+[node name="Maw02" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(2100, 470)
+enemy_type = "maw"
+[node name="BanyanBoss" parent="Enemies" instance=ExtResource("4")]
+position = Vector2(2350, 535)
+enemy_type = "banyan_boss"
+
+[node name="Pickups" type="Node2D" parent="."]
+[node name="Sample01" parent="Pickups" instance=ExtResource("5")]
+position = Vector2(520, 495)
+[node name="Sample02" parent="Pickups" instance=ExtResource("5")]
+position = Vector2(920, 405)
+[node name="Sample03" parent="Pickups" instance=ExtResource("5")]
+position = Vector2(1300, 475)
+[node name="Sample04" parent="Pickups" instance=ExtResource("5")]
+position = Vector2(1720, 385)
+[node name="Sample05" parent="Pickups" instance=ExtResource("5")]
+position = Vector2(2100, 475)
+
+[node name="Portal" parent="." instance=ExtResource("7")]
+position = Vector2(2720, 515)
+[node name="HUD" parent="." instance=ExtResource("8")]

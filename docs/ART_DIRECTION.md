@@ -6,7 +6,7 @@ Latin and Thai glyph coverage. No runtime image contains baked UI text.
 
 Campaign environments use four native `Parallax2D` planes: sky, distant
 horizon, middle vegetation, and transparent foreground. The reusable scenes
-live under `Scenes/backgrounds/`; layer textures and scroll scales are editable
+live under `scenes/backgrounds/`; layer textures and scroll scales are editable
 directly in the Inspector.
 
 The `art_source/references/` boards define the production target. The generated five-biome

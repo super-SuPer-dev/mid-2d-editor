@@ -1,0 +1,487 @@
+[gd_scene format=3 uid="uid://cvi5pdhvgre23"]
+
+[ext_resource type="Script" uid="uid://wlcy5jy73brl" path="res://src/ui/screens/level_select.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://bx8bati65t63p" path="res://assets/images/ui/level_select/level_icon_atlas.png" id="3_atlas"]
+[ext_resource type="Texture2D" uid="uid://biyy1uaaujubr" path="res://assets/images/ui/level_select/level_map_background.png" id="4_map"]
+[ext_resource type="Script" uid="uid://cgbov1s5mhsbv" path="res://src/ui/screens/mission_map_path.gd" id="5_path"]
+
+[sub_resource type="AtlasTexture" id="Atlas_title"]
+atlas = ExtResource("3_atlas")
+region = Rect2(710, 13, 508, 81)
+
+[sub_resource type="StyleBoxFlat" id="Style_sample"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.04, 0.055, 0.045, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.52, 0.43, 0.23, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="Atlas_m1"]
+atlas = ExtResource("3_atlas")
+region = Rect2(630, 612, 108, 132)
+
+[sub_resource type="AtlasTexture" id="Atlas_m1_selected"]
+atlas = ExtResource("3_atlas")
+region = Rect2(626, 738, 114, 144)
+
+[sub_resource type="AtlasTexture" id="Atlas_lock4"]
+atlas = ExtResource("3_atlas")
+region = Rect2(1216, 614, 104, 134)
+
+[sub_resource type="AtlasTexture" id="Atlas_m2"]
+atlas = ExtResource("3_atlas")
+region = Rect2(744, 612, 106, 132)
+
+[sub_resource type="AtlasTexture" id="Atlas_m2_selected"]
+atlas = ExtResource("3_atlas")
+region = Rect2(739, 738, 114, 144)
+
+[sub_resource type="AtlasTexture" id="Atlas_m3"]
+atlas = ExtResource("3_atlas")
+region = Rect2(858, 612, 108, 132)
+
+[sub_resource type="AtlasTexture" id="Atlas_m3_selected"]
+atlas = ExtResource("3_atlas")
+region = Rect2(855, 738, 112, 144)
+
+[sub_resource type="AtlasTexture" id="Atlas_lock5"]
+atlas = ExtResource("3_atlas")
+region = Rect2(1324, 614, 104, 134)
+
+[sub_resource type="AtlasTexture" id="Atlas_panel"]
+atlas = ExtResource("3_atlas")
+region = Rect2(603, 112, 334, 174)
+
+[sub_resource type="StyleBoxFlat" id="Style_start"]
+bg_color = Color(0.19, 0.31, 0.12, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.68, 0.58, 0.31, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="Style_start_hover"]
+bg_color = Color(0.31, 0.48, 0.18, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.94, 0.78, 0.35, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="LevelSelect" type="Control" unique_id=2024979859]
+texture_filter = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1837169961]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_map")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="." unique_id=471963229]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.025, 0.02, 0.13)
+
+[node name="MissionPath" type="Control" parent="." unique_id=207395023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_path")
+
+[node name="TitlePlate" type="TextureRect" parent="." unique_id=1915272287]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -238.0
+offset_top = 8.0
+offset_right = 238.0
+offset_bottom = 84.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = SubResource("Atlas_title")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="TitlePlate" unique_id=122516786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.92, 0.84, 0.62, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 38
+text = "เลือกด่าน"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Operator" type="Button" parent="." unique_id=1496232002]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 18.0
+offset_right = 320.0
+offset_bottom = 70.0
+text = "เจ้าหน้าที่"
+
+[node name="Samples" type="Label" parent="." unique_id=1677026164]
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 20.0
+offset_right = 1258.0
+offset_bottom = 68.0
+theme_override_colors/font_color = Color(0.89, 0.57, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("Style_sample")
+text = "ตัวอย่างต่างดาว  0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MissionMarkers" type="Control" parent="." unique_id=1429472252]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="level_01" type="TextureButton" parent="MissionMarkers" unique_id=1138207478]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.56
+anchor_right = 0.15
+anchor_bottom = 0.56
+offset_left = -50.0
+offset_top = -61.0
+offset_right = 50.0
+offset_bottom = 61.0
+toggle_mode = true
+texture_normal = SubResource("Atlas_m1")
+texture_pressed = SubResource("Atlas_m1_selected")
+texture_hover = SubResource("Atlas_m1_selected")
+texture_disabled = SubResource("Atlas_lock4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Number" type="Label" parent="MissionMarkers/level_01" unique_id=1303394334]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.87, 0.64, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "1"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="MissionMarkers/level_01" unique_id=1833842449]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.81, 0.27, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="level_02" type="TextureButton" parent="MissionMarkers" unique_id=1044314329]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31
+anchor_top = 0.42
+anchor_right = 0.31
+anchor_bottom = 0.42
+offset_left = -50.0
+offset_top = -61.0
+offset_right = 50.0
+offset_bottom = 61.0
+toggle_mode = true
+texture_normal = SubResource("Atlas_m2")
+texture_pressed = SubResource("Atlas_m2_selected")
+texture_hover = SubResource("Atlas_m2_selected")
+texture_disabled = SubResource("Atlas_lock4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Number" type="Label" parent="MissionMarkers/level_02" unique_id=476545926]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.87, 0.64, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "2"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="MissionMarkers/level_02" unique_id=547246634]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.81, 0.27, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="level_03" type="TextureButton" parent="MissionMarkers" unique_id=1109129856]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.55
+anchor_top = 0.42
+anchor_right = 0.55
+anchor_bottom = 0.42
+offset_left = -50.0
+offset_top = -61.0
+offset_right = 50.0
+offset_bottom = 61.0
+toggle_mode = true
+texture_normal = SubResource("Atlas_m3")
+texture_pressed = SubResource("Atlas_m3_selected")
+texture_hover = SubResource("Atlas_m3_selected")
+texture_disabled = SubResource("Atlas_lock4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Number" type="Label" parent="MissionMarkers/level_03" unique_id=371961361]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.87, 0.64, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "3"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="MissionMarkers/level_03" unique_id=1604466674]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.81, 0.27, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="level_04" type="TextureButton" parent="MissionMarkers" unique_id=434962428]
+modulate = Color(0.62, 0.62, 0.62, 0.92)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.62
+anchor_right = 0.7
+anchor_bottom = 0.62
+offset_left = -50.0
+offset_top = -61.0
+offset_right = 50.0
+offset_bottom = 61.0
+disabled = true
+toggle_mode = true
+texture_normal = SubResource("Atlas_lock4")
+texture_disabled = SubResource("Atlas_lock4")
+ignore_texture_size = true
+
+[node name="Number" type="Label" parent="MissionMarkers/level_04" unique_id=1815228497]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.74, 0.72, 0.65, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "4"
+horizontal_alignment = 1
+
+[node name="level_05" type="TextureButton" parent="MissionMarkers" unique_id=338623841]
+modulate = Color(0.62, 0.62, 0.62, 0.92)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.88
+anchor_top = 0.52
+anchor_right = 0.88
+anchor_bottom = 0.52
+offset_left = -50.0
+offset_top = -61.0
+offset_right = 50.0
+offset_bottom = 61.0
+disabled = true
+toggle_mode = true
+texture_normal = SubResource("Atlas_lock5")
+texture_disabled = SubResource("Atlas_lock5")
+ignore_texture_size = true
+
+[node name="Number" type="Label" parent="MissionMarkers/level_05" unique_id=1380505586]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.74, 0.72, 0.65, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "5"
+horizontal_alignment = 1
+
+[node name="MissionDetails" type="NinePatchRect" parent="." unique_id=1023175227]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -184.0
+offset_right = 398.0
+offset_bottom = -14.0
+grow_vertical = 0
+texture = SubResource("Atlas_panel")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Content" type="VBoxContainer" parent="MissionDetails" unique_id=1901974812]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 18.0
+offset_right = -22.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="MissionTitle" type="Label" parent="MissionDetails/Content" unique_id=100276747]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.77, 0.32, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "ด่าน 01"
+
+[node name="Description" type="Label" parent="MissionDetails/Content" unique_id=2015663616]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.84, 0.76, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "รายละเอียดภารกิจ"
+autowrap_mode = 2
+
+[node name="Progress" type="Label" parent="MissionDetails/Content" unique_id=1824335435]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.71, 0.38, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "เป้าหมาย"
+
+[node name="FooterActions" type="HBoxContainer" parent="." unique_id=1606655712]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 416.0
+offset_top = -68.0
+offset_right = -272.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Back" type="Button" parent="FooterActions" unique_id=1202718395]
+custom_minimum_size = Vector2(145, 54)
+layout_mode = 2
+text = "ย้อนกลับ"
+
+[node name="Upgrades" type="Button" parent="FooterActions" unique_id=798162861]
+custom_minimum_size = Vector2(190, 54)
+layout_mode = 2
+text = "อัปเกรดฐาน"
+
+[node name="CharacterUpgrades" type="Button" parent="FooterActions" unique_id=1419960572]
+custom_minimum_size = Vector2(210, 54)
+layout_mode = 2
+text = "อัปเกรดตัวละคร"
+
+[node name="StartMission" type="Button" parent="." unique_id=1372859082]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -252.0
+offset_top = -80.0
+offset_right = -18.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("Style_start")
+theme_override_styles/pressed = SubResource("Style_start_hover")
+theme_override_styles/hover = SubResource("Style_start_hover")
+text = "เริ่มภารกิจ"
+
+[connection signal="pressed" from="Operator" to="." method="_on_operator_pressed"]
+[connection signal="pressed" from="FooterActions/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="FooterActions/Upgrades" to="." method="_on_upgrades_pressed"]
+[connection signal="pressed" from="FooterActions/CharacterUpgrades" to="." method="_on_character_upgrades_pressed"]
+[connection signal="pressed" from="StartMission" to="." method="_on_start_pressed"]

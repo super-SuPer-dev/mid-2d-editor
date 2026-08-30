@@ -5,7 +5,7 @@ signal telegraph_started(pattern_id: String)
 signal pattern_started(pattern_id: String)
 signal recovery_started(pattern_id: String)
 
-const PROJECTILE_SCENE := preload("res://Scenes/gameplay/enemy_projectile.tscn")
+const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
 const STATE_IDLE := &"idle"
 const STATE_TELEGRAPH := &"telegraph"
 const STATE_ACTIVE := &"active"

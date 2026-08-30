@@ -39,7 +39,7 @@ The active visual direction is documented in
 Run the project-level smoke scene headlessly with Godot 4.7:
 
 ```powershell
-godot --headless --path . Scenes/tests/smoke_test.tscn
+godot --headless --path . scenes/tests/smoke_test.tscn
 ```
 
 It instantiates every front-end screen and all campaign levels, and validates

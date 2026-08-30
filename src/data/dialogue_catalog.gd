@@ -78,7 +78,7 @@ static func validate_sequence(sequence_id: String) -> Array[String]:
 		return errors
 	for index in sequence.size():
 		var entry: Dictionary = sequence[index]
-		if not SpeakerCatalog.SPEAKERS.has(str(entry.get("speaker_id", ""))):
+		if SpeakerCatalog.get_speaker(str(entry.get("speaker_id", ""))).is_empty():
 			errors.append("%s[%d] has an invalid speaker." % [sequence_id, index])
 		if str(entry.get("presentation_mode", "")) not in VALID_MODES:
 			errors.append("%s[%d] has an invalid presentation mode." % [sequence_id, index])

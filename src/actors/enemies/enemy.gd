@@ -2,10 +2,10 @@ class_name EnemyController
 extends CharacterBody2D
 
 const GRAVITY := 1200.0
-const PROJECTILE_SCENE := preload("res://Scenes/gameplay/enemy_projectile.tscn")
-const THORNLING_TEXTURE := preload("res://Assets/Enemies/Standard/thornling.png")
-const SPITTER_TEXTURE := preload("res://Assets/Enemies/Standard/spitter.png")
-const THORN_MATRIARCH_TEXTURE := preload("res://Assets/Enemies/Bosses/thorn_matriarch.png")
+const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
+const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png")
+const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
+const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent

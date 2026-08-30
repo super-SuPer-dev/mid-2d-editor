@@ -9,7 +9,7 @@ Replaceable slots are available in the player, enemy, sample, hazard,
 projectile, portal, platform, level background, and reusable character-card
 scenes. Scene textures are authoritative and are not replaced by scripts at
 runtime. Their temporary source
-textures live in `Assets/placeholders/`. Keep replacement art centered on the
+textures live in `assets/placeholders/`. Keep replacement art centered on the
 same canvas size, or adjust only the art node's position and scale.
 
 UI skins are also texture-driven. Replace `ui_background.svg`, `ui_panel.svg`,
@@ -31,10 +31,10 @@ every screen centrally. Individual screen backgrounds are editable
 
 ## Safe replacement points
 
-- Player: replace `BodyVisual` in `Scenes/actors/player.tscn` with an
+- Player: replace `BodyVisual` in `scenes/actors/player.tscn` with an
   `AnimatedSprite2D`. Preserve `CollisionShape2D`, `AttackArea`,
   `HealthComponent`, and `Camera2D`.
-- Enemy: replace `Visual` and `Eye` in `Scenes/actors/enemy.tscn`. Preserve the
+- Enemy: replace `Visual` and `Eye` in `scenes/actors/enemy.tscn`. Preserve the
   body collision, `HurtBox`, health component, and health bar.
 - Pickups, hazards, projectiles, and portal: replace only each scene's visual
   polygon nodes.
@@ -50,5 +50,5 @@ Use these animation names consistently: `idle`, `run`, `jump`, `fall`, `dash`,
 `CharacterCatalog`, not inside sprite resources.
 
 Generated art can be stored under `art_source/generated/` during review. Move only
-approved assets into `Assets/` and commit their Godot `.import` metadata with
+approved assets into `assets/` and commit their Godot `.import` metadata with
 the source image.

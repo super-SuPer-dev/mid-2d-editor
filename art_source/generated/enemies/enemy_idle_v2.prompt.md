@@ -8,9 +8,9 @@ no baked text
 
 - `art_source/references/generated_campaign_style_anchor.png` — campaign palette, biome and
   alien-biology direction
-- `Assets/Enemies/Standard/thornling.png` — runtime scale, pixel density,
+- `assets/enemies/standard/thornling.png` — runtime scale, pixel density,
   outline and lighting reference
-- `Assets/Enemies/Standard/spitter.png` — runtime scale, pixel density,
+- `assets/enemies/standard/spitter.png` — runtime scale, pixel density,
   outline and lighting reference
 
 The references are style and scale inputs only. None was edited or copied.

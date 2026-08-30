@@ -1,16 +1,16 @@
 extends CanvasLayer
 
-const MAIN_MENU := "res://Scenes/ui/main_menu.tscn"
-const CHARACTER_SELECT := "res://Scenes/ui/character_select.tscn"
-const LEVEL_SELECT := "res://Scenes/ui/level_select.tscn"
-const SETTINGS := "res://Scenes/ui/settings.tscn"
-const CREDITS := "res://Scenes/ui/credits.tscn"
-const UPGRADES := "res://Scenes/ui/upgrades.tscn"
-const CHARACTER_UPGRADES := "res://Scenes/ui/character_upgrades.tscn"
+const MAIN_MENU := "res://scenes/ui/main_menu.tscn"
+const CHARACTER_SELECT := "res://scenes/ui/character_select.tscn"
+const LEVEL_SELECT := "res://scenes/ui/level_select.tscn"
+const SETTINGS := "res://scenes/ui/settings.tscn"
+const CREDITS := "res://scenes/ui/credits.tscn"
+const UPGRADES := "res://scenes/ui/upgrades.tscn"
+const CHARACTER_UPGRADES := "res://scenes/ui/character_upgrades.tscn"
 const GAME_LEVELS := {
-	"level_01": "res://Scenes/levels/level_01.tscn",
-	"level_02": "res://Scenes/levels/level_02.tscn",
-	"level_03": "res://Scenes/levels/level_03.tscn",
+	"level_01": "res://scenes/levels/level_01.tscn",
+	"level_02": "res://scenes/levels/level_02.tscn",
+	"level_03": "res://scenes/levels/level_03.tscn",
 }
 
 signal scene_change_started(scene_path: String)

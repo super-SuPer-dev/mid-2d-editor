@@ -1,7 +1,7 @@
 # Game architecture
 
 Low Altitude Warrior is a data-driven side-scrolling campaign built with
-Godot 4.7. Scripts live in `src/`; reusable Godot scenes live in `Scenes/`.
+Godot 4.7. Scripts live in `src/`; reusable Godot scenes live in `scenes/`.
 
 ## Player flow
 
@@ -13,7 +13,7 @@ Main menu -> Character select -> Mission select -> Gameplay
                                                Retry   Next mission
 ```
 
-`Scenes/main.tscn` is the project entrance. It contains the main menu as a
+`scenes/main.tscn` is the project entrance. It contains the main menu as a
 native scene instance and is the only scene configured under `run/main_scene`.
 
 ## Scene authoring rule
@@ -49,7 +49,7 @@ layouts with `new()` and `add_child()`.
   sequences, mission phases, balance, palette, and unlock order.
 - `BossPatternCatalog` defines named projectile formations, telegraph/active/
   recovery timing, speed, safe-lane width, per-level cap, and cleanup events.
-- `Scenes/levels/level_01.tscn` through `level_03.tscn` contain the actual
+- `scenes/levels/level_01.tscn` through `level_03.tscn` contain the actual
   environment, platforms, collisions, hazards, enemies, pickups, player spawn,
   and exit as native editor-visible Godot nodes.
 - `LevelController` only connects gameplay behavior and mission state. It does

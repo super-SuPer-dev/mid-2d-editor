@@ -1,7 +1,7 @@
 class_name LevelCatalog
 extends RefCounted
 
-## Mission metadata only. Physical layouts are authored in Scenes/levels/*.tscn.
+## Mission metadata only. Physical layouts are authored in scenes/levels/*.tscn.
 const LEVEL_ORDER: Array[String] = ["level_01", "level_02", "level_03", "level_04", "level_05"]
 const MISSION_SEGMENTS := ["entry", "encounter_a", "traversal_set_piece", "encounter_b", "boss", "extraction"]
 

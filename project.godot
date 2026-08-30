@@ -11,18 +11,18 @@ config_version=5
 [application]
 
 config/name="Low Altitude Warrior"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://Assets/Icon/icon.svg"
+config/icon="res://assets/icons/icon.svg"
 
 [autoload]
 
-AudioManager="*res://Scenes/core/audio_manager.tscn"
+AudioManager="*res://scenes/core/audio_manager.tscn"
 LocalizationManager="*res://src/core/managers/localization_manager.gd"
 GameManager="*res://src/core/managers/game_manager.gd"
 SaveManager="*res://src/core/managers/save_manager.gd"
 StoryManager="*res://src/core/managers/story_manager.gd"
-SceneManager="*res://Scenes/core/scene_manager.tscn"
+SceneManager="*res://scenes/core/scene_manager.tscn"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
@@ -41,7 +41,7 @@ enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://Assets/": "red"
+"res://assets/": "red"
 }
 
 [global_group]
@@ -51,7 +51,7 @@ Enemy=""
 
 [gui]
 
-theme/custom="res://Scenes/ui/field_theme.tres"
+theme/custom="res://scenes/ui/field_theme.tres"
 
 [input]
 
