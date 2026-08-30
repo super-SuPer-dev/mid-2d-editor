@@ -472,6 +472,11 @@ func _validate_levels() -> void:
 			_check(root_core_eye_visual.hframes == 4 and root_core_eye_visual.vframes == 1, "Level 5 Root-Core Eye pilot lost its four-frame grid.")
 			_check(absf(root_core_eye_visual.position.y + 105.0) < 0.01, "Level 5 Root-Core Eye pilot lost its 840 px baseline offset.")
 			_check(str(root_core_eye_visual.texture.resource_path).ends_with("root_core_eye_idle_sealed_normalized_v2.png"), "Level 5 Root-Core Eye pilot did not begin in its sealed visual state.")
+			var capsule_husk := level.get_node("Enemies/CapsuleHusk01") as EnemyController
+			var capsule_husk_visual := capsule_husk.get_node("Visual") as Sprite2D
+			_check(capsule_husk_visual.hframes == 4 and capsule_husk_visual.vframes == 1, "Level 5 Capsule Husk pilot lost its four-frame grid.")
+			_check(absf(capsule_husk_visual.position.y + 18.0) < 0.01, "Level 5 Capsule Husk pilot lost its 740 px baseline offset.")
+			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_idle_strip_normalized_v2.png") or str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_move_strip_normalized_v2.png"), "Level 5 Capsule Husk pilot is not using the promoted runtime texture.")
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)

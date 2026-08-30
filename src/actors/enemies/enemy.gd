@@ -14,6 +14,8 @@ const SPITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/s
 const SPITTER_WALK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_walk_strip_normalized_v2.png")
 const MAW_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_idle_strip_normalized_v2.png")
 const MAW_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_move_strip_normalized_v2.png")
+const CAPSULE_HUSK_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_idle_strip_normalized_v2.png")
+const CAPSULE_HUSK_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_move_strip_normalized_v2.png")
 const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
 const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
@@ -51,6 +53,8 @@ var spitter_action: StringName = &"idle"
 var spitter_frame_clock: float = 0.0
 var maw_action: StringName = &"idle"
 var maw_frame_clock: float = 0.0
+var capsule_husk_action: StringName = &"idle"
+var capsule_husk_frame_clock: float = 0.0
 var root_hydra_frame_clock: float = 0.0
 var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
@@ -138,7 +142,15 @@ func configure(type_id: String) -> void:
 			move_speed = 58.0
 			health.max_health = 12
 			contact_damage = 3
-			visual.modulate = Color("a77db9")
+			visual.texture = CAPSULE_HUSK_IDLE_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.06, 0.06)
+			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
+			visual.position = Vector2(0.0, -18.0)
 			scale = Vector2(1.35, 1.35)
 		"mixed_elite":
 			move_speed = 82.0
@@ -263,6 +275,7 @@ func _physics_process(delta: float) -> void:
 	_update_thornling_animation(delta)
 	_update_spitter_animation(delta)
 	_update_maw_animation(delta)
+	_update_capsule_husk_animation(delta)
 	_update_root_hydra_animation(delta)
 	_update_eye_wisp_animation(delta)
 	_update_root_core_eye_animation(delta)
@@ -314,6 +327,22 @@ func _update_maw_animation(delta: float) -> void:
 	var frame_rate := 6.0 if next_action == &"move" else 3.5
 	maw_frame_clock = fmod(maw_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(maw_frame_clock)
+
+
+func _update_capsule_husk_animation(delta: float) -> void:
+	if enemy_type != "capsule_husk_elite":
+		return
+	var next_action: StringName = &"move" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"
+	if next_action != capsule_husk_action:
+		capsule_husk_action = next_action
+		capsule_husk_frame_clock = 0.0
+		visual.texture = CAPSULE_HUSK_MOVE_TEXTURE if next_action == &"move" else CAPSULE_HUSK_IDLE_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	var frame_rate := 5.5 if next_action == &"move" else 3.5
+	capsule_husk_frame_clock = fmod(capsule_husk_frame_clock + delta * frame_rate, 4.0)
+	visual.frame = int(capsule_husk_frame_clock)
 
 
 func _update_root_skitter_animation(delta: float) -> void:
