@@ -445,6 +445,12 @@ func _validate_levels() -> void:
 			_check(root_hydra_visual.hframes == 4 and root_hydra_visual.vframes == 1, "Level 4 Root Hydra pilot lost its four-frame grid.")
 			_check(absf(root_hydra_visual.position.y + 105.0) < 0.01, "Level 4 Root Hydra pilot lost its 840 px baseline offset.")
 			_check(str(root_hydra_visual.texture.resource_path).ends_with("root_hydra_idle_strip_normalized_v2.png"), "Level 4 Root Hydra pilot is not using the promoted runtime texture.")
+		if level_id == "level_05":
+			var eye_wisp := level.get_node("Enemies/EyeWisp01") as EnemyController
+			var eye_wisp_visual := eye_wisp.get_node("Visual") as Sprite2D
+			_check(eye_wisp_visual.hframes == 4 and eye_wisp_visual.vframes == 1, "Level 5 Eye Wisp pilot lost its four-frame grid.")
+			_check(absf(eye_wisp_visual.position.y + 16.0) < 0.01, "Level 5 Eye Wisp pilot lost its hover offset.")
+			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_hover_strip_normalized_v2.png") or str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_fly_strip_normalized_v2.png"), "Level 5 Eye Wisp pilot is not using the promoted runtime texture.")
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)

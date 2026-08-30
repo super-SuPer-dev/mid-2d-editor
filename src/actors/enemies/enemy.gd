@@ -12,6 +12,8 @@ const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matr
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
 const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
 const ROOT_HYDRA_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_strip_normalized_v2.png")
+const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png")
+const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
@@ -36,6 +38,8 @@ var base_visual_modulate: Color = Color.WHITE
 var root_skitter_action: StringName = &"idle"
 var root_skitter_frame_clock: float = 0.0
 var root_hydra_frame_clock: float = 0.0
+var eye_wisp_frame_clock: float = 0.0
+var eye_wisp_action: StringName = &"hover"
 
 
 func configure(type_id: String) -> void:
@@ -88,8 +92,14 @@ func configure(type_id: String) -> void:
 			health.max_health = 5
 			contact_damage = 2
 			detection_range = 560.0
-			visual.modulate = Color("d27bc5")
+			visual.texture = EYE_WISP_HOVER_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual.modulate = Color.WHITE
 			visual.scale = Vector2(0.045, 0.045)
+			visual.position = Vector2(0.0, -16.0)
 		"capsule_husk_elite":
 			move_speed = 58.0
 			health.max_health = 12
@@ -209,6 +219,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_update_root_skitter_animation(delta)
 	_update_root_hydra_animation(delta)
+	_update_eye_wisp_animation(delta)
 
 
 func _update_root_skitter_animation(delta: float) -> void:
@@ -232,6 +243,22 @@ func _update_root_hydra_animation(delta: float) -> void:
 		return
 	root_hydra_frame_clock = fmod(root_hydra_frame_clock + delta * 3.0, 4.0)
 	visual.frame = int(root_hydra_frame_clock)
+
+
+func _update_eye_wisp_animation(delta: float) -> void:
+	if enemy_type != "eye_wisp":
+		return
+	var next_action: StringName = &"fly" if absf(velocity.x) > 8.0 else &"hover"
+	if next_action != eye_wisp_action:
+		eye_wisp_action = next_action
+		eye_wisp_frame_clock = 0.0
+		visual.texture = EYE_WISP_FLY_TEXTURE if next_action == &"fly" else EYE_WISP_HOVER_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	var frame_rate := 7.0 if next_action == &"fly" else 4.5
+	eye_wisp_frame_clock = fmod(eye_wisp_frame_clock + delta * frame_rate, 4.0)
+	visual.frame = int(eye_wisp_frame_clock)
 
 
 func _shoot(direction: Vector2) -> void:
