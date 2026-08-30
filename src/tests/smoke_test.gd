@@ -445,6 +445,11 @@ func _validate_levels() -> void:
 			_check(maw_visual.hframes == 4 and maw_visual.vframes == 1, "Level 2 Maw pilot lost its four-frame grid.")
 			_check(absf(maw_visual.position.y + 18.0) < 0.01, "Level 2 Maw pilot lost its 740 px baseline offset.")
 			_check(str(maw_visual.texture.resource_path).ends_with("maw_idle_strip_normalized_v2.png") or str(maw_visual.texture.resource_path).ends_with("maw_move_strip_normalized_v2.png"), "Level 2 Maw pilot is not using the promoted runtime texture.")
+			var maw_boss := level.get_node("Enemies/MawBloomSovereign") as EnemyController
+			var maw_boss_visual := maw_boss.get_node("Visual") as Sprite2D
+			_check(maw_boss_visual.hframes == 4 and maw_boss_visual.vframes == 1, "Level 2 Maw Sovereign pilot lost its four-frame grid.")
+			_check(absf(maw_boss_visual.position.y + 39.0) < 0.01, "Level 2 Maw Sovereign pilot lost its 840 px baseline offset.")
+			_check(str(maw_boss_visual.texture.resource_path).ends_with("maw_sovereign_idle_armored_strip_normalized_v2.png"), "Level 2 Maw Sovereign pilot did not begin in its armored visual state.")
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
@@ -540,6 +545,9 @@ func _validate_levels() -> void:
 				if level_id == "level_05" and expected_phase == 2:
 					var phase_visual := boss.get_node("Visual") as Sprite2D
 					_check(str(phase_visual.texture.resource_path).ends_with("root_core_eye_idle_exposed_normalized_v2.png"), "Level 5 Root-Core Eye did not expose its phase-2 idle visual.")
+				if level_id == "level_02" and expected_phase == 2:
+					var maw_phase_visual := boss.get_node("Visual") as Sprite2D
+					_check(str(maw_phase_visual.texture.resource_path).ends_with("maw_sovereign_idle_exposed_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not expose its phase-2 idle visual.")
 				_check(pattern_runner.get_active_projectile_count() == 0, "%s phase %d did not clear active projectiles." % [level_id, expected_phase])
 				_check(int(pattern_runner.current_pattern.get("phase", 0)) == expected_phase, "%s phase %d selected a pattern from the wrong phase." % [level_id, expected_phase])
 				for _phase_frame in range(50):

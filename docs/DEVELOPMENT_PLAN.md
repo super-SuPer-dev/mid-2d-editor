@@ -154,6 +154,15 @@ contract. Smoke coverage checks the grid, baseline and phase transition.
 Remaining cast/death/presentation art, VFX, audio and human boss-feel review
 remain open.
 
+**Maw-Sovereign asset promotion evidence — 2026-08-31:** The Level 2 boss now
+uses generated durian/mangosteen armored/exposed idle strips instead of the
+placeholder plant. Both 4000 × 900 runtime strips use four 1000 px cells, an
+840 px foot baseline, binary alpha and nearest filtering; the controller
+switches to the exposed strip at phase 2 while preserving the existing
+spore/ring/aimed projectile contract. Smoke coverage checks the grid, baseline
+and phase transition. Remaining cast/death/projectile/presentation art, VFX,
+audio and human boss-feel review remain open.
+
 **Operator-select UI evidence — 2026-08-30:** The shared operator-card source now reserves a compact aspect-correct portrait column, uses a consistent two-line statistics hierarchy, and gives localized role and description text the remaining width. Font-measured wrapping inserts breaks only at spaces, so English no longer splits words such as “repositions,” “wider,” or “advancing”; Thai glyphs and longer labels remain inside the same 1280×720 cards. Smoke tests validate both locales, character preservation across inserted line breaks, maximum line counts, non-clipping descriptions, card bounds, and button bounds. Live Godot MCP screenshots verified all four English and Thai cards without stretch, overlap, clipping, or mid-word breaks.
 
 **Main-flow UI audit evidence — 2026-08-30:** Live Godot MCP review covered the main menu, mission map, Base Workshop, settings and operator mastery at 1280×720 in English and Thai. The workshop Engine description no longer produces the visible `pe\nr` split: the shared row disables arbitrary engine wrapping and the screen binder now reflows font-measured text only at spaces after locale or viewport changes. Automated tests prove source-text preservation, a three-line ceiling, disabled clipping/autowrap, card bounds and purchase-button bounds for all three upgrades in both locales. The Thai mastery description now uses complete Thai terminology instead of exposing the English words “passive” and “milestone.” Live screenshots verified the final English `+5% movement and +4% dash speed\nper level` and the corresponding Thai wrap without overlap or clipping. Pseudo-localization, non-native resolutions, accessibility options and Windows/Web evidence remain before Gate 2 closes.
