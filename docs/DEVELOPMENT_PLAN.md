@@ -242,6 +242,15 @@ contracts. Live projectile capture remains blocked by the backgrounded Godot
 window; final contrast and bullet readability still require human review in the
 Level 5 nexus.
 
+**Root-Core Eye cast promotion evidence — 2026-08-31:** Three generated cast
+strips now cover `eye_rotating_spirals`, `eye_aimed_rings` and
+`eye_alternating_curtains`. Spiral, aimed-seed and bract-curtain visuals are
+normalized to 4 × 1000 × 900 binary-alpha cells, bound through the existing
+pattern telegraph signals at 8 fps, and covered by Level 5 smoke checks for the
+opening, phase-2 and phase-3 cast states. The package remains `Integrated`
+pending remaining action/projectile/presentation art, audio and human
+final-boss review.
+
 **Campaign ending evidence — 2026-08-31:** The smoke suite now triggers the real Level 5 portal callback after boss defeat and proves the run ends before debrief presentation, the debrief is requested exactly once, its one-shot state is recorded, story stage reaches the final act, and the campaign-complete modal opens only after the dialogue queue drains. This closes the sequencing contract for the current greybox; ending art, final audio, platform exports and human tone review remain open.
 
 **Retry and recovery evidence — 2026-08-31:** The smoke suite now deals lethal damage to a live operator, verifies `GameManager.run_active` becomes false, the game pauses, and the game-over modal is visible, then recreates the same level as a retry. The retry resets health and reactivates the mission without replaying the completed one-shot briefing or duplicating its request. Save writes remain disabled inside the test session, so this check cannot mutate a developer profile.

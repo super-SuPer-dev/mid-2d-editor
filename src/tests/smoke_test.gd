@@ -550,6 +550,8 @@ func _validate_levels() -> void:
 			var hydra_cast_visual := boss.get_node("Visual") as Sprite2D
 			_check(str(hydra_cast_visual.texture.resource_path).ends_with("root_hydra_crossfire_cast_strip_normalized_v2.png"), "Level 4 Root Hydra did not bind its crossfire cast animation to the opening pattern.")
 		if level_id == "level_05":
+			var root_core_cast_visual := boss.get_node("Visual") as Sprite2D
+			_check(str(root_core_cast_visual.texture.resource_path).ends_with("root_core_eye_spiral_cast_strip_normalized_v2.png"), "Level 5 Root-Core Eye did not bind its spiral cast animation to the opening pattern.")
 			var pilot_projectile := pattern_runner.active_projectiles[0] as EnemyProjectile
 			var pilot_projectile_visual := pilot_projectile.get_node("Visual") as Sprite2D
 			_check(pilot_projectile_visual.hframes == 4 and pilot_projectile_visual.vframes == 1, "Level 5 Root-Core Eye projectile pilot lost its four-frame grid.")
@@ -565,7 +567,7 @@ func _validate_levels() -> void:
 				_check(boss.boss_phase == expected_phase and pattern_runner.current_phase == expected_phase, "%s did not enter boss phase %d." % [level_id, expected_phase])
 				if level_id == "level_05" and expected_phase == 2:
 					var phase_visual := boss.get_node("Visual") as Sprite2D
-					_check(str(phase_visual.texture.resource_path).ends_with("root_core_eye_idle_exposed_normalized_v2.png"), "Level 5 Root-Core Eye did not expose its phase-2 idle visual.")
+					_check(str(phase_visual.texture.resource_path).ends_with("root_core_eye_aimed_seed_cast_strip_normalized_v2.png"), "Level 5 Root-Core Eye did not bind its phase-2 aimed-seed cast visual.")
 				if level_id == "level_02" and expected_phase == 2:
 					var maw_phase_visual := boss.get_node("Visual") as Sprite2D
 					_check(str(maw_phase_visual.texture.resource_path).ends_with("maw_sovereign_rotating_volley_cast_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not bind its phase-2 rotating-volley visual.")
@@ -584,6 +586,9 @@ func _validate_levels() -> void:
 				if level_id == "level_03" and expected_phase == 2:
 					var banyan_diagonal_visual := boss.get_node("Visual") as Sprite2D
 					_check(str(banyan_diagonal_visual.texture.resource_path).ends_with("possessed_banyan_diagonal_root_cast_strip_normalized_v2.png"), "Level 3 Possessed Banyan did not bind its diagonal-root cast animation.")
+				if level_id == "level_05" and expected_phase == 3:
+					var curtain_visual := boss.get_node("Visual") as Sprite2D
+					_check(str(curtain_visual.texture.resource_path).ends_with("root_core_eye_bract_curtain_cast_strip_normalized_v2.png"), "Level 5 Root-Core Eye did not bind its phase-3 bract-curtain cast visual.")
 				_check(pattern_runner.get_active_projectile_count() == 0, "%s phase %d did not clear active projectiles." % [level_id, expected_phase])
 				_check(int(pattern_runner.current_pattern.get("phase", 0)) == expected_phase, "%s phase %d selected a pattern from the wrong phase." % [level_id, expected_phase])
 				for _phase_frame in range(50):

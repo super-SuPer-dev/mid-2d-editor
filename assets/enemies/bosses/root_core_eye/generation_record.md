@@ -20,6 +20,10 @@
   `root_core_eye_boss`, advances at 10 fps in the pooled projectile visual, and
   resets to the default one-frame projectile contract when reused by another
   boss.
+- During telegraph, `eye_rotating_spirals`, `eye_aimed_rings` and
+  `eye_alternating_curtains` select the matching spiral, aimed-seed and
+  bract-curtain cast strips at 8 fps. These casts use the same 4 × 1000 × 900
+  grid, 840 px baseline, binary alpha and nearest filtering as the idle states.
 - Attack/tell/death body strips, detached projectile art and presentation frames
   remain source candidates for later integration.
 
@@ -33,10 +37,17 @@
 | `assets/enemies/bosses/root_core_eye/root_core_eye_idle_exposed_normalized_v2.png` | `4A8FD045266742FB0DE9B4910B72DA64ECA8A30D89A8890DF7FD2B83EEF92EAC` |
 | `art_source/generated/bosses/root_core_eye/projectiles/root_core_eye_longan_seed_bullet_v1.png` | `F58B016A602DF3EACFE7774604C266A7DD60B87427C42AA9F4A6C6F720C0480D` |
 | `assets/enemies/bosses/root_core_eye/root_core_eye_longan_seed_bullet_normalized_v2.png` | `5604C770CC7EE921F648B3D9E61250522CB0B8E1541BE94448E44BFB02BBB8AA` |
+| `art_source/generated/bosses/root_core_eye/body/root_core_eye_spiral_cast_v1.png` | `58A5B7F2212AEA2911797CB6410CD87096F4A7E52C0C3E7145116C6C9655C55A` |
+| `assets/enemies/bosses/root_core_eye/root_core_eye_spiral_cast_strip_normalized_v2.png` | `C408768230AF7D7001E13AA7856FAE1AC4754D40EBBD1AAF74C45F588786FC2F` |
+| `art_source/generated/bosses/root_core_eye/body/root_core_eye_aimed_seed_cast_v1.png` | `30FD2361DF31C7B8BF7327887287AA37A2582B5E654ECC6D393752DF43C9A766` |
+| `assets/enemies/bosses/root_core_eye/root_core_eye_aimed_seed_cast_strip_normalized_v2.png` | `E98311EBF073D8D72720BC51E6EBF99A2934DE18D39C8FAD31E38BD6121800DA` |
+| `art_source/generated/bosses/root_core_eye/body/root_core_eye_bract_curtain_cast_v1.png` | `BFECD724E2C429AEC494123D050881877DF685A0BF1EC4DAA70BA53CF51B5A9D` |
+| `assets/enemies/bosses/root_core_eye/root_core_eye_bract_curtain_cast_strip_normalized_v2.png` | `097CD82FCB255D23E479178A816FDB188357D7C34DC5515D12919DE738F367D4` |
 
 ## Acceptance status
 
 Technical decode, 4-frame grid, binary-alpha, runtime import, baseline,
-phase-state and pooled-projectile reset checks pass. The package remains below
-`Verified` until human review confirms longan/dragon-fruit identity, final-boss
-scale, phase readability and projectile contrast in the Level 5 nexus scene.
+phase-state, pooled-projectile reset and pattern-signal cast-binding checks
+pass. The package remains below `Verified` until human review confirms the
+longan/dragon-fruit identity, final-boss scale, projectile contrast, cast
+readability and phase presentation in the Level 5 nexus scene.

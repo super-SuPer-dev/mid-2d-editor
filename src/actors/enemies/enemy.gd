@@ -28,6 +28,9 @@ const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard
 const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
 const ROOT_CORE_EYE_SEALED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_sealed_normalized_v2.png")
 const ROOT_CORE_EYE_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_exposed_normalized_v2.png")
+const ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_spiral_cast_strip_normalized_v2.png")
+const ROOT_CORE_EYE_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_aimed_seed_cast_strip_normalized_v2.png")
+const ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_bract_curtain_cast_strip_normalized_v2.png")
 const THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_armored_strip_normalized_v2.png")
 const THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png")
 const THORN_MATRIARCH_FAN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_fan_cast_strip_normalized_v2.png")
@@ -79,6 +82,7 @@ var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
 var root_core_eye_frame_clock: float = 0.0
 var root_core_eye_visual_phase: int = 0
+var root_core_eye_action: StringName = &"idle"
 var thorn_matriarch_frame_clock: float = 0.0
 var thorn_matriarch_visual_phase: int = 0
 var thorn_matriarch_action: StringName = &"idle"
@@ -451,13 +455,22 @@ func _update_eye_wisp_animation(delta: float) -> void:
 func _update_root_core_eye_animation(delta: float) -> void:
 	if enemy_type != "root_core_eye_boss":
 		return
-	if root_core_eye_visual_phase != boss_phase:
+	var desired_texture: Texture2D = ROOT_CORE_EYE_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_CORE_EYE_SEALED_TEXTURE
+	match root_core_eye_action:
+		&"spiral_cast":
+			desired_texture = ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE
+		&"aimed_cast":
+			desired_texture = ROOT_CORE_EYE_AIMED_CAST_TEXTURE
+		&"curtain_cast":
+			desired_texture = ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE
+	if root_core_eye_visual_phase != boss_phase or visual.texture != desired_texture:
 		root_core_eye_visual_phase = boss_phase
-		visual.texture = ROOT_CORE_EYE_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_CORE_EYE_SEALED_TEXTURE
+		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	root_core_eye_frame_clock = fmod(root_core_eye_frame_clock + delta * 3.0, 4.0)
+	var frame_rate := 8.0 if root_core_eye_action != &"idle" else 3.0
+	root_core_eye_frame_clock = fmod(root_core_eye_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(root_core_eye_frame_clock)
 
 
@@ -636,6 +649,14 @@ func _on_pattern_telegraph_started(pattern_id: String) -> void:
 				root_hydra_action = &"radial_ring_cast"
 			_:
 				root_hydra_action = &"lane_wall_cast"
+	if enemy_type == "root_core_eye_boss":
+		match pattern_id:
+			"eye_rotating_spirals":
+				root_core_eye_action = &"spiral_cast"
+			"eye_aimed_rings":
+				root_core_eye_action = &"aimed_cast"
+			_:
+				root_core_eye_action = &"curtain_cast"
 	visual.modulate = Color(1.35, 1.1, 0.72, 1.0)
 
 
@@ -654,4 +675,6 @@ func _on_pattern_recovery_started(_pattern_id: String) -> void:
 		possessed_banyan_action = &"idle"
 	if enemy_type == "root_hydra_boss":
 		root_hydra_action = &"idle"
+	if enemy_type == "root_core_eye_boss":
+		root_core_eye_action = &"idle"
 	visual.modulate = base_visual_modulate.darkened(0.18)
