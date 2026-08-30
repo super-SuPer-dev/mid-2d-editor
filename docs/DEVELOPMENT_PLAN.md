@@ -154,6 +154,14 @@ contract. Smoke coverage checks the grid, baseline and phase transition.
 Remaining cast/death/presentation art, VFX, audio and human boss-feel review
 remain open.
 
+**Thorn-Matriarch cast animation evidence — 2026-08-31:** The Level 1 boss
+now selects generated fan-cast and mine-cast strips from the existing telegraph
+signals for `thorn_fan_three_way` and `thorn_alternating_lanes`. Both 4000 × 900
+strips use four 1000 px cells, an 840 px baseline, binary alpha and nearest
+filtering; smoke coverage verifies the phase-1 and phase-2 bindings without
+changing projectile timing or safe-route rules. Attack/death presentation,
+VFX, audio and human boss-feel review remain open.
+
 **Maw-Sovereign asset promotion evidence — 2026-08-31:** The Level 2 boss now
 uses generated durian/mangosteen armored/exposed idle strips instead of the
 placeholder plant. Both 4000 × 900 runtime strips use four 1000 px cells, an
