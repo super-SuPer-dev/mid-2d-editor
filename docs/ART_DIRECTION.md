@@ -9,9 +9,9 @@ horizon, middle vegetation, and transparent foreground. The reusable scenes
 live under `Scenes/backgrounds/`; layer textures and scroll scales are editable
 directly in the Inspector.
 
-The `art_refs/` boards define the production target. The generated five-biome
+The `art_source/references/` boards define the production target. The generated five-biome
 campaign anchor is stored at
-`art_refs/generated_campaign_style_anchor.png`; its prompt and provenance are
+`art_source/references/generated_campaign_style_anchor.png`; its prompt and provenance are
 recorded beside it. It is a source reference only and must never be imported as
 a runtime background. The game should feel like
 a grounded Thai rural survival story disrupted by alien biology—not a clean

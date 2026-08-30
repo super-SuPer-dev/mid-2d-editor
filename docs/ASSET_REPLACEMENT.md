@@ -49,6 +49,6 @@ Use these animation names consistently: `idle`, `run`, `jump`, `fall`, `dash`,
 `attack`, `hurt`, and `death`. Character gameplay stats should remain in
 `CharacterCatalog`, not inside sprite resources.
 
-Generated art can be stored under `Generated-Assets/` during review. Move only
+Generated art can be stored under `art_source/generated/` during review. Move only
 approved assets into `Assets/` and commit their Godot `.import` metadata with
 the source image.

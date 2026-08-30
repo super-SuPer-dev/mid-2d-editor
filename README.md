@@ -21,9 +21,10 @@ Controls:
 - F2: debug mode
 - F3: invulnerability debug mode
 
-The project separates scripts under `src/` from Godot resources under
-`Scenes/`. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before adding a new
-system or moving scenes.
+The repository layout and source/runtime asset boundary are defined in
+[docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md). See
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before adding a new system or
+moving scenes.
 
 Placeholder visuals are built from Godot polygons and controls. Follow
 [docs/ASSET_REPLACEMENT.md](docs/ASSET_REPLACEMENT.md) when replacing them with
@@ -31,7 +32,7 @@ pixel-art or generated assets.
 
 The active visual direction is documented in
 [docs/ART_DIRECTION.md](docs/ART_DIRECTION.md) and is derived from the boards in
-`art_refs/`. Those boards are reference material, not runtime textures.
+`art_source/references/`. Those boards are reference material, not runtime textures.
 
 ## Smoke test
 
