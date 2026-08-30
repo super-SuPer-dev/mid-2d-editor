@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo3rltx4oqwxe"
-path="res://.godot/imported/esan-farmer.png-1f1b3da0ea0b544cc2f2d5d7d58e4a7a.ctex"
+uid="uid://uano56rcsndu"
+path="res://.godot/imported/rin_sprite_sheet.png-869ac0be8cb883277bc8599dcb3e9229.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Generated-Assets/character/fixed/esan-farmer.png"
-dest_files=["res://.godot/imported/esan-farmer.png-1f1b3da0ea0b544cc2f2d5d7d58e4a7a.ctex"]
+source_file="res://Assets/Characters/Operators/rin_sprite_sheet.png"
+dest_files=["res://.godot/imported/rin_sprite_sheet.png-869ac0be8cb883277bc8599dcb3e9229.ctex"]
 
 [params]
 

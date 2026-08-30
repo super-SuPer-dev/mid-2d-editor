@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bqkmtuiskilj" path="res://src/ui/screens/upgrades.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://Scenes/ui/field_theme.tres" id="2"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/upgrade_row.tscn" id="3"]
-[ext_resource type="Texture2D" uid="uid://wwy3v7kgftlw" path="res://Generated-Assets/Background/ChatGPT Image 13 ส.ค. 2569 12_10_42 (1).png" id="3_qwte7"]
+[ext_resource type="Texture2D" uid="uid://wwy3v7kgftlw" path="res://Assets/Images/UI/Backgrounds/upgrades_background.png" id="3_qwte7"]
 
 [node name="Upgrades" type="Control" unique_id=1757090442]
 texture_filter = 1

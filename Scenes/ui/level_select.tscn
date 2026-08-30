@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://wlcy5jy73brl" path="res://src/ui/screens/level_select.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://Scenes/ui/field_theme.tres" id="2_theme"]
-[ext_resource type="Texture2D" uid="uid://bx8bati65t63p" path="res://Generated-Assets/level selection/1.png" id="3_atlas"]
-[ext_resource type="Texture2D" uid="uid://biyy1uaaujubr" path="res://Generated-Assets/level selection/2.png" id="4_map"]
+[ext_resource type="Texture2D" uid="uid://bx8bati65t63p" path="res://Assets/Images/UI/LevelSelect/level_icon_atlas.png" id="3_atlas"]
+[ext_resource type="Texture2D" uid="uid://biyy1uaaujubr" path="res://Assets/Images/UI/LevelSelect/level_map_background.png" id="4_map"]
 [ext_resource type="Script" uid="uid://cgbov1s5mhsbv" path="res://src/ui/screens/mission_map_path.gd" id="5_path"]
 
 [sub_resource type="AtlasTexture" id="Atlas_title"]

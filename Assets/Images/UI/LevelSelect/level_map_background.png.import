@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c02tfrdibcle2"
-path="res://.godot/imported/ChatGPT Image 12 ส.ค. 2569 21_47_27.png-269cc7393726950f111a24ebaf9d0665.ctex"
+uid="uid://biyy1uaaujubr"
+path="res://.godot/imported/level_map_background.png-231bb3f2e31df09c55fa99c165068d31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Generated-Assets/ChatGPT Image 12 ส.ค. 2569 21_47_27.png"
-dest_files=["res://.godot/imported/ChatGPT Image 12 ส.ค. 2569 21_47_27.png-269cc7393726950f111a24ebaf9d0665.ctex"]
+source_file="res://Assets/Images/UI/LevelSelect/level_map_background.png"
+dest_files=["res://.godot/imported/level_map_background.png-231bb3f2e31df09c55fa99c165068d31.ctex"]
 
 [params]
 

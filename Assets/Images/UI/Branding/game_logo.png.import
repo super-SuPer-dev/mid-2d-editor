@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wwy3v7kgftlw"
-path="res://.godot/imported/ChatGPT Image 13 ส.ค. 2569 12_10_42 (1).png-dbf732a2ad56fbf7acf1c7f86083fe41.ctex"
+uid="uid://b3n8p6ed2s1fj"
+path="res://.godot/imported/game_logo.png-fc1f0305d613e7b73276a280979de81f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Generated-Assets/Background/ChatGPT Image 13 ส.ค. 2569 12_10_42 (1).png"
-dest_files=["res://.godot/imported/ChatGPT Image 13 ส.ค. 2569 12_10_42 (1).png-dbf732a2ad56fbf7acf1c7f86083fe41.ctex"]
+source_file="res://Assets/Images/UI/Branding/game_logo.png"
+dest_files=["res://.godot/imported/game_logo.png-fc1f0305d613e7b73276a280979de81f.ctex"]
 
 [params]
 

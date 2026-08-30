@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bx8bati65t63p"
-path="res://.godot/imported/1.png-4ab90055d4456168adb7837306d976cb.ctex"
+path="res://.godot/imported/level_icon_atlas.png-30b47a971ace36cd1cca585a3e3d6f98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Generated-Assets/level selection/1.png"
-dest_files=["res://.godot/imported/1.png-4ab90055d4456168adb7837306d976cb.ctex"]
+source_file="res://Assets/Images/UI/LevelSelect/level_icon_atlas.png"
+dest_files=["res://.godot/imported/level_icon_atlas.png-30b47a971ace36cd1cca585a3e3d6f98.ctex"]
 
 [params]
 
