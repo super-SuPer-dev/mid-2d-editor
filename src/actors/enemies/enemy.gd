@@ -28,6 +28,8 @@ const THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies
 const THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png")
 const MAW_SOVEREIGN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_armored_strip_normalized_v2.png")
 const MAW_SOVEREIGN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_exposed_strip_normalized_v2.png")
+const POSSESSED_BANYAN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_armored_strip_normalized_v2.png")
+const POSSESSED_BANYAN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_exposed_strip_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
@@ -68,6 +70,8 @@ var thorn_matriarch_frame_clock: float = 0.0
 var thorn_matriarch_visual_phase: int = 0
 var maw_sovereign_frame_clock: float = 0.0
 var maw_sovereign_visual_phase: int = 0
+var possessed_banyan_frame_clock: float = 0.0
+var possessed_banyan_visual_phase: int = 0
 
 
 func configure(type_id: String) -> void:
@@ -172,7 +176,15 @@ func configure(type_id: String) -> void:
 			health.max_health = 24
 			contact_damage = 2
 			detection_range = 700.0
-			visual.modulate = Color("a46aa4")
+			visual.texture = POSSESSED_BANYAN_ARMORED_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual.modulate = Color.WHITE
+			visual.scale = Vector2(0.10, 0.10)
+			# The normalized strip uses an 840 px foot baseline in a 900 px cell.
+			visual.position = Vector2(0.0, -39.0)
 			scale = Vector2(1.8, 1.8)
 		"root_hydra_boss":
 			move_speed = 58.0
@@ -299,6 +311,7 @@ func _physics_process(delta: float) -> void:
 	_update_root_core_eye_animation(delta)
 	_update_thorn_matriarch_animation(delta)
 	_update_maw_sovereign_animation(delta)
+	_update_possessed_banyan_animation(delta)
 
 
 func _update_thornling_animation(delta: float) -> void:
@@ -443,6 +456,19 @@ func _update_maw_sovereign_animation(delta: float) -> void:
 	visual.frame = int(maw_sovereign_frame_clock)
 
 
+func _update_possessed_banyan_animation(delta: float) -> void:
+	if enemy_type != "banyan_boss":
+		return
+	if possessed_banyan_visual_phase != boss_phase:
+		possessed_banyan_visual_phase = boss_phase
+		visual.texture = POSSESSED_BANYAN_EXPOSED_TEXTURE if boss_phase >= 2 else POSSESSED_BANYAN_ARMORED_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	possessed_banyan_frame_clock = fmod(possessed_banyan_frame_clock + delta * 3.0, 4.0)
+	visual.frame = int(possessed_banyan_frame_clock)
+
+
 func _shoot(direction: Vector2) -> void:
 	shoot_cooldown = 1.8
 	var projectile := PROJECTILE_SCENE.instantiate() as EnemyProjectile
@@ -485,6 +511,8 @@ func _update_boss_phase(current_health: int, maximum_health: int) -> void:
 		_update_thorn_matriarch_animation(0.0)
 	if enemy_type == "maw_sovereign_boss":
 		_update_maw_sovereign_animation(0.0)
+	if enemy_type == "banyan_boss":
+		_update_possessed_banyan_animation(0.0)
 
 
 func _on_died() -> void:
