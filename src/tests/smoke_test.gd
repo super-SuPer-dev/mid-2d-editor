@@ -548,11 +548,16 @@ func _validate_levels() -> void:
 				_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s phase %d exceeded its projectile cap." % [level_id, expected_phase])
 		if level_id == "level_01":
 			_check(boss.boss_phase == 1 and pattern_runner.current_phase == 1, "%s boss did not begin in phase 1." % level_id)
+			var thorn_matriarch_visual := boss.get_node("Visual") as Sprite2D
+			_check(thorn_matriarch_visual.hframes == 4 and thorn_matriarch_visual.vframes == 1, "Level 1 Thorn Matriarch pilot lost its four-frame grid.")
+			_check(absf(thorn_matriarch_visual.position.y + 39.0) < 0.01, "Level 1 Thorn Matriarch pilot lost its 840 px baseline offset.")
+			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_idle_armored_strip_normalized_v2.png"), "Level 1 Thorn Matriarch pilot did not begin in its armored visual state.")
 			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 1, "%s boss opened with a pattern from the wrong phase." % level_id)
 			var phase_damage := ceili(float(boss.health.max_health) / float(boss.boss_phase_count))
 			boss.take_damage(phase_damage, Vector2.RIGHT)
 			await get_tree().process_frame
 			_check(boss.boss_phase == 2 and pattern_runner.current_phase == 2, "%s boss health threshold did not activate phase 2." % level_id)
+			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_idle_exposed_strip_normalized_v2.png"), "Level 1 Thorn Matriarch pilot did not expose its phase-2 visual.")
 			_check(GameManager.current_boss_phase == 2 and GameManager.current_boss_phase_count == boss.boss_phase_count, "%s boss phase state did not propagate through GameManager." % level_id)
 			_check(pattern_runner.get_active_projectile_count() == 0, "%s phase transition did not clear active projectiles." % level_id)
 			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 2, "%s phase 2 selected a pattern from the wrong phase." % level_id)

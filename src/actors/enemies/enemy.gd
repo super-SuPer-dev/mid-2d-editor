@@ -24,6 +24,8 @@ const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard
 const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
 const ROOT_CORE_EYE_SEALED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_sealed_normalized_v2.png")
 const ROOT_CORE_EYE_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_exposed_normalized_v2.png")
+const THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_armored_strip_normalized_v2.png")
+const THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
@@ -60,6 +62,8 @@ var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
 var root_core_eye_frame_clock: float = 0.0
 var root_core_eye_visual_phase: int = 0
+var thorn_matriarch_frame_clock: float = 0.0
+var thorn_matriarch_visual_phase: int = 0
 
 
 func configure(type_id: String) -> void:
@@ -201,13 +205,15 @@ func configure(type_id: String) -> void:
 			health.max_health = 28
 			contact_damage = 2
 			detection_range = 760.0
-			visual.modulate = Color("bd6b72")
-			visual.texture = THORN_MATRIARCH_TEXTURE
+			visual.texture = THORN_MATRIARCH_ARMORED_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.055, 0.055)
-			# The source has transparent lower padding; offset the visible root baseline
-			# to the floor while the compact collision body remains stable.
-			visual.position = Vector2(0.0, -3.0)
+			visual.scale = Vector2(0.10, 0.10)
+			# The normalized strip uses an 840 px foot baseline in a 900 px cell.
+			visual.position = Vector2(0.0, -39.0)
 			scale = Vector2(1.9, 1.9)
 		"maw_sovereign_boss":
 			move_speed = 64.0
@@ -279,6 +285,7 @@ func _physics_process(delta: float) -> void:
 	_update_root_hydra_animation(delta)
 	_update_eye_wisp_animation(delta)
 	_update_root_core_eye_animation(delta)
+	_update_thorn_matriarch_animation(delta)
 
 
 func _update_thornling_animation(delta: float) -> void:
@@ -397,6 +404,19 @@ func _update_root_core_eye_animation(delta: float) -> void:
 	visual.frame = int(root_core_eye_frame_clock)
 
 
+func _update_thorn_matriarch_animation(delta: float) -> void:
+	if enemy_type != "thorn_matriarch_boss":
+		return
+	if thorn_matriarch_visual_phase != boss_phase:
+		thorn_matriarch_visual_phase = boss_phase
+		visual.texture = THORN_MATRIARCH_EXPOSED_TEXTURE if boss_phase >= 2 else THORN_MATRIARCH_ARMORED_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	thorn_matriarch_frame_clock = fmod(thorn_matriarch_frame_clock + delta * 3.0, 4.0)
+	visual.frame = int(thorn_matriarch_frame_clock)
+
+
 func _shoot(direction: Vector2) -> void:
 	shoot_cooldown = 1.8
 	var projectile := PROJECTILE_SCENE.instantiate() as EnemyProjectile
@@ -435,6 +455,8 @@ func _update_boss_phase(current_health: int, maximum_health: int) -> void:
 	GameManager.update_boss_phase(boss_phase, boss_phase_count)
 	if enemy_type == "root_core_eye_boss":
 		_update_root_core_eye_animation(0.0)
+	if enemy_type == "thorn_matriarch_boss":
+		_update_thorn_matriarch_animation(0.0)
 
 
 func _on_died() -> void:
