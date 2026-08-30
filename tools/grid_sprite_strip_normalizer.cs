@@ -12,7 +12,8 @@ public static class GridSpriteStripNormalizer
         int cellHeight,
         int baselineY,
         string verticalAlignment,
-        int alphaThreshold)
+        int alphaThreshold,
+        bool quantizeAlpha)
     {
         using var source = new Bitmap(inputPath);
         using var output = new Bitmap(
@@ -41,7 +42,8 @@ public static class GridSpriteStripNormalizer
                 for (int x = sourceLeft; x < sourceRight; x++)
                 {
                     byte alpha = source.GetPixel(x, y).A;
-                    if (alpha == 0)
+                    bool included = quantizeAlpha ? alpha >= alphaThreshold : alpha > 0;
+                    if (!included)
                         continue;
                     minX = Math.Min(minX, x);
                     minY = Math.Min(minY, y);
@@ -74,6 +76,16 @@ public static class GridSpriteStripNormalizer
                     Color pixel = source.GetPixel(x, y);
                     if (pixel.A == 0)
                         continue;
+                    if (quantizeAlpha)
+                    {
+                        pixel = Color.FromArgb(
+                            pixel.A >= alphaThreshold ? 255 : 0,
+                            pixel.R,
+                            pixel.G,
+                            pixel.B);
+                        if (pixel.A == 0)
+                            continue;
+                    }
                     output.SetPixel(
                         destinationLeft + x - minX,
                         destinationTop + y - minY,

@@ -430,6 +430,16 @@ func _validate_levels() -> void:
 			_check(physical_trigger_tested, "Level 1 irrigation gate did not start from physical player overlap.")
 			_check(assigned_threats == expected_enemies, "Level 1 encounter gates do not assign every threat exactly once.")
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
+		if level_id == "level_04":
+			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
+			var root_skitter_visual := root_skitter.get_node("Visual") as Sprite2D
+			_check(root_skitter_visual.hframes == 4 and root_skitter_visual.vframes == 1, "Level 4 root-skitter pilot lost its four-frame grid.")
+			_check(absf(root_skitter_visual.position.y + 17.0) < 0.01, "Level 4 root-skitter pilot lost its 740 px baseline offset.")
+			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_idle_strip_normalized_v2.png") or str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_scuttle_strip_normalized_v2.png"), "Level 4 root-skitter pilot is not using the promoted runtime texture.")
+			var pilot_frame := root_skitter_visual.frame
+			for _pilot_frame in range(8):
+				await get_tree().physics_frame
+			_check(root_skitter_visual.frame != pilot_frame or root_skitter_visual.texture.resource_path.ends_with("root_skitter_scuttle_strip_normalized_v2.png"), "Level 4 root-skitter pilot frame did not advance.")
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)

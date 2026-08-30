@@ -9,6 +9,8 @@ const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
 const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png")
 const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
 const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
+const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
+const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
@@ -30,6 +32,8 @@ var pattern_attack_locked: bool = false
 var boss_phase: int = 1
 var boss_phase_count: int = 1
 var base_visual_modulate: Color = Color.WHITE
+var root_skitter_action: StringName = &"idle"
+var root_skitter_frame_clock: float = 0.0
 
 
 func configure(type_id: String) -> void:
@@ -62,8 +66,15 @@ func configure(type_id: String) -> void:
 		"root_skitter":
 			move_speed = 110.0
 			health.max_health = 4
-			visual.modulate = Color("69a96d")
+			visual.texture = ROOT_SKITTER_IDLE_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual.modulate = Color.WHITE
 			visual.scale = Vector2(0.05, 0.05)
+			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
+			visual.position = Vector2(0.0, -17.0)
 		"marsh_spitter":
 			move_speed = 28.0
 			health.max_health = 6
@@ -186,6 +197,23 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0.0, 500.0 * delta)
 	visual.scale.x = absf(visual.scale.x) * facing
 	move_and_slide()
+	_update_root_skitter_animation(delta)
+
+
+func _update_root_skitter_animation(delta: float) -> void:
+	if enemy_type != "root_skitter":
+		return
+	var next_action: StringName = &"scuttle" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"
+	if next_action != root_skitter_action:
+		root_skitter_action = next_action
+		root_skitter_frame_clock = 0.0
+		visual.texture = ROOT_SKITTER_SCUTTLE_TEXTURE if next_action == &"scuttle" else ROOT_SKITTER_IDLE_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+	var frame_rate := 8.0 if next_action == &"scuttle" else 5.5
+	root_skitter_frame_clock = fmod(root_skitter_frame_clock + delta * frame_rate, 4.0)
+	visual.frame = int(root_skitter_frame_clock)
 
 
 func _shoot(direction: Vector2) -> void:

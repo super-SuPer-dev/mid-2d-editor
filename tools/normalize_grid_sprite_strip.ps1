@@ -12,7 +12,8 @@ param(
     [ValidateSet('Bottom', 'Center')]
     [string]$VerticalAlignment = 'Center',
     [ValidateRange(1, 255)]
-    [int]$AlphaThreshold = 128
+    [int]$AlphaThreshold = 128,
+    [switch]$QuantizeAlpha
 )
 
 $ErrorActionPreference = 'Stop'
@@ -41,7 +42,8 @@ $report = [GridSpriteStripNormalizer]::Normalize(
     $CellHeight,
     $BaselineY,
     $VerticalAlignment,
-    $AlphaThreshold
+    $AlphaThreshold,
+    [bool]$QuantizeAlpha
 )
 
 Write-Output "$resolvedOutput | $report"
