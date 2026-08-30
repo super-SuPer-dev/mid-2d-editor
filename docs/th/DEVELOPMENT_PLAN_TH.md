@@ -12,12 +12,12 @@
 
 | ด้าน | มีแล้ว | ช่องว่างก่อนวางจำหน่าย |
 |---|---|---|
-| การเล่น | วิ่ง กระโดด แดช โจมตี damage pickup quota portal | mission phase และ boss lifecycle มาตรฐาน |
+| การเล่น | วิ่ง กระโดด แดช โจมตี damage pickup quota mission controller 3 phase, boss lifecycle แบบ gated และ extraction | ปรับ encounter ทั้งแคมเปญ, ทดสอบ retry/recovery, accessibility และ feel บน platform วางจำหน่าย |
 | แคมเปญ | 3 ด่าน | ปรับด่าน 1–3 และสร้างด่าน 4–5 |
 | เจ้าหน้าที่ | 4 คน ใช้ระบบร่วม | passive, Mastery, animation production set |
-| ศัตรู/บอส | behavior ศัตรู 3 แบบและบอสขยายชั่วคราว | ศัตรูอีก 3 ตระกูล roster เฉพาะ biome และบอสเฉพาะ 5 ตัว |
+| ศัตรู/บอส | behavior ศัตรู 3 แบบ, Thorn Matriarch 2 phase ตาม HP และข้อมูล phase/pattern/cap แบบ pooled ของบอส 5 ตัวผ่าน validator | ศัตรูอีก 3 ตระกูล, roster เฉพาะ biome และ behavior/art/animation/hazard/tuning ของบอสเฉพาะ 5 ตัวพร้อม human feel approval |
 | Progression | implement Base Technology, Operator Mastery, save schema v2, migration ID/track เก่า และการเลื่อน story stage แล้ว | ปรับ economy/milestone, ทดสอบ recovery และตรวจ persistence ตลอดแคมเปญ |
-| Story/Localization | มี English-default/live switching/fallback, ตารางสองภาษา 3 ชุด, dialogue/story state และ scene default ที่ใช้ localization key เท่านั้นพร้อม validator | pseudo-localization, human Thai review และหลักฐาน parity บน Windows/Web |
+| Story/Localization | มี English-default/live switching/fallback, ตารางสองภาษา 3 ชุด, briefing/radio/boss/debrief แบบ data-driven พร้อม one-shot state และตรวจ runtime handoff ด่าน 1 แล้ว | เติมเนื้อเรื่องด่าน 2–5, ตรวจ trigger/pacing, pseudo-localization, human Thai/story review และหลักฐาน parity บน Windows/Web |
 | ภาพ/เสียง | สำรวจ generated PNG 474 ไฟล์และเปิดได้ 474/474 แต่ normalized candidate ทั้ง 188 ไฟล์ไม่ผ่าน hard-edge alpha gate; runtime ยังมี placeholder มาก | แก้/คัดเลือก candidate, ตรวจ grid/animation ราย package, integrate งานที่อนุมัติ แล้วตรวจภาพและ memory บน Windows/Web; เพลงและ ~40 SFX |
 | QA | smoke test แบบไม่เขียน save จริงครอบคลุม 4 ตัวละคร, catalog/story reference 5 ด่าน, runtime 3 ด่าน, boss pattern, migration v1→v2, one-shot state และ language fallback | runtime ด่าน 4–5, retry/recovery, pseudo-localization, export, performance และ soak |
 
@@ -65,6 +65,8 @@ redesign Contaminated Grassland ให้มีสามช่วงก่อน
 **ออก Gate:** เล่นตั้งแต่ briefing ถึง debrief บน Windows/Web ใน 5–7 นาที movement/melee response, enemy placement, atmosphere และ boss punish window ถึงมาตรฐาน reference หลักโดยไม่ลอก protected expression ไม่มีทางเดินว่างหรือยืด combat, Thornling เงาะ, Spitter มะกรูด และ Thorn Matriarch พิสูจน์มาตรฐานเอกลักษณ์ผลไม้ไทยในขนาด gameplay, safe route/projectile cap ผ่าน และได้มาตรฐานภาพ/เสียง/UI/เรื่อง/บอสที่อนุมัติ ไม่มี P0/P1
 
 **ความคืบหน้า implementation — 2026-08-30:** ขยาย route ด่าน 1 จาก 2,700 เป็น 4,300 px และเพิ่ม encounter gate ใช้ซ้ำได้ 3 ช่วงโดยแบ่งภัยคุกคาม 2/3/3 รวมศัตรูมาตรฐาน 8 ตัว platform 9 จุด thorn hazard 4 จุด sample 6 ชิ้น และ pacing budget 375 วินาที Test อัตโนมัติยืนยันการ assign ศัตรูไม่ซ้ำ การ activate จาก player overlap จริง การเปิด barrier, quota → boss → extraction, projectile cleanup และระยะก้าวกระโดด Godot MCP live play ยืนยัน gate แรกปลุก Thornling ทั้งสองตัวแล้ว Thorn Matriarch ใช้สัญญา 2 phase ตามพลังชีวิต: phase 1 ใช้ fan สามทางที่อ่านง่าย เมื่อเหลือครึ่งชีวิตจึงเริ่ม phase alternating lane โดยล้างกระสุนของบอสทั้งหมดก่อน telegraph ใหม่ และ HUD สองภาษาแสดง phase ปัจจุบัน Smoke suite ตรวจการเลือก pattern ตาม phase, การส่ง state ผ่าน GameManager, cleanup ตอนเปลี่ยน phase, การยิงใน phase 2, cap, shutdown และ defeat ส่วน Godot MCP live inspection ยืนยัน `Phase 1/2 → Phase 2/2` พร้อมกระสุน active เป็นศูนย์ตรงจุดเปลี่ยน ยังต้อง timed human playtest 5–7 นาที, final art/animation, เพลง/SFX, หลักฐาน Windows/Web, การอนุมัติ safe route/punish window และ human feel review ก่อนปิด Gate 2
+
+**หลักฐาน narrative handoff — 2026-08-30:** Radio ตาม quota ทั้ง 3 sequence ของด่าน 1 ถูก request ครั้งเดียวตามลำดับ canonical และไม่ pause เกม เมื่อหลายสายเข้า queue พร้อมกัน Thorn Matriarch และ projectile runner จะยังปิดอยู่จน radio queue เดินถึง boss introduction และผู้เล่นจบ introduction นั้น HUD ก่อนสู้ถูก initialize ด้วยพลังชีวิตเต็มและสัญญา `Phase 1/2` ที่ถูกต้องแทนค่า default เก่า Test อัตโนมัติตรวจลำดับ การซ้ำ pause state การไม่ activate ก่อน intro ข้อมูล HUD preview และการ activate หลัง intro ครบทุกด่านที่ implement แล้ว Godot MCP live inspection ยืนยัน radio แบบ compact ที่ `Threats 2/8` จากนั้น boss introduction แบบ pause ขณะบอสยังไม่ทำงาน พลังชีวิตเต็มและแสดง `Phase 1/2`; เมื่อจบ introduction ทั้งบอสและ runner จึง active
 
 ### Gate 3 — ปรับด่าน 2–3
 

@@ -225,6 +225,9 @@ func _validate_levels() -> void:
 	for level_id in GAME_LEVELS:
 		get_tree().paused = false
 		GameManager.start_level(level_id)
+		var requested_sequences: Array[String] = []
+		var capture_sequence := func(sequence_id: String) -> void: requested_sequences.append(sequence_id)
+		StoryManager.sequence_requested.connect(capture_sequence)
 		var level: Node = GAME_LEVELS[level_id].instantiate()
 		add_child(level)
 		await get_tree().process_frame
@@ -242,6 +245,8 @@ func _validate_levels() -> void:
 				enemy_count += 1
 				_check(enemy.enemy_type in LevelCatalog.get_level(level_id).get("enemy_roster", []), "%s spawned enemy type %s outside its roster." % [level_id, enemy.enemy_type])
 		var player_count := get_tree().get_nodes_in_group("Player").size()
+		var boss := level.get_node("Enemies").get_children().filter(func(node: Node) -> bool: return node is EnemyController and node.is_boss)[0] as EnemyController
+		var pattern_runner := boss.get_node("BossProjectilePatternRunner") as BossProjectilePatternRunner
 		if level_id == "level_01":
 			var encounter_gates := level.get_node_or_null("EncounterGates")
 			_check(encounter_gates != null and encounter_gates.get_child_count() == 3, "Level 1 does not contain three encounter gates.")
@@ -291,10 +296,23 @@ func _validate_levels() -> void:
 		_check(GameManager.mission_phase == GameManager.PHASE_BOSS_ACTIVE, "%s did not enter the boss phase." % level_id)
 		var portal := level.get_node_or_null("Portal") as ExitPortal
 		_check(portal != null and not portal.active, "%s portal activated before boss defeat." % level_id)
-		if dialogue.visible:
-			dialogue._on_skip_pressed()
-		var boss := level.get_node("Enemies").get_children().filter(func(node: Node) -> bool: return node is EnemyController and node.is_boss)[0] as EnemyController
-		var pattern_runner := boss.get_node("BossProjectilePatternRunner") as BossProjectilePatternRunner
+		var current_level_data := LevelCatalog.get_level(level_id)
+		var expected_story_order: Array = current_level_data.get("radio_sequences", []).duplicate()
+		expected_story_order.append(str(current_level_data.get("boss_sequence", "")))
+		var previous_story_index := -1
+		for expected_sequence: Variant in expected_story_order:
+			var sequence_id := str(expected_sequence)
+			var story_index := requested_sequences.find(sequence_id)
+			_check(story_index > previous_story_index, "%s did not request radio and boss sequences in canonical order at %s." % [level_id, sequence_id])
+			_check(requested_sequences.count(sequence_id) == 1, "%s requested %s more than once." % [level_id, sequence_id])
+			previous_story_index = story_index
+		_check(not get_tree().paused, "%s radio dialogue paused gameplay." % level_id)
+		_check(not boss.combat_active and not pattern_runner.active, "%s boss activated before its queued introduction completed." % level_id)
+		_check(GameManager.current_boss_phase == boss.boss_phase and GameManager.current_boss_phase_count == boss.boss_phase_count, "%s boss preview exposed the wrong phase contract." % level_id)
+		var level_hud := level.get_node("HUD") as GameHUD
+		_check(int(level_hud.boss_health.value) == boss.health.current_health and int(level_hud.boss_health.max_value) == boss.health.max_health, "%s boss preview exposed stale health." % level_id)
+		await _drain_dialogue(dialogue)
+		_check(boss.combat_active and pattern_runner.active, "%s boss did not activate after its introduction completed." % level_id)
 		_check(pattern_runner.active, "%s boss projectile runner did not activate." % level_id)
 		_check(pattern_runner.projectile_cap == int(LevelCatalog.get_level(level_id)["projectile_cap"]), "%s boss projectile runner ignored its cap." % level_id)
 		for _frame in range(50):
@@ -329,12 +347,26 @@ func _validate_levels() -> void:
 		_check(get_tree().get_nodes_in_group("BossProjectile").is_empty(), "%s boss projectiles survived boss defeat." % level_id)
 		_check(GameManager.mission_phase == GameManager.PHASE_EXTRACTION, "%s did not enter extraction." % level_id)
 		_check(portal != null and portal.active, "%s exit portal did not activate after boss defeat." % level_id)
+		StoryManager.sequence_requested.disconnect(capture_sequence)
 		level.queue_free()
 		await get_tree().process_frame
 		await get_tree().process_frame
 		await get_tree().process_frame
 	GameManager.reset_run()
 	get_tree().paused = false
+
+
+func _drain_dialogue(dialogue: DialogueOverlay) -> void:
+	var guard := 0
+	while dialogue.visible or not dialogue.pending_sequences.is_empty():
+		if dialogue.visible:
+			dialogue._on_skip_pressed()
+		await get_tree().process_frame
+		await get_tree().process_frame
+		guard += 1
+		if guard >= 12:
+			_check(false, "Dialogue queue did not drain within its safety limit.")
+			return
 
 
 func _validate_jump_routes(level_id: String, world_geometry: Node) -> void:

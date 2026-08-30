@@ -36,7 +36,7 @@ layouts with `new()` and `add_child()`.
 - `LocalizationManager` loads the English/Thai CSV tables, applies the live
   locale, and provides deterministic English fallback.
 - `StoryManager` tracks one-shot sequences and campaign act state; reusable
-  presentation is owned by `DialogueOverlay`.
+  presentation and FIFO sequence queuing are owned by `DialogueOverlay`.
 - `SceneManager` owns navigation and always clears pause state during changes.
 - `AudioManager` is the stable entry point for UI and future gameplay audio.
 
@@ -52,8 +52,10 @@ layouts with `new()` and `add_child()`.
 - `scenes/levels/level_01.tscn` through `level_03.tscn` contain the actual
   environment, platforms, collisions, hazards, enemies, pickups, player spawn,
   and exit as native editor-visible Godot nodes.
-- `LevelController` only connects gameplay behavior and mission state. It does
-  not construct the world.
+- `LevelController` only connects gameplay behavior, quota-driven radio beats,
+  narrative handoff, and mission state. It does not construct the world. Boss
+  combat remains disabled while radio calls or the boss introduction are
+  pending, and activates only when the matching introduction completes.
 
 ## Gameplay contracts
 

@@ -8,6 +8,7 @@ var level_data: Dictionary
 var mission_ended: bool = false
 var boss: EnemyController
 var triggered_radio_count: int = 0
+var pending_boss_sequence_id: String = ""
 
 
 func _ready() -> void:
@@ -22,6 +23,7 @@ func _ready() -> void:
 	GameManager.objective_changed.connect(_on_objective_changed)
 	GameManager.mission_phase_changed.connect(_on_mission_phase_changed)
 	GameManager.boss_requested.connect(_on_boss_requested)
+	StoryManager.sequence_completed.connect(_on_sequence_completed)
 	boss = _find_level_boss()
 	if is_instance_valid(boss):
 		boss.set_combat_active(GameManager.mission_phase == GameManager.PHASE_BOSS_ACTIVE)
@@ -51,10 +53,26 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 
 func _on_boss_requested(_boss_id: String, _boss_name_key: String) -> void:
 	if is_instance_valid(boss):
-		boss.set_combat_active(true)
+		boss.set_combat_active(false)
+		GameManager.update_boss_health(boss.health.current_health, boss.health.max_health)
+		GameManager.update_boss_phase(boss.boss_phase, boss.boss_phase_count)
 	var sequence_id := str(level_data.get("boss_sequence", ""))
-	if not sequence_id.is_empty():
-		StoryManager.request_sequence(sequence_id, true)
+	if sequence_id.is_empty() or not StoryManager.request_sequence(sequence_id, true):
+		_activate_boss_combat()
+		return
+	pending_boss_sequence_id = sequence_id
+
+
+func _on_sequence_completed(completed_sequence_id: String) -> void:
+	if pending_boss_sequence_id.is_empty() or completed_sequence_id != pending_boss_sequence_id:
+		return
+	pending_boss_sequence_id = ""
+	_activate_boss_combat()
+
+
+func _activate_boss_combat() -> void:
+	if GameManager.mission_phase == GameManager.PHASE_BOSS_ACTIVE and is_instance_valid(boss):
+		boss.set_combat_active(true)
 
 
 func _find_level_boss() -> EnemyController:
@@ -68,6 +86,7 @@ func _on_player_died() -> void:
 	if mission_ended:
 		return
 	mission_ended = true
+	pending_boss_sequence_id = ""
 	if is_instance_valid(boss):
 		boss.set_combat_active(false)
 	GameManager.finish_run(false)
