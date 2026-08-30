@@ -31,6 +31,9 @@ const THORN_MATRIARCH_FAN_CAST_TEXTURE: Texture2D = preload("res://assets/enemie
 const THORN_MATRIARCH_MINE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_normalized_v2.png")
 const MAW_SOVEREIGN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_armored_strip_normalized_v2.png")
 const MAW_SOVEREIGN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_exposed_strip_normalized_v2.png")
+const MAW_SOVEREIGN_SPORE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_spore_cast_strip_normalized_v2.png")
+const MAW_SOVEREIGN_ROTATING_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_rotating_volley_cast_strip_normalized_v2.png")
+const MAW_SOVEREIGN_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_aimed_volley_cast_strip_normalized_v2.png")
 const POSSESSED_BANYAN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_armored_strip_normalized_v2.png")
 const POSSESSED_BANYAN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_exposed_strip_normalized_v2.png")
 
@@ -75,6 +78,7 @@ var thorn_matriarch_visual_phase: int = 0
 var thorn_matriarch_action: StringName = &"idle"
 var maw_sovereign_frame_clock: float = 0.0
 var maw_sovereign_visual_phase: int = 0
+var maw_sovereign_action: StringName = &"idle"
 var possessed_banyan_frame_clock: float = 0.0
 var possessed_banyan_visual_phase: int = 0
 
@@ -463,13 +467,22 @@ func _update_thorn_matriarch_animation(delta: float) -> void:
 func _update_maw_sovereign_animation(delta: float) -> void:
 	if enemy_type != "maw_sovereign_boss":
 		return
-	if maw_sovereign_visual_phase != boss_phase:
+	var desired_texture: Texture2D = MAW_SOVEREIGN_EXPOSED_TEXTURE if boss_phase >= 2 else MAW_SOVEREIGN_ARMORED_TEXTURE
+	match maw_sovereign_action:
+		&"spore_cast":
+			desired_texture = MAW_SOVEREIGN_SPORE_CAST_TEXTURE
+		&"rotating_cast":
+			desired_texture = MAW_SOVEREIGN_ROTATING_CAST_TEXTURE
+		&"aimed_cast":
+			desired_texture = MAW_SOVEREIGN_AIMED_CAST_TEXTURE
+	if maw_sovereign_visual_phase != boss_phase or visual.texture != desired_texture:
 		maw_sovereign_visual_phase = boss_phase
-		visual.texture = MAW_SOVEREIGN_EXPOSED_TEXTURE if boss_phase >= 2 else MAW_SOVEREIGN_ARMORED_TEXTURE
+		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	maw_sovereign_frame_clock = fmod(maw_sovereign_frame_clock + delta * 3.0, 4.0)
+	var frame_rate := 8.0 if maw_sovereign_action != &"idle" else 3.0
+	maw_sovereign_frame_clock = fmod(maw_sovereign_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(maw_sovereign_frame_clock)
 
 
@@ -583,6 +596,14 @@ func _on_pattern_telegraph_started(pattern_id: String) -> void:
 	velocity.x = 0.0
 	if enemy_type == "thorn_matriarch_boss":
 		thorn_matriarch_action = &"fan_cast" if pattern_id == "thorn_fan_three_way" else &"mine_cast"
+	if enemy_type == "maw_sovereign_boss":
+		match pattern_id:
+			"maw_spore_rain":
+				maw_sovereign_action = &"spore_cast"
+			"maw_rotating_five_way":
+				maw_sovereign_action = &"rotating_cast"
+			_:
+				maw_sovereign_action = &"aimed_cast"
 	visual.modulate = Color(1.35, 1.1, 0.72, 1.0)
 
 
@@ -595,4 +616,6 @@ func _on_pattern_recovery_started(_pattern_id: String) -> void:
 	pattern_attack_locked = false
 	if enemy_type == "thorn_matriarch_boss":
 		thorn_matriarch_action = &"idle"
+	if enemy_type == "maw_sovereign_boss":
+		maw_sovereign_action = &"idle"
 	visual.modulate = base_visual_modulate.darkened(0.18)

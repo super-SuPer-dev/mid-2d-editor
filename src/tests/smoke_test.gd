@@ -540,6 +540,9 @@ func _validate_levels() -> void:
 		if level_id == "level_01":
 			var thorn_cast_visual := boss.get_node("Visual") as Sprite2D
 			_check(str(thorn_cast_visual.texture.resource_path).ends_with("thorn_matriarch_fan_cast_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not bind its fan-cast animation to the opening pattern.")
+		if level_id == "level_02":
+			var maw_cast_visual := boss.get_node("Visual") as Sprite2D
+			_check(str(maw_cast_visual.texture.resource_path).ends_with("maw_sovereign_spore_cast_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not bind its spore-cast animation to the opening pattern.")
 		if level_id == "level_05":
 			var pilot_projectile := pattern_runner.active_projectiles[0] as EnemyProjectile
 			var pilot_projectile_visual := pilot_projectile.get_node("Visual") as Sprite2D
@@ -559,13 +562,19 @@ func _validate_levels() -> void:
 					_check(str(phase_visual.texture.resource_path).ends_with("root_core_eye_idle_exposed_normalized_v2.png"), "Level 5 Root-Core Eye did not expose its phase-2 idle visual.")
 				if level_id == "level_02" and expected_phase == 2:
 					var maw_phase_visual := boss.get_node("Visual") as Sprite2D
-					_check(str(maw_phase_visual.texture.resource_path).ends_with("maw_sovereign_idle_exposed_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not expose its phase-2 idle visual.")
+					_check(str(maw_phase_visual.texture.resource_path).ends_with("maw_sovereign_rotating_volley_cast_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not bind its phase-2 rotating-volley visual.")
 				if level_id == "level_03" and expected_phase == 2:
 					var banyan_phase_visual := boss.get_node("Visual") as Sprite2D
 					_check(str(banyan_phase_visual.texture.resource_path).ends_with("possessed_banyan_idle_exposed_strip_normalized_v2.png"), "Level 3 Possessed Banyan did not expose its phase-2 idle visual.")
 				if level_id == "level_04" and expected_phase == 2:
 					var hydra_phase_visual := boss.get_node("Visual") as Sprite2D
 					_check(str(hydra_phase_visual.texture.resource_path).ends_with("root_hydra_idle_exposed_strip_normalized_v2.png"), "Level 4 Root Hydra did not expose its phase-2 idle visual.")
+				if level_id == "level_02" and expected_phase == 2:
+					var maw_rotating_visual := boss.get_node("Visual") as Sprite2D
+					_check(str(maw_rotating_visual.texture.resource_path).ends_with("maw_sovereign_rotating_volley_cast_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not bind its rotating-volley cast animation.")
+				if level_id == "level_02" and expected_phase == 3:
+					var maw_aimed_visual := boss.get_node("Visual") as Sprite2D
+					_check(str(maw_aimed_visual.texture.resource_path).ends_with("maw_sovereign_aimed_volley_cast_strip_normalized_v2.png"), "Level 2 Maw Sovereign did not bind its aimed-volley cast animation.")
 				_check(pattern_runner.get_active_projectile_count() == 0, "%s phase %d did not clear active projectiles." % [level_id, expected_phase])
 				_check(int(pattern_runner.current_pattern.get("phase", 0)) == expected_phase, "%s phase %d selected a pattern from the wrong phase." % [level_id, expected_phase])
 				for _phase_frame in range(50):

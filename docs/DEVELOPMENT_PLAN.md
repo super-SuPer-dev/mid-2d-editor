@@ -171,6 +171,14 @@ spore/ring/aimed projectile contract. Smoke coverage checks the grid, baseline
 and phase transition. Remaining cast/death/projectile/presentation art, VFX,
 audio and human boss-feel review remain open.
 
+**Maw-Sovereign cast animation evidence — 2026-08-31:** The Level 2 boss now
+selects generated spore, rotating-volley and aimed-volley strips from the
+existing telegraph signals for `maw_spore_rain`, `maw_rotating_five_way` and
+`maw_aimed_seed_burst`. All three 4000 × 900 strips use four 1000 px cells, an
+840 px baseline, binary alpha and nearest filtering; smoke coverage verifies
+all three phase bindings without changing projectile timing or safe-route rules.
+Death/presentation art, VFX, audio and human boss-feel review remain open.
+
 **Possessed-Banyan asset promotion evidence — 2026-08-31:** The Level 3 boss
 now uses generated jackfruit/banyan armored/exposed idle strips instead of the
 placeholder plant. Both 4000 × 900 runtime strips use four 1000 px cells, an
