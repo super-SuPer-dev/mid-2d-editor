@@ -40,10 +40,12 @@ Run the repository structure checks before opening a pull request:
 
 ```powershell
 ./tools/validate_project_structure.ps1
+./tools/validate_localization.ps1
 ```
 
 The validator rejects missing `res://` targets, source-art imports, recovery
-files, legacy path casing, and nonconforming runtime names.
+files, legacy path casing, and nonconforming runtime names. The localization
+check rejects missing English/Thai text, duplicate keys, and placeholder drift.
 
 ## Smoke test
 

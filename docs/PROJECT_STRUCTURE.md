@@ -93,6 +93,13 @@ Each structure change is committed separately and must include:
 - smoke-test result, including any pre-existing failure explicitly identified;
 - no unrelated editor, addon, or user changes staged.
 
-The current cleanup sequence is: promote live generated assets, isolate source
-art, normalize top-level runtime directory casing, consolidate legacy/empty
-folders, then perform a full import and reference audit.
+## Completed migration checkpoints
+
+- `0d1442a` promoted live generated art into stable runtime destinations.
+- `b03e9be` isolated source candidates and references under `art_source/`.
+- `b3770e9` normalized runtime directory casing for case-sensitive exports.
+- `8a49601` archived unreferenced legacy art and added structure enforcement.
+
+Run `tools/validate_project_structure.ps1` and
+`tools/validate_localization.ps1` before the Godot smoke scene. These checks are
+the required baseline for subsequent feature and content branches.
