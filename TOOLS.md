@@ -218,6 +218,21 @@ Calls take the form:
 | `client_manage` | `status`, `configure`, `remove` |
 | `tilemap_manage` | `tilemap_set_cell`, `tilemap_set_cells_rect`, `tilemap_clear`, `tilemap_get_cells` |
 | `tileset_manage` | `tileset_get_atlas_tiles`, `tileset_get_atlas_image` |
+
+## Repository validation scripts
+
+Run these from the repository root with the bundled PowerShell runtime:
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\\tools\\validate_localization.ps1
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\\tools\\validate_project_structure.ps1
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\\tools\\validate_generated_assets.ps1 -AlphaSampleStride 8 -NormalizedAlphaSampleStride 2
+```
+
+`validate_generated_assets.ps1` is an English-only source audit. It checks PNG
+decode/dimensions, normalized-strip geometry and nearby provenance, and reports
+soft-alpha warnings without promoting candidates. Use `-StrictSoftAlpha` for a
+package that is expected to satisfy the binary-alpha production gate.
 | `gridmap_manage` | `gridmap_set_item`, `gridmap_fill`, `gridmap_clear`, `gridmap_get_used_cells`, `gridmap_list_library_items` |
 | `csg_manage` | `csg_create`, `csg_set_operation` |
 | `custom_manage` | `list`, `invoke` |
