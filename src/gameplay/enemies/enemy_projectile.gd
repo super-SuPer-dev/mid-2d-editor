@@ -1,7 +1,12 @@
 class_name EnemyProjectile
 extends Area2D
 
+const DEFAULT_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/world/shared/spore_projectile.png")
+
 signal retired(projectile: EnemyProjectile)
+
+@onready var visual: Sprite2D = $Visual
+var visual_frame_clock: float = 0.0
 
 @export var speed: float = 260.0
 var direction: Vector2 = Vector2.LEFT
@@ -20,6 +25,9 @@ func _physics_process(delta: float) -> void:
 	if not active:
 		return
 	position += direction * speed * delta
+	if visual.hframes > 1:
+		visual_frame_clock = fmod(visual_frame_clock + delta * 10.0, float(visual.hframes))
+		visual.frame = int(visual_frame_clock)
 	lifetime -= delta
 	if lifetime <= 0.0:
 		_retire()
@@ -33,12 +41,31 @@ func _on_body_entered(body: Node2D) -> void:
 	_retire()
 
 
-func activate(origin: Vector2, travel_direction: Vector2, travel_speed: float, hit_damage: int, active_lifetime: float) -> void:
+func activate(
+	origin: Vector2,
+	travel_direction: Vector2,
+	travel_speed: float,
+	hit_damage: int,
+	active_lifetime: float,
+	projectile_texture: Texture2D = null,
+	frame_count: int = 1,
+	visual_scale: float = 0.009
+) -> void:
 	global_position = origin
 	direction = travel_direction.normalized()
 	speed = travel_speed
 	damage = hit_damage
 	lifetime = active_lifetime
+	if projectile_texture == null:
+		visual.texture = DEFAULT_PROJECTILE_TEXTURE
+	else:
+		visual.texture = projectile_texture
+	visual.hframes = maxi(frame_count, 1)
+	visual.vframes = 1
+	visual.frame = 0
+	visual_frame_clock = 0.0
+	visual.scale = Vector2.ONE * visual_scale
+	visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	rotation = direction.angle() - PI
 	active = true
 	visible = true

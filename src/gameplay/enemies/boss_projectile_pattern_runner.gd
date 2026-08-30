@@ -7,6 +7,7 @@ signal recovery_started(pattern_id: String)
 signal phase_changed(current_phase: int, phase_count: int)
 
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
+const ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_longan_seed_bullet_normalized_v2.png")
 const STATE_IDLE := &"idle"
 const STATE_TELEGRAPH := &"telegraph"
 const STATE_ACTIVE := &"active"
@@ -173,12 +174,22 @@ func _emit_projectile(sequence_index: int) -> void:
 			direction = Vector2.DOWN
 		_:
 			direction = aim.rotated(lerpf(-0.18, 0.18, float(sequence_index % 3) / 2.0))
+	var projectile_texture: Texture2D = null
+	var visual_frame_count := 1
+	var visual_scale := 0.009
+	if host is EnemyController and host.enemy_type == "root_core_eye_boss":
+		projectile_texture = ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE
+		visual_frame_count = 4
+		visual_scale = 0.018
 	projectile.activate(
 		origin,
 		direction,
 		float(current_pattern.get("projectile_speed", 220.0)),
 		projectile_damage,
-		float(current_pattern.get("projectile_lifetime", 4.0))
+		float(current_pattern.get("projectile_lifetime", 4.0)),
+		projectile_texture,
+		visual_frame_count,
+		visual_scale
 	)
 	projectile.add_to_group("BossProjectile")
 	active_projectiles.append(projectile)

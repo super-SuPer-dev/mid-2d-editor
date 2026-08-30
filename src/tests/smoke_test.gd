@@ -502,6 +502,12 @@ func _validate_levels() -> void:
 		for _frame in range(50):
 			await get_tree().physics_frame
 		_check(pattern_runner.get_active_projectile_count() > 0, "%s boss did not emit its opening projectile pattern." % level_id)
+		if level_id == "level_05":
+			var pilot_projectile := pattern_runner.active_projectiles[0] as EnemyProjectile
+			var pilot_projectile_visual := pilot_projectile.get_node("Visual") as Sprite2D
+			_check(pilot_projectile_visual.hframes == 4 and pilot_projectile_visual.vframes == 1, "Level 5 Root-Core Eye projectile pilot lost its four-frame grid.")
+			_check(str(pilot_projectile_visual.texture.resource_path).ends_with("root_core_eye_longan_seed_bullet_normalized_v2.png"), "Level 5 Root-Core Eye projectile did not use the promoted longan bullet texture.")
+			_check(absf(pilot_projectile_visual.scale.x - 0.018) < 0.001, "Level 5 Root-Core Eye projectile pilot lost its calibrated scale.")
 		_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s boss exceeded its projectile cap." % level_id)
 		_check(pattern_runner.all_projectiles.size() <= pattern_runner.projectile_cap, "%s boss projectile pool exceeded its cap." % level_id)
 		if boss.boss_phase_count > 1 and level_id != "level_01":

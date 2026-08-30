@@ -147,6 +147,16 @@ Agents must preserve unrelated worktree changes. A task that discovers a contrac
 
 **Final-boss asset promotion evidence — 2026-08-31:** The Root-Core Eye now has sealed and exposed idle pilots. Both strips use 4 × 1000 × 900 cells, the authored 840 px baseline, binary alpha and nearest filtering; the runtime switches from sealed to exposed at phase 2 while keeping the deterministic Root-Core Eye projectile patterns unchanged. Smoke coverage checks the initial sealed state, baseline and grid. Remaining action/projectile/presentation art, audio and human final-boss review remain open.
 
+**Projectile pilot evidence — 2026-08-31:** The Root-Core Eye now selects a
+four-frame longan-seed projectile strip for its pooled bullet instances. The
+3200 × 800 runtime strip uses 800 px cells, binary alpha, nearest filtering and
+10 fps visual cycling; pooled instances explicitly reset to the default
+one-frame projectile texture for other bosses. Headless smoke and the strict
+generated-asset validator pass the grid, texture-path, scale and reset
+contracts. Live projectile capture remains blocked by the backgrounded Godot
+window; final contrast and bullet readability still require human review in the
+Level 5 nexus.
+
 **Campaign ending evidence — 2026-08-31:** The smoke suite now triggers the real Level 5 portal callback after boss defeat and proves the run ends before debrief presentation, the debrief is requested exactly once, its one-shot state is recorded, story stage reaches the final act, and the campaign-complete modal opens only after the dialogue queue drains. This closes the sequencing contract for the current greybox; ending art, final audio, platform exports and human tone review remain open.
 
 **Retry and recovery evidence — 2026-08-31:** The smoke suite now deals lethal damage to a live operator, verifies `GameManager.run_active` becomes false, the game pauses, and the game-over modal is visible, then recreates the same level as a retry. The retry resets health and reactivates the mission without replaying the completed one-shot briefing or duplicating its request. Save writes remain disabled inside the test session, so this check cannot mutate a developer profile.
