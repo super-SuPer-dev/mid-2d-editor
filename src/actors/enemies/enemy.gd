@@ -20,6 +20,7 @@ const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matr
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
 const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
 const ROOT_HYDRA_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_strip_normalized_v2.png")
+const ROOT_HYDRA_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_exposed_strip_normalized_v2.png")
 const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png")
 const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
 const ROOT_CORE_EYE_SEALED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_sealed_normalized_v2.png")
@@ -62,6 +63,7 @@ var maw_frame_clock: float = 0.0
 var capsule_husk_action: StringName = &"idle"
 var capsule_husk_frame_clock: float = 0.0
 var root_hydra_frame_clock: float = 0.0
+var root_hydra_visual_phase: int = 0
 var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
 var root_core_eye_frame_clock: float = 0.0
@@ -397,6 +399,12 @@ func _update_root_skitter_animation(delta: float) -> void:
 func _update_root_hydra_animation(delta: float) -> void:
 	if enemy_type != "root_hydra_boss":
 		return
+	if root_hydra_visual_phase != boss_phase:
+		root_hydra_visual_phase = boss_phase
+		visual.texture = ROOT_HYDRA_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_HYDRA_IDLE_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
 	root_hydra_frame_clock = fmod(root_hydra_frame_clock + delta * 3.0, 4.0)
 	visual.frame = int(root_hydra_frame_clock)
 
@@ -513,6 +521,8 @@ func _update_boss_phase(current_health: int, maximum_health: int) -> void:
 		_update_maw_sovereign_animation(0.0)
 	if enemy_type == "banyan_boss":
 		_update_possessed_banyan_animation(0.0)
+	if enemy_type == "root_hydra_boss":
+		_update_root_hydra_animation(0.0)
 
 
 func _on_died() -> void:

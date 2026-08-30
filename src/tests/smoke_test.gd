@@ -557,6 +557,9 @@ func _validate_levels() -> void:
 				if level_id == "level_03" and expected_phase == 2:
 					var banyan_phase_visual := boss.get_node("Visual") as Sprite2D
 					_check(str(banyan_phase_visual.texture.resource_path).ends_with("possessed_banyan_idle_exposed_strip_normalized_v2.png"), "Level 3 Possessed Banyan did not expose its phase-2 idle visual.")
+				if level_id == "level_04" and expected_phase == 2:
+					var hydra_phase_visual := boss.get_node("Visual") as Sprite2D
+					_check(str(hydra_phase_visual.texture.resource_path).ends_with("root_hydra_idle_exposed_strip_normalized_v2.png"), "Level 4 Root Hydra did not expose its phase-2 idle visual.")
 				_check(pattern_runner.get_active_projectile_count() == 0, "%s phase %d did not clear active projectiles." % [level_id, expected_phase])
 				_check(int(pattern_runner.current_pattern.get("phase", 0)) == expected_phase, "%s phase %d selected a pattern from the wrong phase." % [level_id, expected_phase])
 				for _phase_frame in range(50):
