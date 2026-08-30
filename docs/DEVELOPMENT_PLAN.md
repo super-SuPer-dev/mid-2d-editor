@@ -1,6 +1,6 @@
 # Development Plan
 
-**Project:** ACO: Capsule 07  
+**Project:** Low Attitude Warrior
 **Version:** 2.0  
 **Status:** Production roadmap  
 **Authority:** English is authoritative. See [Thai companion](th/DEVELOPMENT_PLAN_TH.md).
