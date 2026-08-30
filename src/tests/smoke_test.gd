@@ -68,6 +68,7 @@ func _ready() -> void:
 	await _validate_ui_scenes()
 	await _validate_character_select_layout()
 	await _validate_upgrade_layout()
+	await _validate_pseudo_localization()
 	await _validate_levels()
 	AudioManager.stop_all_sfx()
 	AudioManager.muted_for_tests = false
@@ -263,6 +264,46 @@ func _validate_upgrade_layout() -> void:
 			_check(purchase.get_global_rect().end.y <= card.get_global_rect().end.y, "%s %s upgrade button extends outside its card." % [locale, upgrade_id])
 	LocalizationManager.set_language("en")
 	screen.queue_free()
+	await get_tree().process_frame
+
+
+func _validate_pseudo_localization() -> void:
+	LocalizationManager.set_language("en")
+	LocalizationManager.set_pseudo_localization(false)
+	var plain_texts := {}
+	for key: String in LocalizationManager.english_fallback:
+		plain_texts[key] = LocalizationManager.text(key)
+	LocalizationManager.set_pseudo_localization(true)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	for key: String in plain_texts:
+		var plain: String = plain_texts[key]
+		var pseudo := LocalizationManager.text(key)
+		var target := int(ceil(plain.length() * LocalizationManager.PSEUDO_MIN_EXPANSION))
+		_check(pseudo.begins_with(LocalizationManager.PSEUDO_PREFIX) and pseudo.ends_with(LocalizationManager.PSEUDO_SUFFIX), "Pseudo-localized %s is missing its expansion markers." % key)
+		_check(pseudo.length() >= target, "Pseudo-localized %s expanded to %d characters, below the %.0f%% contract." % [key, pseudo.length(), LocalizationManager.PSEUDO_MIN_EXPANSION * 100.0])
+	_check(LocalizationManager.text("UPGRADE_PURCHASE").contains("{cost}"), "Pseudo-localization destroyed the upgrade cost placeholder token.")
+	var purchase := LocalizationManager.text("UPGRADE_PURCHASE", {"cost": 25})
+	_check(purchase.contains("25") and not purchase.contains("{cost}"), "Pseudo-localization corrupted the upgrade cost placeholder.")
+	_check(not LocalizationManager.text("MENU_START_MISSION") == "Start Mission", "Pseudo-localization left an English string untouched.")
+	var screen := UPGRADES_SCENE.instantiate() as Control
+	add_child(screen)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	for upgrade_id in ["blade", "engine", "armor"]:
+		var card := screen.get_node("Layout/Cards/%s" % upgrade_id) as Control
+		var description := card.get_node("Row/Copy/Description") as Label
+		var purchase_button := card.get_node("Row/Purchase") as Button
+		var expected_description := LocalizationManager.text("UPGRADE_%s_DESC" % upgrade_id.to_upper())
+		_check(description.text.replace("\n", " ") == expected_description, "Pseudo %s upgrade description lost or split characters during wrapping." % upgrade_id)
+		_check(description.text.count("\n") <= 2, "Pseudo %s upgrade description exceeded three lines." % upgrade_id)
+		_check(not description.clip_text and description.autowrap_mode == TextServer.AUTOWRAP_OFF, "Pseudo %s upgrade description can still clip or split words automatically." % upgrade_id)
+		_check(card.get_global_rect().end.x <= screen.size.x and card.get_global_rect().end.y <= screen.size.y, "Pseudo %s upgrade card extends outside 1280x720." % upgrade_id)
+		_check(purchase_button.get_global_rect().end.y <= card.get_global_rect().end.y, "Pseudo %s upgrade button extends outside its card." % upgrade_id)
+	screen.queue_free()
+	LocalizationManager.set_pseudo_localization(false)
+	_check(LocalizationManager.text("MENU_START_MISSION") == "Start Mission", "Disabling pseudo-localization did not restore English text.")
+	LocalizationManager.set_language("en")
 	await get_tree().process_frame
 
 
