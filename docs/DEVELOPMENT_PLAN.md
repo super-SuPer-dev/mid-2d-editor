@@ -664,6 +664,13 @@ canonical IDs, and HUD completion states trigger the stingers. Final authored
 arrangements, expanded event layering, loudness normalization, platform review
 and human audio approval remain required.
 
+**Audio pool hardening evidence — 2026-08-31:** `AudioManager` now allocates a
+bounded 16-voice SFX pool at boot and reuses idle voices in round-robin order,
+recycling the oldest voice when all are busy. Dense cutter, enemy-hit, radio and
+boss feedback therefore cannot create unbounded `AudioStreamPlayer` nodes during
+the 5–7 minute missions or the Gate 6 soak. English smoke verifies pool size,
+child-count stability, active-voice caps and cleanup through `stop_all_sfx()`.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

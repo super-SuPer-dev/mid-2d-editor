@@ -25,15 +25,23 @@ const GENERATED_MUSIC: Dictionary = {
 	&"boss_organic": preload("res://assets/audio/generated/boss_organic_loop.wav"),
 	&"boss_nexus": preload("res://assets/audio/generated/boss_nexus_loop.wav"),
 }
+const SFX_POOL_SIZE := 16
 
 var music_player: AudioStreamPlayer
 var current_music_id: StringName = &""
+var sfx_pool: Array[AudioStreamPlayer] = []
+var sfx_cursor := 0
 
 
 func _ready() -> void:
 	music_player = AudioStreamPlayer.new()
 	music_player.name = "MusicPlayer"
 	add_child(music_player)
+	for index in range(SFX_POOL_SIZE):
+		var player := AudioStreamPlayer.new()
+		player.name = "SfxPool%02d" % index
+		add_child(player)
+		sfx_pool.append(player)
 
 
 func play_click() -> void:
@@ -52,13 +60,36 @@ func play_named_sfx(sound_id: StringName, pitch: float = 1.0, volume_db: float =
 	var stream := GENERATED_SFX.get(sound_id, click_sfx.stream) as AudioStream
 	if muted_for_tests or stream == null:
 		return
-	var player := AudioStreamPlayer.new()
+	var player := _acquire_sfx_player()
+	if player == null:
+		return
 	player.stream = stream
 	player.pitch_scale = pitch
 	player.volume_db = volume_db
-	player.finished.connect(player.queue_free)
-	add_child(player)
 	player.play()
+
+
+func _acquire_sfx_player() -> AudioStreamPlayer:
+	if sfx_pool.is_empty():
+		return null
+	for offset in range(sfx_pool.size()):
+		var index := (sfx_cursor + offset) % sfx_pool.size()
+		var candidate := sfx_pool[index]
+		if not candidate.playing:
+			sfx_cursor = (index + 1) % sfx_pool.size()
+			return candidate
+	var recycled := sfx_pool[sfx_cursor]
+	sfx_cursor = (sfx_cursor + 1) % sfx_pool.size()
+	recycled.stop()
+	return recycled
+
+
+func get_active_sfx_count() -> int:
+	var active := 0
+	for player in sfx_pool:
+		if player.playing:
+			active += 1
+	return active
 
 
 func play_music(music_id: StringName, volume_db: float = -16.0) -> void:
@@ -82,7 +113,9 @@ func stop_music() -> void:
 
 
 func stop_all_sfx() -> void:
+	for player in sfx_pool:
+		player.stop()
 	for child in get_children():
-		if child != click_sfx and child != music_player and child is AudioStreamPlayer:
+		if child != click_sfx and child != music_player and child not in sfx_pool and child is AudioStreamPlayer:
 			child.stop()
 			child.queue_free()

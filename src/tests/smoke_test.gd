@@ -102,6 +102,16 @@ func _validate_catalogs() -> void:
 	_check(LevelCatalog.LEVEL_ORDER.size() == 5, "Expected five campaign levels in the catalog.")
 	_check(AudioManager.GENERATED_SFX.size() == 9, "Generated gameplay SFX registry is incomplete.")
 	_check(AudioManager.GENERATED_MUSIC.size() == 8, "Generated music registry is incomplete.")
+	_check(AudioManager.sfx_pool.size() == AudioManager.SFX_POOL_SIZE, "AudioManager did not initialize its bounded SFX pool.")
+	var audio_children_before := AudioManager.get_child_count()
+	var audio_muted_before := AudioManager.muted_for_tests
+	AudioManager.muted_for_tests = false
+	for _sfx_burst in range(AudioManager.SFX_POOL_SIZE + 4):
+		AudioManager.play_named_sfx(&"enemy_hit", 1.0, -18.0)
+	_check(AudioManager.get_child_count() == audio_children_before, "SFX playback created unbounded AudioStreamPlayer nodes.")
+	_check(AudioManager.get_active_sfx_count() <= AudioManager.SFX_POOL_SIZE, "SFX playback exceeded its bounded voice pool.")
+	AudioManager.stop_all_sfx()
+	AudioManager.muted_for_tests = audio_muted_before
 	for audio_stream: Variant in AudioManager.GENERATED_SFX.values():
 		_check(audio_stream is AudioStream, "Generated SFX registry contains an invalid stream.")
 	for music_stream: Variant in AudioManager.GENERATED_MUSIC.values():
