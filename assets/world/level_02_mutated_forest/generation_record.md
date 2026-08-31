@@ -15,8 +15,9 @@
   each source aspect ratio; no runtime stretch or smoothing is introduced.
 - The pilot changes only presentation. Level 2 collision, encounter, quota,
   boss-pattern and extraction contracts remain unchanged.
-- Tile, hazard, landmark, shrine, extraction and VFX sources remain candidates
-  until their own runtime contracts and human review are complete.
+- Tile, extraction and VFX sources remain candidates until their own runtime
+  contracts and human review are complete. The field-shrine prop now has a
+  background-only runtime pilot.
 
 ## Provenance hashes
 
@@ -49,3 +50,7 @@ The generated Maw Bloom lair landmark (1536 × 1024) is placed behind the Level
 2 boss arena at a 0.34 presentation scale and does not add collision.
 Source SHA-256: 1B045AD45CB352713E305862E60EF12A8F26F081DDD81B9B68DADFBDE63ADB88.
 Runtime binary-alpha SHA-256: F729C2E8F657896B025080ABEF01298A2A0C39C4149FB5B7DA792219D8609FC2.
+
+The generated Forest Field Shrine prop (1166 × 1349) is placed behind the
+mid-route platforms at a 0.23 presentation scale, z = -4, with no collision.
+Source/runtime SHA-256: 96FF102DC457B3A2F0D759B06B4DC8161885802634F5D3F261ED24BF0788454B.

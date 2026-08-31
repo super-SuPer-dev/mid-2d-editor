@@ -167,6 +167,12 @@ instantiation remains green and the presentation-only change leaves combat,
 collision and extraction contracts untouched. Tile kit, spore vent, landmark,
 memory, 1280 × 720 composition and human pixel-art review remain open.
 
+**Mutated Forest prop promotion evidence — 2026-08-31:** The generated
+Forest Field Shrine (1166 × 1349) is now integrated at the mid-route forest
+platforms with nearest filtering, 0.23 aspect-preserving scale and z = -4
+background draw order. English smoke coverage verifies the runtime texture
+binding and draw order without changing Level 2 collision or traversal.
+
 **Maw-asset promotion evidence — 2026-08-31:** The shared Level 2–3 Maw now
 uses generated mangosteen idle/move strips instead of the placeholder plant.
 Both 2800 × 800 runtime strips use four 700 px cells, a 740 px foot baseline,

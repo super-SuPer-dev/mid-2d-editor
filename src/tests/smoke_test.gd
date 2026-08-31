@@ -575,6 +575,8 @@ func _validate_levels() -> void:
 				expected_hazard_texture = "mangosteen_spore_vent_normalized_v1.png"
 				expected_landmark_texture = "maw_bloom_lair_v1.png"
 				expected_landmark_node = "MawBloomLandmark"
+				expected_prop_texture = "forest_field_shrine_v1.png"
+				expected_prop_nodes = ["ForestFieldShrine"]
 			"level_03":
 				expected_hazard_texture = "santol_seed_piston_normalized_v1.png"
 				expected_landmark_texture = "capsule_07_seed_harvester_v1.png"
