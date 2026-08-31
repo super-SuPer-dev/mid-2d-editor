@@ -12,6 +12,11 @@
 - Landmark dimensions: 1024 × 1536 px, RGBA source normalized to binary alpha for runtime
 - Landmark runtime SHA-256: `90B7AB226AC74EC9E0B52445C47A826781D80C841D71BF431A39389608CB1B7B`
 - Landmark placement: `Environment/IrrigationRootLandmark`, z-index -5, scale 0.34, no collision
+- Foreground prop source: `art_source/generated/world/level_01_contaminated_grassland/props/rice_root_props_v1.png`
+- Foreground prop runtime: `props/rice_root_props_v1.png`
+- Foreground prop dimensions: 1536 × 1024 px, RGBA source normalized to binary alpha for runtime
+- Foreground prop placement: `Environment/RiceRootPropsA` and `Environment/RiceRootPropsB`, z-index -4, scales 0.24/0.20, no collision
+- Foreground prop runtime SHA-256: `0E03BE31DC89CAEFA5ADECF9F51C021692C1901B92BC34025B371570B19CF6D4`
 - Localization impact: none; no baked text or language-specific copy
 
 The previous `grassland_parallax.tscn` remains available for rollback. Modular

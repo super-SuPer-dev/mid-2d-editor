@@ -496,6 +496,15 @@ traversal and HUD readability. Source prompt, runtime hash and placement
 acceptance are recorded in the English Level 1 world package. Occlusion,
 composition, memory and human pixel-art review remain open.
 
+**Level 1 foreground prop promotion evidence — 2026-08-31:** A generated
+transparent rice-bundle/irrigation-marker prop cluster is now reused at two
+calibrated scales behind the Level 1 route as `RiceRootPropsA` and
+`RiceRootPropsB`. Binary-alpha runtime preparation and nearest filtering remove
+soft edges while preserving the silhouette; both nodes are presentation-only
+and have no collision. Source prompt, runtime provenance and smoke assertions
+are recorded in the English package. Final occlusion, memory and human
+pixel-art review remain open.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

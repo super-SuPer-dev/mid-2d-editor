@@ -530,10 +530,14 @@ func _validate_levels() -> void:
 		var expected_hazard_texture := ""
 		var expected_landmark_texture := ""
 		var expected_landmark_node := ""
+		var expected_prop_texture := ""
+		var expected_prop_nodes: Array[String] = []
 		match level_id:
 			"level_01":
 				expected_landmark_texture = "irrigation_root_tower_v1.png"
 				expected_landmark_node = "IrrigationRootLandmark"
+				expected_prop_texture = "rice_root_props_v1.png"
+				expected_prop_nodes = ["RiceRootPropsA", "RiceRootPropsB"]
 			"level_02":
 				expected_hazard_texture = "mangosteen_spore_vent_normalized_v1.png"
 				expected_landmark_texture = "maw_bloom_lair_v1.png"
@@ -561,6 +565,20 @@ func _validate_levels() -> void:
 				_check(str(landmark.texture.resource_path).ends_with(expected_landmark_texture), "%s landmark did not bind its generated texture." % level_id)
 				_check(landmark.z_index == -5, "%s landmark changed its background draw order." % level_id)
 				_check(landmark.scale.is_equal_approx(Vector2(0.34, 0.34)), "%s landmark lost its calibrated presentation scale." % level_id)
+		if not expected_prop_texture.is_empty():
+			for prop_node in expected_prop_nodes:
+				var prop := level.get_node_or_null("Environment/%s" % prop_node) as Sprite2D
+				_check(prop != null, "%s is missing generated prop node %s." % [level_id, prop_node])
+				if prop != null:
+					_check(str(prop.texture.resource_path).ends_with(expected_prop_texture), "%s prop %s did not bind its generated texture." % [level_id, prop_node])
+					_check(prop.z_index == -4, "%s prop %s changed its background draw order." % [level_id, prop_node])
+		if not expected_prop_texture.is_empty():
+			for prop_node in expected_prop_nodes:
+				var prop := level.get_node_or_null("Environment/%s" % prop_node) as Sprite2D
+				_check(prop != null, "%s is missing generated prop node %s." % [level_id, prop_node])
+				if prop != null:
+					_check(str(prop.texture.resource_path).ends_with(expected_prop_texture), "%s prop %s did not bind its generated texture." % [level_id, prop_node])
+					_check(prop.z_index == -4, "%s prop %s changed its background draw order." % [level_id, prop_node])
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
