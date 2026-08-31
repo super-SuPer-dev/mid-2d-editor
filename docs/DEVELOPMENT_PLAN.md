@@ -24,7 +24,7 @@ This plan converts the design in [Game Design Document](../Game%20Design%20Docum
 | UI/UX | Main flows work; dialogue/boss HUD, shared operator cards and Base Workshop cards are bilingual and runtime-validated at 1280×720; main menu, mission map, settings and mastery passed live bounds review | Pseudo-localization, accessibility options, responsive resolutions and Windows/Web evidence |
 | Art | 474 generated PNG candidates inventoried; the repeatable validator confirms 474/474 decode and 188/188 normalized widths, but 335 opaque-art candidates still warn on soft alpha; one quantized Root Skitter idle/scuttle pilot is now integrated | Remediate/select remaining candidates, verify package grids and animation, integrate approved art, then validate Windows/Web appearance and memory |
 | Audio | One click sound is repitched for multiple events | Music suite, approximately 40 SFX, mix and platform validation |
-| QA | Isolated smoke test covers four operators, five-level catalogs/dialogue references, all five runtime levels, boss patterns, v1→v2 migration, one-shot story state, language fallback, and pseudo-localization | Retry/recovery, export, performance, soak coverage, and human campaign playtest |
+| QA | Isolated smoke test covers four operators, five-level catalogs/dialogue references, all five runtime levels, boss patterns, v1→v2 migration, one-shot story state, language fallback, and pseudo-localization; Windows/Web release artifacts now pass the repeatable export check | Retry/recovery, performance, soak coverage, browser execution, and human campaign playtest |
 
 ## 2. Production Principles
 
@@ -414,7 +414,7 @@ English smoke covers the hit handoff and recovery.
 
 **Exit criteria:** Weighted readiness is at least 90%; no Must-have item is below Verified; no P0/P1 defects are open; English and Thai coverage is complete; release checklist is signed off.
 
-**Release configuration evidence — 2026-08-31:** `export_presets.cfg` now registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. `tools/validate_release_readiness.ps1` provides a repeatable pre-export audit for the English authority documents, localization tables, five level scenes, runtime asset roots, export preset markers and reference viewport. This is configuration/readiness evidence only; actual Windows/Web export, performance, memory, soak and human sign-off remain open Gate 6 work.
+**Release export evidence — 2026-08-31:** `export_presets.cfg` registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. Using the project-local Godot 4.7 template cache, both release exports now complete: `low_altitude_warrior.exe` and `low_altitude_warrior.pck` for Windows, plus `game.html`, `game.js`, `game.wasm` and `game.pck` for Web. `tools/validate_release_readiness.ps1` covers configuration and `tools/validate_export_artifacts.ps1` checks the produced files and minimum sizes. Performance, memory, soak, browser execution, localization parity and human sign-off remain open Gate 6 work.
 
 ## 5. Dependency Order
 
