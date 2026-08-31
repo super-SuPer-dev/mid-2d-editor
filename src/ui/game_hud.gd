@@ -71,6 +71,7 @@ func show_pause() -> void:
 
 
 func show_game_over() -> void:
+	AudioManager.play_named_sfx(&"defeat_stinger", 1.0, -8.0)
 	get_tree().paused = true
 	_show_modal("HUD_GAME_OVER", "HUD_GAME_OVER_SUBTITLE", Color("ef476f"), [
 		["HUD_RETRY", SceneManager.restart_level], ["HUD_SELECT_MISSION", SceneManager.go_to_level_select],
@@ -87,6 +88,7 @@ func show_level_complete(is_campaign_complete: bool) -> void:
 
 
 func _show_complete_modal() -> void:
+	AudioManager.play_named_sfx(&"victory_stinger", 1.0, -8.0)
 	pending_complete = false
 	get_tree().paused = true
 	var title_key := "HUD_CAMPAIGN_COMPLETE" if pending_campaign_complete else "HUD_MISSION_COMPLETE"

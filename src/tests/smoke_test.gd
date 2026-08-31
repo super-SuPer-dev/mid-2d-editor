@@ -100,6 +100,12 @@ func _ready() -> void:
 func _validate_catalogs() -> void:
 	_check(CharacterCatalog.get_ids().size() == 4, "Expected four playable characters.")
 	_check(LevelCatalog.LEVEL_ORDER.size() == 5, "Expected five campaign levels in the catalog.")
+	_check(AudioManager.GENERATED_SFX.size() == 9, "Generated gameplay SFX registry is incomplete.")
+	_check(AudioManager.GENERATED_MUSIC.size() == 8, "Generated music registry is incomplete.")
+	for audio_stream: Variant in AudioManager.GENERATED_SFX.values():
+		_check(audio_stream is AudioStream, "Generated SFX registry contains an invalid stream.")
+	for music_stream: Variant in AudioManager.GENERATED_MUSIC.values():
+		_check(music_stream is AudioStream, "Generated music registry contains an invalid stream.")
 	_check(SaveManager.get_mastery_rank() >= 0, "Operator mastery data is missing.")
 	for character_id in CharacterCatalog.get_ids():
 		_check(SaveManager.profile.get("operator_mastery", {}).has(character_id), "%s has no mastery profile." % character_id)

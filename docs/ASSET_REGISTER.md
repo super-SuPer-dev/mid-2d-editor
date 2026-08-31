@@ -164,11 +164,11 @@ UI source masters must support 1280×720, safe areas, keyboard focus, English ex
 | Asset ID | Deliverable | Priority | Target | State |
 |---|---|---:|---|---|
 | AUDIO-UI-CLICK | UI confirmation/click | P0 | Current `click.wav`; verify license and final mix | Integrated |
-| MUSIC-MENU-BASE | Menu/base loop | P1 | 1 seamless loop | Missing |
-| MUSIC-LEVEL-01..05 | Biome music | P1 | 5 seamless level loops | Missing |
-| MUSIC-BOSS-A | Organic boss suite | P1 | Reusable intro/loop/outro | Missing |
-| MUSIC-BOSS-B | Nexus/final boss suite | P1 | Reusable intro/loop/outro | Missing |
-| MUSIC-STINGERS | Victory and defeat | P1 | 2 short stingers | Missing |
+| MUSIC-MENU-BASE | Menu/base loop | P1 | Deterministic `menu_base_loop.wav` is integrated through `AudioManager`; final authored arrangement and mix remain | Integrated |
+| MUSIC-LEVEL-01..05 | Biome music | P1 | Deterministic loops for all five canonical levels are integrated and selected by level ID; final authored arrangements and mix remain | Integrated |
+| MUSIC-BOSS-A | Organic boss suite | P1 | Deterministic organic boss loop is integrated for Levels 1–4; intro/outro layers and final authored mix remain | Integrated |
+| MUSIC-BOSS-B | Nexus/final boss suite | P1 | Deterministic nexus boss loop is integrated for Level 5; intro/outro layers and final authored mix remain | Integrated |
+| MUSIC-STINGERS | Victory and defeat | P1 | Deterministic victory and defeat stingers are bound to HUD completion/game-over states; final authored mix remains | Integrated |
 | SFX-OPERATOR-SET | Movement, dash, hurt, death | P0 | Deterministic runtime pilot provides dash and player-hurt cues under `assets/audio/generated/`; footsteps, movement loop and death variants remain | Integrated |
 | SFX-CUTTER-SET | Start, loop/swing, impact, upgrade variants | P0 | Deterministic `cutter_swing.wav` is bound to the cutter attack event; startup, loop, impact layering and upgrade variants remain | Integrated |
 | SFX-ENEMY-BOSS-SET | Tells, attacks, hurt, death, phases | P0 | Deterministic enemy-hit cue is bound to enemy damage and boss-defeat cue to boss death; tells, attacks, phase stingers and final mix remain | Integrated |

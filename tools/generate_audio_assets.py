@@ -85,6 +85,23 @@ def radio_beep(t: float, d: float, _rng: random.Random) -> float:
     return 0.34 * math.sin(2.0 * math.pi * 880.0 * t) * envelope(t, d, 0.004, 0.03)
 
 
+def music_loop(t: float, _d: float, _rng: random.Random, root: float, mode: int) -> float:
+    beat = 0.5
+    index = int(t / beat) % 16
+    scales = ((0, 3, 5, 7, 10), (0, 2, 5, 7, 9), (0, 3, 5, 8, 10), (0, 2, 4, 7, 9), (0, 3, 5, 7, 9))
+    scale = scales[mode % len(scales)]
+    lead_note = root * (2.0 ** (scale[index % len(scale)] / 12.0))
+    bass_note = root * 0.5 * (2.0 ** (scale[(index // 2) % len(scale)] / 12.0))
+    pulse = 0.72 + 0.28 * math.sin(2.0 * math.pi * t / 8.0)
+    return pulse * (0.12 * osc(lead_note, t, "triangle") + 0.16 * osc(bass_note, t, "square"))
+
+
+def stinger(t: float, d: float, _rng: random.Random, root: float, descending: bool) -> float:
+    ratio = 1.0 - t / d if descending else t / d
+    frequency = root * (1.0 + 1.5 * ratio)
+    return 0.36 * osc(frequency, t, "triangle") * envelope(t, d, 0.002, 0.16)
+
+
 def main() -> None:
     definitions = {
         "cutter_swing.wav": (0.18, cutter, 101),
@@ -97,7 +114,21 @@ def main() -> None:
     }
     for name, (duration, fn, seed) in definitions.items():
         write_wav(name, render(duration, fn, seed))
-    print(f"Generated {len(definitions)} deterministic SFX in {os.fspath(OUT_DIR)}")
+    music_definitions = {
+        "menu_base_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 220.0, 0), 201),
+        "level_01_grassland_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 196.0, 1), 202),
+        "level_02_forest_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 174.61, 2), 203),
+        "level_03_capsule_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 164.81, 3), 204),
+        "level_04_marsh_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 146.83, 4), 205),
+        "level_05_nexus_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 130.81, 0), 206),
+        "boss_organic_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 110.0, 2), 207),
+        "boss_nexus_loop.wav": (8.0, lambda t, d, r: music_loop(t, d, r, 98.0, 3), 208),
+        "victory_stinger.wav": (1.0, lambda t, d, r: stinger(t, d, r, 392.0, False), 209),
+        "defeat_stinger.wav": (1.0, lambda t, d, r: stinger(t, d, r, 220.0, True), 210),
+    }
+    for name, (duration, fn, seed) in music_definitions.items():
+        write_wav(name, render(duration, fn, seed))
+    print(f"Generated {len(definitions)} SFX and {len(music_definitions)} music/stinger assets in {os.fspath(OUT_DIR)}")
 
 
 if __name__ == "__main__":

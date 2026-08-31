@@ -22,6 +22,7 @@ func _ready() -> void:
 	if not GameManager.run_active:
 		GameManager.start_level(GameManager.current_level_id)
 	level_data = LevelCatalog.get_level(GameManager.current_level_id)
+	AudioManager.play_music(StringName(GameManager.current_level_id))
 	_configure_biome_hazards()
 	RenderingServer.set_default_clear_color(level_data["background"])
 	player.set_camera_limits(level_data["size"])
@@ -69,6 +70,7 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 
 
 func _on_boss_requested(_boss_id: String, _boss_name_key: String) -> void:
+	AudioManager.play_music(&"boss_nexus" if GameManager.current_level_id == "level_05" else &"boss_organic")
 	if is_instance_valid(boss):
 		boss.set_combat_active(false)
 		GameManager.update_boss_health(boss.health.current_health, boss.health.max_health)

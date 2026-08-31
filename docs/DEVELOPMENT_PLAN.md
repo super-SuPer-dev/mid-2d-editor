@@ -505,13 +505,14 @@ and have no collision. Source prompt, runtime provenance and smoke assertions
 are recorded in the English package. Final occlusion, memory and human
 pixel-art review remain open.
 
-**Audio feedback pilot evidence — 2026-08-31:** Seven deterministic, original
-PCM WAV cues now live under `assets/audio/generated/` and are selected through
-`AudioManager.play_named_sfx`. Cutter swings, dashes, player hurt, enemy hit,
-sample pickup, boss defeat and non-pausing radio entries are connected to their
-runtime events. The pilot is intentionally not marked complete: music, expanded
-event coverage, mix normalization, platform review and human audio approval
-remain required.
+**Audio pilot evidence — 2026-08-31:** Seventeen deterministic, original PCM
+WAV assets now live under `assets/audio/generated/`: seven gameplay SFX, five
+biome loops, two boss loops, a menu loop and victory/defeat stingers. Named SFX
+are connected to cutter, dash, hurt, enemy, pickup, boss and non-pausing radio
+events; `AudioManager.play_music` selects menu, level and boss loops by
+canonical IDs, and HUD completion states trigger the stingers. Final authored
+arrangements, expanded event layering, loudness normalization, platform review
+and human audio approval remain required.
 
 ## 8. Definition of Ready
 
