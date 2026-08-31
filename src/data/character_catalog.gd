@@ -21,8 +21,8 @@ const CHARACTERS := {
 		"color": Color("8fbd52"),
 		"skin": Color("c68b59"),
 		"uniform": Color("343a2f"),
-		"art_texture": "res://assets/characters/operators/tonkla_sprite_sheet_generated_v2.png",
-		"frame_inset": 0.0,
+		"art_texture": "res://assets/characters/operators/tonkla_sprite_sheet_generated_v3.png",
+		"frame_inset": 8.0,
 		"idle_visual_y": -9.0,
 		"run_visual_y": -9.0,
 	},
@@ -39,7 +39,7 @@ const CHARACTERS := {
 		"color": Color("5f91bd"),
 		"skin": Color("bd8058"),
 		"uniform": Color("263d32"),
-		"art_texture": "res://assets/characters/operators/rin_sprite_sheet_generated_v2.png",
+		"art_texture": "res://assets/characters/operators/rin_sprite_sheet_generated_v3.png",
 	},
 	"khem": {
 		"name_key": "CHAR_KHEM_NAME",
@@ -54,7 +54,7 @@ const CHARACTERS := {
 		"color": Color("c89a4b"),
 		"skin": Color("b97848"),
 		"uniform": Color("33445a"),
-		"art_texture": "res://assets/characters/operators/khem_sprite_sheet_generated_v2.png",
+		"art_texture": "res://assets/characters/operators/khem_sprite_sheet_generated_v3.png",
 	},
 	"t800": {
 		"name_key": "CHAR_T800_NAME",
@@ -69,7 +69,7 @@ const CHARACTERS := {
 		"color": Color("9a6ac7"),
 		"skin": Color("a9adb0"),
 		"uniform": Color("44484a"),
-		"art_texture": "res://assets/characters/operators/t800_sprite_sheet_generated_v2.png",
+		"art_texture": "res://assets/characters/operators/t800_sprite_sheet_generated_v3.png",
 	},
 }
 

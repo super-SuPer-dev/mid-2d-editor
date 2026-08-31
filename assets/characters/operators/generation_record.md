@@ -1,24 +1,46 @@
 # Operator Sprite Sheet Runtime Record
 
 - Asset family: `CHAR-*-SHEET`
-- Source package: `art_source/generated/character/`
-- Runtime state: `Integrated` exact-grid replacement
+- Generation mode: built-in image generation, using each v2 runtime sheet as the identity/style reference
+- Runtime state: `Integrated` leak-safe v3 replacement
 - Canvas: 1120 × 1400 px, 4 columns × 5 rows, 280 × 280 px cells
-- Alpha: binary thresholded runtime copies; nearest filtering; no neighboring-cell bleed
-- Animation contract: row 0 idle, row 1 run, row 2 attack, row 3 dash; row 4 reserved for future hurt/death states
-- Localization impact: none in raster assets; names, roles and descriptions remain localization keys
+- Alpha: validated RGBA source outputs, normalized to binary alpha
+- Grid safety: the main connected component of every cell is isolated and fitted inside a 20 px protected gutter
+- Runtime filtering: nearest neighbor; atlas frames retain an additional 8 px sampling inset
+- Animation contract: row 0 idle, row 1 run, row 2 attack, row 3 dash, row 4 hurt/recovery
+- Runtime cadence: idle 6 fps, run 10 fps, attack 16 fps, dash 16 fps
+- Localization impact: none
 
-| Operator ID | Generated source | Runtime file | SHA-256 |
-|---|---|---|---|
-| `tonkla` | `art_source/generated/character/tonkla.png` | `tonkla_sprite_sheet_generated_v2.png` | `B1CC77A943190F12FBCBE39178601B290E81191454F033C4ECB587B834F586BF` |
-| `rin` | `art_source/generated/character/jintana.png` | `rin_sprite_sheet_generated_v2.png` | `0E94D61D9EC98F0A3EE64F14E818131DD479AC6CAF129A5A32DB8659CFC20CB1` |
-| `khem` | `art_source/generated/character/esan-farmer.png` | `khem_sprite_sheet_generated_v2.png` | `497619C24CF5B0AFB17E1A630B9470DEB55F2E49269690BA7F071D4FA63972C7` |
-| `t800` | `art_source/generated/character/t800.png` | `t800_sprite_sheet_generated_v2.png` | `C0CB5A08013C4995A2FF00B9E59B5B25B3FDAABDF21FE4D0AEB6A1D8FCF34BC6` |
+| Operator ID | Runtime file | SHA-256 |
+|---|---|---|
+| `tonkla` | `tonkla_sprite_sheet_generated_v3.png` | `FFB787993C53C5AF36D0FB2A7F81E7453899C24CD3CBFF28B94DF7A9B24B174D` |
+| `rin` | `rin_sprite_sheet_generated_v3.png` | `47AA6930D27BC601DE29B2F5E7E9BE208D2C6B620D80EDE2D919B349A566B0E0` |
+| `khem` | `khem_sprite_sheet_generated_v3.png` | `33C580E758096AAD5375D792070392A35E494B13C2CFA6BB3DE954619232DDB9` |
+| `t800` | `t800_sprite_sheet_generated_v3.png` | `BBAADF1F88BFCF5805DA705A77F94CBF48BEB0287613EEDF611197B14E28DA50` |
 
-The 1122 × 1402 generated canvases are cropped from the top-left to the exact
-1120 × 1400 grid before alpha thresholding. The former runtime copies are
-preserved under `art_source/legacy/character/runtime_v1/` for rollback and are
-not referenced by runtime code. Headless smoke checks enforce dimensions and
-280 px atlas slicing; live Godot character-select review confirms all four
-operators render without stretch or visible cell bleed. Full animation,
-foot-baseline and human pixel-art review remain open before `Verified`.
+## Prompt set
+
+Each operator used the same production structure with identity-specific invariants:
+
+- regenerate the same operator from the supplied sheet reference;
+- create an exact 4-column × 5-row grid;
+- provide progressive idle, run, attack, dash, and hurt/recovery poses;
+- preserve face/body, outfit, equipment, proportions, palette, and silhouette;
+- use polished painterly pixel art with crisp edges;
+- transparent background; no grid lines, labels, text, logos, or watermark.
+
+Only the simple phrase `transparent background` was used for alpha behavior.
+Two rejected RGB/checkerboard drafts were not integrated.
+
+## Grid QA
+
+`tools/normalize_operator_grid.ps1` and
+`tools/operator_sheet_grid_processor.cs` crop the validated 1122 × 1402
+generator result by one outer pixel per side, isolate each cell, preserve the
+largest connected artwork component, fit it to the 240 × 240 safe area, and
+fail if any nontransparent pixel enters a protected gutter.
+
+Human-readable proofs are stored in `validation/sprite_grids/`. Magenta lines
+mark the exact 280 px dividers and green rectangles mark the protected gutters.
+`tools/validate_operator_sprite_grids.ps1` repeats the alpha/dimension/gutter
+gate without regenerating the sheets.

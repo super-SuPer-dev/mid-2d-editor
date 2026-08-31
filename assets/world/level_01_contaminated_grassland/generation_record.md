@@ -1,23 +1,37 @@
-# Level 1 Grassland Runtime Record
+# Level 1 Contaminated Grassland Parallax Runtime Record
 
-- Asset family: `WORLD-L1-GRASSLAND`
-- Source: `art_source/generated/world/level_01_contaminated_grassland/contaminated_grassland_backdrop_v1.png`
-- Runtime: `parallax/grassland_backdrop_v1.png`
-- Dimensions: 1672 × 941 px, RGB
-- Runtime SHA-256: `1B677F5E37FCD82C3A6B7096A2924EF0115A2B08A46570279A97CA8F8840B2CC`
-- Import: nearest filtering, aspect-preserving 0.766 scale, presentation-only z-index -100
+- Asset family: `WORLD-L1-GRASSLAND-PARALLAX`
+- Generation mode: built-in image generation using the former grassland backdrop as the art-direction reference
+- Runtime state: `Integrated` five-layer v2 parallax replacement
 - Runtime scene: `scenes/backgrounds/grassland_generated_parallax.tscn`
-- Landmark source: `art_source/generated/world/level_01_contaminated_grassland/landmarks/irrigation_root_tower_v1.png`
-- Landmark runtime: `landmarks/irrigation_root_tower_v1.png`
-- Landmark dimensions: 1024 × 1536 px, RGBA source normalized to binary alpha for runtime
-- Landmark runtime SHA-256: `90B7AB226AC74EC9E0B52445C47A826781D80C841D71BF431A39389608CB1B7B`
-- Landmark placement: `Environment/IrrigationRootLandmark`, z-index -5, scale 0.34, no collision
-- Foreground prop source: `art_source/generated/world/level_01_contaminated_grassland/props/rice_root_props_v1.png`
-- Foreground prop runtime: `props/rice_root_props_v1.png`
-- Foreground prop dimensions: 1536 × 1024 px, RGBA source normalized to binary alpha for runtime
-- Foreground prop placement: `Environment/RiceRootPropsA` and `Environment/RiceRootPropsB`, z-index -4, scales 0.24/0.20, no collision
-- Foreground prop runtime SHA-256: `0E03BE31DC89CAEFA5ADECF9F51C021692C1901B92BC34025B371570B19CF6D4`
-- Localization impact: none; no baked text or language-specific copy
+- Canvas: every runtime layer is 1280 × 720 px
+- Filtering: nearest neighbor in Godot
+- Gameplay impact: presentation only; collision, encounter, quota, boss, and extraction contracts are unchanged
+- Localization impact: none
 
-The previous `grassland_parallax.tscn` remains available for rollback. Modular
-tile variants, foreground props, memory and human pixel-art review remain open.
+| Depth | Runtime file | Alpha | Scroll scale | SHA-256 |
+|---|---|---:|---:|---|
+| Far sky | `grassland_sky_far_v2.png` | Opaque | `(0.018, 0.01)` | `3A1C8969D2235304315DB3D7D9159DAA2C82E865842702FCD7DC1F5C8CF12246` |
+| Distant fields | `grassland_fields_far_v2.png` | RGBA | `(0.07, 0.03)` | `6657ED37E25218211FEF42F6813ECC4870DEC691208C7840C767AB3961CBF585` |
+| Corruption mid | `grassland_corruption_mid_v2.png` | RGBA | `(0.16, 0.06)` | `C8806AC975C17040F71D6349A64CCDFA625432EC97CEB5D482318B57082CEF8B` |
+| Roots near | `grassland_roots_near_v2.png` | RGBA | `(0.34, 0.12)` | `7069E0CC19FC60B3420B759B9AE3A5ED7F94339057376655BA0E9A96BBEC3ABF` |
+| Foreground frame | `grassland_foreground_frame_v2.png` | RGBA | `(0.48, 0.16)` | `FAA545DEC16A65FDCCFF4E06D11F9D74B264F63010CA5191F488F11587208FAA` |
+
+## Prompt set
+
+The five generation prompts shared the original contaminated Thai rice-field
+palette and painterly pixel-art direction. Individual prompts requested:
+
+1. an opaque far sky and mountain horizon;
+2. transparent distant paddies and irrigation lines;
+3. transparent corrupted root towers, fence fragments, and purple accents;
+4. transparent near rice stalks and root arches;
+5. a transparent extreme-foreground foliage/root frame.
+
+All layers were requested as wide 16:9, horizontally repeatable compositions
+with no characters, text, logos, or watermark. Transparent layers used only the
+simple phrase `transparent background`; each output was visually reviewed and
+then verified as `Format32bppArgb` with a zero-alpha corner before promotion.
+
+`tools/normalize_parallax_layer.ps1` performs the aspect-safe crop and
+high-quality downscale to the exact 1280 × 720 runtime contract.

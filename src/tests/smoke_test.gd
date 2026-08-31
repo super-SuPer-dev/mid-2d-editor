@@ -128,6 +128,7 @@ func _validate_catalogs() -> void:
 		var art_texture := data["art_texture"] as Texture2D
 		_check(art_texture != null and art_texture.get_width() == 1120 and art_texture.get_height() == 1400, "%s operator sheet is not cropped to the exact 4 × 5 280 px grid." % character_id)
 		if art_texture != null:
+			_check(str(art_texture.resource_path).ends_with("_sprite_sheet_generated_v3.png"), "%s is not using the regenerated leak-safe operator sheet." % character_id)
 			var edge_frame := CharacterCatalog.get_sprite_frame(art_texture, CharacterCatalog.SHEET_COLUMNS - 1, CharacterCatalog.SHEET_ROWS - 1, 0.0)
 			_check(edge_frame.region.size.is_equal_approx(Vector2(280.0, 280.0)), "%s operator atlas slicing lost its exact 280 px cell size." % character_id)
 		var jump_height := pow(float(data["jump_velocity"]), 2.0) / (2.0 * PlayerController.GRAVITY)
@@ -591,6 +592,15 @@ func _validate_levels() -> void:
 		if dialogue.visible:
 			dialogue._on_skip_pressed()
 		await get_tree().process_frame
+		var parallax_root := level.get_node_or_null("Environment/ParallaxBackground")
+		_check(parallax_root != null and parallax_root.get_child_count() >= 4, "%s does not use a multi-layer parallax background." % level_id)
+		if parallax_root != null:
+			var parallax_scales: Dictionary = {}
+			for parallax_layer: Node in parallax_root.get_children():
+				_check(parallax_layer is Parallax2D, "%s background contains a non-parallax layer." % level_id)
+				if parallax_layer is Parallax2D:
+					parallax_scales[(parallax_layer as Parallax2D).scroll_scale] = true
+			_check(parallax_scales.size() >= 4, "%s parallax layers do not have distinct depth speeds." % level_id)
 		var expected_enemies: int = int(LevelCatalog.get_level(level_id)["threat_quota"])
 		var enemy_count := 0
 		var boss_count := 0

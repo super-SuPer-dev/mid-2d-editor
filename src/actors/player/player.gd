@@ -10,6 +10,13 @@ const JUMP_BUFFER_TIME := 0.12
 const DASH_DURATION := 0.16
 const DASH_COOLDOWN := 0.7
 const ATTACK_DURATION := 0.15
+const RUN_ACCELERATION := 1800.0
+const GROUND_DECELERATION := 2400.0
+const AIR_CONTROL_FACTOR := 0.72
+const JUMP_RELEASE_FACTOR := 0.52
+const CAMERA_LOOK_AHEAD := 96.0
+const CAMERA_LOOK_SPEED := 7.0
+const VISUAL_Y_SPEED := 48.0
 const IDLE_VISUAL_Y := -12.0
 const RUN_VISUAL_Y := -9.0
 const CUTTER_SWING_TEXTURE: Texture2D = preload("res://assets/vfx/cutter/cutter_swing_arc_normalized_v1.png")
@@ -20,6 +27,7 @@ const STATUS_CONTAMINATION_TEXTURE: Texture2D = preload("res://assets/vfx/damage
 @onready var attack_vfx: AnimatedSprite2D = $AttackVfx
 @onready var status_vfx: AnimatedSprite2D = $StatusVfx
 @onready var player_hit_vfx: AnimatedSprite2D = $PlayerHitVfx
+@onready var camera: Camera2D = $Camera2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var health: HealthComponent = $HealthComponent
@@ -76,6 +84,8 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("move_up"):
 		jump_buffer_timer = JUMP_BUFFER_TIME
+	elif event.is_action_released("move_up") and velocity.y < -80.0:
+		velocity.y *= JUMP_RELEASE_FACTOR
 	elif event.is_action_pressed("attack") and attack_timer <= 0.0 and movement_enabled:
 		_start_attack()
 	elif event.is_action_pressed("dash") and dash_cooldown_timer <= 0.0 and movement_enabled:
@@ -95,10 +105,16 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y += GRAVITY * delta
 		var direction := Input.get_axis("move_left", "move_right") if movement_enabled else 0.0
-		velocity.x = move_toward(velocity.x, direction * move_speed, 1500.0 * delta)
+		var target_speed := direction * move_speed
+		var acceleration := GROUND_DECELERATION if is_zero_approx(direction) else RUN_ACCELERATION
+		if not is_on_floor():
+			acceleration *= AIR_CONTROL_FACTOR
+		velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
 		if not is_zero_approx(direction):
 			facing = signf(direction)
 			body_visual.scale.x = absf(body_visual.scale.x) * facing
+		var look_target := facing * CAMERA_LOOK_AHEAD
+		camera.position.x = lerpf(camera.position.x, look_target, 1.0 - exp(-CAMERA_LOOK_SPEED * delta))
 
 	if is_on_floor():
 		coyote_timer = COYOTE_TIME
@@ -108,14 +124,14 @@ func _physics_process(delta: float) -> void:
 		coyote_timer = 0.0
 
 	move_and_slide()
-	_update_character_animation()
+	_update_character_animation(delta)
 
 
 func _setup_character_animations(texture: Texture2D, frame_inset: float) -> void:
 	var frames := SpriteFrames.new()
 	frames.remove_animation(&"default")
 	var animations := {&"idle": 0, &"run": 1, &"attack": 2, &"dash": 3}
-	var animation_speeds := {&"idle": 5.0, &"run": 6.0, &"attack": 12.0, &"dash": 12.0}
+	var animation_speeds := {&"idle": 6.0, &"run": 10.0, &"attack": 16.0, &"dash": 16.0}
 	for animation: StringName in animations:
 		frames.add_animation(animation)
 		frames.set_animation_speed(animation, animation_speeds[animation])
@@ -127,7 +143,7 @@ func _setup_character_animations(texture: Texture2D, frame_inset: float) -> void
 	body_visual.play(&"idle")
 
 
-func _update_character_animation() -> void:
+func _update_character_animation(delta: float) -> void:
 	var desired: StringName = &"idle"
 	if dash_timer > 0.0:
 		desired = &"dash"
@@ -135,7 +151,9 @@ func _update_character_animation() -> void:
 		desired = &"attack"
 	elif absf(velocity.x) > 10.0 and is_on_floor():
 		desired = &"run"
-	body_visual.position.y = run_visual_y if desired == &"run" else idle_visual_y
+	var target_visual_y := run_visual_y if desired == &"run" else idle_visual_y
+	body_visual.position.y = move_toward(body_visual.position.y, target_visual_y, VISUAL_Y_SPEED * delta)
+	body_visual.speed_scale = clampf(absf(velocity.x) / maxf(move_speed, 1.0), 0.85, 1.15) if desired == &"run" else 1.0
 	if body_visual.animation != desired:
 		body_visual.play(desired)
 
@@ -248,7 +266,6 @@ func heal(amount: int) -> bool:
 
 
 func set_camera_limits(level_size: Vector2) -> void:
-	var camera: Camera2D = $Camera2D
 	camera.limit_left = 0
 	camera.limit_top = 0
 	camera.limit_right = int(level_size.x)
