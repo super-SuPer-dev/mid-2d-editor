@@ -470,6 +470,16 @@ with 58 mounts and 617.8 MB peak allocator usage. These are local allocator and
 leak measurements, not Web-browser memory measurements; browser peak-memory
 capture and human performance sign-off remain open.
 
+**Projectile-cap hold evidence — 2026-08-31:** The dedicated
+`tools/run_soak_validation.ps1 -DurationSeconds 301 -ProjectileCapHoldSeconds 60`
+run held every level at its documented projectile cap for 60 seconds. It passed
+at 307.2 seconds with one cycle, 12 scene mounts, 455 peak nodes, 628.1 MB peak
+local allocator usage and zero active SFX growth. The runner never exceeded a
+level cap, never grew its pooled projectile array beyond that cap, and cleaned
+all active projectiles on boss deactivation and scene exit. The test exposed a
+real pooled-projectile leak, which is now fixed by disposing the runner in the
+enemy tree-exit lifecycle; browser memory remains a separate open requirement.
+
 ### Gate 5 — Campaign Polish
 
 [DEV-GATE-05]

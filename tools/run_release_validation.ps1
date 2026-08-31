@@ -3,7 +3,8 @@ param(
     [string]$BuildRoot = "",
     [switch]$SkipExport,
     [switch]$RunSoak,
-    [int]$SoakSeconds = 1800
+    [int]$SoakSeconds = 1800,
+    [int]$ProjectileCapHoldSeconds = 0
 )
 
 $ErrorActionPreference = "Stop"
@@ -35,7 +36,11 @@ if (-not (Test-Path -LiteralPath $godot -PathType Leaf)) {
     Invoke-Step "runtime alpha" { & python (Join-Path $ProjectRoot "tools\quantize_runtime_alpha.py") --project-root $ProjectRoot --check }
     Invoke-Step "Godot smoke" { & $godot --headless --path $ProjectRoot --scene res://scenes/tests/smoke_test.tscn --quit-after 25 }
     if ($RunSoak) {
-        Invoke-Step "scene-transition soak" { & (Join-Path $ProjectRoot "tools\run_soak_validation.ps1") -ProjectRoot $ProjectRoot -DurationSeconds $SoakSeconds }
+        $capHoldSeconds = $ProjectileCapHoldSeconds
+        if ($capHoldSeconds -eq 0 -and $SoakSeconds -ge 1800) {
+            $capHoldSeconds = 60
+        }
+        Invoke-Step "scene-transition soak" { & (Join-Path $ProjectRoot "tools\run_soak_validation.ps1") -ProjectRoot $ProjectRoot -DurationSeconds $SoakSeconds -ProjectileCapHoldSeconds $capHoldSeconds }
     }
 
     if (-not $SkipExport) {

@@ -30,6 +30,7 @@ const MAX_ALLOWED_NODE_GROWTH := 12
 
 var failures: Array[String] = []
 var soak_seconds := DEFAULT_SOAK_SECONDS
+var projectile_hold_seconds := 0.0
 var started_msec := 0
 var cycle_count := 0
 var mounted_scene_count := 0
@@ -37,10 +38,12 @@ var baseline_node_count := -1
 var peak_node_count := 0
 var peak_static_bytes := 0
 var peak_sfx_count := 0
+var projectile_hold_completed: Dictionary = {}
 
 
 func _ready() -> void:
 	soak_seconds = _read_duration()
+	projectile_hold_seconds = _read_projectile_hold_duration()
 	SaveManager.begin_test_session()
 	AudioManager.muted_for_tests = true
 	baseline_node_count = get_tree().get_node_count()
@@ -108,6 +111,9 @@ func _mount_and_release(scene_path: String, label: String) -> void:
 	_sample_metrics()
 
 	if label.begins_with("level_"):
+		if projectile_hold_seconds > 0.0 and not bool(projectile_hold_completed.get(label, false)):
+			await _exercise_projectile_cap(instance, label)
+			projectile_hold_completed[label] = true
 		_exercise_mission_phases()
 		await get_tree().process_frame
 		_sample_metrics()
@@ -134,6 +140,48 @@ func _exercise_mission_phases() -> void:
 	GameManager.finish_run(true)
 
 
+func _exercise_projectile_cap(instance: Node, level_id: String) -> void:
+	var boss: EnemyController = null
+	var enemies := instance.get_node_or_null("Enemies")
+	if enemies != null:
+		for candidate: Node in enemies.get_children():
+			if candidate is EnemyController and (candidate as EnemyController).is_boss:
+				boss = candidate as EnemyController
+				break
+	_check(boss != null, "%s cap hold could not find its boss." % level_id)
+	if boss == null:
+		return
+	var runner := boss.pattern_runner
+	var expected_cap := int(LevelCatalog.get_level(level_id).get("projectile_cap", 0))
+	_check(runner.projectile_cap == expected_cap, "%s cap hold found runner cap %d instead of %d." % [level_id, runner.projectile_cap, expected_cap])
+	if runner.projectile_cap <= 0:
+		return
+	var original_god_mode := GameManager.is_god_mode
+	GameManager.toggle_god_mode(true)
+	boss.set_combat_active(true)
+	await get_tree().physics_frame
+	var sequence_index := 0
+	var observed_cap := false
+	var hold_end_msec := Time.get_ticks_msec() + int(projectile_hold_seconds * 1000.0)
+	while Time.get_ticks_msec() < hold_end_msec:
+		while runner.get_active_projectile_count() < runner.projectile_cap:
+			runner._emit_projectile(sequence_index)
+			sequence_index += 1
+			if sequence_index > runner.projectile_cap * 8:
+				break
+		var active_count := runner.get_active_projectile_count()
+		observed_cap = observed_cap or active_count == runner.projectile_cap
+		_check(active_count <= runner.projectile_cap, "%s exceeded its projectile cap during the hold: %d/%d." % [level_id, active_count, runner.projectile_cap])
+		_check(runner.all_projectiles.size() <= runner.projectile_cap, "%s grew its projectile pool beyond its cap during the hold: %d/%d." % [level_id, runner.all_projectiles.size(), runner.projectile_cap])
+		_sample_metrics()
+		await get_tree().physics_frame
+	_check(observed_cap, "%s never reached its documented projectile cap during the hold." % level_id)
+	boss.set_combat_active(false)
+	await get_tree().process_frame
+	_check(runner.get_active_projectile_count() == 0, "%s cap hold did not clean up active projectiles." % level_id)
+	GameManager.toggle_god_mode(original_god_mode)
+
+
 func _sample_metrics() -> void:
 	peak_node_count = maxi(peak_node_count, get_tree().get_node_count())
 	peak_sfx_count = maxi(peak_sfx_count, AudioManager.get_active_sfx_count())
@@ -146,6 +194,13 @@ func _read_duration() -> float:
 		if argument.begins_with("--soak-seconds="):
 			return maxf(float(argument.trim_prefix("--soak-seconds=")), 1.0)
 	return DEFAULT_SOAK_SECONDS
+
+
+func _read_projectile_hold_duration() -> float:
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--projectile-cap-hold-seconds="):
+			return maxf(float(argument.trim_prefix("--projectile-cap-hold-seconds=")), 0.0)
+	return 0.0
 
 
 func _elapsed_seconds() -> float:

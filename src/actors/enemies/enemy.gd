@@ -1115,6 +1115,12 @@ func set_combat_active(active: bool) -> void:
 		GameManager.update_boss_phase(boss_phase, boss_phase_count)
 
 
+func _exit_tree() -> void:
+	var runner := get_node_or_null("BossProjectilePatternRunner") as BossProjectilePatternRunner
+	if runner != null:
+		runner.dispose_projectiles()
+
+
 func _get_boss_pattern_set_id() -> String:
 	match enemy_type:
 		"thorn_matriarch_boss":

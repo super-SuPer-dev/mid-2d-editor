@@ -246,6 +246,14 @@ cycles, 3,227 scene mounts, 263 peak nodes, zero active SFX growth and 623.1
 MB peak local allocator usage. This satisfies the local scene-transition soak
 check; it does not satisfy the separate Web-browser peak-memory requirement.
 
+**Projectile-cap hold evidence — 2026-08-31:**
+`tools/run_soak_validation.ps1 -DurationSeconds 301 -ProjectileCapHoldSeconds 60`
+passed all five levels at 60 seconds per documented cap, with 12 scene mounts,
+455 peak nodes and zero SFX growth. Cap assertions covered the active projectile
+array, pooled projectile array and cleanup after boss deactivation and scene
+exit. The 628.1 MB measurement is local allocator usage and is not a Web
+browser-memory result.
+
 ## 12. Platform and Release Matrix
 
 Minimum release matrix:

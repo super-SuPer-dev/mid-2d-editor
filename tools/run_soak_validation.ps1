@@ -1,6 +1,7 @@
 param(
     [string]$ProjectRoot = (Get-Location).Path,
-    [int]$DurationSeconds = 1800
+    [int]$DurationSeconds = 1800,
+    [int]$ProjectileCapHoldSeconds = 60
 )
 
 $ErrorActionPreference = "Stop"
@@ -13,8 +14,13 @@ if ($DurationSeconds -lt 1) {
     Write-Output "SOAK VALIDATION: FAIL`n- DurationSeconds must be at least 1."
     exit 1
 }
+if ($ProjectileCapHoldSeconds -lt 0) {
+    Write-Output "SOAK VALIDATION: FAIL`n- ProjectileCapHoldSeconds cannot be negative."
+    exit 1
+}
 
 Write-Output ("[soak] running {0} seconds" -f $DurationSeconds)
+Write-Output ("[soak] projectile cap hold: {0} seconds per level" -f $ProjectileCapHoldSeconds)
 $startInfo = [System.Diagnostics.ProcessStartInfo]::new()
 $startInfo.FileName = $godot
 $startInfo.WorkingDirectory = $ProjectRoot
@@ -26,17 +32,18 @@ $startInfo.ArgumentList.Add("--scene")
 $startInfo.ArgumentList.Add("res://scenes/tests/soak_test.tscn")
 $startInfo.ArgumentList.Add("--")
 $startInfo.ArgumentList.Add("--soak-seconds=$DurationSeconds")
+$startInfo.ArgumentList.Add("--projectile-cap-hold-seconds=$ProjectileCapHoldSeconds")
 $process = [System.Diagnostics.Process]::new()
 $process.StartInfo = $startInfo
 if (-not $process.Start()) {
     Write-Output "SOAK VALIDATION: FAIL`n- Could not start Godot."
     exit 1
 }
-$timeoutMilliseconds = [int64]($DurationSeconds + 60) * 1000
+$timeoutMilliseconds = [int64]($DurationSeconds + ($ProjectileCapHoldSeconds * 5) + 60) * 1000
 if (-not $process.WaitForExit($timeoutMilliseconds)) {
     $process.Kill($true)
     $process.WaitForExit()
-    Write-Output ("SOAK VALIDATION: FAIL`n- Timed out after {0} seconds." -f ($DurationSeconds + 60))
+    Write-Output ("SOAK VALIDATION: FAIL`n- Timed out after {0} seconds." -f ($DurationSeconds + ($ProjectileCapHoldSeconds * 5) + 60))
     exit 1
 }
 $exitCode = $process.ExitCode
