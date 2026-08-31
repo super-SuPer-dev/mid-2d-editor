@@ -173,6 +173,12 @@ platforms with nearest filtering, 0.23 aspect-preserving scale and z = -4
 background draw order. English smoke coverage verifies the runtime texture
 binding and draw order without changing Level 2 collision or traversal.
 
+**Biome extraction promotion evidence — 2026-08-31:** Levels 2–5 now bind
+generated forest, capsule, marsh and nexus extraction beacons as portal visual
+overrides while retaining the shared collision, localized label and activation
+logic. English smoke coverage checks each runtime texture path; beacon
+activation VFX and human composition review remain open.
+
 **Maw-asset promotion evidence — 2026-08-31:** The shared Level 2–3 Maw now
 uses generated mangosteen idle/move strips instead of the placeholder plant.
 Both 2800 × 800 runtime strips use four 700 px cells, a 740 px foot baseline,

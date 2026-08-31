@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/game_hud.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/backgrounds/capsule_generated_parallax.tscn" id="9_bg"]
 [ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/landmarks/capsule_07_seed_harvester_v1.png" id="10_landmark"]
+[ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/extraction/capsule_extraction_beacon_v1.png" id="11_beacon"]
 
 [node name="AlienRootCave" type="Node2D"]
 script = ExtResource("1")
@@ -104,4 +105,6 @@ position = Vector2(2100, 475)
 
 [node name="Portal" parent="." instance=ExtResource("7")]
 position = Vector2(2720, 515)
+[node name="Visual" parent="Portal"]
+texture = ExtResource("11_beacon")
 [node name="HUD" parent="." instance=ExtResource("8")]

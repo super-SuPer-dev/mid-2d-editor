@@ -565,6 +565,7 @@ func _validate_levels() -> void:
 		var expected_landmark_node := ""
 		var expected_prop_texture := ""
 		var expected_prop_nodes: Array[String] = []
+		var expected_portal_texture := ""
 		match level_id:
 			"level_01":
 				expected_landmark_texture = "irrigation_root_tower_v1.png"
@@ -577,18 +578,22 @@ func _validate_levels() -> void:
 				expected_landmark_node = "MawBloomLandmark"
 				expected_prop_texture = "forest_field_shrine_v1.png"
 				expected_prop_nodes = ["ForestFieldShrine"]
+				expected_portal_texture = "forest_extraction_beacon_v1.png"
 			"level_03":
 				expected_hazard_texture = "santol_seed_piston_normalized_v1.png"
 				expected_landmark_texture = "capsule_07_seed_harvester_v1.png"
 				expected_landmark_node = "Capsule07Landmark"
+				expected_portal_texture = "capsule_extraction_beacon_v1.png"
 			"level_04":
 				expected_hazard_texture = "nutrient_root_eruption_normalized_v2.png"
 				expected_landmark_texture = "root_nutrient_conduit_v2.png"
 				expected_landmark_node = "NutrientConduitLandmark"
+				expected_portal_texture = "marsh_extraction_beacon_v2.png"
 			"level_05":
 				expected_hazard_texture = "sensory_platform_collapse_normalized_v2.png"
 				expected_landmark_texture = "awakened_sensory_nexus_v2.png"
 				expected_landmark_node = "AwakenedNexusLandmark"
+				expected_portal_texture = "nexus_extraction_beacon_v2.png"
 		if not expected_hazard_texture.is_empty():
 			var hazard_visual := level.get_node("WorldGeometry/Hazard01/Visual") as Sprite2D
 			_check(hazard_visual.hframes == 4 and hazard_visual.vframes == 1, "%s biome hazard did not use a four-frame strip." % level_id)
@@ -607,6 +612,9 @@ func _validate_levels() -> void:
 				if prop_duplicate != null:
 					_check(str(prop_duplicate.texture.resource_path).ends_with(expected_prop_texture), "%s prop %s did not bind its generated texture." % [level_id, prop_node])
 					_check(prop_duplicate.z_index == -4, "%s prop %s changed its background draw order." % [level_id, prop_node])
+		if not expected_portal_texture.is_empty():
+			var portal_visual := level.get_node("Portal/Visual") as Sprite2D
+			_check(str(portal_visual.texture.resource_path).ends_with(expected_portal_texture), "%s portal did not bind its biome extraction beacon." % level_id)
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController

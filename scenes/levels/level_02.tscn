@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/backgrounds/forest_generated_parallax.tscn" id="9_bg"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/landmarks/maw_bloom_lair_v1.png" id="10_landmark"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/props/forest_field_shrine_v1.png" id="11_shrine"]
+[ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/extraction/forest_extraction_beacon_v1.png" id="12_beacon"]
 
 [node name="MutatedForest" type="Node2D"]
 script = ExtResource("1")
@@ -134,4 +135,6 @@ position = Vector2(2810, 545)
 
 [node name="Portal" parent="." instance=ExtResource("7")]
 position = Vector2(3110, 595)
+[node name="Visual" parent="Portal"]
+texture = ExtResource("12_beacon")
 [node name="HUD" parent="." instance=ExtResource("8")]
