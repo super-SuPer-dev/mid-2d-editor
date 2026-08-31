@@ -528,6 +528,7 @@ func _validate_levels() -> void:
 			spitter.take_damage(1)
 			await get_tree().physics_frame
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_hurt_strip_normalized_v2.png"), "Level 1 Spitter did not bind its hurt animation.")
+			_check(str(spitter._get_standard_death_texture().resource_path).ends_with("spitter_death_strip_normalized_v2.png"), "Level 1 Spitter lost its death-strip contract.")
 		if level_id == "level_02":
 			var maw := level.get_node("Enemies/Maw01") as EnemyController
 			var maw_visual := maw.get_node("Visual") as Sprite2D
@@ -543,6 +544,7 @@ func _validate_levels() -> void:
 			maw.take_damage(1)
 			maw._update_maw_animation(0.0)
 			_check(str(maw_visual.texture.resource_path).ends_with("maw_hurt_strip_normalized_v2.png"), "Level 2 Maw did not bind its hurt animation.")
+			_check(str(maw._get_standard_death_texture().resource_path).ends_with("maw_death_strip_normalized_v2.png"), "Level 2 Maw lost its death-strip contract.")
 			var maw_boss := level.get_node("Enemies/MawBloomSovereign") as EnemyController
 			var maw_boss_visual := maw_boss.get_node("Visual") as Sprite2D
 			_check(maw_boss_visual.hframes == 4 and maw_boss_visual.vframes == 1, "Level 2 Maw Sovereign pilot lost its four-frame grid.")
@@ -619,6 +621,7 @@ func _validate_levels() -> void:
 			root_skitter.take_damage(1)
 			root_skitter._update_root_skitter_animation(0.0)
 			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_hurt_strip_normalized_v2.png"), "Level 4 Root Skitter did not bind its hurt animation.")
+			_check(str(root_skitter._get_standard_death_texture().resource_path).ends_with("root_skitter_death_strip_normalized_v2.png"), "Level 4 Root Skitter lost its death-strip contract.")
 			var root_hydra := level.get_node("Enemies/RootHydra") as EnemyController
 			var root_hydra_visual := root_hydra.get_node("Visual") as Sprite2D
 			_check(root_hydra_visual.hframes == 4 and root_hydra_visual.vframes == 1, "Level 4 Root Hydra pilot lost its four-frame grid.")
@@ -673,6 +676,7 @@ func _validate_levels() -> void:
 			capsule_husk.take_damage(1)
 			capsule_husk._update_capsule_husk_animation(0.0)
 			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_hurt_strip_normalized_v2.png"), "Level 5 Capsule Husk did not bind its hurt animation.")
+			_check(str(capsule_husk._get_standard_death_texture().resource_path).ends_with("capsule_husk_death_strip_normalized_v2.png"), "Level 5 Capsule Husk lost its death-strip contract.")
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)

@@ -811,8 +811,9 @@ func _on_died() -> void:
 		GameManager.register_boss_defeated()
 	else:
 		GameManager.register_enemy_defeated()
-	if enemy_type == "eye_wisp":
-		visual.texture = EYE_WISP_DEATH_TEXTURE
+	var death_texture: Texture2D = _get_standard_death_texture()
+	if not is_boss and death_texture != null:
+		visual.texture = death_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
@@ -824,6 +825,23 @@ func _on_died() -> void:
 		get_tree().create_timer(0.32).timeout.connect(queue_free)
 		return
 	queue_free()
+
+
+func _get_standard_death_texture() -> Texture2D:
+	match enemy_type:
+		"thornling":
+			return THORNLING_DEATH_TEXTURE
+		"spitter", "marsh_spitter":
+			return SPITTER_DEATH_TEXTURE
+		"maw":
+			return MAW_DEATH_TEXTURE
+		"root_skitter":
+			return ROOT_SKITTER_DEATH_TEXTURE
+		"eye_wisp":
+			return EYE_WISP_DEATH_TEXTURE
+		"capsule_husk_elite":
+			return CAPSULE_HUSK_DEATH_TEXTURE
+	return null
 
 
 func set_combat_active(active: bool) -> void:
