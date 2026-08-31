@@ -566,6 +566,17 @@ func _validate_levels() -> void:
 			await get_tree().physics_frame
 			_check(vfx_enemy.hit_vfx.visible, "Level 1 enemy damage did not show the generated contact VFX.")
 			_check(vfx_enemy.hit_vfx.sprite_frames.get_frame_count(&"contact") == 4, "Enemy contact VFX lost its four-frame strip.")
+			_check(str(vfx_enemy.hit_vfx.sprite_frames.get_frame_texture(&"contact", 0).atlas.resource_path).ends_with("damage_organic_hit_normalized_v1.png"), "Enemy contact VFX did not use the generated organic-hit strip.")
+			player.take_damage(1, Vector2.LEFT)
+			await get_tree().physics_frame
+			_check(player.player_hit_vfx.visible, "Player damage did not show the generated player-hit VFX.")
+			_check(player.player_hit_vfx.sprite_frames.get_frame_count(&"hit") == 4, "Player-hit VFX lost its four-frame strip.")
+			player.show_status_vfx()
+			await get_tree().physics_frame
+			_check(player.status_vfx.visible, "Hazard status did not show the generated contamination VFX.")
+			_check(player.status_vfx.sprite_frames.get_frame_count(&"contamination") == 4, "Contamination VFX lost its four-frame strip.")
+			for _damage_cooldown_frame in range(55):
+				await get_tree().physics_frame
 		var health_before := player.health.current_health
 		player.take_damage(1, Vector2.LEFT)
 		_check(player.health.current_health == health_before - 1, "%s player damage did not apply." % level_id)

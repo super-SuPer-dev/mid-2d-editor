@@ -13,9 +13,13 @@ const ATTACK_DURATION := 0.15
 const IDLE_VISUAL_Y := -12.0
 const RUN_VISUAL_Y := -9.0
 const CUTTER_SWING_TEXTURE: Texture2D = preload("res://assets/vfx/cutter/cutter_swing_arc_normalized_v1.png")
+const PLAYER_HIT_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_player_hit_normalized_v1.png")
+const STATUS_CONTAMINATION_TEXTURE: Texture2D = preload("res://assets/vfx/damage/status_root_contamination_normalized_v1.png")
 
 @onready var body_visual: AnimatedSprite2D = $BodyVisual
 @onready var attack_vfx: AnimatedSprite2D = $AttackVfx
+@onready var status_vfx: AnimatedSprite2D = $StatusVfx
+@onready var player_hit_vfx: AnimatedSprite2D = $PlayerHitVfx
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var health: HealthComponent = $HealthComponent
@@ -53,6 +57,7 @@ func _ready() -> void:
 	run_visual_y = float(character.get("run_visual_y", RUN_VISUAL_Y))
 	_setup_character_animations(character["art_texture"], float(character.get("frame_inset", CharacterCatalog.FRAME_INSET)))
 	_setup_cutter_vfx()
+	_setup_damage_vfx()
 	attack_damage += SaveManager.get_upgrade_level("blade")
 	var engine_level := SaveManager.get_upgrade_level("engine")
 	move_speed *= 1.0 + engine_level * 0.05
@@ -195,9 +200,46 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 	if not health.take_damage(resolved_amount):
 		return false
 	AudioManager.play_sfx(0.7, -5.0)
+	player_hit_vfx.visible = true
+	player_hit_vfx.play(&"hit")
 	invulnerability_timer = 0.8
 	velocity = Vector2(-source_direction.x * 260.0, -220.0)
 	return true
+
+
+func show_status_vfx() -> void:
+	status_vfx.visible = true
+	status_vfx.play(&"contamination")
+
+
+func _setup_damage_vfx() -> void:
+	_setup_effect_animation(player_hit_vfx, &"hit", PLAYER_HIT_TEXTURE, 16.0, false)
+	player_hit_vfx.animation_finished.connect(_on_player_hit_vfx_finished)
+	_setup_effect_animation(status_vfx, &"contamination", STATUS_CONTAMINATION_TEXTURE, 8.0, true)
+	status_vfx.animation_finished.connect(_on_status_vfx_finished)
+
+
+func _setup_effect_animation(effect: AnimatedSprite2D, animation_name: StringName, texture: Texture2D, fps: float, loops: bool) -> void:
+	var frames := SpriteFrames.new()
+	frames.remove_animation(&"default")
+	frames.add_animation(animation_name)
+	frames.set_animation_speed(animation_name, fps)
+	frames.set_animation_loop(animation_name, loops)
+	for column in range(4):
+		var frame := AtlasTexture.new()
+		frame.atlas = texture
+		frame.region = Rect2(Vector2(column * 800.0, 0.0), Vector2(800.0, 800.0))
+		frame.filter_clip = true
+		frames.add_frame(animation_name, frame)
+	effect.sprite_frames = frames
+
+
+func _on_player_hit_vfx_finished() -> void:
+	player_hit_vfx.visible = false
+
+
+func _on_status_vfx_finished() -> void:
+	status_vfx.visible = false
 
 
 func heal(amount: int) -> bool:

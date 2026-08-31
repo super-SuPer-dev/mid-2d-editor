@@ -406,6 +406,12 @@ events at calibrated 0.11/0.10 scales. Smoke assertions cover playback,
 four-frame grids and automatic hide; charged-swing and upgrade-activation
 variants remain open.
 
+**Damage/status VFX promotion evidence — 2026-08-31:** Generated player-hit,
+organic-hit, armored-hit, boss-core-hit and root-contamination strips are now
+bound to player/enemy health and hazard-contact events. Smoke assertions cover
+four-frame playback contracts; blend mode, duration tuning and human readability
+review remain open.
+
 **Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
 bind their generated four-frame hazard strips through the shared DamageHazard
 contract at 8 fps: mangosteen spore vent, santol seed piston, nutrient-root

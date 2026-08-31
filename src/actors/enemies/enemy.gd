@@ -6,7 +6,9 @@ signal boss_phase_changed(current_phase: int, phase_count: int)
 
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
-const ORGANIC_CONTACT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/cutter/cutter_organic_contact_normalized_v1.png")
+const ORGANIC_HIT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_organic_hit_normalized_v1.png")
+const ARMORED_HIT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_armored_hit_normalized_v1.png")
+const BOSS_CORE_HIT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_boss_core_hit_normalized_v1.png")
 const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png")
 const THORNLING_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_idle_strip_normalized_v2.png")
 const THORNLING_RUN_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_run_strip_normalized_v2.png")
@@ -590,6 +592,9 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 
 
 func _setup_hit_vfx() -> void:
+	var hit_texture: Texture2D = ORGANIC_HIT_VFX_TEXTURE
+	if is_boss:
+		hit_texture = BOSS_CORE_HIT_VFX_TEXTURE if enemy_type == "root_core_eye_boss" else ARMORED_HIT_VFX_TEXTURE
 	var frames := SpriteFrames.new()
 	frames.remove_animation(&"default")
 	frames.add_animation(&"contact")
@@ -597,7 +602,7 @@ func _setup_hit_vfx() -> void:
 	frames.set_animation_loop(&"contact", false)
 	for column in range(4):
 		var frame := AtlasTexture.new()
-		frame.atlas = ORGANIC_CONTACT_VFX_TEXTURE
+		frame.atlas = hit_texture
 		frame.region = Rect2(Vector2(column * 800.0, 0.0), Vector2(800.0, 800.0))
 		frame.filter_clip = true
 		frames.add_frame(&"contact", frame)
