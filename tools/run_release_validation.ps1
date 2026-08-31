@@ -1,7 +1,9 @@
 param(
     [string]$ProjectRoot = (Get-Location).Path,
     [string]$BuildRoot = "",
-    [switch]$SkipExport
+    [switch]$SkipExport,
+    [switch]$RunSoak,
+    [int]$SoakSeconds = 1800
 )
 
 $ErrorActionPreference = "Stop"
@@ -31,6 +33,9 @@ if (-not (Test-Path -LiteralPath $godot -PathType Leaf)) {
     Invoke-Step "localization" { & (Join-Path $ProjectRoot "tools\validate_localization.ps1") -ProjectRoot $ProjectRoot }
     Invoke-Step "release readiness" { & (Join-Path $ProjectRoot "tools\validate_release_readiness.ps1") -ProjectRoot $ProjectRoot }
     Invoke-Step "Godot smoke" { & $godot --headless --path $ProjectRoot --scene res://scenes/tests/smoke_test.tscn --quit-after 25 }
+    if ($RunSoak) {
+        Invoke-Step "scene-transition soak" { & (Join-Path $ProjectRoot "tools\run_soak_validation.ps1") -ProjectRoot $ProjectRoot -DurationSeconds $SoakSeconds }
+    }
 
     if (-not $SkipExport) {
         Invoke-Step "Web export" { & $godot --headless --path $ProjectRoot --export-release Web }

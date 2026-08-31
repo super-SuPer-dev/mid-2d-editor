@@ -5,12 +5,12 @@ const DIALOGUE_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/dia
 const RADIO_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/radio_overlay_frame_normalized_v1.png")
 const BRIEFING_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/briefing_panel_normalized_v1.png")
 const DEBRIEF_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/debrief_panel_normalized_v1.png")
-const BOSS_INTRO_FRAME_TEXTURES := {
-	"thorn_matriarch": preload("res://assets/ui/boss/thorn_matriarch_boss_intro_frame_v1.png"),
-	"maw_bloom_sovereign": preload("res://assets/ui/boss/maw_sovereign_boss_intro_frame_v1.png"),
-	"possessed_banyan": preload("res://assets/ui/boss/possessed_banyan_boss_intro_frame_v1.png"),
-	"root_hydra": preload("res://assets/ui/boss/root_hydra_boss_intro_frame_v1.png"),
-	"root_core_eye": preload("res://assets/ui/boss/root_core_eye_boss_intro_frame_v1.png"),
+const BOSS_INTRO_FRAME_PATHS := {
+	"thorn_matriarch": "res://assets/ui/boss/thorn_matriarch_boss_intro_frame_v1.png",
+	"maw_bloom_sovereign": "res://assets/ui/boss/maw_sovereign_boss_intro_frame_v1.png",
+	"possessed_banyan": "res://assets/ui/boss/possessed_banyan_boss_intro_frame_v1.png",
+	"root_hydra": "res://assets/ui/boss/root_hydra_boss_intro_frame_v1.png",
+	"root_core_eye": "res://assets/ui/boss/root_core_eye_boss_intro_frame_v1.png",
 }
 
 @onready var panel: PanelContainer = $Panel
@@ -44,8 +44,6 @@ func _ready() -> void:
 	radio_frame_style = _build_frame_style(RADIO_FRAME_TEXTURE)
 	briefing_frame_style = _build_frame_style(BRIEFING_FRAME_TEXTURE)
 	debrief_frame_style = _build_frame_style(DEBRIEF_FRAME_TEXTURE)
-	for boss_id: String in BOSS_INTRO_FRAME_TEXTURES:
-		boss_intro_frame_styles[boss_id] = _build_frame_style(BOSS_INTRO_FRAME_TEXTURES[boss_id])
 
 
 func show_sequence(requested_sequence_id: String) -> void:
@@ -111,6 +109,11 @@ func _apply_presentation_mode(mode: String) -> void:
 		frame_style = debrief_frame_style
 	elif mode == "boss":
 		var boss_style := boss_intro_frame_styles.get(GameManager.current_boss_id) as StyleBoxTexture
+		if boss_style == null:
+			var boss_path := str(BOSS_INTRO_FRAME_PATHS.get(GameManager.current_boss_id, ""))
+			if not boss_path.is_empty():
+				boss_style = _build_frame_style(GameManager.load_runtime_texture(boss_path))
+				boss_intro_frame_styles[GameManager.current_boss_id] = boss_style
 		if boss_style != null:
 			frame_style = boss_style
 	panel.add_theme_stylebox_override("panel", frame_style)

@@ -31,7 +31,18 @@ func load_scene(scene_path: String) -> void:
 	changing_scene = true
 	scene_change_started.emit(scene_path)
 	get_tree().paused = false
-	var error := get_tree().change_scene_to_file(scene_path)
+	# Drop completed-scene cache references before loading the next scene. Nodes
+	# in the outgoing scene still own their textures until the tree swap, while
+	# dynamic spawns in the new scene can share its scoped cache normally.
+	GameManager.clear_runtime_texture_cache()
+	var packed_scene := ResourceLoader.load(scene_path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene
+	if packed_scene == null:
+		changing_scene = false
+		push_error("Could not load scene '%s'." % scene_path)
+		scene_change_failed.emit(scene_path, ERR_CANT_OPEN)
+		return
+	var error := get_tree().change_scene_to_packed(packed_scene)
+	packed_scene = null
 	changing_scene = false
 	if error != OK:
 		push_error("Could not load scene '%s' (error %d)." % [scene_path, error])

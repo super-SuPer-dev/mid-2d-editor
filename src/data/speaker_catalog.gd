@@ -5,8 +5,8 @@ const SPEAKERS := {
 	"commander_anan": {
 		"display_name_key": "SPEAKER_ANAN",
 		"portrait_id": "PORTRAIT-NPC-ANAN",
-		"portrait_texture": preload("res://assets/portraits/npcs/commander_anan_neutral.png"),
-		"portrait_sheet": preload("res://assets/portraits/npcs/commander_anan_portrait_states_normalized_v1.png"),
+		"portrait_texture": "res://assets/portraits/npcs/commander_anan_neutral.png",
+		"portrait_sheet": "res://assets/portraits/npcs/commander_anan_portrait_states_normalized_v1.png",
 		"portrait_columns": 3,
 		"expression_indices": {"neutral": 0, "urgent": 1, "relieved": 2},
 		"expressions": ["neutral", "urgent", "relieved"],
@@ -16,8 +16,8 @@ const SPEAKERS := {
 	"dr_mali": {
 		"display_name_key": "SPEAKER_MALI",
 		"portrait_id": "PORTRAIT-NPC-MALI",
-		"portrait_texture": preload("res://assets/portraits/npcs/dr_mali_analytical.png"),
-		"portrait_sheet": preload("res://assets/portraits/npcs/dr_mali_portrait_states_normalized_v1.png"),
+		"portrait_texture": "res://assets/portraits/npcs/dr_mali_analytical.png",
+		"portrait_sheet": "res://assets/portraits/npcs/dr_mali_portrait_states_normalized_v1.png",
 		"portrait_columns": 3,
 		"expression_indices": {"analytical": 0, "alarmed": 1, "hopeful": 2},
 		"expressions": ["analytical", "alarmed", "hopeful"],
@@ -27,8 +27,8 @@ const SPEAKERS := {
 	"technician_chai": {
 		"display_name_key": "SPEAKER_CHAI",
 		"portrait_id": "PORTRAIT-NPC-CHAI",
-		"portrait_texture": preload("res://assets/portraits/npcs/technician_chai_neutral.png"),
-		"portrait_sheet": preload("res://assets/portraits/npcs/technician_chai_portrait_states_normalized_v1.png"),
+		"portrait_texture": "res://assets/portraits/npcs/technician_chai_neutral.png",
+		"portrait_sheet": "res://assets/portraits/npcs/technician_chai_portrait_states_normalized_v1.png",
 		"portrait_columns": 3,
 		"expression_indices": {"neutral": 0, "amused": 1, "concerned": 2},
 		"expressions": ["neutral", "amused", "concerned"],
@@ -45,10 +45,10 @@ const SPEAKERS := {
 }
 
 const OPERATOR_PORTRAITS := {
-	"tonkla": {"portrait_sheet": preload("res://assets/portraits/operators/tonkla_portrait_states_normalized_v1.png"), "portrait_columns": 2, "expression_indices": {"neutral": 0, "determined": 1}},
-	"rin": {"portrait_sheet": preload("res://assets/portraits/operators/rin_portrait_states_normalized_v1.png"), "portrait_columns": 2, "expression_indices": {"neutral": 0, "determined": 1}},
-	"khem": {"portrait_sheet": preload("res://assets/portraits/operators/khem_portrait_states_normalized_v1.png"), "portrait_columns": 2, "expression_indices": {"neutral": 0, "determined": 1}},
-	"t800": {"portrait_sheet": preload("res://assets/portraits/operators/t800_portrait_states_normalized_v1.png"), "portrait_columns": 2, "expression_indices": {"neutral": 0, "alert": 1}},
+	"tonkla": {"portrait_sheet": "res://assets/portraits/operators/tonkla_portrait_states_normalized_v1.png", "portrait_columns": 2, "expression_indices": {"neutral": 0, "determined": 1}},
+	"rin": {"portrait_sheet": "res://assets/portraits/operators/rin_portrait_states_normalized_v1.png", "portrait_columns": 2, "expression_indices": {"neutral": 0, "determined": 1}},
+	"khem": {"portrait_sheet": "res://assets/portraits/operators/khem_portrait_states_normalized_v1.png", "portrait_columns": 2, "expression_indices": {"neutral": 0, "determined": 1}},
+	"t800": {"portrait_sheet": "res://assets/portraits/operators/t800_portrait_states_normalized_v1.png", "portrait_columns": 2, "expression_indices": {"neutral": 0, "alert": 1}},
 }
 
 
@@ -62,9 +62,15 @@ static func get_portrait_texture(speaker_id: String, expression: String = "neutr
 		config = OPERATOR_PORTRAITS.get(CharacterCatalog.resolve_character_id(GameManager.selected_character_id), {})
 	else:
 		config = SPEAKERS.get(speaker_id, {})
-	var sheet := config.get("portrait_sheet") as Texture2D
+	var sheet_value: Variant = config.get("portrait_sheet")
+	var sheet: Texture2D = sheet_value if sheet_value is Texture2D else null
+	if sheet == null and sheet_value is String and not str(sheet_value).is_empty():
+		sheet = GameManager.load_runtime_texture(str(sheet_value))
 	if sheet == null:
-		return config.get("portrait_texture") as Texture2D
+		var portrait_value: Variant = config.get("portrait_texture")
+		if portrait_value is String and not str(portrait_value).is_empty():
+			return GameManager.load_runtime_texture(str(portrait_value))
+		return portrait_value if portrait_value is Texture2D else null
 	var columns := maxi(1, int(config.get("portrait_columns", 1)))
 	var indices: Dictionary = config.get("expression_indices", {})
 	var column := int(indices.get(expression, 0))

@@ -6,83 +6,160 @@ signal boss_phase_changed(current_phase: int, phase_count: int)
 
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
-const ORGANIC_HIT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_organic_hit_normalized_v1.png")
-const ARMORED_HIT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_armored_hit_normalized_v1.png")
-const BOSS_CORE_HIT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_boss_core_hit_normalized_v1.png")
-const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png")
-const THORNLING_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_idle_strip_normalized_v2.png")
-const THORNLING_RUN_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_run_strip_normalized_v2.png")
-const THORNLING_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_attack_strip_normalized_v2.png")
-const THORNLING_ATTACK_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_attack_tell_strip_normalized_v2.png")
-const THORNLING_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_hurt_strip_normalized_v2.png")
-const THORNLING_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_death_strip_normalized_v2.png")
-const THORNLING_CONTACT_HIT_TEXTURE: Texture2D = preload("res://assets/vfx/damage/thornling_contact_hit_normalized_v2.png")
-const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
-const SPITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_idle_strip_normalized_v2.png")
-const SPITTER_WALK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_walk_strip_normalized_v2.png")
-const SPITTER_SEED_BURST_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_seed_burst_strip_normalized_v2.png")
-const SPITTER_PRESSURE_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_pressure_tell_strip_normalized_v2.png")
-const SPITTER_JUICE_LOB_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_juice_lob_strip_normalized_v2.png")
-const SPITTER_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_hurt_strip_normalized_v2.png")
-const SPITTER_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_death_strip_normalized_v2.png")
-const MAW_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_idle_strip_normalized_v2.png")
-const MAW_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_move_strip_normalized_v2.png")
-const MAW_ANTICIPATION_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_anticipation_strip_normalized_v2.png")
-const MAW_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_attack_strip_normalized_v2.png")
-const MAW_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_hurt_strip_normalized_v2.png")
-const MAW_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_death_strip_normalized_v2.png")
-const CAPSULE_HUSK_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_idle_strip_normalized_v2.png")
-const CAPSULE_HUSK_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_move_strip_normalized_v2.png")
-const CAPSULE_HUSK_CHARGE_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_charge_tell_strip_normalized_v2.png")
-const CAPSULE_HUSK_CHARGE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_charge_strip_normalized_v2.png")
-const CAPSULE_HUSK_CORE_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_core_attack_strip_normalized_v2.png")
-const CAPSULE_HUSK_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_hurt_strip_normalized_v2.png")
-const CAPSULE_HUSK_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_death_strip_normalized_v2.png")
-const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
-const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
-const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
-const ROOT_SKITTER_BURROW_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_burrow_tell_strip_normalized_v2.png")
-const ROOT_SKITTER_BURROW_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_burrow_strip_normalized_v2.png")
-const ROOT_SKITTER_EMERGE_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_emerge_attack_strip_normalized_v2.png")
-const ROOT_SKITTER_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_hurt_strip_normalized_v2.png")
-const ROOT_SKITTER_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_death_strip_normalized_v2.png")
-const ROOT_HYDRA_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_strip_normalized_v2.png")
-const ROOT_HYDRA_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_exposed_strip_normalized_v2.png")
-const ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_crossfire_cast_strip_normalized_v2.png")
-const ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_radial_ring_cast_strip_normalized_v2.png")
-const ROOT_HYDRA_LANE_WALL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_lane_wall_cast_strip_normalized_v2.png")
-const ROOT_HYDRA_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_death_strip_normalized_v2.png")
-const ROOT_HYDRA_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_hurt_strip_normalized_v2.png")
-const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png")
-const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
-const EYE_WISP_AIM_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_aim_tell_strip_normalized_v2.png")
-const EYE_WISP_SEED_BOLT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_seed_bolt_strip_normalized_v2.png")
-const EYE_WISP_BEAM_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_beam_attack_strip_normalized_v2.png")
-const EYE_WISP_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hurt_strip_normalized_v2.png")
-const EYE_WISP_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_death_strip_normalized_v2.png")
-const ROOT_CORE_EYE_SEALED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_sealed_normalized_v2.png")
-const ROOT_CORE_EYE_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_exposed_normalized_v2.png")
-const ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_spiral_cast_strip_normalized_v2.png")
-const ROOT_CORE_EYE_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_aimed_seed_cast_strip_normalized_v2.png")
-const ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_bract_curtain_cast_strip_normalized_v2.png")
-const ROOT_CORE_EYE_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_death_strip_normalized_v2.png")
-const ROOT_CORE_EYE_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_hurt_strip_normalized_v2.png")
-const THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_armored_strip_normalized_v2.png")
-const THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png")
-const THORN_MATRIARCH_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_death_strip_normalized_v2.png")
-const THORN_MATRIARCH_FAN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_fan_cast_strip_normalized_v2.png")
-const THORN_MATRIARCH_MINE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_normalized_v2.png")
-const MAW_SOVEREIGN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_armored_strip_normalized_v2.png")
-const MAW_SOVEREIGN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_exposed_strip_normalized_v2.png")
-const MAW_SOVEREIGN_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_death_strip_normalized_v2.png")
-const MAW_SOVEREIGN_SPORE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_spore_cast_strip_normalized_v2.png")
-const MAW_SOVEREIGN_ROTATING_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_rotating_volley_cast_strip_normalized_v2.png")
-const MAW_SOVEREIGN_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_aimed_volley_cast_strip_normalized_v2.png")
-const POSSESSED_BANYAN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_armored_strip_normalized_v2.png")
-const POSSESSED_BANYAN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_exposed_strip_normalized_v2.png")
-const POSSESSED_BANYAN_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_death_strip_normalized_v2.png")
-const POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_seed_column_cast_strip_normalized_v2.png")
-const POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_diagonal_root_cast_strip_normalized_v2.png")
+var ORGANIC_HIT_VFX_TEXTURE: Texture2D
+const ORGANIC_HIT_VFX_TEXTURE_PATH := "res://assets/vfx/damage/damage_organic_hit_normalized_v1.png"
+var ARMORED_HIT_VFX_TEXTURE: Texture2D
+const ARMORED_HIT_VFX_TEXTURE_PATH := "res://assets/vfx/damage/damage_armored_hit_normalized_v1.png"
+var BOSS_CORE_HIT_VFX_TEXTURE: Texture2D
+const BOSS_CORE_HIT_VFX_TEXTURE_PATH := "res://assets/vfx/damage/damage_boss_core_hit_normalized_v1.png"
+var THORNLING_TEXTURE: Texture2D
+const THORNLING_TEXTURE_PATH := "res://assets/enemies/standard/thornling.png"
+var THORNLING_IDLE_TEXTURE: Texture2D
+const THORNLING_IDLE_TEXTURE_PATH := "res://assets/enemies/standard/thornling/thornling_idle_strip_normalized_v2.png"
+var THORNLING_RUN_TEXTURE: Texture2D
+const THORNLING_RUN_TEXTURE_PATH := "res://assets/enemies/standard/thornling/thornling_run_strip_normalized_v2.png"
+var THORNLING_ATTACK_TEXTURE: Texture2D
+const THORNLING_ATTACK_TEXTURE_PATH := "res://assets/enemies/standard/thornling/thornling_attack_strip_normalized_v2.png"
+var THORNLING_ATTACK_TELL_TEXTURE: Texture2D
+const THORNLING_ATTACK_TELL_TEXTURE_PATH := "res://assets/enemies/standard/thornling/thornling_attack_tell_strip_normalized_v2.png"
+var THORNLING_HURT_TEXTURE: Texture2D
+const THORNLING_HURT_TEXTURE_PATH := "res://assets/enemies/standard/thornling/thornling_hurt_strip_normalized_v2.png"
+var THORNLING_DEATH_TEXTURE: Texture2D
+const THORNLING_DEATH_TEXTURE_PATH := "res://assets/enemies/standard/thornling/thornling_death_strip_normalized_v2.png"
+var THORNLING_CONTACT_HIT_TEXTURE: Texture2D
+const THORNLING_CONTACT_HIT_TEXTURE_PATH := "res://assets/vfx/damage/thornling_contact_hit_normalized_v2.png"
+var SPITTER_TEXTURE: Texture2D
+const SPITTER_TEXTURE_PATH := "res://assets/enemies/standard/spitter.png"
+var SPITTER_IDLE_TEXTURE: Texture2D
+const SPITTER_IDLE_TEXTURE_PATH := "res://assets/enemies/standard/spitter/spitter_idle_strip_normalized_v2.png"
+var SPITTER_WALK_TEXTURE: Texture2D
+const SPITTER_WALK_TEXTURE_PATH := "res://assets/enemies/standard/spitter/spitter_walk_strip_normalized_v2.png"
+var SPITTER_SEED_BURST_TEXTURE: Texture2D
+const SPITTER_SEED_BURST_TEXTURE_PATH := "res://assets/enemies/standard/spitter/spitter_seed_burst_strip_normalized_v2.png"
+var SPITTER_PRESSURE_TELL_TEXTURE: Texture2D
+const SPITTER_PRESSURE_TELL_TEXTURE_PATH := "res://assets/enemies/standard/spitter/spitter_pressure_tell_strip_normalized_v2.png"
+var SPITTER_JUICE_LOB_TEXTURE: Texture2D
+const SPITTER_JUICE_LOB_TEXTURE_PATH := "res://assets/enemies/standard/spitter/spitter_juice_lob_strip_normalized_v2.png"
+var SPITTER_HURT_TEXTURE: Texture2D
+const SPITTER_HURT_TEXTURE_PATH := "res://assets/enemies/standard/spitter/spitter_hurt_strip_normalized_v2.png"
+var SPITTER_DEATH_TEXTURE: Texture2D
+const SPITTER_DEATH_TEXTURE_PATH := "res://assets/enemies/standard/spitter/spitter_death_strip_normalized_v2.png"
+var MAW_IDLE_TEXTURE: Texture2D
+const MAW_IDLE_TEXTURE_PATH := "res://assets/enemies/standard/maw/maw_idle_strip_normalized_v2.png"
+var MAW_MOVE_TEXTURE: Texture2D
+const MAW_MOVE_TEXTURE_PATH := "res://assets/enemies/standard/maw/maw_move_strip_normalized_v2.png"
+var MAW_ANTICIPATION_TEXTURE: Texture2D
+const MAW_ANTICIPATION_TEXTURE_PATH := "res://assets/enemies/standard/maw/maw_anticipation_strip_normalized_v2.png"
+var MAW_ATTACK_TEXTURE: Texture2D
+const MAW_ATTACK_TEXTURE_PATH := "res://assets/enemies/standard/maw/maw_attack_strip_normalized_v2.png"
+var MAW_HURT_TEXTURE: Texture2D
+const MAW_HURT_TEXTURE_PATH := "res://assets/enemies/standard/maw/maw_hurt_strip_normalized_v2.png"
+var MAW_DEATH_TEXTURE: Texture2D
+const MAW_DEATH_TEXTURE_PATH := "res://assets/enemies/standard/maw/maw_death_strip_normalized_v2.png"
+var CAPSULE_HUSK_IDLE_TEXTURE: Texture2D
+const CAPSULE_HUSK_IDLE_TEXTURE_PATH := "res://assets/enemies/standard/capsule_husk/capsule_husk_idle_strip_normalized_v2.png"
+var CAPSULE_HUSK_MOVE_TEXTURE: Texture2D
+const CAPSULE_HUSK_MOVE_TEXTURE_PATH := "res://assets/enemies/standard/capsule_husk/capsule_husk_move_strip_normalized_v2.png"
+var CAPSULE_HUSK_CHARGE_TELL_TEXTURE: Texture2D
+const CAPSULE_HUSK_CHARGE_TELL_TEXTURE_PATH := "res://assets/enemies/standard/capsule_husk/capsule_husk_charge_tell_strip_normalized_v2.png"
+var CAPSULE_HUSK_CHARGE_TEXTURE: Texture2D
+const CAPSULE_HUSK_CHARGE_TEXTURE_PATH := "res://assets/enemies/standard/capsule_husk/capsule_husk_charge_strip_normalized_v2.png"
+var CAPSULE_HUSK_CORE_ATTACK_TEXTURE: Texture2D
+const CAPSULE_HUSK_CORE_ATTACK_TEXTURE_PATH := "res://assets/enemies/standard/capsule_husk/capsule_husk_core_attack_strip_normalized_v2.png"
+var CAPSULE_HUSK_HURT_TEXTURE: Texture2D
+const CAPSULE_HUSK_HURT_TEXTURE_PATH := "res://assets/enemies/standard/capsule_husk/capsule_husk_hurt_strip_normalized_v2.png"
+var CAPSULE_HUSK_DEATH_TEXTURE: Texture2D
+const CAPSULE_HUSK_DEATH_TEXTURE_PATH := "res://assets/enemies/standard/capsule_husk/capsule_husk_death_strip_normalized_v2.png"
+var THORN_MATRIARCH_TEXTURE: Texture2D
+const THORN_MATRIARCH_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch.png"
+var ROOT_SKITTER_IDLE_TEXTURE: Texture2D
+const ROOT_SKITTER_IDLE_TEXTURE_PATH := "res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png"
+var ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D
+const ROOT_SKITTER_SCUTTLE_TEXTURE_PATH := "res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png"
+var ROOT_SKITTER_BURROW_TELL_TEXTURE: Texture2D
+const ROOT_SKITTER_BURROW_TELL_TEXTURE_PATH := "res://assets/enemies/standard/root_skitter/root_skitter_burrow_tell_strip_normalized_v2.png"
+var ROOT_SKITTER_BURROW_TEXTURE: Texture2D
+const ROOT_SKITTER_BURROW_TEXTURE_PATH := "res://assets/enemies/standard/root_skitter/root_skitter_burrow_strip_normalized_v2.png"
+var ROOT_SKITTER_EMERGE_ATTACK_TEXTURE: Texture2D
+const ROOT_SKITTER_EMERGE_ATTACK_TEXTURE_PATH := "res://assets/enemies/standard/root_skitter/root_skitter_emerge_attack_strip_normalized_v2.png"
+var ROOT_SKITTER_HURT_TEXTURE: Texture2D
+const ROOT_SKITTER_HURT_TEXTURE_PATH := "res://assets/enemies/standard/root_skitter/root_skitter_hurt_strip_normalized_v2.png"
+var ROOT_SKITTER_DEATH_TEXTURE: Texture2D
+const ROOT_SKITTER_DEATH_TEXTURE_PATH := "res://assets/enemies/standard/root_skitter/root_skitter_death_strip_normalized_v2.png"
+var ROOT_HYDRA_IDLE_TEXTURE: Texture2D
+const ROOT_HYDRA_IDLE_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/root_hydra_idle_strip_normalized_v2.png"
+var ROOT_HYDRA_EXPOSED_TEXTURE: Texture2D
+const ROOT_HYDRA_EXPOSED_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/root_hydra_idle_exposed_strip_normalized_v2.png"
+var ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE: Texture2D
+const ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/root_hydra_crossfire_cast_strip_normalized_v2.png"
+var ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE: Texture2D
+const ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/root_hydra_radial_ring_cast_strip_normalized_v2.png"
+var ROOT_HYDRA_LANE_WALL_CAST_TEXTURE: Texture2D
+const ROOT_HYDRA_LANE_WALL_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/root_hydra_lane_wall_cast_strip_normalized_v2.png"
+var ROOT_HYDRA_DEATH_TEXTURE: Texture2D
+const ROOT_HYDRA_DEATH_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/root_hydra_death_strip_normalized_v2.png"
+var ROOT_HYDRA_HURT_TEXTURE: Texture2D
+const ROOT_HYDRA_HURT_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/root_hydra_hurt_strip_normalized_v2.png"
+var EYE_WISP_HOVER_TEXTURE: Texture2D
+const EYE_WISP_HOVER_TEXTURE_PATH := "res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png"
+var EYE_WISP_FLY_TEXTURE: Texture2D
+const EYE_WISP_FLY_TEXTURE_PATH := "res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png"
+var EYE_WISP_AIM_TELL_TEXTURE: Texture2D
+const EYE_WISP_AIM_TELL_TEXTURE_PATH := "res://assets/enemies/standard/eye_wisp/eye_wisp_aim_tell_strip_normalized_v2.png"
+var EYE_WISP_SEED_BOLT_TEXTURE: Texture2D
+const EYE_WISP_SEED_BOLT_TEXTURE_PATH := "res://assets/enemies/standard/eye_wisp/eye_wisp_seed_bolt_strip_normalized_v2.png"
+var EYE_WISP_BEAM_ATTACK_TEXTURE: Texture2D
+const EYE_WISP_BEAM_ATTACK_TEXTURE_PATH := "res://assets/enemies/standard/eye_wisp/eye_wisp_beam_attack_strip_normalized_v2.png"
+var EYE_WISP_HURT_TEXTURE: Texture2D
+const EYE_WISP_HURT_TEXTURE_PATH := "res://assets/enemies/standard/eye_wisp/eye_wisp_hurt_strip_normalized_v2.png"
+var EYE_WISP_DEATH_TEXTURE: Texture2D
+const EYE_WISP_DEATH_TEXTURE_PATH := "res://assets/enemies/standard/eye_wisp/eye_wisp_death_strip_normalized_v2.png"
+var ROOT_CORE_EYE_SEALED_TEXTURE: Texture2D
+const ROOT_CORE_EYE_SEALED_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_sealed_normalized_v2.png"
+var ROOT_CORE_EYE_EXPOSED_TEXTURE: Texture2D
+const ROOT_CORE_EYE_EXPOSED_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_exposed_normalized_v2.png"
+var ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE: Texture2D
+const ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_spiral_cast_strip_normalized_v2.png"
+var ROOT_CORE_EYE_AIMED_CAST_TEXTURE: Texture2D
+const ROOT_CORE_EYE_AIMED_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_aimed_seed_cast_strip_normalized_v2.png"
+var ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE: Texture2D
+const ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_bract_curtain_cast_strip_normalized_v2.png"
+var ROOT_CORE_EYE_DEATH_TEXTURE: Texture2D
+const ROOT_CORE_EYE_DEATH_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_death_strip_normalized_v2.png"
+var ROOT_CORE_EYE_HURT_TEXTURE: Texture2D
+const ROOT_CORE_EYE_HURT_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_hurt_strip_normalized_v2.png"
+var THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D
+const THORN_MATRIARCH_ARMORED_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_armored_strip_normalized_v2.png"
+var THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D
+const THORN_MATRIARCH_EXPOSED_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png"
+var THORN_MATRIARCH_DEATH_TEXTURE: Texture2D
+const THORN_MATRIARCH_DEATH_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_death_strip_normalized_v2.png"
+var THORN_MATRIARCH_FAN_CAST_TEXTURE: Texture2D
+const THORN_MATRIARCH_FAN_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_fan_cast_strip_normalized_v2.png"
+var THORN_MATRIARCH_MINE_CAST_TEXTURE: Texture2D
+const THORN_MATRIARCH_MINE_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_normalized_v2.png"
+var MAW_SOVEREIGN_ARMORED_TEXTURE: Texture2D
+const MAW_SOVEREIGN_ARMORED_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_armored_strip_normalized_v2.png"
+var MAW_SOVEREIGN_EXPOSED_TEXTURE: Texture2D
+const MAW_SOVEREIGN_EXPOSED_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_exposed_strip_normalized_v2.png"
+var MAW_SOVEREIGN_DEATH_TEXTURE: Texture2D
+const MAW_SOVEREIGN_DEATH_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/maw_sovereign_death_strip_normalized_v2.png"
+var MAW_SOVEREIGN_SPORE_CAST_TEXTURE: Texture2D
+const MAW_SOVEREIGN_SPORE_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/maw_sovereign_spore_cast_strip_normalized_v2.png"
+var MAW_SOVEREIGN_ROTATING_CAST_TEXTURE: Texture2D
+const MAW_SOVEREIGN_ROTATING_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/maw_sovereign_rotating_volley_cast_strip_normalized_v2.png"
+var MAW_SOVEREIGN_AIMED_CAST_TEXTURE: Texture2D
+const MAW_SOVEREIGN_AIMED_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/maw_sovereign_aimed_volley_cast_strip_normalized_v2.png"
+var POSSESSED_BANYAN_ARMORED_TEXTURE: Texture2D
+const POSSESSED_BANYAN_ARMORED_TEXTURE_PATH := "res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_armored_strip_normalized_v2.png"
+var POSSESSED_BANYAN_EXPOSED_TEXTURE: Texture2D
+const POSSESSED_BANYAN_EXPOSED_TEXTURE_PATH := "res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_exposed_strip_normalized_v2.png"
+var POSSESSED_BANYAN_DEATH_TEXTURE: Texture2D
+const POSSESSED_BANYAN_DEATH_TEXTURE_PATH := "res://assets/enemies/bosses/possessed_banyan/possessed_banyan_death_strip_normalized_v2.png"
+var POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE: Texture2D
+const POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/possessed_banyan/possessed_banyan_seed_column_cast_strip_normalized_v2.png"
+var POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE: Texture2D
+const POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/possessed_banyan/possessed_banyan_diagonal_root_cast_strip_normalized_v2.png"
 
 @onready var visual: Sprite2D = $Visual
 @onready var visual_accent: Sprite2D = $VisualAccent
@@ -150,10 +227,114 @@ var maw_sovereign_action: StringName = &"idle"
 var possessed_banyan_frame_clock: float = 0.0
 var possessed_banyan_visual_phase: int = 0
 var possessed_banyan_action: StringName = &"idle"
+var _loaded_texture_type := ""
+
+
+func _load_texture(path: String) -> Texture2D:
+	return GameManager.load_runtime_texture(path)
+
+
+func _load_named_texture(field_name: String, path: String) -> void:
+	set(field_name, _load_texture(path))
+
+
+func _load_textures_for_type(type_id: String) -> void:
+	if _loaded_texture_type == type_id:
+		return
+	_load_named_texture("ORGANIC_HIT_VFX_TEXTURE", ORGANIC_HIT_VFX_TEXTURE_PATH)
+	_load_named_texture("ARMORED_HIT_VFX_TEXTURE", ARMORED_HIT_VFX_TEXTURE_PATH)
+	_load_named_texture("BOSS_CORE_HIT_VFX_TEXTURE", BOSS_CORE_HIT_VFX_TEXTURE_PATH)
+	match type_id:
+		"thornling":
+			_load_named_texture("THORNLING_IDLE_TEXTURE", THORNLING_IDLE_TEXTURE_PATH)
+			_load_named_texture("THORNLING_RUN_TEXTURE", THORNLING_RUN_TEXTURE_PATH)
+			_load_named_texture("THORNLING_ATTACK_TEXTURE", THORNLING_ATTACK_TEXTURE_PATH)
+			_load_named_texture("THORNLING_ATTACK_TELL_TEXTURE", THORNLING_ATTACK_TELL_TEXTURE_PATH)
+			_load_named_texture("THORNLING_HURT_TEXTURE", THORNLING_HURT_TEXTURE_PATH)
+			_load_named_texture("THORNLING_DEATH_TEXTURE", THORNLING_DEATH_TEXTURE_PATH)
+			_load_named_texture("THORNLING_CONTACT_HIT_TEXTURE", THORNLING_CONTACT_HIT_TEXTURE_PATH)
+		"spitter", "marsh_spitter":
+			_load_named_texture("SPITTER_IDLE_TEXTURE", SPITTER_IDLE_TEXTURE_PATH)
+			_load_named_texture("SPITTER_WALK_TEXTURE", SPITTER_WALK_TEXTURE_PATH)
+			_load_named_texture("SPITTER_SEED_BURST_TEXTURE", SPITTER_SEED_BURST_TEXTURE_PATH)
+			_load_named_texture("SPITTER_PRESSURE_TELL_TEXTURE", SPITTER_PRESSURE_TELL_TEXTURE_PATH)
+			_load_named_texture("SPITTER_JUICE_LOB_TEXTURE", SPITTER_JUICE_LOB_TEXTURE_PATH)
+			_load_named_texture("SPITTER_HURT_TEXTURE", SPITTER_HURT_TEXTURE_PATH)
+			_load_named_texture("SPITTER_DEATH_TEXTURE", SPITTER_DEATH_TEXTURE_PATH)
+		"maw":
+			_load_named_texture("MAW_IDLE_TEXTURE", MAW_IDLE_TEXTURE_PATH)
+			_load_named_texture("MAW_MOVE_TEXTURE", MAW_MOVE_TEXTURE_PATH)
+			_load_named_texture("MAW_ANTICIPATION_TEXTURE", MAW_ANTICIPATION_TEXTURE_PATH)
+			_load_named_texture("MAW_ATTACK_TEXTURE", MAW_ATTACK_TEXTURE_PATH)
+			_load_named_texture("MAW_HURT_TEXTURE", MAW_HURT_TEXTURE_PATH)
+			_load_named_texture("MAW_DEATH_TEXTURE", MAW_DEATH_TEXTURE_PATH)
+		"root_skitter":
+			_load_named_texture("ROOT_SKITTER_IDLE_TEXTURE", ROOT_SKITTER_IDLE_TEXTURE_PATH)
+			_load_named_texture("ROOT_SKITTER_SCUTTLE_TEXTURE", ROOT_SKITTER_SCUTTLE_TEXTURE_PATH)
+			_load_named_texture("ROOT_SKITTER_BURROW_TELL_TEXTURE", ROOT_SKITTER_BURROW_TELL_TEXTURE_PATH)
+			_load_named_texture("ROOT_SKITTER_BURROW_TEXTURE", ROOT_SKITTER_BURROW_TEXTURE_PATH)
+			_load_named_texture("ROOT_SKITTER_EMERGE_ATTACK_TEXTURE", ROOT_SKITTER_EMERGE_ATTACK_TEXTURE_PATH)
+			_load_named_texture("ROOT_SKITTER_HURT_TEXTURE", ROOT_SKITTER_HURT_TEXTURE_PATH)
+			_load_named_texture("ROOT_SKITTER_DEATH_TEXTURE", ROOT_SKITTER_DEATH_TEXTURE_PATH)
+		"capsule_husk_elite", "mixed_elite":
+			_load_named_texture("CAPSULE_HUSK_IDLE_TEXTURE", CAPSULE_HUSK_IDLE_TEXTURE_PATH)
+			_load_named_texture("CAPSULE_HUSK_MOVE_TEXTURE", CAPSULE_HUSK_MOVE_TEXTURE_PATH)
+			_load_named_texture("CAPSULE_HUSK_CHARGE_TELL_TEXTURE", CAPSULE_HUSK_CHARGE_TELL_TEXTURE_PATH)
+			_load_named_texture("CAPSULE_HUSK_CHARGE_TEXTURE", CAPSULE_HUSK_CHARGE_TEXTURE_PATH)
+			_load_named_texture("CAPSULE_HUSK_CORE_ATTACK_TEXTURE", CAPSULE_HUSK_CORE_ATTACK_TEXTURE_PATH)
+			_load_named_texture("CAPSULE_HUSK_HURT_TEXTURE", CAPSULE_HUSK_HURT_TEXTURE_PATH)
+			_load_named_texture("CAPSULE_HUSK_DEATH_TEXTURE", CAPSULE_HUSK_DEATH_TEXTURE_PATH)
+			if type_id == "mixed_elite":
+				_load_named_texture("EYE_WISP_HOVER_TEXTURE", EYE_WISP_HOVER_TEXTURE_PATH)
+		"eye_wisp":
+			_load_named_texture("EYE_WISP_HOVER_TEXTURE", EYE_WISP_HOVER_TEXTURE_PATH)
+			_load_named_texture("EYE_WISP_FLY_TEXTURE", EYE_WISP_FLY_TEXTURE_PATH)
+			_load_named_texture("EYE_WISP_AIM_TELL_TEXTURE", EYE_WISP_AIM_TELL_TEXTURE_PATH)
+			_load_named_texture("EYE_WISP_SEED_BOLT_TEXTURE", EYE_WISP_SEED_BOLT_TEXTURE_PATH)
+			_load_named_texture("EYE_WISP_BEAM_ATTACK_TEXTURE", EYE_WISP_BEAM_ATTACK_TEXTURE_PATH)
+			_load_named_texture("EYE_WISP_HURT_TEXTURE", EYE_WISP_HURT_TEXTURE_PATH)
+			_load_named_texture("EYE_WISP_DEATH_TEXTURE", EYE_WISP_DEATH_TEXTURE_PATH)
+		"root_hydra_boss":
+			_load_named_texture("ROOT_HYDRA_IDLE_TEXTURE", ROOT_HYDRA_IDLE_TEXTURE_PATH)
+			_load_named_texture("ROOT_HYDRA_EXPOSED_TEXTURE", ROOT_HYDRA_EXPOSED_TEXTURE_PATH)
+			_load_named_texture("ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE", ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE_PATH)
+			_load_named_texture("ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE", ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE_PATH)
+			_load_named_texture("ROOT_HYDRA_LANE_WALL_CAST_TEXTURE", ROOT_HYDRA_LANE_WALL_CAST_TEXTURE_PATH)
+			_load_named_texture("ROOT_HYDRA_DEATH_TEXTURE", ROOT_HYDRA_DEATH_TEXTURE_PATH)
+			_load_named_texture("ROOT_HYDRA_HURT_TEXTURE", ROOT_HYDRA_HURT_TEXTURE_PATH)
+		"root_core_eye_boss":
+			_load_named_texture("ROOT_CORE_EYE_SEALED_TEXTURE", ROOT_CORE_EYE_SEALED_TEXTURE_PATH)
+			_load_named_texture("ROOT_CORE_EYE_EXPOSED_TEXTURE", ROOT_CORE_EYE_EXPOSED_TEXTURE_PATH)
+			_load_named_texture("ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE", ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE_PATH)
+			_load_named_texture("ROOT_CORE_EYE_AIMED_CAST_TEXTURE", ROOT_CORE_EYE_AIMED_CAST_TEXTURE_PATH)
+			_load_named_texture("ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE", ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE_PATH)
+			_load_named_texture("ROOT_CORE_EYE_DEATH_TEXTURE", ROOT_CORE_EYE_DEATH_TEXTURE_PATH)
+			_load_named_texture("ROOT_CORE_EYE_HURT_TEXTURE", ROOT_CORE_EYE_HURT_TEXTURE_PATH)
+		"thorn_matriarch_boss":
+			_load_named_texture("THORN_MATRIARCH_ARMORED_TEXTURE", THORN_MATRIARCH_ARMORED_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_EXPOSED_TEXTURE", THORN_MATRIARCH_EXPOSED_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_DEATH_TEXTURE", THORN_MATRIARCH_DEATH_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_FAN_CAST_TEXTURE", THORN_MATRIARCH_FAN_CAST_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_MINE_CAST_TEXTURE", THORN_MATRIARCH_MINE_CAST_TEXTURE_PATH)
+		"maw_sovereign_boss":
+			_load_named_texture("MAW_SOVEREIGN_ARMORED_TEXTURE", MAW_SOVEREIGN_ARMORED_TEXTURE_PATH)
+			_load_named_texture("MAW_SOVEREIGN_EXPOSED_TEXTURE", MAW_SOVEREIGN_EXPOSED_TEXTURE_PATH)
+			_load_named_texture("MAW_SOVEREIGN_DEATH_TEXTURE", MAW_SOVEREIGN_DEATH_TEXTURE_PATH)
+			_load_named_texture("MAW_SOVEREIGN_SPORE_CAST_TEXTURE", MAW_SOVEREIGN_SPORE_CAST_TEXTURE_PATH)
+			_load_named_texture("MAW_SOVEREIGN_ROTATING_CAST_TEXTURE", MAW_SOVEREIGN_ROTATING_CAST_TEXTURE_PATH)
+			_load_named_texture("MAW_SOVEREIGN_AIMED_CAST_TEXTURE", MAW_SOVEREIGN_AIMED_CAST_TEXTURE_PATH)
+		"banyan_boss":
+			_load_named_texture("POSSESSED_BANYAN_ARMORED_TEXTURE", POSSESSED_BANYAN_ARMORED_TEXTURE_PATH)
+			_load_named_texture("POSSESSED_BANYAN_EXPOSED_TEXTURE", POSSESSED_BANYAN_EXPOSED_TEXTURE_PATH)
+			_load_named_texture("POSSESSED_BANYAN_DEATH_TEXTURE", POSSESSED_BANYAN_DEATH_TEXTURE_PATH)
+			_load_named_texture("POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE", POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE_PATH)
+			_load_named_texture("POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE", POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE_PATH)
+	_loaded_texture_type = type_id
 
 
 func configure(type_id: String) -> void:
 	enemy_type = type_id
+	_load_textures_for_type(enemy_type)
 	is_boss = enemy_type.ends_with("_boss")
 	visual_accent.visible = false
 	if is_boss:
@@ -594,7 +775,7 @@ func _update_root_hydra_animation(delta: float) -> void:
 	if enemy_type != "root_hydra_boss":
 		return
 	var desired_texture: Texture2D = ROOT_HYDRA_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_HYDRA_IDLE_TEXTURE
-	if boss_hurt_timer > 0.0:
+	if boss_hurt_timer > 0.0 and root_hydra_action == &"idle":
 		desired_texture = ROOT_HYDRA_HURT_TEXTURE
 	else:
 		match root_hydra_action:
@@ -648,7 +829,7 @@ func _update_root_core_eye_animation(delta: float) -> void:
 	if enemy_type != "root_core_eye_boss":
 		return
 	var desired_texture: Texture2D = ROOT_CORE_EYE_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_CORE_EYE_SEALED_TEXTURE
-	if boss_hurt_timer > 0.0:
+	if boss_hurt_timer > 0.0 and root_core_eye_action == &"idle":
 		desired_texture = ROOT_CORE_EYE_HURT_TEXTURE
 	else:
 		match root_core_eye_action:
@@ -792,9 +973,13 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 		elif enemy_type == "root_hydra_boss":
 			boss_hurt_timer = 0.2
 			root_hydra_frame_clock = 0.0
+			if str(pattern_runner.state) != "telegraph":
+				root_hydra_action = &"idle"
 		elif enemy_type == "root_core_eye_boss":
 			boss_hurt_timer = 0.2
 			root_core_eye_frame_clock = 0.0
+			if str(pattern_runner.state) != "telegraph":
+				root_core_eye_action = &"idle"
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")
@@ -946,6 +1131,9 @@ func _get_boss_pattern_set_id() -> String:
 
 func _on_pattern_telegraph_started(pattern_id: String) -> void:
 	pattern_attack_locked = true
+	# A phase transition owns the next telegraph presentation. Clear any
+	# lingering damage-priority timer so the new cast is visible immediately.
+	boss_hurt_timer = 0.0
 	velocity.x = 0.0
 	if enemy_type == "thorn_matriarch_boss":
 		thorn_matriarch_action = &"fan_cast" if pattern_id == "thorn_fan_three_way" else &"mine_cast"

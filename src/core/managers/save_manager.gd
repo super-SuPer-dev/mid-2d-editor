@@ -106,6 +106,7 @@ func _migrate_profile(loaded_profile: Dictionary) -> Dictionary:
 		migrated["seen_dialogue_sequences"] = []
 		var settings: Dictionary = migrated.get("settings", {})
 		settings["language"] = LocalizationManager.DEFAULT_LANGUAGE
+		settings["immediate_dialogue_text"] = bool(settings.get("immediate_dialogue_text", false))
 		migrated["settings"] = settings
 		migrated["version"] = 2
 	return migrated

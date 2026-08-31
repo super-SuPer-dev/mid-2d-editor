@@ -21,7 +21,7 @@ const CHARACTERS := {
 		"color": Color("8fbd52"),
 		"skin": Color("c68b59"),
 		"uniform": Color("343a2f"),
-		"art_texture": preload("res://assets/characters/operators/tonkla_sprite_sheet_generated_v2.png"),
+		"art_texture": "res://assets/characters/operators/tonkla_sprite_sheet_generated_v2.png",
 		"frame_inset": 0.0,
 		"idle_visual_y": -9.0,
 		"run_visual_y": -9.0,
@@ -39,7 +39,7 @@ const CHARACTERS := {
 		"color": Color("5f91bd"),
 		"skin": Color("bd8058"),
 		"uniform": Color("263d32"),
-		"art_texture": preload("res://assets/characters/operators/rin_sprite_sheet_generated_v2.png"),
+		"art_texture": "res://assets/characters/operators/rin_sprite_sheet_generated_v2.png",
 	},
 	"khem": {
 		"name_key": "CHAR_KHEM_NAME",
@@ -54,7 +54,7 @@ const CHARACTERS := {
 		"color": Color("c89a4b"),
 		"skin": Color("b97848"),
 		"uniform": Color("33445a"),
-		"art_texture": preload("res://assets/characters/operators/khem_sprite_sheet_generated_v2.png"),
+		"art_texture": "res://assets/characters/operators/khem_sprite_sheet_generated_v2.png",
 	},
 	"t800": {
 		"name_key": "CHAR_T800_NAME",
@@ -69,13 +69,17 @@ const CHARACTERS := {
 		"color": Color("9a6ac7"),
 		"skin": Color("a9adb0"),
 		"uniform": Color("44484a"),
-		"art_texture": preload("res://assets/characters/operators/t800_sprite_sheet_generated_v2.png"),
+		"art_texture": "res://assets/characters/operators/t800_sprite_sheet_generated_v2.png",
 	},
 }
 
 
 static func get_character(character_id: String) -> Dictionary:
-	return CHARACTERS.get(resolve_character_id(character_id), CHARACTERS[DEFAULT_CHARACTER]).duplicate(true)
+	var character: Dictionary = CHARACTERS.get(resolve_character_id(character_id), CHARACTERS[DEFAULT_CHARACTER]).duplicate(true)
+	var art_path := str(character.get("art_texture", ""))
+	if not art_path.is_empty():
+		character["art_texture"] = GameManager.load_runtime_texture(art_path)
+	return character
 
 
 static func get_ids() -> Array[String]:

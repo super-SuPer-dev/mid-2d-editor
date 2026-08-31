@@ -25,12 +25,12 @@ var pending_complete: bool = false
 var pending_campaign_complete: bool = false
 var last_health := Vector2i(0, 0)
 
-const BOSS_HUD_FRAMES := {
-	"thorn_matriarch": preload("res://assets/ui/boss/thorn_matriarch_boss_hud_frame_v1.png"),
-	"maw_bloom_sovereign": preload("res://assets/ui/boss/maw_sovereign_boss_hud_frame_v1.png"),
-	"possessed_banyan": preload("res://assets/ui/boss/possessed_banyan_boss_hud_frame_v1.png"),
-	"root_hydra": preload("res://assets/ui/boss/root_hydra_boss_hud_frame_v1.png"),
-	"root_core_eye": preload("res://assets/ui/boss/root_core_eye_boss_hud_frame_v1.png"),
+const BOSS_HUD_FRAME_PATHS := {
+	"thorn_matriarch": "res://assets/ui/boss/thorn_matriarch_boss_hud_frame_v1.png",
+	"maw_bloom_sovereign": "res://assets/ui/boss/maw_sovereign_boss_hud_frame_v1.png",
+	"possessed_banyan": "res://assets/ui/boss/possessed_banyan_boss_hud_frame_v1.png",
+	"root_hydra": "res://assets/ui/boss/root_hydra_boss_hud_frame_v1.png",
+	"root_core_eye": "res://assets/ui/boss/root_core_eye_boss_hud_frame_v1.png",
 }
 
 
@@ -204,7 +204,8 @@ func _refresh_boss_name() -> void:
 
 
 func _refresh_boss_frame() -> void:
-	boss_frame.texture = BOSS_HUD_FRAMES.get(GameManager.current_boss_id, null)
+	var path := str(BOSS_HUD_FRAME_PATHS.get(GameManager.current_boss_id, ""))
+	boss_frame.texture = GameManager.load_runtime_texture(path) if not path.is_empty() else null
 
 
 func _on_boss_health_changed(current_health: int, maximum_health: int) -> void:

@@ -7,19 +7,19 @@ signal recovery_started(pattern_id: String)
 signal phase_changed(current_phase: int, phase_count: int)
 
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
-const ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_longan_seed_bullet_normalized_v2.png")
-const THORN_HAIR_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/projectiles/hair_thorn_spin_strip_normalized_v2.png")
-const THORN_LANE_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/projectiles/lane_thorn_emerge_strip_normalized_v2.png")
-const MAW_SPORE_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/projectiles/spore_pod_fall_strip_normalized_v2.png")
-const MAW_SEED_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/projectiles/seed_bullet_spin_strip_normalized_v2.png")
-const BANYAN_SEED_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/projectiles/jackfruit_seed_fall_strip_normalized_v2.png")
-const BANYAN_ROOT_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/projectiles/diagonal_root_line_strip_normalized_v2.png")
-const HYDRA_WEDGE_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_nipa_wedge_bolt_normalized_v2.png")
-const HYDRA_NUTRIENT_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_nutrient_ring_orb_normalized_v2.png")
-const HYDRA_WATER_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_water_lane_eruption_normalized_v2.png")
-const EYE_SPIRAL_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_spiral_seed_eye_orb_normalized_v2.png")
-const EYE_PUPIL_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_pupil_lance_dart_normalized_v2.png")
-const EYE_BRACT_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_bract_curtain_blade_normalized_v2.png")
+const ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/root_core_eye_longan_seed_bullet_normalized_v2.png"
+const THORN_HAIR_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/projectiles/hair_thorn_spin_strip_normalized_v2.png"
+const THORN_LANE_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/projectiles/lane_thorn_emerge_strip_normalized_v2.png"
+const MAW_SPORE_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/projectiles/spore_pod_fall_strip_normalized_v2.png"
+const MAW_SEED_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/projectiles/seed_bullet_spin_strip_normalized_v2.png"
+const BANYAN_SEED_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/possessed_banyan/projectiles/jackfruit_seed_fall_strip_normalized_v2.png"
+const BANYAN_ROOT_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/possessed_banyan/projectiles/diagonal_root_line_strip_normalized_v2.png"
+const HYDRA_WEDGE_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_nipa_wedge_bolt_normalized_v2.png"
+const HYDRA_NUTRIENT_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_nutrient_ring_orb_normalized_v2.png"
+const HYDRA_WATER_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_water_lane_eruption_normalized_v2.png"
+const EYE_SPIRAL_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_spiral_seed_eye_orb_normalized_v2.png"
+const EYE_PUPIL_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_pupil_lance_dart_normalized_v2.png"
+const EYE_BRACT_PROJECTILE_TEXTURE_PATH := "res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_bract_curtain_blade_normalized_v2.png"
 const STATE_IDLE := &"idle"
 const STATE_TELEGRAPH := &"telegraph"
 const STATE_ACTIVE := &"active"
@@ -45,6 +45,10 @@ var current_pattern: Dictionary = {}
 var active_projectiles: Array[EnemyProjectile] = []
 var projectile_pool: Array[EnemyProjectile] = []
 var all_projectiles: Array[EnemyProjectile] = []
+
+
+func _load_projectile_texture(path: String) -> Texture2D:
+	return GameManager.load_runtime_texture(path)
 
 
 func configure(host_node: Node2D, configured_set_id: String, configured_damage: int) -> void:
@@ -191,7 +195,7 @@ func _emit_projectile(sequence_index: int) -> void:
 	var visual_frame_count := int(presentation.get("frame_count", 1))
 	var visual_scale := float(presentation.get("scale", 0.009))
 	if projectile_texture == null and host is EnemyController and host.enemy_type == "root_core_eye_boss":
-		projectile_texture = ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE
+		projectile_texture = _load_projectile_texture(ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE_PATH)
 		visual_frame_count = 4
 		visual_scale = 0.018
 	projectile.activate(
@@ -214,29 +218,29 @@ func _get_projectile_presentation(pattern_id: String) -> Dictionary:
 	var texture: Texture2D = null
 	match visual_id:
 		"thorn_hair_spin":
-			texture = THORN_HAIR_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(THORN_HAIR_PROJECTILE_TEXTURE_PATH)
 		"thorn_lane_emerge":
-			texture = THORN_LANE_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(THORN_LANE_PROJECTILE_TEXTURE_PATH)
 		"maw_spore_pod":
-			texture = MAW_SPORE_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(MAW_SPORE_PROJECTILE_TEXTURE_PATH)
 		"maw_seed_spin":
-			texture = MAW_SEED_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(MAW_SEED_PROJECTILE_TEXTURE_PATH)
 		"banyan_seed_fall":
-			texture = BANYAN_SEED_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(BANYAN_SEED_PROJECTILE_TEXTURE_PATH)
 		"banyan_diagonal_root":
-			texture = BANYAN_ROOT_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(BANYAN_ROOT_PROJECTILE_TEXTURE_PATH)
 		"hydra_wedge_bolt":
-			texture = HYDRA_WEDGE_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(HYDRA_WEDGE_PROJECTILE_TEXTURE_PATH)
 		"hydra_nutrient_orb":
-			texture = HYDRA_NUTRIENT_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(HYDRA_NUTRIENT_PROJECTILE_TEXTURE_PATH)
 		"hydra_water_eruption":
-			texture = HYDRA_WATER_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(HYDRA_WATER_PROJECTILE_TEXTURE_PATH)
 		"eye_spiral_orb":
-			texture = EYE_SPIRAL_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(EYE_SPIRAL_PROJECTILE_TEXTURE_PATH)
 		"eye_pupil_dart":
-			texture = EYE_PUPIL_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(EYE_PUPIL_PROJECTILE_TEXTURE_PATH)
 		"eye_bract_blade":
-			texture = EYE_BRACT_PROJECTILE_TEXTURE
+			texture = _load_projectile_texture(EYE_BRACT_PROJECTILE_TEXTURE_PATH)
 	return {"texture": texture, "frame_count": 4 if texture != null else 1, "scale": visual_scale}
 
 

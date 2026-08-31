@@ -407,6 +407,17 @@ English smoke covers the hit handoff and recovery.
 
 **Retry and recovery evidence — 2026-08-31:** The smoke suite now deals lethal damage to a live operator, verifies `GameManager.run_active` becomes false, the game pauses, and the game-over modal is visible, then recreates the same level as a retry. The retry resets health and reactivates the mission without replaying the completed one-shot briefing or duplicating its request. Save writes remain disabled inside the test session, so this check cannot mutate a developer profile.
 
+**Scoped asset-loading and soak evidence — 2026-08-31:** Enemy and boss animation
+strips, boss projectile presentations, biome hazard/platform textures, operator
+sheets, portraits, boss HUD frames and boss-introduction frames now resolve on
+demand through `GameManager.load_runtime_texture()`. The production scene
+manager clears the scoped cache before each scene swap, and the new
+`scenes/tests/soak_test.tscn` mounts every UI and level scene, toggles English /
+Thai plus immediate-dialogue text, exercises `CLEAR_THREATS → BOSS_ACTIVE →
+EXTRACTION`, and checks node/SFX growth. A 15-second all-scene run passed with
+33 mounts and a bounded 16-voice SFX pool; the required 30-minute run, browser
+peak-memory capture and human performance sign-off remain open.
+
 ### Gate 5 — Campaign Polish
 
 [DEV-GATE-05]
@@ -425,7 +436,7 @@ English smoke covers the hit handoff and recovery.
 
 **Exit criteria:** Weighted readiness is at least 90%; no Must-have item is below Verified; no P0/P1 defects are open; English and Thai coverage is complete; release checklist is signed off.
 
-**Release export evidence — 2026-08-31:** `export_presets.cfg` registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. Using the project-local Godot 4.7 template cache, both release exports now complete: `low_altitude_warrior.exe` and `low_altitude_warrior.pck` for Windows, plus `game.html`, `game.js`, `game.wasm` and `game.pck` for Web. The exported Windows executable also launches headlessly and exits cleanly after a three-second smoke run. `tools/run_release_validation.ps1` now orchestrates structure, localization, release-readiness, Godot smoke, both exports, artifact-size checks and the exported Windows launch; `-SkipExport` supports fast regression runs. Performance, memory, soak, browser execution, localization parity and human sign-off remain open Gate 6 work.
+**Release export evidence — 2026-08-31:** `export_presets.cfg` registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. Using the project-local Godot 4.7 template cache, both release exports now complete: `low_altitude_warrior.exe` and `low_altitude_warrior.pck` for Windows, plus `game.html`, `game.js`, `game.wasm` and `game.pck` for Web. The exported Windows executable also launches headlessly and exits cleanly after a three-second smoke run. `tools/run_release_validation.ps1` now orchestrates structure, localization, release-readiness, Godot smoke, both exports, artifact-size checks and the exported Windows launch; `-SkipExport` supports fast regression runs, and `-RunSoak -SoakSeconds 1800` enables the full scene-transition soak. Performance, memory, browser execution, localization parity and human sign-off remain open Gate 6 work.
 
 ## 5. Dependency Order
 

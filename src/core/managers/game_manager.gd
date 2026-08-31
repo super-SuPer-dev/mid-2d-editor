@@ -31,6 +31,22 @@ var current_boss_id: String = ""
 var current_boss_name_key: String = ""
 var current_boss_phase: int = 1
 var current_boss_phase_count: int = 1
+var runtime_texture_cache: Dictionary = {}
+
+
+func load_runtime_texture(path: String) -> Texture2D:
+	if runtime_texture_cache.has(path):
+		return runtime_texture_cache[path] as Texture2D
+	var texture := ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_IGNORE) as Texture2D
+	if texture != null:
+		runtime_texture_cache[path] = texture
+	else:
+		push_error("Runtime texture failed to load: %s" % path)
+	return texture
+
+
+func clear_runtime_texture_cache() -> void:
+	runtime_texture_cache.clear()
 
 
 func select_character(character_id: String) -> void:

@@ -1,16 +1,16 @@
 extends Node2D
 
-const BIOME_HAZARD_TEXTURES: Dictionary = {
-	"level_02": preload("res://assets/world/level_02_mutated_forest/hazards/mangosteen_spore_vent_normalized_v1.png"),
-	"level_03": preload("res://assets/world/level_03_capsule_07/hazards/santol_seed_piston_normalized_v1.png"),
-	"level_04": preload("res://assets/world/level_04_root_marsh/hazards/nutrient_root_eruption_normalized_v2.png"),
-	"level_05": preload("res://assets/world/level_05_alien_eye_nexus/hazards/sensory_platform_collapse_normalized_v2.png")
+const BIOME_HAZARD_TEXTURE_PATHS: Dictionary = {
+	"level_02": "res://assets/world/level_02_mutated_forest/hazards/mangosteen_spore_vent_normalized_v1.png",
+	"level_03": "res://assets/world/level_03_capsule_07/hazards/santol_seed_piston_normalized_v1.png",
+	"level_04": "res://assets/world/level_04_root_marsh/hazards/nutrient_root_eruption_normalized_v2.png",
+	"level_05": "res://assets/world/level_05_alien_eye_nexus/hazards/sensory_platform_collapse_normalized_v2.png"
 }
-const BIOME_PLATFORM_TEXTURES: Dictionary = {
-	"level_02": preload("res://assets/world/level_02_mutated_forest/tiles/forest_ground_straight_v1.png"),
-	"level_03": preload("res://assets/world/level_03_capsule_07/tiles/capsule_ground_straight_v1.png"),
-	"level_04": preload("res://assets/world/level_04_root_marsh/tiles/marsh_ground_straight_v2.png"),
-	"level_05": preload("res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_straight_v2.png")
+const BIOME_PLATFORM_TEXTURE_PATHS: Dictionary = {
+	"level_02": "res://assets/world/level_02_mutated_forest/tiles/forest_ground_straight_v1.png",
+	"level_03": "res://assets/world/level_03_capsule_07/tiles/capsule_ground_straight_v1.png",
+	"level_04": "res://assets/world/level_04_root_marsh/tiles/marsh_ground_straight_v2.png",
+	"level_05": "res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_straight_v2.png"
 }
 const BIOME_PLATFORM_SCALE := Vector2(0.13812155, 0.045)
 
@@ -52,7 +52,8 @@ func _ready() -> void:
 
 
 func _configure_biome_hazards() -> void:
-	var texture := BIOME_HAZARD_TEXTURES.get(GameManager.current_level_id) as Texture2D
+	var hazard_path := str(BIOME_HAZARD_TEXTURE_PATHS.get(GameManager.current_level_id, ""))
+	var texture := GameManager.load_runtime_texture(hazard_path) if not hazard_path.is_empty() else null
 	if texture == null:
 		return
 	for child: Node in get_node("WorldGeometry").get_children():
@@ -61,7 +62,8 @@ func _configure_biome_hazards() -> void:
 
 
 func _configure_biome_platforms() -> void:
-	var texture := BIOME_PLATFORM_TEXTURES.get(GameManager.current_level_id) as Texture2D
+	var platform_path := str(BIOME_PLATFORM_TEXTURE_PATHS.get(GameManager.current_level_id, ""))
+	var texture := GameManager.load_runtime_texture(platform_path) if not platform_path.is_empty() else null
 	if texture == null:
 		return
 	var frame_index := 0
