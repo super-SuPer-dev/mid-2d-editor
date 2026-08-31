@@ -487,6 +487,15 @@ band, distinct Thai farmland silhouettes and the existing HUD without stretch.
 Source and runtime provenance are recorded in the English world package;
 modular tile variants, foreground props and human pixel-art review remain open.
 
+**Level 1 irrigation landmark promotion evidence — 2026-08-31:** A generated
+transparent pixel-art irrigation pump tower overgrown by the alien root network
+is now integrated as `Environment/IrrigationRootLandmark` in
+`scenes/levels/level_01.tscn`. The runtime copy uses binary alpha, nearest
+filtering, z-index -5 and a 0.34 scale behind the playable route, preserving
+traversal and HUD readability. Source prompt, runtime hash and placement
+acceptance are recorded in the English Level 1 world package. Occlusion,
+composition, memory and human pixel-art review remain open.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

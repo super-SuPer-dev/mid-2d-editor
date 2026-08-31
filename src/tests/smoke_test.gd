@@ -531,6 +531,9 @@ func _validate_levels() -> void:
 		var expected_landmark_texture := ""
 		var expected_landmark_node := ""
 		match level_id:
+			"level_01":
+				expected_landmark_texture = "irrigation_root_tower_v1.png"
+				expected_landmark_node = "IrrigationRootLandmark"
 			"level_02":
 				expected_hazard_texture = "mangosteen_spore_vent_normalized_v1.png"
 				expected_landmark_texture = "maw_bloom_lair_v1.png"
