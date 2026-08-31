@@ -49,7 +49,7 @@ not a runtime asset. Its generation record is stored beside the image.
 
 ### Generated-source audit snapshot
 
-[ASSET-AUDIT-01] The 2026-08-30 audit found 474/474 decodable PNG candidates, but all 188 `_normalized_` files contain substantial semi-transparent alpha. File integrity passes; hard-edge pixel-art approval, package-level grid validation, runtime filtering, platform memory, and human visual approval remain blocked or pending. `true alpha` records transparency presence only and must not be read as clean-edge approval. No generated candidate advances beyond `Review` from this audit. See [Generated Asset Audit](GENERATED_ASSET_AUDIT.md).
+[ASSET-AUDIT-01] The 2026-08-31 audit found 477/477 decodable PNG candidates, with 188/188 normalized widths divisible by four and 337 opaque-art candidates above the 2% soft-alpha limit. File integrity and nearby English provenance coverage pass; hard-edge pixel-art approval, package-level grid validation, runtime filtering, platform memory, and human visual approval remain blocked or pending. `true alpha` records transparency presence only and must not be read as clean-edge approval. No generated candidate advances beyond `Review` from this audit. See [Generated Asset Audit](GENERATED_ASSET_AUDIT.md).
 
 ## 3. Character and Narrative Assets
 
