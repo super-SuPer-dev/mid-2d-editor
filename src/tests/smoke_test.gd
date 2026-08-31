@@ -521,7 +521,13 @@ func _validate_levels() -> void:
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png") or str(spitter_visual.texture.resource_path).ends_with("spitter_walk_strip_normalized_v2.png"), "Level 1 Spitter pilot is not using the promoted runtime texture.")
 			spitter._shoot(Vector2.RIGHT)
 			await get_tree().physics_frame
-			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_seed_burst_strip_normalized_v2.png"), "Level 1 Spitter did not bind its seed-burst cast animation.")
+			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_pressure_tell_strip_normalized_v2.png"), "Level 1 Spitter did not bind its pressure-tell animation.")
+			for _spitter_cast_frame in range(10):
+				await get_tree().physics_frame
+			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_seed_burst_strip_normalized_v2.png"), "Level 1 Spitter did not hand off from pressure tell to seed-burst cast.")
+			spitter.take_damage(1)
+			await get_tree().physics_frame
+			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_hurt_strip_normalized_v2.png"), "Level 1 Spitter did not bind its hurt animation.")
 		if level_id == "level_02":
 			var maw := level.get_node("Enemies/Maw01") as EnemyController
 			var maw_visual := maw.get_node("Visual") as Sprite2D

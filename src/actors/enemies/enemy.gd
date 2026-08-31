@@ -21,6 +21,10 @@ const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
 const SPITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_idle_strip_normalized_v2.png")
 const SPITTER_WALK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_walk_strip_normalized_v2.png")
 const SPITTER_SEED_BURST_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_seed_burst_strip_normalized_v2.png")
+const SPITTER_PRESSURE_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_pressure_tell_strip_normalized_v2.png")
+const SPITTER_JUICE_LOB_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_juice_lob_strip_normalized_v2.png")
+const SPITTER_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_hurt_strip_normalized_v2.png")
+const SPITTER_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_death_strip_normalized_v2.png")
 const MAW_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_idle_strip_normalized_v2.png")
 const MAW_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_move_strip_normalized_v2.png")
 const CAPSULE_HUSK_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_idle_strip_normalized_v2.png")
@@ -84,6 +88,7 @@ var thornling_hurt_timer: float = 0.0
 var spitter_action: StringName = &"idle"
 var spitter_frame_clock: float = 0.0
 var spitter_attack_timer: float = 0.0
+var spitter_hurt_timer: float = 0.0
 var maw_action: StringName = &"idle"
 var maw_frame_clock: float = 0.0
 var capsule_husk_action: StringName = &"idle"
@@ -316,6 +321,7 @@ func _physics_process(delta: float) -> void:
 	attack_cooldown = maxf(attack_cooldown - delta, 0.0)
 	shoot_cooldown = maxf(shoot_cooldown - delta, 0.0)
 	spitter_attack_timer = maxf(spitter_attack_timer - delta, 0.0)
+	spitter_hurt_timer = maxf(spitter_hurt_timer - delta, 0.0)
 	thornling_attack_timer = maxf(thornling_attack_timer - delta, 0.0)
 	thornling_hurt_timer = maxf(thornling_hurt_timer - delta, 0.0)
 	velocity.y += GRAVITY * delta
@@ -386,21 +392,25 @@ func _update_thornling_animation(delta: float) -> void:
 func _update_spitter_animation(delta: float) -> void:
 	if enemy_type != "spitter":
 		return
-	var next_action: StringName = &"seed_burst" if spitter_attack_timer > 0.0 else (&"walk" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")
-	if next_action != spitter_action:
+	var next_action: StringName = &"hurt" if spitter_hurt_timer > 0.0 else (&"pressure_tell" if spitter_attack_timer > 0.35 else (&"seed_burst" if spitter_attack_timer > 0.0 else (&"walk" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")))
+	var desired_texture: Texture2D = SPITTER_IDLE_TEXTURE
+	match next_action:
+		&"hurt":
+			desired_texture = SPITTER_HURT_TEXTURE
+		&"pressure_tell":
+			desired_texture = SPITTER_PRESSURE_TELL_TEXTURE
+		&"seed_burst":
+			desired_texture = SPITTER_SEED_BURST_TEXTURE
+		&"walk":
+			desired_texture = SPITTER_WALK_TEXTURE
+	if next_action != spitter_action or visual.texture != desired_texture:
 		spitter_action = next_action
 		spitter_frame_clock = 0.0
-		match next_action:
-			&"seed_burst":
-				visual.texture = SPITTER_SEED_BURST_TEXTURE
-			&"walk":
-				visual.texture = SPITTER_WALK_TEXTURE
-			_:
-				visual.texture = SPITTER_IDLE_TEXTURE
+		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 8.0 if next_action == &"seed_burst" else (7.0 if next_action == &"walk" else 4.0)
+	var frame_rate := 8.0 if next_action == &"seed_burst" or next_action == &"pressure_tell" or next_action == &"hurt" else (7.0 if next_action == &"walk" else 4.0)
 	spitter_frame_clock = fmod(spitter_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(spitter_frame_clock)
 
@@ -598,6 +608,10 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			thornling_hurt_timer = 0.2
 			thornling_action = &"hurt"
 			thornling_frame_clock = 0.0
+		elif enemy_type == "spitter":
+			spitter_hurt_timer = 0.2
+			spitter_action = &"hurt"
+			spitter_frame_clock = 0.0
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")

@@ -129,6 +129,13 @@ hook. Strict asset validation and the Level 1 smoke suite cover binary alpha,
 runtime import, baseline, tell → attack handoff, hurt binding and VFX staging;
 death presentation and human readability review remain open.
 
+**Spitter action promotion evidence — 2026-08-31:** Generated four-frame
+makrut-lime pressure-tell, seed-burst and hurt strips are now selected from
+the existing ranged and damage timers, with a readable tell → cast handoff.
+Strict asset validation and the Level 1 smoke suite cover binary alpha, runtime
+import, baseline, pressure-tell handoff and hurt binding. Juice-lob/death
+presentation, projectile VFX and human readability review remain open.
+
 **Spitter-asset promotion evidence — 2026-08-31:** The shared Level 1–3
 Spitter now uses generated makrut-lime idle/walk strips instead of the legacy
 static sprite. Both 2800 × 800 runtime strips use four 700 px cells, a 740 px
