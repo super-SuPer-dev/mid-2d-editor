@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/landmarks/maw_bloom_lair_v1.png" id="10_landmark"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/props/forest_field_shrine_v1.png" id="11_shrine"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/extraction/forest_extraction_beacon_v1.png" id="12_beacon"]
+[ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_ground_straight_v1.png" id="13_tile"]
 
 [node name="MutatedForest" type="Node2D"]
 script = ExtResource("1")
@@ -30,6 +31,30 @@ z_index = -4
 scale = Vector2(0.23, 0.23)
 texture_filter = 1
 texture = ExtResource("11_shrine")
+[node name="ForestTileAccentA" type="Sprite2D" parent="Environment"]
+position = Vector2(900, 650)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("13_tile")
+hframes = 3
+frame = 1
+[node name="ForestTileAccentB" type="Sprite2D" parent="Environment"]
+position = Vector2(1780, 610)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("13_tile")
+hframes = 3
+frame = 1
+[node name="ForestTileAccentC" type="Sprite2D" parent="Environment"]
+position = Vector2(2640, 650)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("13_tile")
+hframes = 3
+frame = 1
 [node name="Canopy" type="Polygon2D" parent="Environment"]
 visible = false
 z_index = -30

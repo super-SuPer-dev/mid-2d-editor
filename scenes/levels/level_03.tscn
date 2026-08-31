@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/backgrounds/capsule_generated_parallax.tscn" id="9_bg"]
 [ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/landmarks/capsule_07_seed_harvester_v1.png" id="10_landmark"]
 [ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/extraction/capsule_extraction_beacon_v1.png" id="11_beacon"]
+[ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/tiles/capsule_ground_straight_v1.png" id="12_tile"]
 
 [node name="AlienRootCave" type="Node2D"]
 script = ExtResource("1")
@@ -22,6 +23,30 @@ z_index = -5
 scale = Vector2(0.34, 0.34)
 texture_filter = 1
 texture = ExtResource("10_landmark")
+[node name="CapsuleTileAccentA" type="Sprite2D" parent="Environment"]
+position = Vector2(820, 600)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
+[node name="CapsuleTileAccentB" type="Sprite2D" parent="Environment"]
+position = Vector2(1720, 620)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
+[node name="CapsuleTileAccentC" type="Sprite2D" parent="Environment"]
+position = Vector2(2600, 600)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
 [node name="CaveBack" type="Polygon2D" parent="Environment"]
 visible = false
 z_index = -30

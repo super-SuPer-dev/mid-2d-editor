@@ -300,6 +300,17 @@ death contracts.
 
 **Greybox implementation evidence — 2026-08-31:** Dedicated `level_04.tscn` and `level_05.tscn` scenes now route through `SceneManager.play_level`, use distinct marsh/nexus parallax palettes and landmark overlays, provide seven/eight authored platform steps with hazards, six roster-valid threats, samples, portals and dedicated bosses. `root_skitter`, `marsh_spitter`, `eye_wisp`, `capsule_husk_elite`, `mixed_elite`, `root_hydra_boss` and `root_core_eye_boss` now have explicit runtime contracts instead of falling through to generic defaults. The Godot smoke suite validates both scenes through quota → queued radio/boss introduction → three-phase projectile pattern → boss defeat → extraction, plus projectile cleanup and 100 px jump-step reachability. Live Godot MCP screenshots verified `Devouring Root Marsh` and `Alien Eye Nexus` at 1280×720 with readable HUDs and no screen stretch. Final generated pixel-art tiles, foreground props, fruit-specific enemy art/animation, audio, ending polish, Windows/Web builds and human 5–7 minute playtest remain required before Gate 4 closes.
 
+**Biome tile-strip promotion evidence — 2026-08-31:** The authored
+`forest_ground_straight_v1.png`, `capsule_ground_straight_v1.png`,
+`marsh_ground_straight_v2.png` and `nexus_ground_straight_v2.png` strips are
+now promoted under the matching `assets/world/.../tiles/` packages. Each
+2172 × 724 strip is displayed as a three-cell nearest-filtered Sprite2D accent
+at frame 1, z = -2, behind the existing collision platforms. Levels 2–5 each
+receive three biome-specific accents without changing collision geometry or
+route timing; English scene-load and asset validation cover the paths. Corner,
+broken, cap, slope and infestation variants remain for later art placement and
+human pixel-art review.
+
 **Generated-asset audit evidence — 2026-08-31:** `tools/validate_generated_assets.ps1` now provides a repeatable, memory-safe source audit. It scanned all 474 PNG candidates (831,196,936 bytes), decoded 474/474, confirmed 188/188 normalized strips have widths divisible by four, found nearby Markdown provenance for 450/474 files, and reported 335 opaque-art soft-alpha warnings. The validator intentionally leaves candidates in `Review`; binary-alpha remediation, per-package grid/pivot/baseline review, runtime promotion, and human pixel-art approval remain open.
 
 **Generated-asset promotion evidence — 2026-08-31:** The Root Skitter (salak) package now has a reversible runtime pilot. Seven source actions were normalized to 4 × 700 × 800 strips with a 740 px baseline and threshold-128 binary alpha; idle and scuttle are wired to the Level 4 enemy controller with nearest filtering, floor offset and measured 5.5/8 fps timing. Godot MCP runtime inspection confirmed `hframes=4`, the promoted texture path, `position.y=-17`, and frame advancement. The package remains `Integrated` rather than `Verified` pending visual silhouette, animation-continuity and combat-scale review; the other five actions still need binding.

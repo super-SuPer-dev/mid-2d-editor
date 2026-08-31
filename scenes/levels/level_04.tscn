@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/backgrounds/marsh_generated_parallax.tscn" id="9_bg"]
 [ext_resource type="Texture2D" path="res://assets/world/level_04_root_marsh/landmarks/root_nutrient_conduit_v2.png" id="10_landmark"]
 [ext_resource type="Texture2D" path="res://assets/world/level_04_root_marsh/extraction/marsh_extraction_beacon_v2.png" id="11_beacon"]
+[ext_resource type="Texture2D" path="res://assets/world/level_04_root_marsh/tiles/marsh_ground_straight_v2.png" id="12_tile"]
 
 [node name="DevouringRootMarsh" type="Node2D"]
 script = ExtResource("1")
@@ -23,6 +24,30 @@ z_index = -5
 scale = Vector2(0.34, 0.34)
 texture_filter = 1
 texture = ExtResource("10_landmark")
+[node name="MarshTileAccentA" type="Sprite2D" parent="Environment"]
+position = Vector2(700, 660)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
+[node name="MarshTileAccentB" type="Sprite2D" parent="Environment"]
+position = Vector2(1680, 620)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
+[node name="MarshTileAccentC" type="Sprite2D" parent="Environment"]
+position = Vector2(2600, 660)
+z_index = -2
+scale = Vector2(0.18, 0.18)
+texture_filter = 1
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
 [node name="Waterline" type="Polygon2D" parent="Environment"]
 z_index = -5
 polygon = PackedVector2Array(0, 720, 0, 440, 420, 420, 820, 455, 1220, 410, 1640, 450, 2060, 405, 2480, 445, 2900, 400, 3400, 430, 3400, 720)
