@@ -594,18 +594,11 @@ func _validate_levels() -> void:
 				_check(landmark.scale.is_equal_approx(Vector2(0.34, 0.34)), "%s landmark lost its calibrated presentation scale." % level_id)
 		if not expected_prop_texture.is_empty():
 			for prop_node in expected_prop_nodes:
-				var prop := level.get_node_or_null("Environment/%s" % prop_node) as Sprite2D
-				_check(prop != null, "%s is missing generated prop node %s." % [level_id, prop_node])
-				if prop != null:
-					_check(str(prop.texture.resource_path).ends_with(expected_prop_texture), "%s prop %s did not bind its generated texture." % [level_id, prop_node])
-					_check(prop.z_index == -4, "%s prop %s changed its background draw order." % [level_id, prop_node])
-		if not expected_prop_texture.is_empty():
-			for prop_node in expected_prop_nodes:
-				var prop := level.get_node_or_null("Environment/%s" % prop_node) as Sprite2D
-				_check(prop != null, "%s is missing generated prop node %s." % [level_id, prop_node])
-				if prop != null:
-					_check(str(prop.texture.resource_path).ends_with(expected_prop_texture), "%s prop %s did not bind its generated texture." % [level_id, prop_node])
-					_check(prop.z_index == -4, "%s prop %s changed its background draw order." % [level_id, prop_node])
+				var prop_duplicate := level.get_node_or_null("Environment/%s" % prop_node) as Sprite2D
+				_check(prop_duplicate != null, "%s is missing generated prop node %s." % [level_id, prop_node])
+				if prop_duplicate != null:
+					_check(str(prop_duplicate.texture.resource_path).ends_with(expected_prop_texture), "%s prop %s did not bind its generated texture." % [level_id, prop_node])
+					_check(prop_duplicate.z_index == -4, "%s prop %s changed its background draw order." % [level_id, prop_node])
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
@@ -637,6 +630,20 @@ func _validate_levels() -> void:
 			_check(eye_wisp_visual.hframes == 4 and eye_wisp_visual.vframes == 1, "Level 5 Eye Wisp pilot lost its four-frame grid.")
 			_check(absf(eye_wisp_visual.position.y + 16.0) < 0.01, "Level 5 Eye Wisp pilot lost its hover offset.")
 			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_hover_strip_normalized_v2.png") or str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_fly_strip_normalized_v2.png"), "Level 5 Eye Wisp pilot is not using the promoted runtime texture.")
+			eye_wisp.eye_wisp_attack_variant = 0
+			eye_wisp.eye_wisp_attack_timer = 0.65
+			eye_wisp._update_eye_wisp_animation(0.0)
+			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_aim_tell_strip_normalized_v2.png"), "Level 5 Eye Wisp did not bind its aim-tell animation.")
+			eye_wisp.eye_wisp_attack_timer = 0.2
+			eye_wisp._update_eye_wisp_animation(0.0)
+			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_seed_bolt_strip_normalized_v2.png"), "Level 5 Eye Wisp did not bind its seed-bolt animation.")
+			eye_wisp.eye_wisp_attack_variant = 1
+			eye_wisp.eye_wisp_attack_timer = 0.2
+			eye_wisp._update_eye_wisp_animation(0.0)
+			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_beam_attack_strip_normalized_v2.png"), "Level 5 Eye Wisp did not bind its beam attack animation.")
+			eye_wisp.take_damage(1)
+			eye_wisp._update_eye_wisp_animation(0.0)
+			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_hurt_strip_normalized_v2.png"), "Level 5 Eye Wisp did not bind its hurt animation.")
 			var root_core_eye := level.get_node("Enemies/RootCoreEye") as EnemyController
 			var root_core_eye_visual := root_core_eye.get_node("Visual") as Sprite2D
 			_check(root_core_eye_visual.hframes == 4 and root_core_eye_visual.vframes == 1, "Level 5 Root-Core Eye pilot lost its four-frame grid.")

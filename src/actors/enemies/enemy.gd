@@ -53,6 +53,11 @@ const ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE: Texture2D = preload("res://assets/ene
 const ROOT_HYDRA_LANE_WALL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_lane_wall_cast_strip_normalized_v2.png")
 const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png")
 const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
+const EYE_WISP_AIM_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_aim_tell_strip_normalized_v2.png")
+const EYE_WISP_SEED_BOLT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_seed_bolt_strip_normalized_v2.png")
+const EYE_WISP_BEAM_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_beam_attack_strip_normalized_v2.png")
+const EYE_WISP_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hurt_strip_normalized_v2.png")
+const EYE_WISP_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_death_strip_normalized_v2.png")
 const ROOT_CORE_EYE_SEALED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_sealed_normalized_v2.png")
 const ROOT_CORE_EYE_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_idle_exposed_normalized_v2.png")
 const ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_spiral_cast_strip_normalized_v2.png")
@@ -118,6 +123,9 @@ var root_hydra_visual_phase: int = 0
 var root_hydra_action: StringName = &"idle"
 var eye_wisp_frame_clock: float = 0.0
 var eye_wisp_action: StringName = &"hover"
+var eye_wisp_attack_timer: float = 0.0
+var eye_wisp_hurt_timer: float = 0.0
+var eye_wisp_attack_variant: int = 0
 var root_core_eye_frame_clock: float = 0.0
 var root_core_eye_visual_phase: int = 0
 var root_core_eye_action: StringName = &"idle"
@@ -342,6 +350,8 @@ func _physics_process(delta: float) -> void:
 	shoot_cooldown = maxf(shoot_cooldown - delta, 0.0)
 	spitter_attack_timer = maxf(spitter_attack_timer - delta, 0.0)
 	spitter_hurt_timer = maxf(spitter_hurt_timer - delta, 0.0)
+	eye_wisp_attack_timer = maxf(eye_wisp_attack_timer - delta, 0.0)
+	eye_wisp_hurt_timer = maxf(eye_wisp_hurt_timer - delta, 0.0)
 	thornling_attack_timer = maxf(thornling_attack_timer - delta, 0.0)
 	thornling_hurt_timer = maxf(thornling_hurt_timer - delta, 0.0)
 	maw_attack_timer = maxf(maw_attack_timer - delta, 0.0)
@@ -359,6 +369,10 @@ func _physics_process(delta: float) -> void:
 				velocity.x = 0.0
 			elif enemy_type == "spitter":
 				velocity.x = 0.0
+				if shoot_cooldown <= 0.0:
+					_shoot(offset.normalized())
+			elif enemy_type == "eye_wisp":
+				velocity.x = facing * move_speed * 0.45
 				if shoot_cooldown <= 0.0:
 					_shoot(offset.normalized())
 			else:
@@ -558,15 +572,28 @@ func _update_root_hydra_animation(delta: float) -> void:
 func _update_eye_wisp_animation(delta: float) -> void:
 	if enemy_type != "eye_wisp":
 		return
-	var next_action: StringName = &"fly" if absf(velocity.x) > 8.0 else &"hover"
-	if next_action != eye_wisp_action:
+	var attack_action: StringName = &"seed_bolt" if eye_wisp_attack_variant == 0 else &"beam_attack"
+	var next_action: StringName = &"hurt" if eye_wisp_hurt_timer > 0.0 else (&"aim_tell" if eye_wisp_attack_timer > 0.38 else (attack_action if eye_wisp_attack_timer > 0.0 else (&"fly" if absf(velocity.x) > 8.0 else &"hover")))
+	var desired_texture: Texture2D = EYE_WISP_HOVER_TEXTURE
+	match next_action:
+		&"hurt":
+			desired_texture = EYE_WISP_HURT_TEXTURE
+		&"aim_tell":
+			desired_texture = EYE_WISP_AIM_TELL_TEXTURE
+		&"seed_bolt":
+			desired_texture = EYE_WISP_SEED_BOLT_TEXTURE
+		&"beam_attack":
+			desired_texture = EYE_WISP_BEAM_ATTACK_TEXTURE
+		&"fly":
+			desired_texture = EYE_WISP_FLY_TEXTURE
+	if next_action != eye_wisp_action or visual.texture != desired_texture:
 		eye_wisp_action = next_action
 		eye_wisp_frame_clock = 0.0
-		visual.texture = EYE_WISP_FLY_TEXTURE if next_action == &"fly" else EYE_WISP_HOVER_TEXTURE
+		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 7.0 if next_action == &"fly" else 4.5
+	var frame_rate := 8.0 if next_action == &"aim_tell" or next_action == &"seed_bolt" or next_action == &"beam_attack" or next_action == &"hurt" else (7.0 if next_action == &"fly" else 4.5)
 	eye_wisp_frame_clock = fmod(eye_wisp_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(eye_wisp_frame_clock)
 
@@ -663,6 +690,15 @@ func _shoot(direction: Vector2) -> void:
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
+	elif enemy_type == "eye_wisp":
+		eye_wisp_attack_timer = 0.65
+		eye_wisp_attack_variant = 1 - eye_wisp_attack_variant
+		eye_wisp_action = &"aim_tell"
+		eye_wisp_frame_clock = 0.0
+		visual.texture = EYE_WISP_AIM_TELL_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
 	var projectile := PROJECTILE_SCENE.instantiate() as EnemyProjectile
 	projectile.direction = direction
 	projectile.damage = contact_damage
@@ -694,6 +730,10 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			root_skitter_hurt_timer = 0.2
 			root_skitter_action = &"hurt"
 			root_skitter_frame_clock = 0.0
+		elif enemy_type == "eye_wisp":
+			eye_wisp_hurt_timer = 0.2
+			eye_wisp_action = &"hurt"
+			eye_wisp_frame_clock = 0.0
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")
