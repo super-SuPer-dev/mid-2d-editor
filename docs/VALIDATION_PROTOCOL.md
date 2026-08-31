@@ -257,6 +257,12 @@ area growth and minimum-one damage reduction. It checks rank-0 and rank-3
 mastery strengths against the canonical formulas so passive tuning cannot drift
 silently from the English design contract.
 
+It also exercises the progression purchase boundary: Base Technology and
+Operator Mastery apply one rank at a time, charge the exact canonical cost,
+reject invalid IDs and refuse purchases at rank 5 without changing currency.
+The legacy character-upgrade accessor must continue to resolve to the shared
+Mastery rank during migration support.
+
 ## 13. Release Sign-off
 
 [VAL-RELEASE-01]

@@ -75,6 +75,7 @@ func _ready() -> void:
 	AudioManager.muted_for_tests = true
 	_validate_catalogs()
 	_validate_operator_passives()
+	_validate_progression_purchases()
 	_validate_localization_and_dialogue()
 	_validate_save_and_story_foundation()
 	await _validate_dialogue_presentations()
@@ -237,6 +238,37 @@ func _validate_operator_passives() -> void:
 		await get_tree().process_frame
 	SaveManager.profile["operator_mastery"] = original_mastery
 	GameManager.select_character(original_character)
+
+
+func _validate_progression_purchases() -> void:
+	var original_profile: Dictionary = SaveManager.profile.duplicate(true)
+	SaveManager.profile["total_crystals"] = 100
+	SaveManager.profile["upgrade_levels"] = {"blade": 0, "engine": 0, "armor": 0}
+	_check(SaveManager.get_upgrade_cost("blade") == 4, "Base Technology rank-0 cost drifted from the design contract.")
+	_check(SaveManager.purchase_upgrade("blade"), "Base Technology purchase was rejected despite sufficient currency.")
+	_check(SaveManager.get_upgrade_level("blade") == 1 and SaveManager.profile["total_crystals"] == 96, "Base Technology purchase did not apply exactly one rank and its exact cost.")
+	var crystals_after_upgrade := int(SaveManager.profile["total_crystals"])
+	_check(not SaveManager.purchase_upgrade("invalid_upgrade"), "Invalid Base Technology ID was accepted.")
+	_check(int(SaveManager.profile["total_crystals"]) == crystals_after_upgrade, "Invalid Base Technology purchase changed currency.")
+	SaveManager.profile["upgrade_levels"]["blade"] = 5
+	var crystals_at_upgrade_cap := int(SaveManager.profile["total_crystals"])
+	_check(not SaveManager.purchase_upgrade("blade"), "Base Technology purchase exceeded rank 5.")
+	_check(int(SaveManager.profile["total_crystals"]) == crystals_at_upgrade_cap, "Capped Base Technology purchase changed currency.")
+
+	SaveManager.profile["total_crystals"] = 100
+	SaveManager.profile["operator_mastery"] = {"tonkla": 0, "rin": 0, "khem": 0, "t800": 0}
+	GameManager.select_character("rin")
+	_check(SaveManager.get_mastery_cost("rin") == 3, "Operator Mastery rank-0 cost drifted from the design contract.")
+	_check(SaveManager.purchase_mastery("rin"), "Operator Mastery purchase was rejected despite sufficient currency.")
+	_check(SaveManager.get_mastery_rank("rin") == 1 and SaveManager.profile["total_crystals"] == 97, "Operator Mastery purchase did not apply exactly one rank and its exact cost.")
+	_check(SaveManager.get_character_upgrade_level("blade", "rin") == 1, "Legacy mastery level accessor no longer reflects the shared Mastery rank.")
+	SaveManager.profile["operator_mastery"]["rin"] = 5
+	var crystals_at_mastery_cap := int(SaveManager.profile["total_crystals"])
+	_check(not SaveManager.purchase_mastery("rin"), "Operator Mastery purchase exceeded rank 5.")
+	_check(int(SaveManager.profile["total_crystals"]) == crystals_at_mastery_cap, "Capped Operator Mastery purchase changed currency.")
+	_check(not SaveManager.purchase_mastery("invalid_operator"), "Invalid Operator Mastery ID was accepted.")
+	SaveManager.profile = original_profile
+	GameManager.select_character(str(SaveManager.profile.get("selected_character", CharacterCatalog.DEFAULT_CHARACTER)))
 
 
 func _validate_save_and_story_foundation() -> void:

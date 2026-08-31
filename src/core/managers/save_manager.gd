@@ -201,7 +201,10 @@ func get_mastery_cost(character_id: String = "") -> int:
 
 
 func purchase_mastery(character_id: String = "") -> bool:
-	var resolved_id := CharacterCatalog.resolve_character_id(character_id if not character_id.is_empty() else GameManager.selected_character_id)
+	var requested_id := character_id if not character_id.is_empty() else GameManager.selected_character_id
+	if not CharacterCatalog.CHARACTERS.has(requested_id) and requested_id not in ["ranger", "villager"]:
+		return false
+	var resolved_id := CharacterCatalog.resolve_character_id(requested_id)
 	if not CharacterCatalog.CHARACTERS.has(resolved_id):
 		return false
 	var current_rank := get_mastery_rank(resolved_id)

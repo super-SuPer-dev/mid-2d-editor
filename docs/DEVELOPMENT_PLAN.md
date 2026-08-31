@@ -448,6 +448,13 @@ hit to one while preserving minimum damage. The same check asserts the rank-0
 and rank-3 mastery strengths for all four passive IDs, protecting the shared
 progression formulas during balance work.
 
+**Progression purchase evidence — 2026-08-31:** The same smoke suite now checks
+Base Technology and Operator Mastery purchases against their canonical costs,
+currency deltas and rank-5 caps. Invalid IDs are rejected without spending
+currency, and the legacy character-upgrade accessor is verified to mirror the
+shared Mastery rank. This leaves economy tuning and human balance approval as
+the remaining Gate 5 work rather than an untested save/progression contract.
+
 **Scoped asset-loading and soak evidence — 2026-08-31:** Enemy and boss animation
 strips, boss projectile presentations, biome hazard/platform textures, operator
 sheets, portraits, boss HUD frames and boss-introduction frames now resolve on
