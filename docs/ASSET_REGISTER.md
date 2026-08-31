@@ -144,7 +144,7 @@ Each biome needs at least four parallax layers, gameplay ground/platforms, foreg
 | Asset ID | Use | Priority | Current condition | State |
 |---|---|---:|---|---|
 | UI-MENU-ATLAS | Menu/button/panel art | P0 | Generated atlas integrated provisionally | Review |
-| UI-LEVEL-MAP | Five-level selection map | P0 | Generated map/atlas integrated; icons repositioned | Review |
+| UI-LEVEL-MAP | Five-level selection map | P0 | Generated map/atlas integrated; icons repositioned. A live 1280 × 720 Godot spot-check confirms the Level 1 shield, locked Level 2–5 markers, mission copy and action row remain inside the safe area without obscuring the Capsule 07 or Alien Eye landmarks; final five-marker and Thai line-break review remain open | Review |
 | UI-HUD-ICON-ATLAS | Health, sample, objective and ability icons | P0 | Generated atlas integrated provisionally | Review |
 | UI-DIALOGUE-FRAME | Briefing/debrief dialogue | P0 | Generated text-free 2300 × 800 binary-alpha frame is integrated as the full-mode dialogue StyleBoxTexture skin; portrait insertion and bilingual fitting remain open | Integrated |
 | UI-RADIO-OVERLAY | Compact non-pausing radio | P0 | Generated text-free 2300 × 800 binary-alpha frame is integrated as the compact radio StyleBoxTexture skin below HUD/boss safe areas; bilingual fitting remains open | Integrated |

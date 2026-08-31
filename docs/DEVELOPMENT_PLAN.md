@@ -680,6 +680,14 @@ readable HUD text, samples, and the player without route occlusion. This is a
 targeted integration check only; five-level composition, Web memory, and human
 art-direction approval remain Gate 6 work.
 
+**Level-selection composition spot-check evidence — 2026-08-31:** The same
+1280 × 720 Godot MCP run inspected the five-act mission map. The Level 1
+selection shield and locked Level 2–5 markers remain inside the map safe area,
+the Capsule 07 and Alien Eye landmarks stay readable behind the markers, and
+the English mission description and action row do not clip. The asset remains
+in Review until every marker is checked against the final map art and Thai
+line-breaking is approved.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:
