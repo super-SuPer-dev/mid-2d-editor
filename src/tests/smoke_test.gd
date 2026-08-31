@@ -638,6 +638,15 @@ func _validate_levels() -> void:
 			_check(capsule_husk_visual.hframes == 4 and capsule_husk_visual.vframes == 1, "Level 5 Capsule Husk pilot lost its four-frame grid.")
 			_check(absf(capsule_husk_visual.position.y + 18.0) < 0.01, "Level 5 Capsule Husk pilot lost its 740 px baseline offset.")
 			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_idle_strip_normalized_v2.png") or str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_move_strip_normalized_v2.png"), "Level 5 Capsule Husk pilot is not using the promoted runtime texture.")
+			capsule_husk.capsule_husk_attack_timer = 0.45
+			capsule_husk._update_capsule_husk_animation(0.0)
+			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_charge_tell_strip_normalized_v2.png"), "Level 5 Capsule Husk did not bind its charge-tell animation.")
+			capsule_husk.capsule_husk_attack_timer = 0.2
+			capsule_husk._update_capsule_husk_animation(0.0)
+			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_core_attack_strip_normalized_v2.png"), "Level 5 Capsule Husk did not hand off to its core attack animation.")
+			capsule_husk.take_damage(1)
+			capsule_husk._update_capsule_husk_animation(0.0)
+			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_hurt_strip_normalized_v2.png"), "Level 5 Capsule Husk did not bind its hurt animation.")
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)

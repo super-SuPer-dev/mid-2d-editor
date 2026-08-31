@@ -33,6 +33,11 @@ const MAW_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/m
 const MAW_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/maw/maw_death_strip_normalized_v2.png")
 const CAPSULE_HUSK_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_idle_strip_normalized_v2.png")
 const CAPSULE_HUSK_MOVE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_move_strip_normalized_v2.png")
+const CAPSULE_HUSK_CHARGE_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_charge_tell_strip_normalized_v2.png")
+const CAPSULE_HUSK_CHARGE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_charge_strip_normalized_v2.png")
+const CAPSULE_HUSK_CORE_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_core_attack_strip_normalized_v2.png")
+const CAPSULE_HUSK_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_hurt_strip_normalized_v2.png")
+const CAPSULE_HUSK_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/capsule_husk/capsule_husk_death_strip_normalized_v2.png")
 const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
 const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
@@ -99,6 +104,8 @@ var maw_attack_timer: float = 0.0
 var maw_hurt_timer: float = 0.0
 var capsule_husk_action: StringName = &"idle"
 var capsule_husk_frame_clock: float = 0.0
+var capsule_husk_attack_timer: float = 0.0
+var capsule_husk_hurt_timer: float = 0.0
 var root_hydra_frame_clock: float = 0.0
 var root_hydra_visual_phase: int = 0
 var root_hydra_action: StringName = &"idle"
@@ -332,6 +339,8 @@ func _physics_process(delta: float) -> void:
 	thornling_hurt_timer = maxf(thornling_hurt_timer - delta, 0.0)
 	maw_attack_timer = maxf(maw_attack_timer - delta, 0.0)
 	maw_hurt_timer = maxf(maw_hurt_timer - delta, 0.0)
+	capsule_husk_attack_timer = maxf(capsule_husk_attack_timer - delta, 0.0)
+	capsule_husk_hurt_timer = maxf(capsule_husk_hurt_timer - delta, 0.0)
 	velocity.y += GRAVITY * delta
 	if is_instance_valid(target):
 		var offset := target.global_position - global_position
@@ -360,6 +369,10 @@ func _physics_process(delta: float) -> void:
 					maw_attack_timer = 0.4
 					maw_action = &"anticipation"
 					maw_frame_clock = 0.0
+				elif enemy_type == "capsule_husk_elite":
+					capsule_husk_attack_timer = 0.45
+					capsule_husk_action = &"charge_tell"
+					capsule_husk_frame_clock = 0.0
 		else:
 			velocity.x = move_toward(velocity.x, 0.0, 500.0 * delta)
 	visual.scale.x = absf(visual.scale.x) * facing
@@ -456,15 +469,25 @@ func _update_maw_animation(delta: float) -> void:
 func _update_capsule_husk_animation(delta: float) -> void:
 	if enemy_type != "capsule_husk_elite":
 		return
-	var next_action: StringName = &"move" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"
-	if next_action != capsule_husk_action:
+	var next_action: StringName = &"hurt" if capsule_husk_hurt_timer > 0.0 else (&"charge_tell" if capsule_husk_attack_timer > 0.28 else (&"core_attack" if capsule_husk_attack_timer > 0.0 else (&"move" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")))
+	var desired_texture: Texture2D = CAPSULE_HUSK_IDLE_TEXTURE
+	match next_action:
+		&"hurt":
+			desired_texture = CAPSULE_HUSK_HURT_TEXTURE
+		&"charge_tell":
+			desired_texture = CAPSULE_HUSK_CHARGE_TELL_TEXTURE
+		&"core_attack":
+			desired_texture = CAPSULE_HUSK_CORE_ATTACK_TEXTURE
+		&"move":
+			desired_texture = CAPSULE_HUSK_MOVE_TEXTURE
+	if next_action != capsule_husk_action or visual.texture != desired_texture:
 		capsule_husk_action = next_action
 		capsule_husk_frame_clock = 0.0
-		visual.texture = CAPSULE_HUSK_MOVE_TEXTURE if next_action == &"move" else CAPSULE_HUSK_IDLE_TEXTURE
+		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 5.5 if next_action == &"move" else 3.5
+	var frame_rate := 7.0 if next_action == &"charge_tell" or next_action == &"core_attack" or next_action == &"hurt" else (5.5 if next_action == &"move" else 3.5)
 	capsule_husk_frame_clock = fmod(capsule_husk_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(capsule_husk_frame_clock)
 
@@ -638,6 +661,10 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			maw_hurt_timer = 0.2
 			maw_action = &"hurt"
 			maw_frame_clock = 0.0
+		elif enemy_type == "capsule_husk_elite":
+			capsule_husk_hurt_timer = 0.2
+			capsule_husk_action = &"hurt"
+			capsule_husk_frame_clock = 0.0
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")
