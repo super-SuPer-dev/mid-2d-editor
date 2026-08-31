@@ -505,6 +505,14 @@ and have no collision. Source prompt, runtime provenance and smoke assertions
 are recorded in the English package. Final occlusion, memory and human
 pixel-art review remain open.
 
+**Audio feedback pilot evidence — 2026-08-31:** Seven deterministic, original
+PCM WAV cues now live under `assets/audio/generated/` and are selected through
+`AudioManager.play_named_sfx`. Cutter swings, dashes, player hurt, enemy hit,
+sample pickup, boss defeat and non-pausing radio entries are connected to their
+runtime events. The pilot is intentionally not marked complete: music, expanded
+event coverage, mix normalization, platform review and human audio approval
+remain required.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

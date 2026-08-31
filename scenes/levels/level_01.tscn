@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://cr0yvd84gnwmw" path="res://scenes/gameplay/encounter_gate.tscn" id="10_r72dd"]
 [ext_resource type="Texture2D" path="res://assets/world/level_01_contaminated_grassland/landmarks/irrigation_root_tower_v1.png" id="11_landmark"]
 [ext_resource type="Texture2D" path="res://assets/world/level_01_contaminated_grassland/props/rice_root_props_v1.png" id="12_props"]
-[ext_resource type="Texture2D" path="res://assets/world/level_01_contaminated_grassland/props/rice_root_props_v1.png" id="12_props"]
 
 [node name="ContaminatedGrassland" type="Node2D" unique_id=1038700248]
 script = ExtResource("1")
@@ -27,21 +26,6 @@ position = Vector2(3650, 360)
 scale = Vector2(0.34, 0.34)
 texture_filter = 1
 texture = ExtResource("11_landmark")
-
-[node name="RiceRootPropsA" type="Sprite2D" parent="Environment" unique_id=204671884]
-z_index = -4
-position = Vector2(1450, 505)
-scale = Vector2(0.24, 0.24)
-texture_filter = 1
-texture = ExtResource("12_props")
-
-[node name="RiceRootPropsB" type="Sprite2D" parent="Environment" unique_id=204671885]
-z_index = -4
-position = Vector2(2670, 510)
-scale = Vector2(0.2, 0.2)
-flip_h = true
-texture_filter = 1
-texture = ExtResource("12_props")
 
 [node name="RiceRootPropsA" type="Sprite2D" parent="Environment" unique_id=204671884]
 z_index = -4

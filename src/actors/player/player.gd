@@ -154,7 +154,7 @@ func _update_timers(delta: float) -> void:
 
 
 func _start_attack() -> void:
-	AudioManager.play_sfx(1.2, -10.0)
+	AudioManager.play_named_sfx(&"cutter_swing", 1.0, -10.0)
 	attack_timer = ATTACK_DURATION
 	hit_targets.clear()
 	attack_area.position.x = 34.0 * facing
@@ -186,6 +186,7 @@ func _on_attack_vfx_finished() -> void:
 
 
 func _start_dash() -> void:
+	AudioManager.play_named_sfx(&"dash", 1.0, -10.0)
 	dash_timer = DASH_DURATION
 	dash_cooldown_timer = dash_cooldown_duration
 	invulnerability_timer = maxf(invulnerability_timer, DASH_DURATION)
@@ -199,7 +200,7 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 		resolved_amount = maxi(amount - int(CharacterCatalog.get_passive_strength(character_id, mastery_rank)), 1)
 	if not health.take_damage(resolved_amount):
 		return false
-	AudioManager.play_sfx(0.7, -5.0)
+	AudioManager.play_named_sfx(&"player_hurt", 1.0, -5.0)
 	player_hit_vfx.visible = true
 	player_hit_vfx.play(&"hit")
 	invulnerability_timer = 0.8

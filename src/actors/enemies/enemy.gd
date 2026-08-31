@@ -585,6 +585,7 @@ func _shoot(direction: Vector2) -> void:
 func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> bool:
 	var applied := health.take_damage(amount)
 	if applied:
+		AudioManager.play_named_sfx(&"enemy_hit", 1.0, -9.0)
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")
@@ -652,7 +653,7 @@ func _on_died() -> void:
 	defeated = true
 	defeated_event.emit(self)
 	pattern_runner.dispose_projectiles()
-	AudioManager.play_sfx(0.55 if is_boss else 0.85, -8.0)
+	AudioManager.play_named_sfx(&"boss_defeat" if is_boss else &"enemy_hit", 1.0 if is_boss else 0.85, -8.0)
 	if is_boss:
 		GameManager.register_boss_defeated()
 	else:

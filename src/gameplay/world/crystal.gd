@@ -12,6 +12,6 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		AudioManager.play_sfx(1.7, -12.0)
+		AudioManager.play_named_sfx(&"pickup_sample", 1.0, -12.0)
 		GameManager.add_coin(1)
 		queue_free()

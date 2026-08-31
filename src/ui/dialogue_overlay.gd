@@ -87,6 +87,7 @@ func _show_current_entry() -> void:
 		get_tree().paused = true
 		paused_by_dialogue = true
 	if is_radio:
+		AudioManager.play_named_sfx(&"radio_beep", 1.0, -14.0)
 		radio_timer.start(4.5)
 
 
