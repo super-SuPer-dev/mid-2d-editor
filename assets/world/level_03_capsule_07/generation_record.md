@@ -29,3 +29,15 @@ The generated Capsule 07 seed-harvester landmark (1224 × 1285) is placed behind
 the midpoint/boss route at a 0.34 presentation scale and does not add collision.
 Source SHA-256: 22F1BF022277E1BFAC734B0707F211EBFA30D9C3AEFE808D7008E86025920249.
 Runtime binary-alpha SHA-256: 00490F82CD0AA83E43925DB7AC2D5605BC211C447194768AA95B3CA9108FB9A0.
+
+## Tile variant promotion
+
+Broken-ground, left-cap and uphill-slope visuals are promoted as three
+presentation-only accents at z = -2. They use nearest filtering and do not
+alter collision geometry.
+
+| Variant | Source SHA-256 | Runtime SHA-256 |
+|---|---|---|
+| `capsule_ground_broken_v1.png` | `5932DE2DACD8D1B20C5814A998F644EBF572F14BF7643BE554874D030D38A76C` | `5932DE2DACD8D1B20C5814A998F644EBF572F14BF7643BE554874D030D38A76C` |
+| `capsule_ground_cap_left_v1.png` | `1725E25BE8E7FA6DA2B4E78198A91B8F27C38200CBEE1D201810154F21D32D6C` | `1725E25BE8E7FA6DA2B4E78198A91B8F27C38200CBEE1D201810154F21D32D6C` |
+| `capsule_slope_up_v1.png` | `4E847B90952966E9DA602A3488E61E551DDA5B960E022BF5B0996D2071510CBB` | `4E847B90952966E9DA602A3488E61E551DDA5B960E022BF5B0996D2071510CBB` |

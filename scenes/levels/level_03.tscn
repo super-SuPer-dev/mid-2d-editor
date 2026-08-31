@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/tiles/capsule_ground_straight_v1.png" id="12_tile"]
 [ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/tiles/capsule_corner_v1.png" id="13_corner"]
 [ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/tiles/capsule_platform_floating_v1.png" id="14_float"]
+[ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/tiles/capsule_ground_broken_v1.png" id="15_broken"]
+[ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/tiles/capsule_ground_cap_left_v1.png" id="16_cap"]
+[ext_resource type="Texture2D" path="res://assets/world/level_03_capsule_07/tiles/capsule_slope_up_v1.png" id="17_slope"]
 
 [node name="AlienRootCave" type="Node2D"]
 script = ExtResource("1")
@@ -61,6 +64,24 @@ z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("14_float")
+[node name="CapsuleBrokenAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(965, 464)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("15_broken")
+[node name="CapsuleCapAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(1775, 444)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("16_cap")
+[node name="CapsuleSlopeAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(2180, 534)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("17_slope")
 [node name="CaveBack" type="Polygon2D" parent="Environment"]
 visible = false
 z_index = -30

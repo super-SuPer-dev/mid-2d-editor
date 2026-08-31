@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_straight_v2.png" id="12_tile"]
 [ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_corner_v2.png" id="13_corner"]
 [ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_platform_floating_v2.png" id="14_float"]
+[ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_broken_v2.png" id="15_broken"]
+[ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_cap_left_v2.png" id="16_cap"]
+[ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_slope_up_v2.png" id="17_slope"]
 
 [node name="AlienEyeNexus" type="Node2D"]
 script = ExtResource("1")
@@ -62,6 +65,24 @@ z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("14_float")
+[node name="NexusBrokenAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(910, 610)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("15_broken")
+[node name="NexusCapAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(2110, 690)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("16_cap")
+[node name="NexusSlopeAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(2940, 690)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("17_slope")
 [node name="NexusVoid" type="Polygon2D" parent="Environment"]
 z_index = -5
 polygon = PackedVector2Array(0, 850, 0, 390, 350, 340, 700, 410, 1050, 320, 1400, 395, 1750, 300, 2100, 380, 2450, 315, 2800, 390, 3150, 300, 3600, 370, 3600, 850)

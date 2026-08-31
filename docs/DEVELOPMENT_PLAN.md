@@ -616,6 +616,15 @@ and have no collision. Source prompt, runtime provenance and smoke assertions
 are recorded in the English package. Final occlusion, memory and human
 pixel-art review remain open.
 
+**Biome tile-variant promotion evidence — 2026-08-31:** Levels 2–5 now bind
+authored broken-ground, left-cap and uphill-slope visuals in addition to their
+straight, corner and floating accents. Each variant is a presentation-only
+Sprite2D at z = -2 with nearest filtering and no collision, placed against a
+matching route segment so traversal geometry remains unchanged. English smoke
+checks all twelve runtime paths; source/runtime hashes and placement notes are
+recorded in the four English world provenance records. Final occlusion,
+composition and human pixel-art review remain open.
+
 **Audio pilot evidence — 2026-08-31:** Seventeen deterministic, original PCM
 WAV assets now live under `assets/audio/generated/`: seven gameplay SFX, five
 biome loops, two boss loops, a menu loop and victory/defeat stingers. Named SFX

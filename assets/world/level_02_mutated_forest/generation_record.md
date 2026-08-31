@@ -54,3 +54,15 @@ Runtime binary-alpha SHA-256: F729C2E8F657896B025080ABEF01298A2A0C39C4149FB5B7DA
 The generated Forest Field Shrine prop (1166 × 1349) is placed behind the
 mid-route platforms at a 0.23 presentation scale, z = -4, with no collision.
 Source/runtime SHA-256: 96FF102DC457B3A2F0D759B06B4DC8161885802634F5D3F261ED24BF0788454B.
+
+## Tile variant promotion
+
+Broken-ground, left-cap and uphill-slope visuals are promoted as three
+presentation-only accents at z = -2. They use nearest filtering and do not
+alter collision geometry.
+
+| Variant | Source SHA-256 | Runtime SHA-256 |
+|---|---|---|
+| `forest_ground_broken_v1.png` | `CE4F96B98A4FD139619A94CD619682A9579A404E6377A16977722B5677A0E83D` | `CE4F96B98A4FD139619A94CD619682A9579A404E6377A16977722B5677A0E83D` |
+| `forest_ground_cap_left_v1.png` | `5DCAB92542E17926D3AAD00A8257FA59EC098CF52657B1B6E94545FC39502800` | `5DCAB92542E17926D3AAD00A8257FA59EC098CF52657B1B6E94545FC39502800` |
+| `forest_slope_up_v1.png` | `248E632B48801D4952304C9978213EBFAA3309CA5A813C499CE66803AD278DD7` | `248E632B48801D4952304C9978213EBFAA3309CA5A813C499CE66803AD278DD7` |

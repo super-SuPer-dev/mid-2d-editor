@@ -30,3 +30,15 @@ The generated awakened sensory nexus landmark (1536 × 1024) is placed behind
 the Level 5 final arena at a 0.34 presentation scale and does not add collision.
 Source SHA-256: 4B9750F3146A753D16FF5DADB8634A1A747193DB31657CB2B52C0B6AD0B5EAB5.
 Runtime binary-alpha SHA-256: C94B1876BC8CA87B9AB733DD98DAC96A9B4DCAE25E64DE591011C5EB29CC8CCC.
+
+## Tile variant promotion
+
+Broken-ground, left-cap and uphill-slope visuals are promoted as three
+presentation-only accents at z = -2. They use nearest filtering and do not
+alter collision geometry.
+
+| Variant | Source SHA-256 | Runtime SHA-256 |
+|---|---|---|
+| `nexus_ground_broken_v2.png` | `C087805C86BC7A48B3E74D41252F81B0A237AB8F85820D4149DE2A73147E357D` | `C087805C86BC7A48B3E74D41252F81B0A237AB8F85820D4149DE2A73147E357D` |
+| `nexus_ground_cap_left_v2.png` | `817DE844FEA61454B79BD84575E280120074D8A18E714193A4B2734CCBB682E5` | `817DE844FEA61454B79BD84575E280120074D8A18E714193A4B2734CCBB682E5` |
+| `nexus_slope_up_v2.png` | `2D29633E3F9880E1EF7BAFF6FF741925ABA59B37A42BA76B2926BFB435A1C950` | `2D29633E3F9880E1EF7BAFF6FF741925ABA59B37A42BA76B2926BFB435A1C950` |

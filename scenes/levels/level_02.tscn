@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_ground_straight_v1.png" id="13_tile"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_corner_v1.png" id="14_corner"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_platform_floating_v1.png" id="15_float"]
+[ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_ground_broken_v1.png" id="16_broken"]
+[ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_ground_cap_left_v1.png" id="17_cap"]
+[ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_slope_up_v1.png" id="18_slope"]
 
 [node name="MutatedForest" type="Node2D"]
 script = ExtResource("1")
@@ -69,6 +72,24 @@ z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("15_float")
+[node name="ForestBrokenAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(1310, 690)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("16_broken")
+[node name="ForestCapAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(2425, 626)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("17_cap")
+[node name="ForestSlopeAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(2870, 715)
+z_index = -2
+scale = Vector2(0.11, 0.11)
+texture_filter = 1
+texture = ExtResource("18_slope")
 [node name="Canopy" type="Polygon2D" parent="Environment"]
 visible = false
 z_index = -30

@@ -541,6 +541,12 @@ func _validate_levels() -> void:
 			_check(str(forest_tile.texture.resource_path).ends_with("forest_ground_straight_v1.png"), "Level 2 forest tile accent is not using the biome runtime strip.")
 			_check(forest_corner.z_index == -2 and str(forest_corner.texture.resource_path).ends_with("forest_corner_v1.png"), "Level 2 forest corner accent is not using the biome runtime strip.")
 			_check(forest_floating.z_index == -2 and str(forest_floating.texture.resource_path).ends_with("forest_platform_floating_v1.png"), "Level 2 forest floating accent is not using the biome runtime strip.")
+			var forest_broken := level.get_node("Environment/ForestBrokenAccent") as Sprite2D
+			var forest_cap := level.get_node("Environment/ForestCapAccent") as Sprite2D
+			var forest_slope := level.get_node("Environment/ForestSlopeAccent") as Sprite2D
+			_check(forest_broken.z_index == -2 and str(forest_broken.texture.resource_path).ends_with("forest_ground_broken_v1.png"), "Level 2 forest broken accent is not using the biome tile visual.")
+			_check(forest_cap.z_index == -2 and str(forest_cap.texture.resource_path).ends_with("forest_ground_cap_left_v1.png"), "Level 2 forest cap accent is not using the biome tile visual.")
+			_check(forest_slope.z_index == -2 and str(forest_slope.texture.resource_path).ends_with("forest_slope_up_v1.png"), "Level 2 forest slope accent is not using the biome tile visual.")
 			var maw := level.get_node("Enemies/Maw01") as EnemyController
 			var maw_visual := maw.get_node("Visual") as Sprite2D
 			_check(maw_visual.hframes == 4 and maw_visual.vframes == 1, "Level 2 Maw pilot lost its four-frame grid.")
@@ -569,6 +575,12 @@ func _validate_levels() -> void:
 			_check(str(capsule_tile.texture.resource_path).ends_with("capsule_ground_straight_v1.png"), "Level 3 capsule tile accent is not using the biome runtime strip.")
 			_check(capsule_corner.z_index == -2 and str(capsule_corner.texture.resource_path).ends_with("capsule_corner_v1.png"), "Level 3 capsule corner accent is not using the biome runtime strip.")
 			_check(capsule_floating.z_index == -2 and str(capsule_floating.texture.resource_path).ends_with("capsule_platform_floating_v1.png"), "Level 3 capsule floating accent is not using the biome runtime strip.")
+			var capsule_broken := level.get_node("Environment/CapsuleBrokenAccent") as Sprite2D
+			var capsule_cap := level.get_node("Environment/CapsuleCapAccent") as Sprite2D
+			var capsule_slope := level.get_node("Environment/CapsuleSlopeAccent") as Sprite2D
+			_check(capsule_broken.z_index == -2 and str(capsule_broken.texture.resource_path).ends_with("capsule_ground_broken_v1.png"), "Level 3 capsule broken accent is not using the biome tile visual.")
+			_check(capsule_cap.z_index == -2 and str(capsule_cap.texture.resource_path).ends_with("capsule_ground_cap_left_v1.png"), "Level 3 capsule cap accent is not using the biome tile visual.")
+			_check(capsule_slope.z_index == -2 and str(capsule_slope.texture.resource_path).ends_with("capsule_slope_up_v1.png"), "Level 3 capsule slope accent is not using the biome tile visual.")
 			var banyan_boss := level.get_node("Enemies/BanyanBoss") as EnemyController
 			var banyan_visual := banyan_boss.get_node("Visual") as Sprite2D
 			_check(banyan_visual.hframes == 4 and banyan_visual.vframes == 1, "Level 3 Possessed Banyan pilot lost its four-frame grid.")
@@ -638,6 +650,12 @@ func _validate_levels() -> void:
 			_check(str(marsh_tile.texture.resource_path).ends_with("marsh_ground_straight_v2.png"), "Level 4 marsh tile accent is not using the biome runtime strip.")
 			_check(marsh_corner.z_index == -2 and str(marsh_corner.texture.resource_path).ends_with("marsh_corner_v2.png"), "Level 4 marsh corner accent is not using the biome runtime strip.")
 			_check(marsh_floating.z_index == -2 and str(marsh_floating.texture.resource_path).ends_with("marsh_platform_floating_v2.png"), "Level 4 marsh floating accent is not using the biome runtime strip.")
+			var marsh_broken := level.get_node("Environment/MarshBrokenAccent") as Sprite2D
+			var marsh_cap := level.get_node("Environment/MarshCapAccent") as Sprite2D
+			var marsh_slope := level.get_node("Environment/MarshSlopeAccent") as Sprite2D
+			_check(marsh_broken.z_index == -2 and str(marsh_broken.texture.resource_path).ends_with("marsh_ground_broken_v2.png"), "Level 4 marsh broken accent is not using the biome tile visual.")
+			_check(marsh_cap.z_index == -2 and str(marsh_cap.texture.resource_path).ends_with("marsh_ground_cap_left_v2.png"), "Level 4 marsh cap accent is not using the biome tile visual.")
+			_check(marsh_slope.z_index == -2 and str(marsh_slope.texture.resource_path).ends_with("marsh_slope_up_v2.png"), "Level 4 marsh slope accent is not using the biome tile visual.")
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
 			var root_skitter_visual := root_skitter.get_node("Visual") as Sprite2D
 			_check(root_skitter_visual.hframes == 4 and root_skitter_visual.vframes == 1, "Level 4 root-skitter pilot lost its four-frame grid.")
@@ -691,6 +709,12 @@ func _validate_levels() -> void:
 			_check(str(nexus_tile.texture.resource_path).ends_with("nexus_ground_straight_v2.png"), "Level 5 nexus tile accent is not using the biome runtime strip.")
 			_check(nexus_corner.z_index == -2 and str(nexus_corner.texture.resource_path).ends_with("nexus_corner_v2.png"), "Level 5 nexus corner accent is not using the biome runtime strip.")
 			_check(nexus_floating.z_index == -2 and str(nexus_floating.texture.resource_path).ends_with("nexus_platform_floating_v2.png"), "Level 5 nexus floating accent is not using the biome runtime strip.")
+			var nexus_broken := level.get_node("Environment/NexusBrokenAccent") as Sprite2D
+			var nexus_cap := level.get_node("Environment/NexusCapAccent") as Sprite2D
+			var nexus_slope := level.get_node("Environment/NexusSlopeAccent") as Sprite2D
+			_check(nexus_broken.z_index == -2 and str(nexus_broken.texture.resource_path).ends_with("nexus_ground_broken_v2.png"), "Level 5 nexus broken accent is not using the biome tile visual.")
+			_check(nexus_cap.z_index == -2 and str(nexus_cap.texture.resource_path).ends_with("nexus_ground_cap_left_v2.png"), "Level 5 nexus cap accent is not using the biome tile visual.")
+			_check(nexus_slope.z_index == -2 and str(nexus_slope.texture.resource_path).ends_with("nexus_slope_up_v2.png"), "Level 5 nexus slope accent is not using the biome tile visual.")
 			var eye_wisp := level.get_node("Enemies/EyeWisp01") as EnemyController
 			var eye_wisp_visual := eye_wisp.get_node("Visual") as Sprite2D
 			_check(eye_wisp_visual.hframes == 4 and eye_wisp_visual.vframes == 1, "Level 5 Eye Wisp pilot lost its four-frame grid.")
