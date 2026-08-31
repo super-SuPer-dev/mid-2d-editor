@@ -58,6 +58,10 @@ frame grids and paths were preserved; the check-only command is part of the
 release runner. This establishes the binary-alpha contract for the remediated
 runtime group but does not promote source candidates or replace visual review.
 
+[ASSET-RUNTIME-PNG-01] 180 runtime PNGs were losslessly re-encoded with
+decoded RGBA pixel-digest verification. The optimization changes storage only;
+dimensions, alpha values, frame grids and runtime paths remain unchanged.
+
 ## 3. Character and Narrative Assets
 
 [ASSET-CHAR-01]

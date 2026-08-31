@@ -22,11 +22,24 @@ const TABLE_PATHS := [
 	"res://localization/story.csv",
 	"res://localization/glossary.csv",
 ]
+const COMPILED_TABLE_PATHS := {
+	"en": [
+		"res://localization/ui.en.translation",
+		"res://localization/story.en.translation",
+		"res://localization/glossary.en.translation",
+	],
+	"th": [
+		"res://localization/ui.th.translation",
+		"res://localization/story.th.translation",
+		"res://localization/glossary.th.translation",
+	],
+}
 
 var current_language: String = DEFAULT_LANGUAGE
 var english_fallback: Dictionary = {}
 var warned_missing_keys: Dictionary = {}
 var pseudo_localization_enabled := false
+var compiled_english_fallbacks: Array[Translation] = []
 
 
 func _enter_tree() -> void:
@@ -36,28 +49,38 @@ func _enter_tree() -> void:
 
 func _load_tables() -> void:
 	var translations := {"en": Translation.new(), "th": Translation.new()}
+	var compiled_translations: Array[Translation] = []
 	for locale: String in translations:
 		translations[locale].locale = locale
-	for path in TABLE_PATHS:
-		_load_table(path, translations)
+	for table_index in TABLE_PATHS.size():
+		if _load_table(TABLE_PATHS[table_index], translations):
+			continue
+		# CSV files are available in the editor but may be compiled into
+		# .translation resources in exported builds. Load those resources when
+		# FileAccess cannot expose the source CSV inside the PCK.
+		_load_compiled_table(str(COMPILED_TABLE_PATHS["en"][table_index]), "en", compiled_translations)
+		_load_compiled_table(str(COMPILED_TABLE_PATHS["th"][table_index]), "th", compiled_translations)
 	for locale: String in translations:
 		TranslationServer.add_translation(translations[locale])
+	for compiled: Translation in compiled_translations:
+		TranslationServer.add_translation(compiled)
+		if compiled.locale == "en":
+			compiled_english_fallbacks.append(compiled)
 
 
-func _load_table(path: String, translations: Dictionary) -> void:
+func _load_table(path: String, translations: Dictionary) -> bool:
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		push_error("Localization table could not be opened: %s" % path)
-		return
+		return false
 	if file.eof_reached():
-		return
+		return false
 	var header := file.get_csv_line()
 	var key_index := header.find("key")
 	var en_index := header.find("en")
 	var th_index := header.find("th")
 	if key_index < 0 or en_index < 0 or th_index < 0:
 		push_error("Localization table requires key,en,th columns: %s" % path)
-		return
+		return false
 	while not file.eof_reached():
 		var row := file.get_csv_line()
 		if row.size() <= maxi(key_index, maxi(en_index, th_index)):
@@ -71,6 +94,18 @@ func _load_table(path: String, translations: Dictionary) -> void:
 		translations["en"].add_message(StringName(key), english)
 		if not thai.is_empty():
 			translations["th"].add_message(StringName(key), thai)
+	return true
+
+
+func _load_compiled_table(path: String, locale: String, compiled_translations: Array[Translation]) -> bool:
+	var compiled := ResourceLoader.load(path, "Translation", ResourceLoader.CACHE_MODE_IGNORE) as Translation
+	if compiled == null:
+		push_error("Compiled localization table could not be loaded: %s" % path)
+		return false
+	# OptimizedTranslation intentionally does not expose an iterable message
+	# list, but get_message(key) remains available to TranslationServer.
+	compiled_translations.append(compiled)
+	return true
 
 
 func set_pseudo_localization(enabled: bool) -> void:
@@ -99,6 +134,12 @@ func text(key: String, values: Dictionary = {}) -> String:
 	var result := str(translated)
 	if result.is_empty() or result == key:
 		result = str(english_fallback.get(key, key))
+		if result == key:
+			for compiled: Translation in compiled_english_fallbacks:
+				var compiled_result := compiled.get_message(StringName(key))
+				if not compiled_result.is_empty() and compiled_result != key:
+					result = compiled_result
+					break
 		if result == key and not warned_missing_keys.has(key):
 			warned_missing_keys[key] = true
 			push_warning("Missing localization key: %s" % key)
@@ -138,4 +179,3 @@ func _pseudo_localize(source: String) -> String:
 		expanded += "!".repeat(target - wrapped.length())
 		wrapped = PSEUDO_PREFIX + expanded + PSEUDO_SUFFIX
 	return wrapped
-

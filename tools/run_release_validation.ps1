@@ -46,6 +46,7 @@ if (-not (Test-Path -LiteralPath $godot -PathType Leaf)) {
     Invoke-Step "export artifacts" { & (Join-Path $ProjectRoot "tools\validate_export_artifacts.ps1") -ProjectRoot $ProjectRoot -BuildRoot $BuildRoot }
     $windowsExecutable = Join-Path $BuildRoot "low_altitude_warrior.exe"
     if (Test-Path -LiteralPath $windowsExecutable -PathType Leaf) {
+        Invoke-Step "exported localization" { & (Join-Path $ProjectRoot "tools\validate_export_localization.ps1") -ProjectRoot $ProjectRoot -BuildRoot $BuildRoot }
         Invoke-Step "Windows exported launch" {
             Push-Location $BuildRoot
             try {
