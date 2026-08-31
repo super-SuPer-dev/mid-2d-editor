@@ -233,6 +233,16 @@ filtering; smoke coverage verifies the phase-1 and phase-2 bindings without
 changing projectile timing or safe-route rules. Attack/death presentation,
 VFX, audio and human boss-feel review remain open.
 
+**Thorn-Matriarch action-completeness evidence — 2026-09-01:** Four authored
+action strips are now promoted through the same binary-alpha 4 × 1000 × 900
+runtime contract. Every pattern telegraph shows the sweep-tell strip, the
+active pattern selects its fan/mine cast strip, recovery shows the sweep-attack
+strip, damage shows the hurt strip, and a phase threshold shows the
+phase-break strip before the next pattern. English smoke coverage verifies
+these signal bindings and the source/runtime provenance record stores the
+validated hashes. Detached impact VFX/SFX, presentation frames and human
+boss-feel review remain open.
+
 **Maw-Sovereign asset promotion evidence — 2026-08-31:** The Level 2 boss now
 uses generated durian/mangosteen armored/exposed idle strips instead of the
 placeholder plant. Both 4000 × 900 runtime strips use four 1000 px cells, an

@@ -4,7 +4,7 @@
 **State:** Integrated (pilot; human boss-feel review pending)  
 **Fruit identity:** Rambutan queen cluster  
 **Source package:** `art_source/generated/bosses/thorn_matriarch/`  
-**Promotion date:** 2026-08-31
+**Promotion date:** 2026-09-01
 
 ## Promotion contract
 
@@ -19,8 +19,13 @@
   the phase-2 `thorn_alternating_lanes` telegraph selects the mine-cast strip.
   Both cast strips use the same 4 × 1000 × 900 grid and are driven by the
   existing pattern signal callbacks.
-- Sweep, tell, cast, hurt and death strips, detached projectile art and boss
-  presentation frames remain source candidates for later integration.
+- Each pattern telegraph now shows the sweep-tell strip, the active pattern
+  selects its fan/mine cast strip, and the recovery window shows the
+  sweep-attack strip. Damage binds the hurt strip, while a phase threshold
+  shows the phase-break strip before the next pattern. All four new action
+  strips use the same 4 × 1000 × 900 grid and binary-alpha contract.
+- Detached projectile art, impact VFX/SFX and boss presentation frames remain
+  source candidates for later integration and human boss-feel review.
 
 ## Provenance hashes
 
@@ -34,6 +39,14 @@
 | `art_source/generated/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_v1.png` | `C0B158469EDA53230E33142E029A395DC83DF874AA15C35A275B11124E4822C7` |
 | `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_fan_cast_strip_normalized_v2.png` | `2BB30224EBC8D11215857543E9A0E96186C5043BF2D3E3B41FB66CBF958EF51E` |
 | `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_normalized_v2.png` | `CE6EE4606F6E00F2955DC880EF613E5D66A061E629755ADD561DEA84970E53D3` |
+| `art_source/generated/bosses/thorn_matriarch/thorn_matriarch_sweep_tell_strip_normalized_v1.png` | `F634C81649FBF4F7046557AEF8F141A7E47B39B125B91DA561D5E17D3CAFF079` |
+| `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_sweep_tell_strip_normalized_v2.png` | `A848A07626BE7089B1E5938F40D9DD04348E049A0D3C08CDCE11E39302F38E62` |
+| `art_source/generated/bosses/thorn_matriarch/thorn_matriarch_sweep_attack_strip_normalized_v1.png` | `E8DA160EC5A835C5F4F52BD84BFE54730E0C88FE581AEE2F330E89A849DEB9A5` |
+| `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_sweep_attack_strip_normalized_v2.png` | `AA8428CF903271A7CDFDD4524233B412240CE58BAF6BC82D0220C307CF281970` |
+| `art_source/generated/bosses/thorn_matriarch/thorn_matriarch_hurt_strip_normalized_v1.png` | `7FEA4AC6F08A48ADAC66E78B5E946E47E13E5F1954F0948CA571E388120A754E` |
+| `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_hurt_strip_normalized_v2.png` | `E71612D9522F2C460A3160A64B7E0124034383075F4CE8808FA0656502565573` |
+| `art_source/generated/bosses/thorn_matriarch/thorn_matriarch_phase_break_strip_normalized_v1.png` | `9295E8976DF2297BD943FE14CED826F255156E9246D0CB8940B8426773F6C977` |
+| `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_phase_break_strip_normalized_v2.png` | `854CD59BE975116871FB95800F608D43F88EFEDFE324A8FC86A1BC7D2066ED27` |
 
 ## Death promotion
 

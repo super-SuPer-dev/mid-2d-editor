@@ -138,6 +138,14 @@ var THORN_MATRIARCH_FAN_CAST_TEXTURE: Texture2D
 const THORN_MATRIARCH_FAN_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_fan_cast_strip_normalized_v2.png"
 var THORN_MATRIARCH_MINE_CAST_TEXTURE: Texture2D
 const THORN_MATRIARCH_MINE_CAST_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_normalized_v2.png"
+var THORN_MATRIARCH_SWEEP_TELL_TEXTURE: Texture2D
+const THORN_MATRIARCH_SWEEP_TELL_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_sweep_tell_strip_normalized_v2.png"
+var THORN_MATRIARCH_SWEEP_ATTACK_TEXTURE: Texture2D
+const THORN_MATRIARCH_SWEEP_ATTACK_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_sweep_attack_strip_normalized_v2.png"
+var THORN_MATRIARCH_HURT_TEXTURE: Texture2D
+const THORN_MATRIARCH_HURT_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_hurt_strip_normalized_v2.png"
+var THORN_MATRIARCH_PHASE_BREAK_TEXTURE: Texture2D
+const THORN_MATRIARCH_PHASE_BREAK_TEXTURE_PATH := "res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_phase_break_strip_normalized_v2.png"
 var MAW_SOVEREIGN_ARMORED_TEXTURE: Texture2D
 const MAW_SOVEREIGN_ARMORED_TEXTURE_PATH := "res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_armored_strip_normalized_v2.png"
 var MAW_SOVEREIGN_EXPOSED_TEXTURE: Texture2D
@@ -221,6 +229,8 @@ var root_core_eye_action: StringName = &"idle"
 var thorn_matriarch_frame_clock: float = 0.0
 var thorn_matriarch_visual_phase: int = 0
 var thorn_matriarch_action: StringName = &"idle"
+var thorn_matriarch_phase_break_timer: float = 0.0
+var thorn_matriarch_recovery_timer: float = 0.0
 var maw_sovereign_frame_clock: float = 0.0
 var maw_sovereign_visual_phase: int = 0
 var maw_sovereign_action: StringName = &"idle"
@@ -316,6 +326,10 @@ func _load_textures_for_type(type_id: String) -> void:
 			_load_named_texture("THORN_MATRIARCH_DEATH_TEXTURE", THORN_MATRIARCH_DEATH_TEXTURE_PATH)
 			_load_named_texture("THORN_MATRIARCH_FAN_CAST_TEXTURE", THORN_MATRIARCH_FAN_CAST_TEXTURE_PATH)
 			_load_named_texture("THORN_MATRIARCH_MINE_CAST_TEXTURE", THORN_MATRIARCH_MINE_CAST_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_SWEEP_TELL_TEXTURE", THORN_MATRIARCH_SWEEP_TELL_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_SWEEP_ATTACK_TEXTURE", THORN_MATRIARCH_SWEEP_ATTACK_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_HURT_TEXTURE", THORN_MATRIARCH_HURT_TEXTURE_PATH)
+			_load_named_texture("THORN_MATRIARCH_PHASE_BREAK_TEXTURE", THORN_MATRIARCH_PHASE_BREAK_TEXTURE_PATH)
 		"maw_sovereign_boss":
 			_load_named_texture("MAW_SOVEREIGN_ARMORED_TEXTURE", MAW_SOVEREIGN_ARMORED_TEXTURE_PATH)
 			_load_named_texture("MAW_SOVEREIGN_EXPOSED_TEXTURE", MAW_SOVEREIGN_EXPOSED_TEXTURE_PATH)
@@ -577,6 +591,8 @@ func _physics_process(delta: float) -> void:
 	root_skitter_attack_timer = maxf(root_skitter_attack_timer - delta, 0.0)
 	root_skitter_hurt_timer = maxf(root_skitter_hurt_timer - delta, 0.0)
 	boss_hurt_timer = maxf(boss_hurt_timer - delta, 0.0)
+	thorn_matriarch_phase_break_timer = maxf(thorn_matriarch_phase_break_timer - delta, 0.0)
+	thorn_matriarch_recovery_timer = maxf(thorn_matriarch_recovery_timer - delta, 0.0)
 	velocity.y += GRAVITY * delta
 	if is_instance_valid(target):
 		var offset := target.global_position - global_position
@@ -853,18 +869,36 @@ func _update_root_core_eye_animation(delta: float) -> void:
 func _update_thorn_matriarch_animation(delta: float) -> void:
 	if enemy_type != "thorn_matriarch_boss":
 		return
+	if boss_hurt_timer <= 0.0 and thorn_matriarch_action == &"hurt":
+		thorn_matriarch_action = &"idle"
+	if thorn_matriarch_phase_break_timer <= 0.0 and thorn_matriarch_action == &"phase_break":
+		# Hold the next telegraph pose until the phase runner emits its pattern.
+		thorn_matriarch_action = &"sweep_tell"
+		thorn_matriarch_frame_clock = 0.0
+	if thorn_matriarch_recovery_timer <= 0.0 and thorn_matriarch_action == &"sweep_attack":
+		thorn_matriarch_action = &"idle"
 	var desired_texture: Texture2D = THORN_MATRIARCH_EXPOSED_TEXTURE if boss_phase >= 2 else THORN_MATRIARCH_ARMORED_TEXTURE
-	if thorn_matriarch_action == &"fan_cast":
-		desired_texture = THORN_MATRIARCH_FAN_CAST_TEXTURE
-	elif thorn_matriarch_action == &"mine_cast":
-		desired_texture = THORN_MATRIARCH_MINE_CAST_TEXTURE
+	if thorn_matriarch_phase_break_timer > 0.0:
+		desired_texture = THORN_MATRIARCH_PHASE_BREAK_TEXTURE
+	elif boss_hurt_timer > 0.0:
+		desired_texture = THORN_MATRIARCH_HURT_TEXTURE
+	else:
+		match thorn_matriarch_action:
+			&"fan_cast":
+				desired_texture = THORN_MATRIARCH_FAN_CAST_TEXTURE
+			&"mine_cast":
+				desired_texture = THORN_MATRIARCH_MINE_CAST_TEXTURE
+			&"sweep_tell":
+				desired_texture = THORN_MATRIARCH_SWEEP_TELL_TEXTURE
+			&"sweep_attack":
+				desired_texture = THORN_MATRIARCH_SWEEP_ATTACK_TEXTURE
 	if thorn_matriarch_visual_phase != boss_phase or visual.texture != desired_texture:
 		thorn_matriarch_visual_phase = boss_phase
 		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 8.0 if thorn_matriarch_action != &"idle" else 3.0
+	var frame_rate := 8.0 if boss_hurt_timer > 0.0 or thorn_matriarch_phase_break_timer > 0.0 or thorn_matriarch_action != &"idle" else 3.0
 	thorn_matriarch_frame_clock = fmod(thorn_matriarch_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(thorn_matriarch_frame_clock)
 
@@ -967,6 +1001,10 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			root_skitter_hurt_timer = 0.2
 			root_skitter_action = &"hurt"
 			root_skitter_frame_clock = 0.0
+		elif enemy_type == "thorn_matriarch_boss":
+			boss_hurt_timer = 0.2
+			thorn_matriarch_action = &"hurt"
+			thorn_matriarch_frame_clock = 0.0
 		elif enemy_type == "eye_wisp":
 			eye_wisp_hurt_timer = 0.2
 			eye_wisp_action = &"hurt"
@@ -1027,6 +1065,13 @@ func _update_boss_phase(current_health: int, maximum_health: int) -> void:
 	if next_phase <= boss_phase:
 		return
 	boss_phase = next_phase
+	if enemy_type == "thorn_matriarch_boss":
+		# The phase-break presentation is the higher-priority transition cue;
+		# clear the hit flash so a phase threshold cannot hide it.
+		boss_hurt_timer = 0.0
+		thorn_matriarch_phase_break_timer = 0.35
+		thorn_matriarch_action = &"phase_break"
+		thorn_matriarch_frame_clock = 0.0
 	pattern_runner.set_phase(boss_phase)
 	boss_phase_changed.emit(boss_phase, boss_phase_count)
 	GameManager.update_boss_phase(boss_phase, boss_phase_count)
@@ -1143,7 +1188,8 @@ func _on_pattern_telegraph_started(pattern_id: String) -> void:
 	boss_hurt_timer = 0.0
 	velocity.x = 0.0
 	if enemy_type == "thorn_matriarch_boss":
-		thorn_matriarch_action = &"fan_cast" if pattern_id == "thorn_fan_three_way" else &"mine_cast"
+		thorn_matriarch_action = &"sweep_tell"
+		thorn_matriarch_frame_clock = 0.0
 	if enemy_type == "maw_sovereign_boss":
 		match pattern_id:
 			"maw_spore_rain":
@@ -1173,15 +1219,21 @@ func _on_pattern_telegraph_started(pattern_id: String) -> void:
 	visual.modulate = Color(1.35, 1.1, 0.72, 1.0)
 
 
-func _on_pattern_started(_pattern_id: String) -> void:
+func _on_pattern_started(pattern_id: String) -> void:
 	pattern_attack_locked = true
 	visual.modulate = base_visual_modulate
+	if enemy_type == "thorn_matriarch_boss":
+		thorn_matriarch_action = &"fan_cast" if pattern_id == "thorn_fan_three_way" else &"mine_cast"
+		thorn_matriarch_recovery_timer = 0.0
+		thorn_matriarch_frame_clock = 0.0
 
 
 func _on_pattern_recovery_started(_pattern_id: String) -> void:
 	pattern_attack_locked = false
 	if enemy_type == "thorn_matriarch_boss":
-		thorn_matriarch_action = &"idle"
+		thorn_matriarch_action = &"sweep_attack"
+		thorn_matriarch_recovery_timer = 0.32
+		thorn_matriarch_frame_clock = 0.0
 	if enemy_type == "maw_sovereign_boss":
 		maw_sovereign_action = &"idle"
 	if enemy_type == "banyan_boss":

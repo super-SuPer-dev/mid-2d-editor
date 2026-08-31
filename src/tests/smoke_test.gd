@@ -1052,6 +1052,11 @@ func _validate_levels() -> void:
 			_check(float(opening_visual.scale.x) > 0.009, "%s boss projectile visual scale is too small for gameplay readability." % level_id)
 		if level_id == "level_01":
 			var thorn_cast_visual := boss.get_node("Visual") as Sprite2D
+			boss._on_pattern_telegraph_started("thorn_fan_three_way")
+			boss._update_thorn_matriarch_animation(0.0)
+			_check(str(thorn_cast_visual.texture.resource_path).ends_with("thorn_matriarch_sweep_tell_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not show its sweep telegraph before the opening cast.")
+			boss._on_pattern_started("thorn_fan_three_way")
+			boss._update_thorn_matriarch_animation(0.0)
 			_check(str(thorn_cast_visual.texture.resource_path).ends_with("thorn_matriarch_fan_cast_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not bind its fan-cast animation to the opening pattern.")
 		if level_id == "level_02":
 			var maw_cast_visual := boss.get_node("Visual") as Sprite2D
@@ -1120,14 +1125,26 @@ func _validate_levels() -> void:
 			_check(absf(thorn_matriarch_visual.position.y + 39.0) < 0.01, "Level 1 Thorn Matriarch pilot lost its 840 px baseline offset.")
 			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_fan_cast_strip_normalized_v2.png"), "Level 1 Thorn Matriarch pilot did not bind its opening fan-cast visual.")
 			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 1, "%s boss opened with a pattern from the wrong phase." % level_id)
+			boss.take_damage(1, Vector2.RIGHT)
+			boss._update_thorn_matriarch_animation(0.0)
+			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_hurt_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not bind its hurt animation.")
+			for _thorn_hurt_frame in range(15):
+				await get_tree().physics_frame
 			var phase_damage := ceili(float(boss.health.max_health) / float(boss.boss_phase_count))
 			boss.take_damage(phase_damage, Vector2.RIGHT)
 			await get_tree().process_frame
 			_check(boss.boss_phase == 2 and pattern_runner.current_phase == 2, "%s boss health threshold did not activate phase 2." % level_id)
-			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_mine_cast_strip_normalized_v2.png"), "Level 1 Thorn Matriarch pilot did not bind its phase-2 mine-cast visual.")
+			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_phase_break_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not show its phase-break animation.")
 			_check(GameManager.current_boss_phase == 2 and GameManager.current_boss_phase_count == boss.boss_phase_count, "%s boss phase state did not propagate through GameManager." % level_id)
 			_check(pattern_runner.get_active_projectile_count() == 0, "%s phase transition did not clear active projectiles." % level_id)
 			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 2, "%s phase 2 selected a pattern from the wrong phase." % level_id)
+			# Advance the presentation timer deterministically; the live runner may
+			# already have moved into its next cast by the time several frames pass.
+			boss.thorn_matriarch_phase_break_timer = 0.0
+			boss.boss_hurt_timer = 0.0
+			boss.thorn_matriarch_action = &"phase_break"
+			boss._update_thorn_matriarch_animation(0.0)
+			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_sweep_tell_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not return from phase break to its sweep telegraph.")
 			for _phase_frame in range(50):
 				await get_tree().physics_frame
 			_check(pattern_runner.get_active_projectile_count() > 0, "%s phase 2 did not emit its projectile pattern." % level_id)
