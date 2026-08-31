@@ -423,6 +423,12 @@ briefing and results shells are now selected by the dialogue presentation mode,
 with smoke coverage for both stable IDs. Full-screen mission composition and
 human visual review remain open.
 
+**Mastery shell promotion evidence — 2026-08-31:** The generated text-free
+mastery shell is now integrated behind the character-upgrades content with
+nearest filtering and full 1280 × 720 coverage. Smoke checks confirm the shell
+resource and bounds; rank-node states and final interaction-state review remain
+open.
+
 **Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
 bind their generated four-frame hazard strips through the shared DamageHazard
 contract at 8 fps: mangosteen spore vent, santol seed piston, nutrient-root

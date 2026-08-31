@@ -4,6 +4,7 @@ const MAIN_ENTRANCE := preload("res://scenes/main.tscn")
 const DIALOGUE_OVERLAY_SCENE := preload("res://scenes/ui/dialogue_overlay.tscn")
 const CHARACTER_SELECT_SCENE := preload("res://scenes/ui/character_select.tscn")
 const UPGRADES_SCENE := preload("res://scenes/ui/upgrades.tscn")
+const MASTERY_SCENE := preload("res://scenes/ui/character_upgrades.tscn")
 const GAME_LEVELS := {
 	"level_01": preload("res://scenes/levels/level_01.tscn"),
 	"level_02": preload("res://scenes/levels/level_02.tscn"),
@@ -78,6 +79,7 @@ func _ready() -> void:
 	await _validate_ui_scenes()
 	await _validate_character_select_layout()
 	await _validate_upgrade_layout()
+	await _validate_mastery_layout()
 	await _validate_pseudo_localization()
 	await _validate_retry_recovery()
 	await _validate_levels()
@@ -274,6 +276,17 @@ func _validate_upgrade_layout() -> void:
 			_check(card.get_global_rect().end.x <= screen.size.x and card.get_global_rect().end.y <= screen.size.y, "%s %s upgrade card extends outside 1280x720." % [locale, upgrade_id])
 			_check(purchase.get_global_rect().end.y <= card.get_global_rect().end.y, "%s %s upgrade button extends outside its card." % [locale, upgrade_id])
 	LocalizationManager.set_language("en")
+	screen.queue_free()
+	await get_tree().process_frame
+
+
+func _validate_mastery_layout() -> void:
+	var screen := MASTERY_SCENE.instantiate() as Control
+	add_child(screen)
+	await get_tree().process_frame
+	var frame := screen.get_node("MasteryFrame") as TextureRect
+	_check(frame != null and frame.texture != null and str(frame.texture.resource_path).ends_with("operator_mastery_screen_normalized_v1.png"), "Mastery screen did not apply the generated shell frame.")
+	_check(frame != null and frame.get_global_rect().size.x >= 1200.0 and frame.get_global_rect().size.y >= 680.0, "Mastery shell did not cover the 1280x720 safe area.")
 	screen.queue_free()
 	await get_tree().process_frame
 
