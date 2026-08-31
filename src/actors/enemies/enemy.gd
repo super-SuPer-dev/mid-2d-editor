@@ -811,6 +811,18 @@ func _on_died() -> void:
 		GameManager.register_boss_defeated()
 	else:
 		GameManager.register_enemy_defeated()
+	if enemy_type == "eye_wisp":
+		visual.texture = EYE_WISP_DEATH_TEXTURE
+		visual.hframes = 4
+		visual.vframes = 1
+		visual.frame = 0
+		visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		velocity = Vector2.ZERO
+		set_physics_process(false)
+		$CollisionShape2D.set_deferred("disabled", true)
+		$HurtBox/CollisionShape2D.set_deferred("disabled", true)
+		get_tree().create_timer(0.32).timeout.connect(queue_free)
+		return
 	queue_free()
 
 

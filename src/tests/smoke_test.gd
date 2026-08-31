@@ -652,6 +652,8 @@ func _validate_levels() -> void:
 			eye_wisp.take_damage(1)
 			eye_wisp._update_eye_wisp_animation(0.0)
 			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_hurt_strip_normalized_v2.png"), "Level 5 Eye Wisp did not bind its hurt animation.")
+			eye_wisp.take_damage(4)
+			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_death_strip_normalized_v2.png"), "Level 5 Eye Wisp did not play its non-blocking death animation.")
 			var root_core_eye := level.get_node("Enemies/RootCoreEye") as EnemyController
 			var root_core_eye_visual := root_core_eye.get_node("Visual") as Sprite2D
 			_check(root_core_eye_visual.hframes == 4 and root_core_eye_visual.vframes == 1, "Level 5 Root-Core Eye pilot lost its four-frame grid.")

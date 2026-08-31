@@ -37,7 +37,7 @@
 ## Acceptance status
 
 Technical decode, 4-frame grid, binary-alpha, runtime import, airborne offset,
-animation-state and projectile-handoff checks pass. The package remains below
-`Verified` until human review confirms longan identity, hover readability,
-attack readability, projectile-scale contrast and death presentation in the
-Level 5 nexus scene.
+animation-state, projectile-handoff and non-blocking death-playback checks pass.
+The package remains below `Verified` until human review confirms longan
+identity, hover readability, attack readability, projectile-scale contrast and
+death presentation in the Level 5 nexus scene.
