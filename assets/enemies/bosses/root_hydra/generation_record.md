@@ -46,3 +46,16 @@ phase-state and pattern-signal cast-binding checks pass. The package remains
 below `Verified` until human review confirms the four-head nipa silhouette,
 readable boss scale, projectile contrast, cast readability and phase
 presentation in the Level 4 marsh scene.
+
+## Death promotion
+
+The normalized source death strip is promoted to
+`root_hydra_death_strip_normalized_v2.png`. It is a 4000 × 900 four-frame
+binary-alpha strip using the same 1000 × 900 cell contract and 840 px baseline
+as the body package. The shared enemy lifecycle plays it non-blocking after the
+boss defeat signal while disabling collision and pattern processing.
+
+| File | SHA-256 |
+|---|---|
+| `art_source/generated/bosses/root_hydra/body/root_hydra_death_normalized_v1.png` | `5B4169B8DECD9F9FD71E8C376DFD5D39492E1486A5D2F8675D0EC2C7644B4432` |
+| `assets/enemies/bosses/root_hydra/root_hydra_death_strip_normalized_v2.png` | `5B4169B8DECD9F9FD71E8C376DFD5D39492E1486A5D2F8675D0EC2C7644B4432` |

@@ -284,13 +284,14 @@ human boss-feel review remain open.
 
 [DEV-GATE-04]
 
-**Boss death-presentation evidence — 2026-08-31:** Thorn Matriarch,
-Maw Sovereign and Possessed Banyan now resolve their promoted four-/three-frame
-death strips through the shared non-blocking defeat lifecycle. Defeat signals,
-quota bookkeeping and extraction timing remain immediate while collision and
-pattern processing stop during the short visual playback; English smoke
-coverage validates each native frame count. Root Hydra and Root-Core Eye still
-need authored death strips.
+**Boss death-presentation evidence — 2026-08-31:** All five bosses now resolve
+their promoted death strips through the shared non-blocking defeat lifecycle.
+Thorn Matriarch, Root Hydra and Root-Core Eye use four-frame strips; Maw
+Sovereign and Possessed Banyan use their native three-frame strips. Defeat
+signals, quota bookkeeping and extraction timing remain immediate while
+collision and pattern processing stop during the short visual playback. English
+smoke coverage validates each native frame count and the Level 4/5 path-specific
+death contracts.
 
 **Inputs:** Stable three-level campaign.  
 **Work:** Build separate 5–7 minute routes for Devouring Root Marsh and Alien Eye Nexus with unique traversal, tile/parallax kits, foregrounds, hazards, enemy rosters and landmarks. Produce the projectile-heavy Root Hydra with multi-origin crossfire, rings and lane walls, and the Root-Core Eye with spirals, aimed rings and bullet curtains. Complete final enemy families, ending sequences, campaign completion and post-ending state.
@@ -306,6 +307,12 @@ need authored death strips.
 **Boss-asset promotion evidence — 2026-08-31:** The Root Hydra (nipa-palm cluster) now has matching armored/exposed idle runtime pilots. Both authored strips are quantized to 4 × 1000 × 900 cells with an 840 px baseline, nearest filtering and a 3 fps breathing loop; the runtime switches at phase 2 while the existing multi-origin projectile contract is unchanged. Smoke coverage checks the promoted texture, four-frame grid, -105 px baseline offset and phase transition. The package remains `Integrated` pending phase-specific action animation, projectile/presentation art, audio and human boss-feel review.
 
 **Root Hydra cast promotion evidence — 2026-08-31:** Three additional authored strips now cover the `hydra_head_crossfire`, `hydra_offset_rings` and `hydra_water_lane_walls` telegraphs. Crossfire, radial-ring and lane-wall casts are normalized to the same 4 × 1000 × 900 binary-alpha grid and bound through the existing boss pattern signals at 8 fps; smoke coverage checks the opening cast and phase-2/3 cast paths. The package remains `Integrated` pending projectile/presentation art, audio and human boss-feel review.
+
+**Root Hydra defeat promotion evidence — 2026-08-31:** The authored
+`root_hydra_death_normalized_v1.png` source is promoted as the four-frame
+`root_hydra_death_strip_normalized_v2.png` runtime strip. English smoke checks
+the exact runtime path and native grid while the shared defeat lifecycle
+disables collision and pattern processing during playback.
 
 **Level 5 enemy-asset promotion evidence — 2026-08-31:** The Eye Wisp (longan seed) now has all seven body actions promoted as quantized runtime strips. Every action uses 4 × 700 × 800 cells and the authored y = 740 lower guide; hover/fly run at 4.5/7 fps and aim/seed/beam/hurt at 8 fps. The controller alternates seed-bolt and beam projectile tells, gives spawned projectiles the matching four-frame fruit visual, and plays a short non-blocking death strip; the Level 5 smoke suite checks both handoffs, projectile binding and hurt state. Detached VFX and human nexus-scale review remain open.
 
@@ -329,6 +336,11 @@ pattern telegraph signals at 8 fps, and covered by Level 5 smoke checks for the
 opening, phase-2 and phase-3 cast states. The package remains `Integrated`
 pending remaining action/projectile/presentation art, audio and human
 final-boss review.
+
+**Root-Core Eye defeat promotion evidence — 2026-08-31:** The authored
+`root_core_eye_death_normalized_v1.png` source is promoted as the four-frame
+`root_core_eye_death_strip_normalized_v2.png` runtime strip. English smoke
+checks the exact runtime path and native grid for the campaign-ending boss.
 
 **Campaign ending evidence — 2026-08-31:** The smoke suite now triggers the real Level 5 portal callback after boss defeat and proves the run ends before debrief presentation, the debrief is requested exactly once, its one-shot state is recorded, story stage reaches the final act, and the campaign-complete modal opens only after the dialogue queue drains. This closes the sequencing contract for the current greybox; ending art, final audio, platform exports and human tone review remain open.
 

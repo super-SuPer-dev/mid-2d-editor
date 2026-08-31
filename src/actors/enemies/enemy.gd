@@ -51,6 +51,7 @@ const ROOT_HYDRA_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/boss
 const ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_crossfire_cast_strip_normalized_v2.png")
 const ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_radial_ring_cast_strip_normalized_v2.png")
 const ROOT_HYDRA_LANE_WALL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_lane_wall_cast_strip_normalized_v2.png")
+const ROOT_HYDRA_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_death_strip_normalized_v2.png")
 const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png")
 const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
 const EYE_WISP_AIM_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_aim_tell_strip_normalized_v2.png")
@@ -63,6 +64,7 @@ const ROOT_CORE_EYE_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/b
 const ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_spiral_cast_strip_normalized_v2.png")
 const ROOT_CORE_EYE_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_aimed_seed_cast_strip_normalized_v2.png")
 const ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_bract_curtain_cast_strip_normalized_v2.png")
+const ROOT_CORE_EYE_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_death_strip_normalized_v2.png")
 const THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_armored_strip_normalized_v2.png")
 const THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png")
 const THORN_MATRIARCH_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_death_strip_normalized_v2.png")
@@ -861,6 +863,10 @@ func _get_standard_death_texture() -> Texture2D:
 			return MAW_SOVEREIGN_DEATH_TEXTURE
 		"banyan_boss":
 			return POSSESSED_BANYAN_DEATH_TEXTURE
+		"root_hydra_boss":
+			return ROOT_HYDRA_DEATH_TEXTURE
+		"root_core_eye_boss":
+			return ROOT_CORE_EYE_DEATH_TEXTURE
 	return null
 
 

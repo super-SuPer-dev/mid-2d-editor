@@ -51,3 +51,17 @@ phase-state, pooled-projectile reset and pattern-signal cast-binding checks
 pass. The package remains below `Verified` until human review confirms the
 longan/dragon-fruit identity, final-boss scale, projectile contrast, cast
 readability and phase presentation in the Level 5 nexus scene.
+
+## Death promotion
+
+The normalized source death strip is promoted to
+`root_core_eye_death_strip_normalized_v2.png`. It is a 4000 × 900 four-frame
+binary-alpha strip using the same 1000 × 900 cell contract and 840 px baseline
+as the body package. The shared enemy lifecycle plays it non-blocking after the
+campaign-ending boss defeat signal while disabling collision and pattern
+processing.
+
+| File | SHA-256 |
+|---|---|
+| `art_source/generated/bosses/root_core_eye/body/root_core_eye_death_normalized_v1.png` | `5095F98C83913CE71EB6FE14E984C0526A8F9A543462D55C6623AF13BF01D106` |
+| `assets/enemies/bosses/root_core_eye/root_core_eye_death_strip_normalized_v2.png` | `5095F98C83913CE71EB6FE14E984C0526A8F9A543462D55C6623AF13BF01D106` |
