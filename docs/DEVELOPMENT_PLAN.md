@@ -671,6 +671,15 @@ boss feedback therefore cannot create unbounded `AudioStreamPlayer` nodes during
 the 5–7 minute missions or the Gate 6 soak. English smoke verifies pool size,
 child-count stability, active-voice caps and cleanup through `stop_all_sfx()`.
 
+**Live composition spot-check evidence — 2026-08-31:** A Godot MCP run at
+1280 × 720 inspected the English main menu, Settings panel, and the Level 2
+Mutated Forest route after skipping its briefing. The Settings panel kept the
+new Immediate dialogue text control and language selector inside the viewport;
+the Level 2 screenshot showed sharp nearest-filtered biome collision strips,
+readable HUD text, samples, and the player without route occlusion. This is a
+targeted integration check only; five-level composition, Web memory, and human
+art-direction approval remain Gate 6 work.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:
