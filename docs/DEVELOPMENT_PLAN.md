@@ -490,6 +490,13 @@ capture and human performance sign-off remain open.
 
 **Release export evidence — 2026-08-31:** `export_presets.cfg` registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. Using the project-local Godot 4.7 template cache, both release exports now complete: `low_altitude_warrior.exe` and `low_altitude_warrior.pck` for Windows, plus `game.html`, `game.js`, `game.wasm` and `game.pck` for Web. The exported Windows executable also launches headlessly and exits cleanly after a three-second smoke run. `tools/run_release_validation.ps1` now orchestrates structure, localization, release-readiness, Godot smoke, both exports, artifact-size checks and the exported Windows launch; `-SkipExport` supports fast regression runs, and `-RunSoak -SoakSeconds 1800` enables the full scene-transition soak. Performance, memory, browser execution, localization parity and human sign-off remain open Gate 6 work.
 
+**Post-fix export replay evidence — 2026-08-31:** After the Operator Mastery
+input-validation fix, the full release runner rebuilt both platform artifacts
+from the current commit with `Exports executed: True`; Windows/Web artifact
+checks, the exported bilingual localization self-test and the headless Windows
+launch all passed. This confirms the release outputs include the current save
+boundary behavior rather than only the earlier greybox build.
+
 ## 5. Dependency Order
 
 1. Canonical IDs, glossary and save contract.
