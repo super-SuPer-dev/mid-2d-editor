@@ -358,7 +358,7 @@ preserving dimensions and frame grids. The check-only mode now runs in
 `tools/run_release_validation.ps1` and reports zero remaining candidates.
 
 **Exported localization evidence — 2026-08-31:** The Web and Windows presets
-now explicitly include `localization/*.csv`. A rebuilt Windows export launches
+now explicitly include `*.csv` (covering the `localization/` tables). A rebuilt Windows export launches
 without `Localization table could not be opened` or missing-key warnings, and
 `tools/validate_export_localization.ps1` now makes that check part of the
 release runner rather than relying on source-only table validation.
