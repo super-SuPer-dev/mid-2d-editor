@@ -1,6 +1,9 @@
 class_name DialogueOverlay
 extends Control
 
+const DIALOGUE_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/dialogue_frame_normalized_v1.png")
+const RADIO_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/radio_overlay_frame_normalized_v1.png")
+
 @onready var panel: PanelContainer = $Panel
 @onready var portrait: TextureRect = $Panel/Body/Portrait
 @onready var speaker_label: Label = $Panel/Body/Content/Speaker
@@ -15,6 +18,8 @@ var entries: Array = []
 var entry_index: int = 0
 var paused_by_dialogue: bool = false
 var pending_sequences: Array[String] = []
+var dialogue_frame_style: StyleBoxTexture
+var radio_frame_style: StyleBoxTexture
 
 
 func _ready() -> void:
@@ -22,6 +27,8 @@ func _ready() -> void:
 	visible = false
 	StoryManager.sequence_requested.connect(show_sequence)
 	LocalizationManager.language_changed.connect(_on_language_changed)
+	dialogue_frame_style = _build_frame_style(DIALOGUE_FRAME_TEXTURE)
+	radio_frame_style = _build_frame_style(RADIO_FRAME_TEXTURE)
 
 
 func show_sequence(requested_sequence_id: String) -> void:
@@ -68,6 +75,7 @@ func _show_current_entry() -> void:
 
 func _apply_presentation_mode(mode: String) -> void:
 	var is_radio := mode == "radio"
+	panel.add_theme_stylebox_override("panel", radio_frame_style if is_radio else dialogue_frame_style)
 	if is_radio:
 		panel.custom_minimum_size = Vector2(500.0, 116.0)
 		panel.anchor_left = 1.0
@@ -98,6 +106,20 @@ func _apply_presentation_mode(mode: String) -> void:
 		speaker_label.add_theme_font_size_override("font_size", 24)
 		text_label.add_theme_font_size_override("font_size", 21)
 		actions.visible = true
+
+
+func _build_frame_style(texture: Texture2D) -> StyleBoxTexture:
+	var style := StyleBoxTexture.new()
+	style.texture = texture
+	style.texture_margin_left = 150.0
+	style.texture_margin_top = 120.0
+	style.texture_margin_right = 150.0
+	style.texture_margin_bottom = 120.0
+	style.content_margin_left = 34.0
+	style.content_margin_top = 26.0
+	style.content_margin_right = 34.0
+	style.content_margin_bottom = 24.0
+	return style
 
 
 func _on_continue_pressed() -> void:

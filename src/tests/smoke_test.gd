@@ -387,12 +387,16 @@ func _validate_dialogue_presentations() -> void:
 	overlay.visible = true
 	overlay._apply_presentation_mode("radio")
 	await get_tree().process_frame
+	var radio_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
+	_check(radio_style != null and radio_style.texture != null and str(radio_style.texture.resource_path).ends_with("radio_overlay_frame_normalized_v1.png"), "Radio dialogue did not apply the generated frame skin.")
 	_check(overlay.panel.anchor_left == 1.0 and overlay.panel.anchor_top == 0.0, "Radio dialogue is not anchored to the top-right safe area.")
 	_check(overlay.panel.offset_top >= 180.0, "Radio dialogue overlaps the combat HUD or boss bar.")
 	_check(overlay.panel.size.x <= 520.0 and overlay.panel.size.y <= 180.0, "Radio dialogue is not compact enough for active combat (panel %s, portrait %s, text %s, actions %s)." % [overlay.panel.size, overlay.portrait.size, overlay.text_label.size, overlay.actions.size])
 	_check(not overlay.actions.visible, "Radio dialogue exposes blocking action controls.")
 	overlay._apply_presentation_mode("full")
 	await get_tree().process_frame
+	var full_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
+	_check(full_style != null and full_style.texture != null and str(full_style.texture.resource_path).ends_with("dialogue_frame_normalized_v1.png"), "Full dialogue did not apply the generated frame skin.")
 	_check(overlay.panel.anchor_left == 0.5 and overlay.panel.anchor_top == 1.0, "Full dialogue did not restore its bottom-center layout.")
 	_check(overlay.actions.visible, "Full dialogue did not restore its controls.")
 	overlay.queue_free()
