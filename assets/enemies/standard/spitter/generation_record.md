@@ -17,11 +17,11 @@
   marsh variant keeps the same authored silhouette with a blue-water palette
   treatment. Both loops advance at deterministic 4/7 fps.
 - The pressure-tell strip leads the 0.5 second ranged attack presentation for
-  0.15 seconds before handing off to the seed-burst strip; both use 8 fps.
+  0.15 seconds before handing off to alternating seed-burst and juice-lob
+  casts; both cast strips use 8 fps.
 - The generated hurt strip is selected for a 0.2 second damage-reaction window.
-- The juice-lob strip remains staged, while the shared standard-enemy death
-  contract now plays the promoted death strip for both Spitter variants
-  without changing projectile or quota behavior.
+- The shared standard-enemy death contract plays the promoted death strip for
+  both Spitter variants without changing projectile or quota behavior.
 
 ## Provenance hashes
 
@@ -41,8 +41,9 @@
 ## Acceptance status
 
 Technical decode, 4-frame grid, binary-alpha, runtime import, baseline,
-idle/walk, pressure-tell → seed-burst, hurt, Marsh Spitter binding and shared
-death-state checks pass. The package remains below `Verified` until human
+idle/walk, pressure-tell → alternating seed-burst/juice-lob, hurt, Marsh
+Spitter binding and shared death-state checks pass. The package remains below
+`Verified` until human
 review confirms makrut-lime identity, grounded silhouette, cast/hurt
-readability, staged juice presentation and contrast against each
+readability and contrast against each
 forest/grassland/marsh background.

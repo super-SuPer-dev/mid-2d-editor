@@ -525,6 +525,10 @@ func _validate_levels() -> void:
 			for _spitter_cast_frame in range(10):
 				await get_tree().physics_frame
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_seed_burst_strip_normalized_v2.png"), "Level 1 Spitter did not hand off from pressure tell to seed-burst cast.")
+			spitter._shoot(Vector2.RIGHT)
+			spitter.spitter_attack_timer = 0.2
+			spitter._update_spitter_animation(0.0)
+			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_juice_lob_strip_normalized_v2.png"), "Level 1 Spitter did not alternate to its juice-lob cast.")
 			spitter.take_damage(1)
 			await get_tree().physics_frame
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_hurt_strip_normalized_v2.png"), "Level 1 Spitter did not bind its hurt animation.")

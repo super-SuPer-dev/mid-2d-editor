@@ -110,6 +110,7 @@ var spitter_action: StringName = &"idle"
 var spitter_frame_clock: float = 0.0
 var spitter_attack_timer: float = 0.0
 var spitter_hurt_timer: float = 0.0
+var spitter_attack_variant: int = 1
 var maw_action: StringName = &"idle"
 var maw_frame_clock: float = 0.0
 var maw_attack_timer: float = 0.0
@@ -450,7 +451,8 @@ func _update_thornling_animation(delta: float) -> void:
 func _update_spitter_animation(delta: float) -> void:
 	if enemy_type != "spitter" and enemy_type != "marsh_spitter":
 		return
-	var next_action: StringName = &"hurt" if spitter_hurt_timer > 0.0 else (&"pressure_tell" if spitter_attack_timer > 0.35 else (&"seed_burst" if spitter_attack_timer > 0.0 else (&"walk" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")))
+	var cast_action: StringName = &"seed_burst" if spitter_attack_variant == 0 else &"juice_lob"
+	var next_action: StringName = &"hurt" if spitter_hurt_timer > 0.0 else (&"pressure_tell" if spitter_attack_timer > 0.35 else (cast_action if spitter_attack_timer > 0.0 else (&"walk" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")))
 	var desired_texture: Texture2D = SPITTER_IDLE_TEXTURE
 	match next_action:
 		&"hurt":
@@ -459,6 +461,8 @@ func _update_spitter_animation(delta: float) -> void:
 			desired_texture = SPITTER_PRESSURE_TELL_TEXTURE
 		&"seed_burst":
 			desired_texture = SPITTER_SEED_BURST_TEXTURE
+		&"juice_lob":
+			desired_texture = SPITTER_JUICE_LOB_TEXTURE
 		&"walk":
 			desired_texture = SPITTER_WALK_TEXTURE
 	if next_action != spitter_action or visual.texture != desired_texture:
@@ -468,7 +472,7 @@ func _update_spitter_animation(delta: float) -> void:
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 8.0 if next_action == &"seed_burst" or next_action == &"pressure_tell" or next_action == &"hurt" else (7.0 if next_action == &"walk" else 4.0)
+	var frame_rate := 8.0 if next_action == &"seed_burst" or next_action == &"juice_lob" or next_action == &"pressure_tell" or next_action == &"hurt" else (7.0 if next_action == &"walk" else 4.0)
 	spitter_frame_clock = fmod(spitter_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(spitter_frame_clock)
 
@@ -690,9 +694,10 @@ func _shoot(direction: Vector2) -> void:
 	shoot_cooldown = 1.8
 	if enemy_type == "spitter" or enemy_type == "marsh_spitter":
 		spitter_attack_timer = 0.5
-		spitter_action = &"seed_burst"
+		spitter_attack_variant = 1 - spitter_attack_variant
+		spitter_action = &"seed_burst" if spitter_attack_variant == 0 else &"juice_lob"
 		spitter_frame_clock = 0.0
-		visual.texture = SPITTER_SEED_BURST_TEXTURE
+		visual.texture = SPITTER_SEED_BURST_TEXTURE if spitter_attack_variant == 0 else SPITTER_JUICE_LOB_TEXTURE
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
