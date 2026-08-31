@@ -1,5 +1,12 @@
 extends Control
 
+const PASSIVE_ICONS := {
+	"tonkla": preload("res://assets/UI/icons/passive_tonkla_field_recovery_normalized_v1.png"),
+	"rin": preload("res://assets/UI/icons/passive_rin_rapid_evade_normalized_v1.png"),
+	"khem": preload("res://assets/UI/icons/passive_khem_wide_cut_normalized_v1.png"),
+	"t800": preload("res://assets/UI/icons/passive_t800_reinforced_chassis_normalized_v1.png"),
+}
+
 
 func _ready() -> void:
 	LocalizationManager.language_changed.connect(_refresh_text)
@@ -11,6 +18,7 @@ func _ready() -> void:
 		portrait.texture = CharacterCatalog.get_sprite_frame(
 			data["art_texture"], 0, 0, float(data.get("frame_inset", CharacterCatalog.FRAME_INSET))
 		)
+		(card.get_node("Content/Info/PassiveIcon") as TextureRect).texture = PASSIVE_ICONS.get(character_id)
 		var name_label: Label = card.get_node("Content/Info/Name")
 		name_label.add_theme_color_override("font_color", data["color"])
 		card.get_node("Content/Info/Deploy").pressed.connect(_select_character.bind(character_id))

@@ -394,6 +394,12 @@ Dialogue smoke coverage confirms every speaker and operator resolves distinct
 atlas frames; visual portrait cropping and bilingual typography review remain
 open.
 
+**Passive icon promotion evidence — 2026-08-31:** Four generated operator
+passive icons are copied into `assets/UI/icons/`, rendered at 44 px on the
+English character-select cards, and covered by the existing bilingual layout
+smoke checks. Runtime copies use binary alpha; tooltip and mastery-screen
+presentation remain open.
+
 **Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
 bind their generated four-frame hazard strips through the shared DamageHazard
 contract at 8 fps: mangosteen spore vent, santol seed piston, nutrient-root

@@ -49,6 +49,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.65, 0.55, 1)
 theme_override_font_sizes/font_size = 16
 
+[node name="PassiveIcon" type="TextureRect" parent="Content/Info" unique_id=328612900]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Description" type="Label" parent="Content/Info" unique_id=1479396998]
 custom_minimum_size = Vector2(0, 74)
 layout_mode = 2
