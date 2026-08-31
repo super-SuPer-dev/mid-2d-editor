@@ -476,6 +476,17 @@ smoke checks dimensions and edge-cell slicing, and live Godot review confirms
 all four character cards render without stretch or visible cell bleed. Full
 animation continuity, foot-baseline and human pixel-art review remain open.
 
+**Level 1 grassland backdrop promotion evidence — 2026-08-31:** A generated
+1672 × 941 high-resolution pixel-art Contaminated Grassland backdrop is now
+integrated through `scenes/backgrounds/grassland_generated_parallax.tscn` and
+selected by `scenes/levels/level_01.tscn`. It uses nearest filtering, a
+0.766 aspect-preserving presentation scale and a deep parallax scroll, while
+all collision, platforms, hazards and authored route geometry remain separate
+runtime nodes. Live Godot MCP capture at 1280 × 720 shows a readable gameplay
+band, distinct Thai farmland silhouettes and the existing HUD without stretch.
+Source and runtime provenance are recorded in the English world package;
+modular tile variants, foreground props and human pixel-art review remain open.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

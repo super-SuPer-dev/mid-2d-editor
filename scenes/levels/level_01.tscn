@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/gameplay/hazard_grassland.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://cu14wa4tahqd8" path="res://scenes/gameplay/portal.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://dpr5ii86tyln3" path="res://scenes/ui/game_hud.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://scenes/backgrounds/grassland_parallax.tscn" id="9_bg"]
+[ext_resource type="PackedScene" path="res://scenes/backgrounds/grassland_generated_parallax.tscn" id="9_bg"]
 [ext_resource type="PackedScene" uid="uid://cr0yvd84gnwmw" path="res://scenes/gameplay/encounter_gate.tscn" id="10_r72dd"]
 
 [node name="ContaminatedGrassland" type="Node2D" unique_id=1038700248]
