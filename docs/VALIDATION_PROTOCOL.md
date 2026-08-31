@@ -249,7 +249,7 @@ Minimum release matrix:
 - Web build in each supported browser: new game, full campaign smoke, Unicode/font, audio unlock, memory and save persistence.
 - Keyboard/mouse controls at 1280×720; additional resolutions may be supported but cannot break this reference layout.
 
-The pre-export configuration check is `tools/validate_release_readiness.ps1`. It must pass before platform-specific export tests begin; it verifies the English authority documents, localization tables, level 1–5 scenes, runtime asset roots, both registered export presets and the 1280×720 reference viewport. After exports, run `tools/validate_export_artifacts.ps1` to verify that the Windows executable/PCK and Web HTML/JS/WASM/PCK exist at the build root and are not truncated. Passing either script does not replace exported-build execution, performance, memory, soak or human sign-off evidence.
+The repeatable Gate 6 command is `tools/run_release_validation.ps1`. It runs the structure, localization and release-readiness checks, the Godot smoke scene, fresh Web and Windows exports, `tools/validate_export_artifacts.ps1`, and a three-second headless Windows launch. Use `-SkipExport` for fast regression checks against an existing build root. Passing the runner does not replace exported-build gameplay, performance, memory, soak, browser or human sign-off evidence.
 
 ## 13. Release Sign-off
 
