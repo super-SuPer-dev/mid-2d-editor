@@ -912,6 +912,7 @@ func _update_possessed_banyan_animation(delta: float) -> void:
 
 func _shoot(direction: Vector2) -> void:
 	shoot_cooldown = 1.8
+	AudioManager.play_named_sfx(&"enemy_attack", 1.0, -14.0)
 	if enemy_type == "spitter" or enemy_type == "marsh_spitter":
 		spitter_attack_timer = 0.5
 		spitter_attack_variant = 1 - spitter_attack_variant

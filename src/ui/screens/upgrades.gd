@@ -69,11 +69,11 @@ func _set_word_wrapped_text(label: Label, source_text: String, fallback_width: f
 
 
 func _purchase(upgrade_id: String) -> void:
-	AudioManager.play_click()
-	SaveManager.purchase_upgrade(upgrade_id)
+	var purchased := SaveManager.purchase_upgrade(upgrade_id)
+	AudioManager.play_named_sfx(&"upgrade_purchase" if purchased else &"menu_back", 1.0, -12.0)
 	_refresh_text()
 
 
 func _on_back_pressed() -> void:
-	AudioManager.play_click()
+	AudioManager.play_named_sfx(&"menu_back", 1.0, -12.0)
 	SceneManager.go_to_level_select()

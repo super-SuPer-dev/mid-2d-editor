@@ -13,6 +13,17 @@ const GENERATED_SFX: Dictionary = {
 	&"radio_beep": preload("res://assets/audio/generated/radio_beep.wav"),
 	&"victory_stinger": preload("res://assets/audio/generated/victory_stinger.wav"),
 	&"defeat_stinger": preload("res://assets/audio/generated/defeat_stinger.wav"),
+	&"enemy_attack": preload("res://assets/audio/generated/enemy_attack.wav"),
+	&"boss_telegraph": preload("res://assets/audio/generated/boss_telegraph.wav"),
+	&"boss_projectile": preload("res://assets/audio/generated/boss_projectile.wav"),
+	&"boss_phase": preload("res://assets/audio/generated/boss_phase.wav"),
+	&"hazard_warning": preload("res://assets/audio/generated/hazard_warning.wav"),
+	&"hazard_hit": preload("res://assets/audio/generated/hazard_hit.wav"),
+	&"portal_open": preload("res://assets/audio/generated/portal_open.wav"),
+	&"portal_extract": preload("res://assets/audio/generated/portal_extract.wav"),
+	&"upgrade_purchase": preload("res://assets/audio/generated/upgrade_purchase.wav"),
+	&"dialogue_advance": preload("res://assets/audio/generated/dialogue_advance.wav"),
+	&"menu_back": preload("res://assets/audio/generated/menu_back.wav"),
 }
 
 const GENERATED_MUSIC: Dictionary = {

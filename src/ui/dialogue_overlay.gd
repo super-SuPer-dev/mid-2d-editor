@@ -170,6 +170,7 @@ func _on_continue_pressed() -> void:
 		text_label.visible_ratio = 1.0
 		return
 	entry_index += 1
+	AudioManager.play_named_sfx(&"dialogue_advance", 1.0, -18.0)
 	_show_current_entry()
 
 

@@ -3,9 +3,9 @@
 - Generation source: `tools/generate_audio_assets.py`
 - Generation mode: deterministic project-local synthesis; no external samples or voice-over
 - Format: mono PCM WAV, 22,050 Hz, 16-bit
-- Runtime assets: seven SFX (`cutter_swing.wav`, `player_hurt.wav`, `enemy_hit.wav`, `pickup_sample.wav`, `dash.wav`, `boss_defeat.wav`, `radio_beep.wav`), five biome loops (`level_01_grassland_loop.wav` through `level_05_nexus_loop.wav`), two boss loops (`boss_organic_loop.wav`, `boss_nexus_loop.wav`), a menu loop (`menu_base_loop.wav`) and two stingers (`victory_stinger.wav`, `defeat_stinger.wav`)
-- Runtime integration: `src/core/managers/audio_manager.gd` exposes `play_named_sfx`; player, enemy, pickup and radio dialogue events use the named streams
+- Runtime assets: eighteen SFX (`cutter_swing.wav`, `player_hurt.wav`, `enemy_hit.wav`, `pickup_sample.wav`, `dash.wav`, `boss_defeat.wav`, `radio_beep.wav`, plus enemy attack, boss telegraph/projectile/phase, hazard, portal, upgrade, dialogue and menu-back cues), five biome loops (`level_01_grassland_loop.wav` through `level_05_nexus_loop.wav`), two boss loops (`boss_organic_loop.wav`, `boss_nexus_loop.wav`), a menu loop (`menu_base_loop.wav`) and two stingers (`victory_stinger.wav`, `defeat_stinger.wav`)
+- Runtime integration: `src/core/managers/audio_manager.gd` exposes `play_named_sfx`; player, enemy, boss pattern, hazard, portal, pickup, dialogue and upgrade events use the named streams
 - Music integration: `AudioManager.play_music` loops the menu, level and boss streams; `main_menu.gd` selects `menu_base`, `level_controller.gd` selects the canonical level loop and swaps to the appropriate boss suite
 - Localization impact: none; audio contains no spoken language or baked text
 - Acceptance: files decode in Godot, gameplay events remain non-blocking, muted test mode remains silent, and no stream is loaded from outside `res://`
-- Open work: final authored music, expanded SFX coverage, mixing, loudness normalization, platform export review and human audio approval
+- Open work: final authored music, additional layered/foley recordings, mixing, loudness normalization, platform export review and human audio approval

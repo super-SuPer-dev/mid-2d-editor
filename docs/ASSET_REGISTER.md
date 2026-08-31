@@ -172,8 +172,8 @@ UI source masters must support 1280×720, safe areas, keyboard focus, English ex
 | MUSIC-STINGERS | Victory and defeat | P1 | Deterministic victory and defeat stingers are bound to HUD completion/game-over states; final authored mix remains | Integrated |
 | SFX-OPERATOR-SET | Movement, dash, hurt, death | P0 | Deterministic runtime pilot provides dash and player-hurt cues under `assets/audio/generated/`; playback uses the bounded 16-voice SFX pool; footsteps, movement loop and death variants remain | Integrated |
 | SFX-CUTTER-SET | Start, loop/swing, impact, upgrade variants | P0 | Deterministic `cutter_swing.wav` is bound to the cutter attack event; startup, loop, impact layering and upgrade variants remain | Integrated |
-| SFX-ENEMY-BOSS-SET | Tells, attacks, hurt, death, phases | P0 | Deterministic enemy-hit cue is bound to enemy damage and boss-defeat cue to boss death; playback is capped by the bounded 16-voice pool; tells, attacks, phase stingers and final mix remain | Integrated |
-| SFX-WORLD-RADIO-UI | Pickups, portal, hazards, radio and UI | P0 | Deterministic sample-pickup and radio-beep cues are integrated; portal, hazard, radio transition, UI variants and final mix remain | Integrated |
+| SFX-ENEMY-BOSS-SET | Tells, attacks, hurt, death, phases | P0 | Deterministic enemy-hit, enemy-attack, boss-telegraph, boss-projectile, boss-phase and boss-defeat cues are bound to runtime events; playback is capped by the bounded 16-voice pool; layered recordings and final mix remain | Integrated |
+| SFX-WORLD-RADIO-UI | Pickups, portal, hazards, radio and UI | P0 | Deterministic sample-pickup, portal-open/extract, hazard-hit, radio-beep, dialogue-advance, upgrade-purchase and menu-back cues are integrated; warning layers and final mix remain | Integrated |
 
 There are no voice-over assets. Dialogue readability must not depend on voice. Loops must be click-free; important attack tells must remain audible beneath music and cutter sounds.
 

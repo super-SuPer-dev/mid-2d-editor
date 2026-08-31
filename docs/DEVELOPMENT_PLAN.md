@@ -666,14 +666,15 @@ preserving the authored platform transforms. English smoke checks the texture,
 three-frame grid, filtering and calibrated scale; collision geometry remains
 unchanged.
 
-**Audio pilot evidence — 2026-08-31:** Seventeen deterministic, original PCM
-WAV assets now live under `assets/audio/generated/`: seven gameplay SFX, five
-biome loops, two boss loops, a menu loop and victory/defeat stingers. Named SFX
-are connected to cutter, dash, hurt, enemy, pickup, boss and non-pausing radio
-events; `AudioManager.play_music` selects menu, level and boss loops by
-canonical IDs, and HUD completion states trigger the stingers. Final authored
-arrangements, expanded event layering, loudness normalization, platform review
-and human audio approval remain required.
+**Audio pilot evidence — 2026-08-31:** Twenty-eight deterministic, original PCM
+WAV assets now live under `assets/audio/generated/`: eighteen gameplay/context
+SFX, five biome loops, two boss loops, a menu loop and victory/defeat stingers.
+Named SFX are connected to cutter, dash, hurt, enemy attack/hit, boss
+telegraph/projectile/phase/defeat, pickup, hazard, portal, upgrade, dialogue
+and non-pausing radio events; `AudioManager.play_music` selects menu, level and
+boss loops by canonical IDs, and HUD completion states trigger the stingers.
+Final authored arrangements, additional layered/foley recordings, loudness
+normalization, platform review and human audio approval remain required.
 
 **Audio pool hardening evidence — 2026-08-31:** `AudioManager` now allocates a
 bounded 16-voice SFX pool at boot and reuses idle voices in round-robin order,

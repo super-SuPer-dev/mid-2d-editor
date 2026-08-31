@@ -48,11 +48,11 @@ func _set_rank_track(track: HBoxContainer, rank: int) -> void:
 
 
 func _purchase_mastery() -> void:
-	AudioManager.play_click()
-	SaveManager.purchase_mastery()
+	var purchased := SaveManager.purchase_mastery()
+	AudioManager.play_named_sfx(&"upgrade_purchase" if purchased else &"menu_back", 1.0, -12.0)
 	_refresh_text()
 
 
 func _on_back_pressed() -> void:
-	AudioManager.play_click()
+	AudioManager.play_named_sfx(&"menu_back", 1.0, -12.0)
 	SceneManager.go_to_level_select()

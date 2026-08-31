@@ -34,6 +34,7 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
+		AudioManager.play_named_sfx(&"hazard_hit", 1.0, -14.0)
 		body.take_damage(damage, Vector2(0.0, -1.0))
 		if body.has_method("show_status_vfx"):
 			body.show_status_vfx()

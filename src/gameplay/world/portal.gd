@@ -23,6 +23,8 @@ func _process(delta: float) -> void:
 
 
 func set_active(enabled: bool) -> void:
+	if active != enabled and enabled:
+		AudioManager.play_named_sfx(&"portal_open", 1.0, -12.0)
 	active = enabled
 	visible = enabled
 	monitoring = enabled
@@ -30,4 +32,5 @@ func set_active(enabled: bool) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if active and body.is_in_group("Player"):
+		AudioManager.play_named_sfx(&"portal_extract", 1.0, -10.0)
 		player_entered.emit()

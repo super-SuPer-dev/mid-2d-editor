@@ -74,6 +74,7 @@ func set_phase(next_phase: int) -> bool:
 	current_pattern = {}
 	_refresh_phase_patterns()
 	cleanup_projectiles()
+	AudioManager.play_named_sfx(&"boss_phase", 1.0, -10.0)
 	phase_changed.emit(current_phase, phase_count)
 	if active:
 		_begin_next_pattern()
@@ -134,6 +135,7 @@ func _begin_next_pattern() -> void:
 	emitted_count = 0
 	state = STATE_TELEGRAPH
 	state_timer = float(current_pattern.get("telegraph_duration", 0.65))
+	AudioManager.play_named_sfx(&"boss_telegraph", 1.0, -13.0)
 	telegraph_started.emit(str(current_pattern.get("pattern_id", "")))
 
 
@@ -208,6 +210,7 @@ func _emit_projectile(sequence_index: int) -> void:
 		visual_frame_count,
 		visual_scale
 	)
+	AudioManager.play_named_sfx(&"boss_projectile", 1.0, -18.0)
 	projectile.add_to_group("BossProjectile")
 	active_projectiles.append(projectile)
 

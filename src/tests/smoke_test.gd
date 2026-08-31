@@ -100,7 +100,7 @@ func _ready() -> void:
 func _validate_catalogs() -> void:
 	_check(CharacterCatalog.get_ids().size() == 4, "Expected four playable characters.")
 	_check(LevelCatalog.LEVEL_ORDER.size() == 5, "Expected five campaign levels in the catalog.")
-	_check(AudioManager.GENERATED_SFX.size() == 9, "Generated gameplay SFX registry is incomplete.")
+	_check(AudioManager.GENERATED_SFX.size() >= 20, "Generated gameplay SFX registry is incomplete.")
 	_check(AudioManager.GENERATED_MUSIC.size() == 8, "Generated music registry is incomplete.")
 	_check(AudioManager.sfx_pool.size() == AudioManager.SFX_POOL_SIZE, "AudioManager did not initialize its bounded SFX pool.")
 	var audio_children_before := AudioManager.get_child_count()

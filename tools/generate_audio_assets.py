@@ -85,6 +85,62 @@ def radio_beep(t: float, d: float, _rng: random.Random) -> float:
     return 0.34 * math.sin(2.0 * math.pi * 880.0 * t) * envelope(t, d, 0.004, 0.03)
 
 
+def enemy_attack(t: float, d: float, _rng: random.Random) -> float:
+    frequency = 520.0 - 260.0 * (t / d)
+    return 0.34 * osc(frequency, t, "square") * envelope(t, d, 0.002, 0.05)
+
+
+def boss_telegraph(t: float, d: float, _rng: random.Random) -> float:
+    pulse = math.sin(2.0 * math.pi * 740.0 * t) if int(t / 0.06) % 2 == 0 else 0.0
+    return 0.32 * pulse * envelope(t, d, 0.002, 0.03)
+
+
+def boss_projectile(t: float, d: float, _rng: random.Random) -> float:
+    frequency = 260.0 + 620.0 * (t / d)
+    return 0.30 * osc(frequency, t, "triangle") * envelope(t, d, 0.002, 0.05)
+
+
+def boss_phase(t: float, d: float, _rng: random.Random) -> float:
+    notes = (261.63, 329.63, 392.0)
+    slot = min(2, int(t / (d / 3.0)))
+    local_t = t - slot * d / 3.0
+    return 0.34 * osc(notes[slot], local_t, "triangle") * envelope(local_t, d / 3.0, 0.003, 0.06)
+
+
+def hazard_warning(t: float, d: float, _rng: random.Random) -> float:
+    pulse = math.sin(2.0 * math.pi * 980.0 * t) if int(t / 0.08) % 2 == 0 else 0.0
+    return 0.28 * pulse * envelope(t, d, 0.001, 0.025)
+
+
+def hazard_hit(t: float, d: float, rng: random.Random) -> float:
+    return (0.28 * (rng.random() * 2.0 - 1.0) + 0.18 * osc(90.0, t, "saw")) * envelope(t, d, 0.001, 0.07)
+
+
+def portal_open(t: float, d: float, _rng: random.Random) -> float:
+    frequency = 320.0 + 900.0 * (t / d)
+    return 0.30 * osc(frequency, t, "triangle") * envelope(t, d, 0.004, 0.08)
+
+
+def portal_extract(t: float, d: float, _rng: random.Random) -> float:
+    notes = (523.25, 659.25, 783.99)
+    slot = min(2, int(t / (d / 3.0)))
+    local_t = t - slot * d / 3.0
+    return 0.32 * osc(notes[slot], local_t, "triangle") * envelope(local_t, d / 3.0, 0.003, 0.07)
+
+
+def upgrade_purchase(t: float, d: float, _rng: random.Random) -> float:
+    frequency = 660.0 + 330.0 * (t / d)
+    return 0.28 * osc(frequency, t, "square") * envelope(t, d, 0.001, 0.04)
+
+
+def dialogue_advance(t: float, d: float, _rng: random.Random) -> float:
+    return 0.22 * osc(1120.0, t, "triangle") * envelope(t, d, 0.001, 0.025)
+
+
+def menu_back(t: float, d: float, _rng: random.Random) -> float:
+    return 0.22 * osc(440.0 - 120.0 * (t / d), t, "triangle") * envelope(t, d, 0.001, 0.035)
+
+
 def music_loop(t: float, _d: float, _rng: random.Random, root: float, mode: int) -> float:
     beat = 0.5
     index = int(t / beat) % 16
@@ -111,6 +167,17 @@ def main() -> None:
         "dash.wav": (0.20, dash, 105),
         "boss_defeat.wav": (1.20, boss_defeat, 106),
         "radio_beep.wav": (0.16, radio_beep, 107),
+        "enemy_attack.wav": (0.16, enemy_attack, 108),
+        "boss_telegraph.wav": (0.24, boss_telegraph, 109),
+        "boss_projectile.wav": (0.18, boss_projectile, 110),
+        "boss_phase.wav": (0.42, boss_phase, 111),
+        "hazard_warning.wav": (0.22, hazard_warning, 112),
+        "hazard_hit.wav": (0.18, hazard_hit, 113),
+        "portal_open.wav": (0.28, portal_open, 114),
+        "portal_extract.wav": (0.48, portal_extract, 115),
+        "upgrade_purchase.wav": (0.18, upgrade_purchase, 116),
+        "dialogue_advance.wav": (0.08, dialogue_advance, 117),
+        "menu_back.wav": (0.14, menu_back, 118),
     }
     for name, (duration, fn, seed) in definitions.items():
         write_wav(name, render(duration, fn, seed))
