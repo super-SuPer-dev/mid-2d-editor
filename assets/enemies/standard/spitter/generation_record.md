@@ -12,14 +12,16 @@
   the authored 740 px foot baseline.
 - Alpha was quantized with threshold 128. Promoted strips contain only alpha 0
   or 255 and use nearest-neighbor filtering.
-- Level 1–3 Spitters select the idle strip while stationary and the walk strip
-  while grounded and moving. Both loops advance at deterministic 4/7 fps.
+- Level 1–3 Spitters and the Level 4 Marsh Spitter variant select the idle
+  strip while stationary and the walk strip while grounded and moving. The
+  marsh variant keeps the same authored silhouette with a blue-water palette
+  treatment. Both loops advance at deterministic 4/7 fps.
 - The pressure-tell strip leads the 0.5 second ranged attack presentation for
   0.15 seconds before handing off to the seed-burst strip; both use 8 fps.
 - The generated hurt strip is selected for a 0.2 second damage-reaction window.
-- The juice-lob and death strips are promoted as validated runtime candidates
-  but remain staged until their gameplay timings can be authored without
-  changing projectile or quota behavior.
+- The juice-lob strip remains staged, while the shared standard-enemy death
+  contract now plays the promoted death strip for both Spitter variants
+  without changing projectile or quota behavior.
 
 ## Provenance hashes
 
@@ -39,7 +41,8 @@
 ## Acceptance status
 
 Technical decode, 4-frame grid, binary-alpha, runtime import, baseline,
-idle/walk, pressure-tell → seed-burst and hurt state checks pass. The package remains below
-`Verified` until human review confirms makrut-lime identity, grounded
-silhouette, cast/hurt readability, staged juice/death presentation and
-contrast against each forest/grassland background.
+idle/walk, pressure-tell → seed-burst, hurt, Marsh Spitter binding and shared
+death-state checks pass. The package remains below `Verified` until human
+review confirms makrut-lime identity, grounded silhouette, cast/hurt
+readability, staged juice presentation and contrast against each
+forest/grassland/marsh background.

@@ -622,6 +622,18 @@ func _validate_levels() -> void:
 			root_skitter._update_root_skitter_animation(0.0)
 			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_hurt_strip_normalized_v2.png"), "Level 4 Root Skitter did not bind its hurt animation.")
 			_check(str(root_skitter._get_standard_death_texture().resource_path).ends_with("root_skitter_death_strip_normalized_v2.png"), "Level 4 Root Skitter lost its death-strip contract.")
+			var marsh_spitter := level.get_node("Enemies/MarshSpitter01") as EnemyController
+			var marsh_spitter_visual := marsh_spitter.get_node("Visual") as Sprite2D
+			_check(marsh_spitter_visual.hframes == 4 and marsh_spitter_visual.vframes == 1, "Level 4 Marsh Spitter did not bind the generated four-frame strip.")
+			_check(absf(marsh_spitter_visual.position.y + 18.0) < 0.01, "Level 4 Marsh Spitter lost its calibrated baseline offset.")
+			_check(str(marsh_spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png"), "Level 4 Marsh Spitter did not bind its marsh Spitter idle art.")
+			marsh_spitter._shoot(Vector2.RIGHT)
+			marsh_spitter._update_spitter_animation(0.0)
+			_check(str(marsh_spitter_visual.texture.resource_path).ends_with("spitter_pressure_tell_strip_normalized_v2.png"), "Level 4 Marsh Spitter did not bind its pressure-tell animation.")
+			marsh_spitter.spitter_attack_timer = 0.2
+			marsh_spitter._update_spitter_animation(0.0)
+			_check(str(marsh_spitter_visual.texture.resource_path).ends_with("spitter_seed_burst_strip_normalized_v2.png"), "Level 4 Marsh Spitter did not hand off to its seed-burst animation.")
+			_check(str(marsh_spitter._get_standard_death_texture().resource_path).ends_with("spitter_death_strip_normalized_v2.png"), "Level 4 Marsh Spitter lost its death-strip contract.")
 			var root_hydra := level.get_node("Enemies/RootHydra") as EnemyController
 			var root_hydra_visual := root_hydra.get_node("Visual") as Sprite2D
 			_check(root_hydra_visual.hframes == 4 and root_hydra_visual.vframes == 1, "Level 4 Root Hydra pilot lost its four-frame grid.")

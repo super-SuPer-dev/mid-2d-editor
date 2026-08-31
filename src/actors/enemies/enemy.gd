@@ -201,8 +201,14 @@ func configure(type_id: String) -> void:
 			move_speed = 28.0
 			health.max_health = 6
 			contact_damage = 2
+			visual.texture = SPITTER_IDLE_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color("6fabc0")
 			visual.scale = Vector2(0.045, 0.045)
+			visual.position = Vector2(0.0, -18.0)
 		"eye_wisp":
 			move_speed = 95.0
 			health.max_health = 5
@@ -367,7 +373,7 @@ func _physics_process(delta: float) -> void:
 			facing = signf(offset.x)
 			if pattern_attack_locked:
 				velocity.x = 0.0
-			elif enemy_type == "spitter":
+			elif enemy_type == "spitter" or enemy_type == "marsh_spitter":
 				velocity.x = 0.0
 				if shoot_cooldown <= 0.0:
 					_shoot(offset.normalized())
@@ -442,7 +448,7 @@ func _update_thornling_animation(delta: float) -> void:
 
 
 func _update_spitter_animation(delta: float) -> void:
-	if enemy_type != "spitter":
+	if enemy_type != "spitter" and enemy_type != "marsh_spitter":
 		return
 	var next_action: StringName = &"hurt" if spitter_hurt_timer > 0.0 else (&"pressure_tell" if spitter_attack_timer > 0.35 else (&"seed_burst" if spitter_attack_timer > 0.0 else (&"walk" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")))
 	var desired_texture: Texture2D = SPITTER_IDLE_TEXTURE
@@ -682,7 +688,7 @@ func _update_possessed_banyan_animation(delta: float) -> void:
 
 func _shoot(direction: Vector2) -> void:
 	shoot_cooldown = 1.8
-	if enemy_type == "spitter":
+	if enemy_type == "spitter" or enemy_type == "marsh_spitter":
 		spitter_attack_timer = 0.5
 		spitter_action = &"seed_burst"
 		spitter_frame_clock = 0.0
@@ -719,7 +725,7 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			thornling_hurt_timer = 0.2
 			thornling_action = &"hurt"
 			thornling_frame_clock = 0.0
-		elif enemy_type == "spitter":
+		elif enemy_type == "spitter" or enemy_type == "marsh_spitter":
 			spitter_hurt_timer = 0.2
 			spitter_action = &"hurt"
 			spitter_frame_clock = 0.0

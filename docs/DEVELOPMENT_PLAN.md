@@ -151,6 +151,14 @@ Level 1 smoke suite cover the 2800 × 800 binary-alpha strip, runtime import and
 cast texture binding; pressure tell, juice lob, VFX and human readability
 review remain open.
 
+**Marsh Spitter contract evidence — 2026-08-31:** The Level 4 Marsh Spitter
+now binds the promoted Spitter idle/walk, pressure-tell, seed-burst, hurt and
+death strips with a distinct blue-water palette treatment, a calibrated
+740 px baseline and the shared projectile/death lifecycle. English smoke
+coverage checks its grid, baseline, tell → cast handoff and death-strip
+resolution; the juice-lob variant, detached VFX and human marsh-scale review
+remain open.
+
 **Mutated Forest parallax promotion evidence — 2026-08-31:** Level 2 now uses
 the generated five-layer forest sky/tree-line/canopy/trunk/foreground package
 through `forest_generated_parallax.tscn`. Each layer uses nearest filtering,
