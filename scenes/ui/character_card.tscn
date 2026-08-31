@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c7kurbnqk5kei"]
 
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="1_theme"]
-[ext_resource type="Texture2D" uid="uid://dtbown0edaetn" path="res://assets/placeholders/player.svg" id="2_portrait"]
 
 [node name="CharacterCard" type="PanelContainer" unique_id=1704960491]
 texture_filter = 1
@@ -22,7 +21,6 @@ alignment = 1
 texture_filter = 1
 custom_minimum_size = Vector2(148, 148)
 layout_mode = 2
-texture = ExtResource("2_portrait")
 expand_mode = 1
 stretch_mode = 5
 

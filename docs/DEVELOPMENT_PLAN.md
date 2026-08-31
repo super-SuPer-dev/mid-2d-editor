@@ -300,6 +300,14 @@ death contracts.
 
 **Greybox implementation evidence — 2026-08-31:** Dedicated `level_04.tscn` and `level_05.tscn` scenes now route through `SceneManager.play_level`, use distinct marsh/nexus parallax palettes and landmark overlays, provide seven/eight authored platform steps with hazards, six roster-valid threats, samples, portals and dedicated bosses. `root_skitter`, `marsh_spitter`, `eye_wisp`, `capsule_husk_elite`, `mixed_elite`, `root_hydra_boss` and `root_core_eye_boss` now have explicit runtime contracts instead of falling through to generic defaults. The Godot smoke suite validates both scenes through quota → queued radio/boss introduction → three-phase projectile pattern → boss defeat → extraction, plus projectile cleanup and 100 px jump-step reachability. Live Godot MCP screenshots verified `Devouring Root Marsh` and `Alien Eye Nexus` at 1280×720 with readable HUDs and no screen stretch. Final generated pixel-art tiles, foreground props, fruit-specific enemy art/animation, audio, ending polish, Windows/Web builds and human 5–7 minute playtest remain required before Gate 4 closes.
 
+**Runtime placeholder cleanup evidence — 2026-08-31:** The generic platform,
+hazard, enemy and character-card scenes no longer depend on `assets/placeholders/`.
+Grassland platform/hazard scenes now have real authored fallback strips; enemy
+and portrait nodes begin empty and are bound by their catalogs during `_ready()`.
+The stale HUD script UID was also removed so the scene resolves by its canonical
+path. `validate_project_structure.ps1` and the Godot smoke suite pass with no
+runtime placeholder references and no HUD UID warning.
+
 **Biome tile-strip promotion evidence — 2026-08-31:** The authored
 `forest_ground_straight_v1.png`, `capsule_ground_straight_v1.png`,
 `marsh_ground_straight_v2.png` and `nexus_ground_straight_v2.png` strips are
