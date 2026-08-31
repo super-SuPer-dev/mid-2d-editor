@@ -249,6 +249,8 @@ Minimum release matrix:
 - Web build in each supported browser: new game, full campaign smoke, Unicode/font, audio unlock, memory and save persistence.
 - Keyboard/mouse controls at 1280×720; additional resolutions may be supported but cannot break this reference layout.
 
+The pre-export configuration check is `tools/validate_release_readiness.ps1`. It must pass before platform-specific export tests begin; it verifies the English authority documents, localization tables, level 1–5 scenes, runtime asset roots, both registered export presets and the 1280×720 reference viewport. Passing this check does not replace exported-build, performance, memory, soak or human sign-off evidence.
+
 ## 13. Release Sign-off
 
 [VAL-RELEASE-01]

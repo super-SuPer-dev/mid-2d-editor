@@ -352,6 +352,8 @@ final-boss review.
 
 **Exit criteria:** Weighted readiness is at least 90%; no Must-have item is below Verified; no P0/P1 defects are open; English and Thai coverage is complete; release checklist is signed off.
 
+**Release configuration evidence — 2026-08-31:** `export_presets.cfg` now registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. `tools/validate_release_readiness.ps1` provides a repeatable pre-export audit for the English authority documents, localization tables, five level scenes, runtime asset roots, export preset markers and reference viewport. This is configuration/readiness evidence only; actual Windows/Web export, performance, memory, soak and human sign-off remain open Gate 6 work.
+
 ## 5. Dependency Order
 
 1. Canonical IDs, glossary and save contract.
