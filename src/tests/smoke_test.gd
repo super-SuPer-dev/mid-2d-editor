@@ -361,6 +361,26 @@ func _validate_retry_recovery() -> void:
 
 
 func _validate_dialogue_presentations() -> void:
+	var original_operator_id := GameManager.selected_character_id
+	for speaker_id: String in ["commander_anan", "dr_mali", "technician_chai"]:
+		var speaker := SpeakerCatalog.get_speaker(speaker_id)
+		var expressions: Array = speaker.get("expressions", [])
+		_check(expressions.size() >= 2, "%s does not expose two portrait expressions." % speaker_id)
+		if expressions.size() >= 2:
+			var first_portrait := SpeakerCatalog.get_portrait_texture(speaker_id, str(expressions[0]))
+			var second_portrait := SpeakerCatalog.get_portrait_texture(speaker_id, str(expressions[1]))
+			_check(first_portrait is AtlasTexture and second_portrait is AtlasTexture, "%s portrait expressions did not resolve to atlas textures." % speaker_id)
+			if first_portrait is AtlasTexture and second_portrait is AtlasTexture:
+				_check((first_portrait as AtlasTexture).region.position.x != (second_portrait as AtlasTexture).region.position.x, "%s portrait expressions resolve to the same frame." % speaker_id)
+	for operator_id: String in CharacterCatalog.get_ids():
+		var neutral_portrait := SpeakerCatalog.get_portrait_texture("selected_operator", "neutral")
+		var action_expression := "alert" if operator_id == "t800" else "determined"
+		GameManager.selected_character_id = operator_id
+		var action_portrait := SpeakerCatalog.get_portrait_texture("selected_operator", action_expression)
+		_check(neutral_portrait is AtlasTexture and action_portrait is AtlasTexture, "%s operator portrait expressions did not resolve to atlas textures." % operator_id)
+		if neutral_portrait is AtlasTexture and action_portrait is AtlasTexture:
+			_check((neutral_portrait as AtlasTexture).region.position.x != (action_portrait as AtlasTexture).region.position.x, "%s operator portrait expressions resolve to the same frame." % operator_id)
+	GameManager.selected_character_id = original_operator_id
 	var overlay := DIALOGUE_OVERLAY_SCENE.instantiate() as DialogueOverlay
 	add_child(overlay)
 	await get_tree().process_frame

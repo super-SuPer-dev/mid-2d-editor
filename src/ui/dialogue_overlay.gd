@@ -45,7 +45,7 @@ func _show_current_entry() -> void:
 	var entry: Dictionary = entries[entry_index]
 	var speaker_id := str(entry.get("speaker_id", ""))
 	var speaker := SpeakerCatalog.get_speaker(speaker_id)
-	portrait.texture = speaker.get("portrait_texture") as Texture2D
+	portrait.texture = SpeakerCatalog.get_portrait_texture(speaker_id, str(entry.get("portrait_expression", "neutral")))
 	portrait.visible = portrait.texture != null
 	var speaker_key := str(speaker.get("display_name_key", "SPEAKER_OPERATOR"))
 	if speaker_id == "selected_operator":
