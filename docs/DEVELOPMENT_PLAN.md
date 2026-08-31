@@ -271,6 +271,14 @@ human boss-feel review remain open.
 
 **Main-flow UI audit evidence — 2026-08-30:** Live Godot MCP review covered the main menu, mission map, Base Workshop, settings and operator mastery at 1280×720 in English and Thai. The workshop Engine description no longer produces the visible `pe\nr` split: the shared row disables arbitrary engine wrapping and the screen binder now reflows font-measured text only at spaces after locale or viewport changes. Automated tests prove source-text preservation, a three-line ceiling, disabled clipping/autowrap, card bounds and purchase-button bounds for all three upgrades in both locales. The Thai mastery description now uses complete Thai terminology instead of exposing the English words “passive” and “milestone.” Live screenshots verified the final English `+5% movement and +4% dash speed\nper level` and the corresponding Thai wrap without overlap or clipping. Pseudo-localization, non-native resolutions, accessibility options and Windows/Web evidence remain before Gate 2 closes.
 
+**Current Godot MCP visual pass — 2026-08-31:** A fresh live-session check
+captured the main menu, five-level field map and Level 1 gameplay at the
+1280×720 reference viewport after the projectile-lifecycle changes. The
+inspected frames show nearest-filtered pixel art, stable HUD safe-area bounds,
+readable field-map markers and no visible stretch, blur or clipping. This is
+human visual evidence for the inspected screens only; full five-level art,
+browser playback and final art-direction approval remain open.
+
 ### Gate 3 — Retrofit Levels 2–3
 
 [DEV-GATE-03]

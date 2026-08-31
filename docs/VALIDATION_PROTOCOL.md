@@ -262,6 +262,12 @@ Minimum release matrix:
 - Web build in each supported browser: new game, full campaign smoke, Unicode/font, audio unlock, memory and save persistence.
 - Keyboard/mouse controls at 1280×720; additional resolutions may be supported but cannot break this reference layout.
 
+**Browser execution note — 2026-08-31:** The required in-app browser attempt
+could not initialize because the browser-control kernel exited during startup
+with a Windows ACL helper error. No browser gameplay or Web-memory claim is
+made from that attempt; a connected browser remains required for the Web
+execution and `<512 MB` peak-memory checklist items.
+
 The repeatable Gate 6 command is `tools/run_release_validation.ps1`. It runs the structure, localization and release-readiness checks, the runtime enemy-art binary-alpha check (`tools/quantize_runtime_alpha.py --check`), the Godot smoke scene, fresh Web and Windows exports, `tools/validate_export_artifacts.ps1`, an exported-build bilingual self-test (`tools/validate_export_localization.ps1`), and a three-second headless Windows launch. Use `-SkipExport` for fast regression checks against an existing build root. Add `-RunSoak -SoakSeconds 1800` to run the full scene-transition soak; use a smaller positive duration for a local smoke. Passing the runner does not replace exported-build gameplay, performance, memory, browser or human sign-off evidence.
 
 The smoke scene also instantiates every operator and exercises the passive
