@@ -74,6 +74,10 @@ theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
 layout_mode = 2
 text = "SETTINGS_FULLSCREEN"
 
+[node name="ImmediateDialogue" type="CheckButton" parent="Center/Panel/Content" unique_id=1785452312]
+layout_mode = 2
+text = "SETTINGS_IMMEDIATE_DIALOGUE"
+
 [node name="LanguageRow" type="HBoxContainer" parent="Center/Panel/Content" unique_id=441246653]
 layout_mode = 2
 alignment = 1
@@ -98,6 +102,7 @@ text = "SETTINGS_SAVE_BACK"
 
 [connection signal="value_changed" from="Center/Panel/Content/VolumeRow/Volume" to="." method="_on_volume_changed"]
 [connection signal="toggled" from="Center/Panel/Content/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="Center/Panel/Content/ImmediateDialogue" to="." method="_on_immediate_dialogue_toggled"]
 [connection signal="item_selected" from="Center/Panel/Content/LanguageRow/Language" to="." method="_on_language_selected"]
 [connection signal="pressed" from="Center/Panel/Content/ResetCampaign" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Center/Panel/Content/Back" to="." method="_on_back_pressed"]

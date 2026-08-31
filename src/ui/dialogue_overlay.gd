@@ -32,6 +32,7 @@ var radio_frame_style: StyleBoxTexture
 var briefing_frame_style: StyleBoxTexture
 var debrief_frame_style: StyleBoxTexture
 var boss_intro_frame_styles: Dictionary = {}
+var text_reveal_tween: Tween
 
 
 func _ready() -> void:
@@ -76,6 +77,7 @@ func _show_current_entry() -> void:
 	speaker_label.text = LocalizationManager.text(speaker_key)
 	speaker_label.add_theme_color_override("font_color", speaker.get("dialogue_color", Color.WHITE))
 	text_label.text = LocalizationManager.text(str(entry.get("text_key", "")))
+	text_label.visible_ratio = 1.0
 	continue_button.text = LocalizationManager.text("DIALOGUE_CONTINUE")
 	skip_button.text = LocalizationManager.text("DIALOGUE_SKIP")
 	var presentation_mode := str(entry.get("presentation_mode", "briefing"))
@@ -89,6 +91,13 @@ func _show_current_entry() -> void:
 	if is_radio:
 		AudioManager.play_named_sfx(&"radio_beep", 1.0, -14.0)
 		radio_timer.start(4.5)
+	elif not bool(SaveManager.profile.get("settings", {}).get("immediate_dialogue_text", false)):
+		text_label.visible_ratio = 0.0
+		if text_reveal_tween != null and text_reveal_tween.is_valid():
+			text_reveal_tween.kill()
+		var reveal_duration := clampf(float(text_label.text.length()) * 0.012, 0.25, 1.8)
+		text_reveal_tween = create_tween()
+		text_reveal_tween.tween_property(text_label, "visible_ratio", 1.0, reveal_duration)
 
 
 func _apply_presentation_mode(mode: String) -> void:
@@ -152,6 +161,11 @@ func _build_frame_style(texture: Texture2D) -> StyleBoxTexture:
 
 
 func _on_continue_pressed() -> void:
+	if text_label.visible_ratio < 0.999:
+		if text_reveal_tween != null and text_reveal_tween.is_valid():
+			text_reveal_tween.kill()
+		text_label.visible_ratio = 1.0
+		return
 	entry_index += 1
 	_show_current_entry()
 
@@ -167,6 +181,9 @@ func _on_radio_timeout() -> void:
 
 func _complete() -> void:
 	radio_timer.stop()
+	if text_reveal_tween != null and text_reveal_tween.is_valid():
+		text_reveal_tween.kill()
+	text_label.visible_ratio = 1.0
 	visible = false
 	if paused_by_dialogue:
 		get_tree().paused = false

@@ -212,9 +212,11 @@ func _validate_save_and_story_foundation() -> void:
 	_check(int(migrated.get("operator_mastery", {}).get("khem", -1)) == 3, "Legacy Villager upgrades did not migrate to Khem mastery.")
 	_check(not migrated.has("character_upgrade_levels"), "Legacy per-character upgrade tracks survived migration.")
 	_check(str(migrated.get("settings", {}).get("language", "")) == LocalizationManager.DEFAULT_LANGUAGE, "Migrated profile did not default to English.")
+	_check(not bool(migrated.get("settings", {}).get("immediate_dialogue_text", true)), "Migrated profile did not receive the default dialogue accessibility setting.")
 
 	SaveManager.begin_test_session()
 	_check(str(SaveManager.profile.get("settings", {}).get("language", "")) == "en", "Fresh test profile did not default to English.")
+	_check(not bool(SaveManager.profile.get("settings", {}).get("immediate_dialogue_text", true)), "Fresh test profile did not default to typewriter dialogue.")
 	SaveManager.complete_level("level_01", 3)
 	_check("level_01" in SaveManager.profile.get("completed_levels", []), "Level completion was not recorded.")
 	_check("level_02" in SaveManager.profile.get("unlocked_levels", []), "Level 2 did not unlock after Level 1 completion.")
@@ -241,6 +243,17 @@ func _validate_ui_scenes() -> void:
 		_check(screen.get_child_count() > 0, "%s did not construct its UI." % packed_scene.resource_path)
 		screen.queue_free()
 		await get_tree().process_frame
+	var settings := UI_SCENES[3].instantiate() as Control
+	add_child(settings)
+	await get_tree().process_frame
+	var immediate_dialogue := settings.get_node("Center/Panel/Content/ImmediateDialogue") as CheckButton
+	_check(immediate_dialogue != null, "Settings is missing the immediate-dialogue accessibility control.")
+	if immediate_dialogue != null:
+		settings._on_immediate_dialogue_toggled(true)
+		_check(bool(SaveManager.profile.get("settings", {}).get("immediate_dialogue_text", false)), "Immediate-dialogue setting did not persist in the active profile.")
+		settings._on_immediate_dialogue_toggled(false)
+	settings.queue_free()
+	await get_tree().process_frame
 
 
 func _validate_character_select_layout() -> void:
@@ -456,6 +469,20 @@ func _validate_dialogue_presentations() -> void:
 	_check(debrief_style != null and debrief_style.texture != null and str(debrief_style.texture.resource_path).ends_with("debrief_panel_normalized_v1.png"), "Debrief dialogue did not apply the generated frame skin.")
 	_check(overlay.panel.anchor_left == 0.5 and overlay.panel.anchor_top == 1.0, "Full dialogue did not restore its bottom-center layout.")
 	_check(overlay.actions.visible, "Full dialogue did not restore its controls.")
+	SaveManager.profile["settings"]["immediate_dialogue_text"] = false
+	overlay.entries = DialogueCatalog.get_sequence("level_01_briefing", "tonkla")
+	overlay.entry_index = 0
+	overlay.visible = true
+	overlay._show_current_entry()
+	_check(overlay.text_label.visible_ratio <= 0.01, "Dialogue typewriter mode did not begin with hidden text.")
+	overlay._on_continue_pressed()
+	_check(overlay.text_label.visible_ratio >= 0.999, "Continue did not reveal the current dialogue entry before advancing.")
+	SaveManager.profile["settings"]["immediate_dialogue_text"] = true
+	overlay.entry_index = 0
+	overlay._show_current_entry()
+	_check(overlay.text_label.visible_ratio >= 0.999, "Immediate-dialogue accessibility mode still animated text.")
+	SaveManager.profile["settings"]["immediate_dialogue_text"] = false
+	get_tree().paused = false
 	overlay.queue_free()
 	await get_tree().process_frame
 

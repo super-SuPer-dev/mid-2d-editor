@@ -34,7 +34,7 @@ func default_profile() -> Dictionary:
 		},
 		"story_stage": 1,
 		"seen_dialogue_sequences": [],
-		"settings": {"master_volume": 0.8, "fullscreen": false, "language": "en"},
+		"settings": {"master_volume": 0.8, "fullscreen": false, "language": "en", "immediate_dialogue_text": false},
 	}
 
 
@@ -244,6 +244,12 @@ func set_language(locale: String) -> void:
 	var normalized := LocalizationManager.normalize_language(locale)
 	profile["settings"]["language"] = normalized
 	LocalizationManager.set_language(normalized)
+	profile_changed.emit()
+	save_game()
+
+
+func set_immediate_dialogue_text(enabled: bool) -> void:
+	profile["settings"]["immediate_dialogue_text"] = enabled
 	profile_changed.emit()
 	save_game()
 
