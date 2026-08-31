@@ -328,7 +328,7 @@ quota coverage; live Godot inspection confirms gate positions and enemy paths.
 This makes the 5–7 minute route contract actionable without inflating enemy
 health or changing collision geometry.
 
-**Generated-asset audit evidence — 2026-08-31:** `tools/validate_generated_assets.ps1` now provides a repeatable, memory-safe source audit. It scanned all 474 PNG candidates (831,196,936 bytes), decoded 474/474, confirmed 188/188 normalized strips have widths divisible by four, found nearby Markdown provenance for 450/474 files, and reported 335 opaque-art soft-alpha warnings. The validator intentionally leaves candidates in `Review`; binary-alpha remediation, per-package grid/pivot/baseline review, runtime promotion, and human pixel-art approval remain open.
+**Generated-asset audit evidence — 2026-08-31:** `tools/validate_generated_assets.ps1` now provides a repeatable, memory-safe source audit. It scanned all 477 PNG candidates (837,845,904 bytes), decoded 477/477, confirmed 188/188 normalized strips have widths divisible by four, and found the English `art_source/generated/PROVENANCE_INDEX.md` plus per-package records for all 477/477 candidates. The audit still reports 337 opaque-art soft-alpha warnings. The validator intentionally leaves candidates in `Review`; binary-alpha remediation, per-package grid/pivot/baseline review, runtime promotion, and human pixel-art approval remain open.
 
 **Generated-asset promotion evidence — 2026-08-31:** The Root Skitter (salak)
 package now has a complete runtime action contract. Seven source actions are

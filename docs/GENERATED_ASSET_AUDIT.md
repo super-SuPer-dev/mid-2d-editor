@@ -35,7 +35,7 @@ The validator decodes every PNG, rejects zero-size or over-limit textures, check
 
 ## 3. Decision
 
-The source library passes basic file integrity but fails the current production-readiness gate. No audited generated candidate is promoted to `Verified` or `Release-ready` by this audit. Existing `Review` states remain unchanged.
+The source library passes basic file integrity and now has a nearby English provenance index for every candidate, but it still fails the current production-readiness gate. No audited generated candidate is promoted to `Verified` or `Release-ready` by this audit. Existing `Review` states remain unchanged because soft-alpha, per-package technical checks, rights confirmation and human visual approval are still required.
 
 Semi-transparent pixels may be intentional for glow, smoke, projectile trails, or other VFX. Those assets require a documented VFX exception and runtime readability test. Continuous soft alpha on character bodies, enemy bodies, bosses, tiles, landmarks, portraits, and opaque UI ornament must be removed, quantized at the logical pixel resolution, or regenerated before integration approval.
 
