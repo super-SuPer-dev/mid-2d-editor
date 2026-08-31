@@ -287,6 +287,12 @@ func _validate_mastery_layout() -> void:
 	var frame := screen.get_node("MasteryFrame") as TextureRect
 	_check(frame != null and frame.texture != null and str(frame.texture.resource_path).ends_with("operator_mastery_screen_normalized_v1.png"), "Mastery screen did not apply the generated shell frame.")
 	_check(frame != null and frame.get_global_rect().size.x >= 1200.0 and frame.get_global_rect().size.y >= 680.0, "Mastery shell did not cover the 1280x720 safe area.")
+	var rank_track := screen.get_node("Margin/Layout/Cards/blade/Content/RankTrack") as HBoxContainer
+	_check(rank_track != null and rank_track.get_child_count() == 6, "Mastery rank track did not construct six nodes.")
+	if rank_track != null:
+		for index in range(rank_track.get_child_count()):
+			var rank_icon := rank_track.get_child(index) as TextureRect
+			_check(rank_icon.texture is AtlasTexture, "Mastery rank node %d did not bind an atlas frame." % index)
 	screen.queue_free()
 	await get_tree().process_frame
 

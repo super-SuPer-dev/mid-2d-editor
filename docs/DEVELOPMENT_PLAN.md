@@ -429,6 +429,11 @@ nearest filtering and full 1280 × 720 coverage. Smoke checks confirm the shell
 resource and bounds; rank-node states and final interaction-state review remain
 open.
 
+**Mastery rank-track promotion evidence — 2026-08-31:** The six-state generated
+rank-node atlas is now sliced into the mastery card and reflects the saved rank
+with active/inactive tinting. Smoke coverage confirms six atlas nodes and the
+shell remains within the 1280 × 720 safe area.
+
 **Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
 bind their generated four-frame hazard strips through the shared DamageHazard
 contract at 8 fps: mangosteen spore vent, santol seed piston, nutrient-root

@@ -121,6 +121,48 @@ theme_override_font_sizes/font_size = 30
 text = "MASTERY_TITLE"
 horizontal_alignment = 1
 
+[node name="RankTrack" type="HBoxContainer" parent="Margin/Layout/Cards/blade/Content" unique_id=984821510]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Rank0" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821511]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Rank1" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821512]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Rank2" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821513]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Rank3" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821514]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Rank4" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821515]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Rank5" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821516]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Description" type="Label" parent="Margin/Layout/Cards/blade/Content" unique_id=492066863]
 layout_mode = 2
 size_flags_vertical = 3
