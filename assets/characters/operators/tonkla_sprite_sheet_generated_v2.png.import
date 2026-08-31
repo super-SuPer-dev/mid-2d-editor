@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqmj5w1chdakk"
-path="res://.godot/imported/tonkla_sprite_sheet.png-3bc942df609c7e942c0d4b6cd6fd88b7.ctex"
+uid="uid://bsa3vh0xo663o"
+path="res://.godot/imported/tonkla_sprite_sheet_generated_v2.png-33fc9b56a2c95da2811a38652c2dd594.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/operators/tonkla_sprite_sheet.png"
-dest_files=["res://.godot/imported/tonkla_sprite_sheet.png-3bc942df609c7e942c0d4b6cd6fd88b7.ctex"]
+source_file="res://assets/characters/operators/tonkla_sprite_sheet_generated_v2.png"
+dest_files=["res://.godot/imported/tonkla_sprite_sheet_generated_v2.png-33fc9b56a2c95da2811a38652c2dd594.ctex"]
 
 [params]
 

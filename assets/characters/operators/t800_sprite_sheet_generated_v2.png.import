@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo3rltx4oqwxe"
-path="res://.godot/imported/khem_sprite_sheet.png-3737c248bf62b50fb09c6c074d1b5e1b.ctex"
+uid="uid://0e3g2jtbadc8"
+path="res://.godot/imported/t800_sprite_sheet_generated_v2.png-456b0fdb2dbee31868f72c922d0ddcc6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/operators/khem_sprite_sheet.png"
-dest_files=["res://.godot/imported/khem_sprite_sheet.png-3737c248bf62b50fb09c6c074d1b5e1b.ctex"]
+source_file="res://assets/characters/operators/t800_sprite_sheet_generated_v2.png"
+dest_files=["res://.godot/imported/t800_sprite_sheet_generated_v2.png-456b0fdb2dbee31868f72c922d0ddcc6.ctex"]
 
 [params]
 

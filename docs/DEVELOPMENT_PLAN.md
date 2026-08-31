@@ -465,6 +465,17 @@ HUD and intro frame package. Text, portraits and controls remain localized at
 runtime; human timing, composition and final platform-memory review remain
 open.
 
+**Operator sheet replacement evidence — 2026-08-31:** The four generated
+operator sheets are now cropped from 1122 × 1402 to exact 1120 × 1400 canvases
+before binary-alpha thresholding. `CharacterCatalog` binds the reversible
+`*_sprite_sheet_generated_v2.png` variants for Tonkla, Rin, Khem and T-800;
+the existing four-column/five-row contract now resolves to exact 280 px cells.
+Legacy runtime copies were moved to `art_source/legacy/character/runtime_v1/`
+for rollback and are no longer part of the production asset root. Headless
+smoke checks dimensions and edge-cell slicing, and live Godot review confirms
+all four character cards render without stretch or visible cell bleed. Full
+animation continuity, foot-baseline and human pixel-art review remain open.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uano56rcsndu"
-path="res://.godot/imported/rin_sprite_sheet.png-c76ae073c8407c62ecafb3abcfe6dd64.ctex"
+uid="uid://brh8oytdw8si5"
+path="res://.godot/imported/khem_sprite_sheet_generated_v2.png-6ccc737a61c3387e9181dbe51a8d3812.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/operators/rin_sprite_sheet.png"
-dest_files=["res://.godot/imported/rin_sprite_sheet.png-c76ae073c8407c62ecafb3abcfe6dd64.ctex"]
+source_file="res://assets/characters/operators/khem_sprite_sheet_generated_v2.png"
+dest_files=["res://.godot/imported/khem_sprite_sheet_generated_v2.png-6ccc737a61c3387e9181dbe51a8d3812.ctex"]
 
 [params]
 
