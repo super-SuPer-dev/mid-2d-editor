@@ -650,6 +650,9 @@ func _validate_levels() -> void:
 			root_skitter.root_skitter_attack_timer = 0.5
 			root_skitter._update_root_skitter_animation(0.0)
 			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_burrow_tell_strip_normalized_v2.png"), "Level 4 Root Skitter did not bind its burrow-tell animation.")
+			root_skitter.root_skitter_attack_timer = 0.25
+			root_skitter._update_root_skitter_animation(0.0)
+			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_burrow_strip_normalized_v2.png"), "Level 4 Root Skitter did not hand off to its burrow animation.")
 			root_skitter.root_skitter_attack_timer = 0.1
 			root_skitter._update_root_skitter_animation(0.0)
 			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_emerge_attack_strip_normalized_v2.png"), "Level 4 Root Skitter did not hand off to emerge attack.")

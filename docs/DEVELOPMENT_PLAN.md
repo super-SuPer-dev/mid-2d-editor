@@ -320,7 +320,16 @@ silhouette and route-occlusion review.
 
 **Generated-asset audit evidence — 2026-08-31:** `tools/validate_generated_assets.ps1` now provides a repeatable, memory-safe source audit. It scanned all 474 PNG candidates (831,196,936 bytes), decoded 474/474, confirmed 188/188 normalized strips have widths divisible by four, found nearby Markdown provenance for 450/474 files, and reported 335 opaque-art soft-alpha warnings. The validator intentionally leaves candidates in `Review`; binary-alpha remediation, per-package grid/pivot/baseline review, runtime promotion, and human pixel-art approval remain open.
 
-**Generated-asset promotion evidence — 2026-08-31:** The Root Skitter (salak) package now has a reversible runtime pilot. Seven source actions were normalized to 4 × 700 × 800 strips with a 740 px baseline and threshold-128 binary alpha; idle and scuttle are wired to the Level 4 enemy controller with nearest filtering, floor offset and measured 5.5/8 fps timing. Godot MCP runtime inspection confirmed `hframes=4`, the promoted texture path, `position.y=-17`, and frame advancement. The package remains `Integrated` rather than `Verified` pending visual silhouette, animation-continuity and combat-scale review; the other five actions still need binding.
+**Generated-asset promotion evidence — 2026-08-31:** The Root Skitter (salak)
+package now has a complete runtime action contract. Seven source actions are
+normalized to 4 × 700 × 800 strips with a 740 px baseline and threshold-128
+binary alpha; idle/scuttle, burrow-tell → burrow → emerge-attack, hurt and
+delayed death are wired to the Level 4 enemy controller with nearest filtering,
+floor offset and measured 5.5/8 fps timing. Godot MCP runtime inspection
+confirmed `hframes=4`, the promoted texture paths, `position.y=-17` and frame
+advancement. The package remains `Integrated` rather than `Verified` pending
+visual silhouette, animation-continuity, death-presentation and combat-scale
+review.
 
 **Boss-asset promotion evidence — 2026-08-31:** The Root Hydra (nipa-palm cluster) now has matching armored/exposed idle runtime pilots. Both authored strips are quantized to 4 × 1000 × 900 cells with an 840 px baseline, nearest filtering and a 3 fps breathing loop; the runtime switches at phase 2 while the existing multi-origin projectile contract is unchanged. Smoke coverage checks the promoted texture, four-frame grid, -105 px baseline offset and phase transition. The package remains `Integrated` pending phase-specific action animation, projectile/presentation art, audio and human boss-feel review.
 

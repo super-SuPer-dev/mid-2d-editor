@@ -1,7 +1,7 @@
 # Root Skitter Runtime Pilot
 
 **Asset ID:** ENEMY-ROOT-SKITTER  
-**State:** Integrated (pilot; human art review pending)  
+**State:** Integrated (full action contract; human art review pending)
 **Primary fruit identity:** Salak (snake fruit)  
 **Source package:** `art_source/generated/enemies/root_skitter/`  
 **Promotion date:** 2026-08-31
@@ -14,7 +14,7 @@
   local Y offset and 0.05 scale to keep the visible root on the floor.
 - Alpha was quantized with threshold 128. The promoted pilot contains only
   alpha 0 or 255 and uses nearest-neighbor filtering.
-- The runtime pilot now selects burrow-tell → burrow → emerge-attack from a
+- The runtime contract now selects burrow-tell → burrow → emerge-attack from a
   0.5 second contact timer at 8 fps, with a 0.2 second hurt reaction. Idle and
   scuttle remain 5.5/8 fps. The death strip is staged for delayed cleanup.
 
@@ -34,8 +34,8 @@
 
 ## Acceptance status
 
-Technical decode, grid, binary-alpha, runtime import, baseline, burrow-tell →
-emerge-attack and hurt state checks pass. The package remains below `Verified`
+Technical decode, grid, binary-alpha, runtime import, baseline,
+burrow-tell → burrow → emerge-attack and hurt state checks pass. The package remains below `Verified`
 until human review confirms salak silhouette, foot placement, motion continuity,
 death presentation, combat-scale readability and visual fit with the Level 4
 marsh palette.
