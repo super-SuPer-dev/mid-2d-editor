@@ -65,15 +65,18 @@ const ROOT_CORE_EYE_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemie
 const ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_bract_curtain_cast_strip_normalized_v2.png")
 const THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_armored_strip_normalized_v2.png")
 const THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png")
+const THORN_MATRIARCH_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_death_strip_normalized_v2.png")
 const THORN_MATRIARCH_FAN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_fan_cast_strip_normalized_v2.png")
 const THORN_MATRIARCH_MINE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_normalized_v2.png")
 const MAW_SOVEREIGN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_armored_strip_normalized_v2.png")
 const MAW_SOVEREIGN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_idle_exposed_strip_normalized_v2.png")
+const MAW_SOVEREIGN_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_death_strip_normalized_v2.png")
 const MAW_SOVEREIGN_SPORE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_spore_cast_strip_normalized_v2.png")
 const MAW_SOVEREIGN_ROTATING_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_rotating_volley_cast_strip_normalized_v2.png")
 const MAW_SOVEREIGN_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/maw_sovereign_aimed_volley_cast_strip_normalized_v2.png")
 const POSSESSED_BANYAN_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_armored_strip_normalized_v2.png")
 const POSSESSED_BANYAN_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_idle_exposed_strip_normalized_v2.png")
+const POSSESSED_BANYAN_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_death_strip_normalized_v2.png")
 const POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_seed_column_cast_strip_normalized_v2.png")
 const POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_diagonal_root_cast_strip_normalized_v2.png")
 
@@ -823,9 +826,9 @@ func _on_died() -> void:
 	else:
 		GameManager.register_enemy_defeated()
 	var death_texture: Texture2D = _get_standard_death_texture()
-	if not is_boss and death_texture != null:
+	if death_texture != null:
 		visual.texture = death_texture
-		visual.hframes = 4
+		visual.hframes = _get_death_frame_count()
 		visual.vframes = 1
 		visual.frame = 0
 		visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -852,7 +855,17 @@ func _get_standard_death_texture() -> Texture2D:
 			return EYE_WISP_DEATH_TEXTURE
 		"capsule_husk_elite":
 			return CAPSULE_HUSK_DEATH_TEXTURE
+		"thorn_matriarch_boss":
+			return THORN_MATRIARCH_DEATH_TEXTURE
+		"maw_sovereign_boss":
+			return MAW_SOVEREIGN_DEATH_TEXTURE
+		"banyan_boss":
+			return POSSESSED_BANYAN_DEATH_TEXTURE
 	return null
+
+
+func _get_death_frame_count() -> int:
+	return 3 if enemy_type == "maw_sovereign_boss" or enemy_type == "banyan_boss" else 4
 
 
 func set_combat_active(active: bool) -> void:

@@ -764,6 +764,10 @@ func _validate_levels() -> void:
 			previous_story_index = story_index
 		_check(not get_tree().paused, "%s radio dialogue paused gameplay." % level_id)
 		_check(not boss.combat_active and not pattern_runner.active, "%s boss activated before its queued introduction completed." % level_id)
+		var boss_death_texture := boss._get_standard_death_texture()
+		if boss_death_texture != null:
+			_check(str(boss_death_texture.resource_path).contains("death_strip_normalized_v2.png"), "%s boss death texture is not a promoted runtime strip." % level_id)
+			_check(boss._get_death_frame_count() == (3 if boss.enemy_type == "maw_sovereign_boss" or boss.enemy_type == "banyan_boss" else 4), "%s boss death strip frame count does not match its native grid." % level_id)
 		if level_id == "level_01":
 			var thorn_preview_visual := boss.get_node("Visual") as Sprite2D
 			_check(str(thorn_preview_visual.texture.resource_path).ends_with("thorn_matriarch_idle_armored_strip_normalized_v2.png"), "Level 1 Thorn Matriarch preview did not begin in its armored visual state.")

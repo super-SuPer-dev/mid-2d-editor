@@ -35,6 +35,12 @@
 | `assets/enemies/bosses/possessed_banyan/possessed_banyan_seed_column_cast_strip_normalized_v2.png` | `108D72873A574300815193D523FE00DE56E317DA03780536DB71F99E4934EA8F` |
 | `assets/enemies/bosses/possessed_banyan/possessed_banyan_diagonal_root_cast_strip_normalized_v2.png` | `AA3C04A14D85318F84DB2835E8CB4125D3B18CFB407FF7108785B0ECE25C99BC` |
 
+## Death promotion
+
+The 3600 × 900 three-frame death strip is promoted to runtime and plays during
+the non-blocking defeat lifecycle. SHA-256:
+C1708E21C73A93D230962C1588B7D30BD17956008C5462016A59C80A93BB7AEB.
+
 ## Acceptance status
 
 Technical decode, 4-frame grid, binary-alpha, runtime import, baseline,

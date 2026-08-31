@@ -284,6 +284,14 @@ human boss-feel review remain open.
 
 [DEV-GATE-04]
 
+**Boss death-presentation evidence — 2026-08-31:** Thorn Matriarch,
+Maw Sovereign and Possessed Banyan now resolve their promoted four-/three-frame
+death strips through the shared non-blocking defeat lifecycle. Defeat signals,
+quota bookkeeping and extraction timing remain immediate while collision and
+pattern processing stop during the short visual playback; English smoke
+coverage validates each native frame count. Root Hydra and Root-Core Eye still
+need authored death strips.
+
 **Inputs:** Stable three-level campaign.  
 **Work:** Build separate 5–7 minute routes for Devouring Root Marsh and Alien Eye Nexus with unique traversal, tile/parallax kits, foregrounds, hazards, enemy rosters and landmarks. Produce the projectile-heavy Root Hydra with multi-origin crossfire, rings and lane walls, and the Root-Core Eye with spirals, aimed rings and bullet curtains. Complete final enemy families, ending sequences, campaign completion and post-ending state.
 

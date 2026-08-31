@@ -37,6 +37,12 @@
 | `assets/enemies/bosses/maw_sovereign/maw_sovereign_rotating_volley_cast_strip_normalized_v2.png` | `AE333239867F841CE4845A84779C819007FC397ADE0CC1B5A42CEB92CE6C45A6` |
 | `assets/enemies/bosses/maw_sovereign/maw_sovereign_aimed_volley_cast_strip_normalized_v2.png` | `D014A407CCD586FCA709B63F7831E254BF005C2C1A6EBA901E32FF976819BA4B` |
 
+## Death promotion
+
+The 3600 × 900 three-frame death strip is promoted to runtime and plays during
+the non-blocking defeat lifecycle. SHA-256:
+814D4035A899FBFE472F99105C29A30F25518D4B5152E2C63811239AF709607F.
+
 ## Acceptance status
 
 Technical decode, 4-frame grid, binary-alpha, runtime import, baseline,

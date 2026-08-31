@@ -35,6 +35,12 @@
 | `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_fan_cast_strip_normalized_v2.png` | `2BB30224EBC8D11215857543E9A0E96186C5043BF2D3E3B41FB66CBF958EF51E` |
 | `assets/enemies/bosses/thorn_matriarch/thorn_matriarch_mine_cast_strip_normalized_v2.png` | `CE6EE4606F6E00F2955DC880EF613E5D66A061E629755ADD561DEA84970E53D3` |
 
+## Death promotion
+
+The 4800 × 900 four-frame death strip is promoted to runtime and plays during
+the non-blocking defeat lifecycle. SHA-256:
+F83DBC7BD057E4A9B437F014C22FB717F76A36C3F9EF93FB6213D2B4A83E6047.
+
 ## Acceptance status
 
 Technical decode, 4-frame grid, binary-alpha, runtime import, baseline,
