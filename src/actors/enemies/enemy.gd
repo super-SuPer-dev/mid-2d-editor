@@ -703,6 +703,11 @@ func _shoot(direction: Vector2) -> void:
 	projectile.direction = direction
 	projectile.damage = contact_damage
 	get_tree().current_scene.add_child(projectile)
+	if enemy_type == "eye_wisp":
+		projectile.visual.texture = EYE_WISP_SEED_BOLT_TEXTURE if eye_wisp_attack_variant == 0 else EYE_WISP_BEAM_ATTACK_TEXTURE
+		projectile.visual.hframes = 4
+		projectile.visual.vframes = 1
+		projectile.visual.scale = Vector2.ONE * 0.009
 	projectile.global_position = global_position + Vector2(facing * 28.0, -8.0)
 
 

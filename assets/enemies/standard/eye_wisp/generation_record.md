@@ -16,7 +16,9 @@
   0 or 255 and use nearest-neighbor filtering.
 - Hover advances at 4.5 fps, fly at 7 fps, and aim/seed/beam/hurt at 8 fps.
   The controller alternates seed-bolt and beam attacks after the aim tell;
-  both actions use the existing enemy projectile contract.
+  both actions use the existing enemy projectile contract. Spawned projectiles
+  inherit the selected four-frame body strip at nearest filtering and the
+  runtime smoke contract checks the fruit-specific visual.
 
 ## Provenance hashes
 

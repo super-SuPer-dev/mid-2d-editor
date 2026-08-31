@@ -641,6 +641,14 @@ func _validate_levels() -> void:
 			eye_wisp.eye_wisp_attack_timer = 0.2
 			eye_wisp._update_eye_wisp_animation(0.0)
 			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_beam_attack_strip_normalized_v2.png"), "Level 5 Eye Wisp did not bind its beam attack animation.")
+			eye_wisp._shoot(Vector2.RIGHT)
+			var eye_wisp_projectiles := get_tree().get_nodes_in_group("EnemyProjectile")
+			_check(not eye_wisp_projectiles.is_empty(), "Level 5 Eye Wisp did not spawn its projectile.")
+			if not eye_wisp_projectiles.is_empty():
+				var eye_wisp_projectile := eye_wisp_projectiles.back() as EnemyProjectile
+				var eye_wisp_projectile_visual := eye_wisp_projectile.get_node("Visual") as Sprite2D
+				_check(eye_wisp_projectile_visual.hframes == 4, "Level 5 Eye Wisp projectile lost its four-frame visual grid.")
+				_check(str(eye_wisp_projectile_visual.texture.resource_path).ends_with("eye_wisp_seed_bolt_strip_normalized_v2.png") or str(eye_wisp_projectile_visual.texture.resource_path).ends_with("eye_wisp_beam_attack_strip_normalized_v2.png"), "Level 5 Eye Wisp projectile did not use its fruit-specific visual.")
 			eye_wisp.take_damage(1)
 			eye_wisp._update_eye_wisp_animation(0.0)
 			_check(str(eye_wisp_visual.texture.resource_path).ends_with("eye_wisp_hurt_strip_normalized_v2.png"), "Level 5 Eye Wisp did not bind its hurt animation.")
