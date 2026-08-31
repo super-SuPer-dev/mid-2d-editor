@@ -983,6 +983,7 @@ func _validate_levels() -> void:
 			for _frame in range(50):
 				await get_tree().physics_frame
 			_check(pattern_runner.get_active_projectile_count() > 0, "%s boss projectile runner did not resume after reactivation." % level_id)
+			_assert_boss_projectile_visual(pattern_runner, str(pattern_runner.current_pattern.get("pattern_id", "")), "%s resumed phase" % level_id)
 		boss.take_damage(999, Vector2.RIGHT)
 		await get_tree().process_frame
 		await get_tree().process_frame
