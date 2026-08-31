@@ -289,6 +289,20 @@ func _validate_save_and_story_foundation() -> void:
 	_check(not migrated.has("character_upgrade_levels"), "Legacy per-character upgrade tracks survived migration.")
 	_check(str(migrated.get("settings", {}).get("language", "")) == LocalizationManager.DEFAULT_LANGUAGE, "Migrated profile did not default to English.")
 	_check(not bool(migrated.get("settings", {}).get("immediate_dialogue_text", true)), "Migrated profile did not receive the default dialogue accessibility setting.")
+	var recovery_backup := {
+		"version": SaveManager.CURRENT_VERSION,
+		"selected_character": "rin",
+		"total_crystals": 17,
+		"completed_levels": ["level_01"],
+	}
+	var recovered_from_backup := SaveManager._select_recovery_profile(null, recovery_backup)
+	_check(int(recovered_from_backup.get("total_crystals", 0)) == 17, "Corrupt-primary recovery did not select the valid backup profile.")
+	var valid_primary := {"version": SaveManager.CURRENT_VERSION, "total_crystals": 23}
+	var primary_wins := SaveManager._select_recovery_profile(valid_primary, recovery_backup)
+	_check(int(primary_wins.get("total_crystals", 0)) == 23, "Valid primary profile did not take precedence over its backup.")
+	_check(SaveManager._select_recovery_profile("corrupt", ["corrupt"]).is_empty(), "Invalid primary and backup data did not fall back to defaults.")
+	var migrated_recovery := SaveManager._migrate_profile(recovered_from_backup)
+	_check(int(migrated_recovery.get("version", 0)) == SaveManager.CURRENT_VERSION, "Recovered backup profile did not remain schema v2.")
 
 	SaveManager.begin_test_session()
 	_check(str(SaveManager.profile.get("settings", {}).get("language", "")) == "en", "Fresh test profile did not default to English.")

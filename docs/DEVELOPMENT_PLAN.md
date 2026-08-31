@@ -448,6 +448,8 @@ English smoke covers the hit handoff and recovery.
 
 **Retry and recovery evidence — 2026-08-31:** The smoke suite now deals lethal damage to a live operator, verifies `GameManager.run_active` becomes false, the game pauses, and the game-over modal is visible, then recreates the same level as a retry. The retry resets health and reactivates the mission without replaying the completed one-shot briefing or duplicating its request. Save writes remain disabled inside the test session, so this check cannot mutate a developer profile.
 
+**Save recovery evidence — 2026-08-31:** `SaveManager` now writes to a flushed temporary file, rotates the previous primary profile to `profile.json.bak`, and atomically promotes the temporary file. Load prefers a valid primary profile, falls back to a valid backup when the primary is corrupt or interrupted, and restores defaults only when both are unusable. English smoke fixtures verify primary precedence, backup recovery and invalid-both fallback entirely in memory; no developer profile is touched.
+
 **Operator passive evidence — 2026-08-31:** The English smoke suite now instantiates
 each operator and verifies the runtime contract, not only the catalog entries:
 Tonkla heals at the rank-0 sample threshold, Rin applies the reduced dash

@@ -1,6 +1,8 @@
 extends Node
 
 const SAVE_PATH := "user://profile.json"
+const SAVE_BACKUP_PATH := "user://profile.json.bak"
+const SAVE_TEMP_PATH := "user://profile.json.tmp"
 const CURRENT_VERSION := 2
 
 signal profile_changed
@@ -42,27 +44,49 @@ func save_game() -> bool:
 	if not persistence_enabled:
 		save_completed.emit()
 		return true
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	if file == null:
+	var temp_file := FileAccess.open(SAVE_TEMP_PATH, FileAccess.WRITE)
+	if temp_file == null:
 		operation_failed.emit("Could not open the profile for writing.")
 		return false
-	file.store_string(JSON.stringify(profile, "\t"))
+	temp_file.store_string(JSON.stringify(profile, "\t"))
+	temp_file.flush()
+	temp_file.close()
+	var primary_path := ProjectSettings.globalize_path(SAVE_PATH)
+	var backup_path := ProjectSettings.globalize_path(SAVE_BACKUP_PATH)
+	var temp_path := ProjectSettings.globalize_path(SAVE_TEMP_PATH)
+	if FileAccess.file_exists(SAVE_PATH):
+		if FileAccess.file_exists(SAVE_BACKUP_PATH):
+			var remove_backup_error := DirAccess.remove_absolute(backup_path)
+			if remove_backup_error != OK:
+				DirAccess.remove_absolute(temp_path)
+				operation_failed.emit("Could not rotate the profile backup.")
+				return false
+		var backup_error := DirAccess.rename_absolute(primary_path, backup_path)
+		if backup_error != OK:
+			DirAccess.remove_absolute(temp_path)
+			operation_failed.emit("Could not protect the previous profile backup.")
+			return false
+	var replace_error := DirAccess.rename_absolute(temp_path, primary_path)
+	if replace_error != OK:
+		operation_failed.emit("Could not replace the profile atomically; the backup is available for recovery.")
+		return false
 	save_completed.emit()
 	return true
 
 
 func load_game() -> bool:
 	profile = default_profile()
-	if FileAccess.file_exists(SAVE_PATH):
-		var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-		if file == null:
-			operation_failed.emit("Could not open the profile for reading.")
-			return false
-		var parsed: Variant = JSON.parse_string(file.get_as_text())
-		if parsed is Dictionary:
-			_merge_profile(_migrate_profile(parsed))
-		else:
-			operation_failed.emit("The profile was invalid; defaults were restored.")
+	var primary_profile: Variant = _read_profile_file(SAVE_PATH)
+	var backup_profile: Variant = _read_profile_file(SAVE_BACKUP_PATH)
+	var recovered_profile := _select_recovery_profile(primary_profile, backup_profile)
+	if recovered_profile.is_empty() and (primary_profile != null or backup_profile != null):
+		operation_failed.emit("The profile and its backup were invalid; defaults were restored.")
+	elif recovered_profile.is_empty() and (FileAccess.file_exists(SAVE_PATH) or FileAccess.file_exists(SAVE_BACKUP_PATH)):
+		operation_failed.emit("The profile could not be read; defaults were restored.")
+	elif not _is_recoverable_profile(primary_profile) and _is_recoverable_profile(backup_profile):
+		operation_failed.emit("The primary profile was invalid; backup recovery was used.")
+	if not recovered_profile.is_empty():
+		_merge_profile(_migrate_profile(recovered_profile))
 	if not CharacterCatalog.CHARACTERS.has(str(profile["selected_character"])):
 		profile["selected_character"] = CharacterCatalog.DEFAULT_CHARACTER
 	GameManager.select_character(str(profile["selected_character"]))
@@ -70,6 +94,27 @@ func load_game() -> bool:
 	load_completed.emit()
 	profile_changed.emit()
 	return true
+
+
+func _read_profile_file(path: String) -> Variant:
+	if not FileAccess.file_exists(path):
+		return null
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return null
+	return JSON.parse_string(file.get_as_text())
+
+
+func _select_recovery_profile(primary_profile: Variant, backup_profile: Variant) -> Dictionary:
+	if _is_recoverable_profile(primary_profile):
+		return primary_profile.duplicate(true)
+	if _is_recoverable_profile(backup_profile):
+		return backup_profile.duplicate(true)
+	return {}
+
+
+func _is_recoverable_profile(candidate: Variant) -> bool:
+	return candidate is Dictionary and not candidate.is_empty()
 
 
 func _merge_profile(loaded: Dictionary) -> void:

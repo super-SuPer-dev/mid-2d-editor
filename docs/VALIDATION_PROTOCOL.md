@@ -99,7 +99,8 @@ Screenshots must show the runtime build, not only editor previews. Evidence is r
 - Duplicate character Blade/Engine/Armor tracks retire according to the approved migration mapping.
 - Language, mastery, story stage and seen sequences persist through restart.
 - Invalid/missing fields recover to documented defaults without deleting valid progress.
-- Interrupted/corrupt save handling follows backup/recovery policy.
+- Interrupted/corrupt save handling follows backup/recovery policy: writes use a flushed temporary file and primary-to-`.bak` rotation; loads prefer a valid primary, then a valid backup, and restore defaults only when both are invalid.
+- English smoke fixtures verify valid-primary precedence, corrupt-primary backup recovery and invalid-both fallback without mutating a developer profile. Exported Windows/Web persistence still requires the release-harness and human restart checks below.
 
 ### Dialogue and Localization Data
 
