@@ -241,6 +241,11 @@ Record completion time, segment splits, deaths, damage sources, currency earned/
 - No growing node/audio/tween count, recurring error spam, corrupted save or input loss.
 - Loading and transitions remain within the approved UX budget; exact measured budgets are locked at Gate 2.
 
+**Local soak evidence — 2026-08-31:** `tools/run_release_validation.ps1 -SkipExport -RunSoak -SoakSeconds 1800` passed at 1,800.6 seconds with 269
+cycles, 3,227 scene mounts, 263 peak nodes, zero active SFX growth and 623.1
+MB peak local allocator usage. This satisfies the local scene-transition soak
+check; it does not satisfy the separate Web-browser peak-memory requirement.
+
 ## 12. Platform and Release Matrix
 
 Minimum release matrix:
