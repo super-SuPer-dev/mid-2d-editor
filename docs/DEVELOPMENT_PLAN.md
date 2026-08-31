@@ -445,6 +445,17 @@ The four runtime hazard strips were re-normalized with threshold-128 alpha
 quantization after the audit found soft edges; strict validation now reports
 zero semi-transparent pixels while preserving the 4 × 800 × 800 grids.
 
+**Boss HUD frame promotion evidence — 2026-08-31:** Five text-free generated
+boss HUD frames are now promoted as binary-alpha runtime assets under
+`assets/ui/boss/`. `GameHUD` selects the matching frame for
+`thorn_matriarch`, `maw_bloom_sovereign`, `possessed_banyan`, `root_hydra`
+and `root_core_eye` when the mission enters `BOSS_ACTIVE`; localized boss
+name, phase and health text remains data-driven. The panel reserves a 660 ×
+220 aspect-safe area and keeps gameplay controls outside the raster frame.
+Strict asset validation, project-structure validation and the full headless
+Godot smoke suite pass. Human visual composition, final platform memory and
+boss-intro presentation review remain open.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

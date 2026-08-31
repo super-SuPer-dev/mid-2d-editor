@@ -6,7 +6,8 @@ extends CanvasLayer
 @onready var crystal_label: Label = $Root/TopMargin/Row/Samples
 @onready var objective_label: Label = $Root/TopMargin/Row/Objective
 @onready var hint_label: Label = $Root/Hint
-@onready var boss_panel: PanelContainer = $Root/BossPanel
+@onready var boss_panel: Panel = $Root/BossPanel
+@onready var boss_frame: TextureRect = $Root/BossPanel/Frame
 @onready var boss_name: Label = $Root/BossPanel/Content/Name
 @onready var boss_health: ProgressBar = $Root/BossPanel/Content/Health
 @onready var modal: ColorRect = $Root/Modal
@@ -23,6 +24,14 @@ var modal_actions: Array[Callable] = []
 var pending_complete: bool = false
 var pending_campaign_complete: bool = false
 var last_health := Vector2i(0, 0)
+
+const BOSS_HUD_FRAMES := {
+	"thorn_matriarch": preload("res://assets/ui/boss/thorn_matriarch_boss_hud_frame_v1.png"),
+	"maw_bloom_sovereign": preload("res://assets/ui/boss/maw_sovereign_boss_hud_frame_v1.png"),
+	"possessed_banyan": preload("res://assets/ui/boss/possessed_banyan_boss_hud_frame_v1.png"),
+	"root_hydra": preload("res://assets/ui/boss/root_hydra_boss_hud_frame_v1.png"),
+	"root_core_eye": preload("res://assets/ui/boss/root_core_eye_boss_hud_frame_v1.png"),
+}
 
 
 func _ready() -> void:
@@ -173,6 +182,7 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 			objective_label.text = LocalizationManager.text("HUD_BOSS_INCOMING")
 			objective_label.add_theme_color_override("font_color", Color("ef9b6c"))
 			boss_panel.visible = true
+			_refresh_boss_frame()
 			_refresh_boss_name()
 		GameManager.PHASE_EXTRACTION:
 			objective_label.text = LocalizationManager.text("HUD_EXTRACTION")
@@ -189,6 +199,10 @@ func _refresh_boss_name() -> void:
 		"current": GameManager.current_boss_phase,
 		"total": GameManager.current_boss_phase_count,
 	})
+
+
+func _refresh_boss_frame() -> void:
+	boss_frame.texture = BOSS_HUD_FRAMES.get(GameManager.current_boss_id, null)
 
 
 func _on_boss_health_changed(current_health: int, maximum_health: int) -> void:

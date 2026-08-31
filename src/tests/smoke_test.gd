@@ -642,6 +642,16 @@ func _validate_levels() -> void:
 		_check(GameManager.current_boss_phase == boss.boss_phase and GameManager.current_boss_phase_count == boss.boss_phase_count, "%s boss preview exposed the wrong phase contract." % level_id)
 		var level_hud := level.get_node("HUD") as GameHUD
 		_check(int(level_hud.boss_health.value) == boss.health.current_health and int(level_hud.boss_health.max_value) == boss.health.max_health, "%s boss preview exposed stale health." % level_id)
+		var expected_boss_frame: String = str({
+			"thorn_matriarch": "thorn_matriarch_boss_hud_frame_v1.png",
+			"maw_bloom_sovereign": "maw_sovereign_boss_hud_frame_v1.png",
+			"possessed_banyan": "possessed_banyan_boss_hud_frame_v1.png",
+			"root_hydra": "root_hydra_boss_hud_frame_v1.png",
+			"root_core_eye": "root_core_eye_boss_hud_frame_v1.png",
+		}.get(str(current_level_data.get("boss_id", "")), ""))
+		var frame_texture := level_hud.boss_frame.texture as Texture2D
+		_check(frame_texture != null and str(frame_texture.resource_path).ends_with(expected_boss_frame), "%s boss HUD did not bind its generated frame." % level_id)
+		_check(level_hud.boss_panel.size.x >= 600.0 and level_hud.boss_panel.size.y >= 180.0, "%s boss HUD frame panel is too small for its aspect-safe art." % level_id)
 		await _drain_dialogue(dialogue)
 		_check(boss.combat_active and pattern_runner.active, "%s boss did not activate after its introduction completed." % level_id)
 		_check(pattern_runner.active, "%s boss projectile runner did not activate." % level_id)
