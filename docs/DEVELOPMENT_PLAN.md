@@ -430,9 +430,12 @@ demand through `GameManager.load_runtime_texture()`. The production scene
 manager clears the scoped cache before each scene swap, and the new
 `scenes/tests/soak_test.tscn` mounts every UI and level scene, toggles English /
 Thai plus immediate-dialogue text, exercises `CLEAR_THREATS → BOSS_ACTIVE →
-EXTRACTION`, and checks node/SFX growth. A 15-second all-scene run passed with
-33 mounts and a bounded 16-voice SFX pool; the required 30-minute run, browser
-peak-memory capture and human performance sign-off remain open.
+EXTRACTION`, and checks node/SFX growth. A 30-second all-scene run passed with
+58 mounts, 263 peak nodes and a bounded 16-voice SFX pool; the allocator
+reported a stable 617.8 MB peak across the local headless run. This is useful
+leak evidence but is not a Web-browser memory measurement, so the required
+30-minute run, browser peak-memory capture and human performance sign-off
+remain open.
 
 ### Gate 5 — Campaign Polish
 
