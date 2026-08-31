@@ -167,6 +167,13 @@ grounded velocity at 3.5/6 fps. Smoke coverage checks the texture, grid and
 baseline. Bite/anticipation/hurt/death art, VFX, audio and human silhouette
 review remain open.
 
+**Maw action promotion evidence — 2026-08-31:** Generated four-frame
+young-mangosteen anticipation, bite and hurt strips are now selected from the
+Level 2 contact/damage timers, with a readable anticipation → bite handoff.
+Strict asset validation and the Level 2 smoke suite cover binary alpha, runtime
+import, baseline, attack handoff and hurt binding. Death presentation, gameplay
+tuning and human readability review remain open.
+
 **Capsule-Husk asset promotion evidence — 2026-08-31:** Level 5 Capsule Husk
 elites now use generated santol idle/move strips instead of the placeholder
 plant. Both 2800 × 800 runtime strips use four 700 px cells, a 740 px foot

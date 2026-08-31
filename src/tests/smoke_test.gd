@@ -534,6 +534,15 @@ func _validate_levels() -> void:
 			_check(maw_visual.hframes == 4 and maw_visual.vframes == 1, "Level 2 Maw pilot lost its four-frame grid.")
 			_check(absf(maw_visual.position.y + 18.0) < 0.01, "Level 2 Maw pilot lost its 740 px baseline offset.")
 			_check(str(maw_visual.texture.resource_path).ends_with("maw_idle_strip_normalized_v2.png") or str(maw_visual.texture.resource_path).ends_with("maw_move_strip_normalized_v2.png"), "Level 2 Maw pilot is not using the promoted runtime texture.")
+			maw.maw_attack_timer = 0.4
+			maw._update_maw_animation(0.0)
+			_check(str(maw_visual.texture.resource_path).ends_with("maw_anticipation_strip_normalized_v2.png"), "Level 2 Maw did not bind its anticipation animation.")
+			maw.maw_attack_timer = 0.2
+			maw._update_maw_animation(0.0)
+			_check(str(maw_visual.texture.resource_path).ends_with("maw_attack_strip_normalized_v2.png"), "Level 2 Maw did not hand off from anticipation to attack.")
+			maw.take_damage(1)
+			maw._update_maw_animation(0.0)
+			_check(str(maw_visual.texture.resource_path).ends_with("maw_hurt_strip_normalized_v2.png"), "Level 2 Maw did not bind its hurt animation.")
 			var maw_boss := level.get_node("Enemies/MawBloomSovereign") as EnemyController
 			var maw_boss_visual := maw_boss.get_node("Visual") as Sprite2D
 			_check(maw_boss_visual.hframes == 4 and maw_boss_visual.vframes == 1, "Level 2 Maw Sovereign pilot lost its four-frame grid.")
