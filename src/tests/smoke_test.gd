@@ -592,6 +592,7 @@ func _validate_levels() -> void:
 		var expected_prop_texture := ""
 		var expected_prop_nodes: Array[String] = []
 		var expected_portal_texture := ""
+		var expected_platform_texture := ""
 		match level_id:
 			"level_01":
 				expected_landmark_texture = "irrigation_root_tower_v1.png"
@@ -600,6 +601,7 @@ func _validate_levels() -> void:
 				expected_prop_nodes = ["RiceRootPropsA", "RiceRootPropsB"]
 			"level_02":
 				expected_hazard_texture = "mangosteen_spore_vent_normalized_v1.png"
+				expected_platform_texture = "forest_ground_straight_v1.png"
 				expected_landmark_texture = "maw_bloom_lair_v1.png"
 				expected_landmark_node = "MawBloomLandmark"
 				expected_prop_texture = "forest_field_shrine_v1.png"
@@ -607,16 +609,19 @@ func _validate_levels() -> void:
 				expected_portal_texture = "forest_extraction_beacon_v1.png"
 			"level_03":
 				expected_hazard_texture = "santol_seed_piston_normalized_v1.png"
+				expected_platform_texture = "capsule_ground_straight_v1.png"
 				expected_landmark_texture = "capsule_07_seed_harvester_v1.png"
 				expected_landmark_node = "Capsule07Landmark"
 				expected_portal_texture = "capsule_extraction_beacon_v1.png"
 			"level_04":
 				expected_hazard_texture = "nutrient_root_eruption_normalized_v2.png"
+				expected_platform_texture = "marsh_ground_straight_v2.png"
 				expected_landmark_texture = "root_nutrient_conduit_v2.png"
 				expected_landmark_node = "NutrientConduitLandmark"
 				expected_portal_texture = "marsh_extraction_beacon_v2.png"
 			"level_05":
 				expected_hazard_texture = "sensory_platform_collapse_normalized_v2.png"
+				expected_platform_texture = "nexus_ground_straight_v2.png"
 				expected_landmark_texture = "awakened_sensory_nexus_v2.png"
 				expected_landmark_node = "AwakenedNexusLandmark"
 				expected_portal_texture = "nexus_extraction_beacon_v2.png"
@@ -624,6 +629,19 @@ func _validate_levels() -> void:
 			var hazard_visual := level.get_node("WorldGeometry/Hazard01/Visual") as Sprite2D
 			_check(hazard_visual.hframes == 4 and hazard_visual.vframes == 1, "%s biome hazard did not use a four-frame strip." % level_id)
 			_check(str(hazard_visual.texture.resource_path).ends_with(expected_hazard_texture), "%s biome hazard did not bind its generated texture." % level_id)
+		if not expected_platform_texture.is_empty():
+			var biome_platform_visual: Sprite2D
+			for platform_candidate: Node in level.get_node("WorldGeometry").get_children():
+				if platform_candidate.is_in_group("Platform"):
+					biome_platform_visual = platform_candidate.get_node_or_null("Visual") as Sprite2D
+					if biome_platform_visual != null:
+						break
+			_check(biome_platform_visual != null, "%s has no authored collision-platform visual." % level_id)
+			if biome_platform_visual != null:
+				_check(biome_platform_visual.hframes == 3 and biome_platform_visual.vframes == 1, "%s biome collision platform lost its three-frame tile grid." % level_id)
+				_check(str(biome_platform_visual.texture.resource_path).ends_with(expected_platform_texture), "%s collision platform is still using the generic placeholder." % level_id)
+				_check(biome_platform_visual.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST, "%s collision platform lost nearest filtering." % level_id)
+				_check(biome_platform_visual.scale.is_equal_approx(Vector2(0.13812155, 0.045)), "%s collision platform lost its calibrated tile scale." % level_id)
 		if not expected_landmark_node.is_empty():
 			var landmark := level.get_node_or_null("Environment/%s" % expected_landmark_node) as Sprite2D
 			_check(landmark != null, "%s is missing its generated landmark node." % level_id)

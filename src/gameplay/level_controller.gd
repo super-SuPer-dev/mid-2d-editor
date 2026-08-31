@@ -6,6 +6,13 @@ const BIOME_HAZARD_TEXTURES: Dictionary = {
 	"level_04": preload("res://assets/world/level_04_root_marsh/hazards/nutrient_root_eruption_normalized_v2.png"),
 	"level_05": preload("res://assets/world/level_05_alien_eye_nexus/hazards/sensory_platform_collapse_normalized_v2.png")
 }
+const BIOME_PLATFORM_TEXTURES: Dictionary = {
+	"level_02": preload("res://assets/world/level_02_mutated_forest/tiles/forest_ground_straight_v1.png"),
+	"level_03": preload("res://assets/world/level_03_capsule_07/tiles/capsule_ground_straight_v1.png"),
+	"level_04": preload("res://assets/world/level_04_root_marsh/tiles/marsh_ground_straight_v2.png"),
+	"level_05": preload("res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_straight_v2.png")
+}
+const BIOME_PLATFORM_SCALE := Vector2(0.13812155, 0.045)
 
 @onready var hud: GameHUD = $HUD
 @onready var player: PlayerController = $Player
@@ -24,6 +31,7 @@ func _ready() -> void:
 	level_data = LevelCatalog.get_level(GameManager.current_level_id)
 	AudioManager.play_music(StringName(GameManager.current_level_id))
 	_configure_biome_hazards()
+	_configure_biome_platforms()
 	RenderingServer.set_default_clear_color(level_data["background"])
 	player.set_camera_limits(level_data["size"])
 	player.died.connect(_on_player_died)
@@ -50,6 +58,28 @@ func _configure_biome_hazards() -> void:
 	for child: Node in get_node("WorldGeometry").get_children():
 		if child is DamageHazard:
 			(child as DamageHazard).set_animation_texture(texture, 4, 8.0)
+
+
+func _configure_biome_platforms() -> void:
+	var texture := BIOME_PLATFORM_TEXTURES.get(GameManager.current_level_id) as Texture2D
+	if texture == null:
+		return
+	var frame_index := 0
+	for child: Node in get_node("WorldGeometry").get_children():
+		if not child.is_in_group("Platform"):
+			continue
+		var visual := child.get_node_or_null("Visual") as Sprite2D
+		if visual == null:
+			continue
+		visual.material = null
+		visual.texture = texture
+		visual.hframes = 3
+		visual.vframes = 1
+		visual.frame = frame_index % 3
+		visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		visual.scale = BIOME_PLATFORM_SCALE
+		visual.position = Vector2.ZERO
+		frame_index += 1
 
 
 func _on_objective_changed(defeated: int, required: int) -> void:

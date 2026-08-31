@@ -646,6 +646,15 @@ checks all twelve runtime paths; source/runtime hashes and placement notes are
 recorded in the four English world provenance records. Final occlusion,
 composition and human pixel-art review remain open.
 
+**Biome collision-platform presentation evidence — 2026-08-31:** Levels 2–5 now
+replace the generic `platform.svg` visual on every actual collision platform with
+the matching forest, capsule, marsh or nexus straight-ground strip. The runtime
+selects a deterministic one-of-three tile frame per platform, uses nearest
+filtering, and scales each 724 px cell to the existing collision footprint while
+preserving the authored platform transforms. English smoke checks the texture,
+three-frame grid, filtering and calibrated scale; collision geometry remains
+unchanged.
+
 **Audio pilot evidence — 2026-08-31:** Seventeen deterministic, original PCM
 WAV assets now live under `assets/audio/generated/`: seven gameplay SFX, five
 biome loops, two boss loops, a menu loop and victory/defeat stingers. Named SFX
