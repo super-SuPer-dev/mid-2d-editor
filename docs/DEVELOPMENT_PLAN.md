@@ -121,12 +121,13 @@ grounded velocity at 4/7 fps. Smoke coverage checks the texture, grid and
 baseline. Attack/tell/hurt/death art, VFX, audio and human silhouette review
 remain open.
 
-**Thornling attack promotion evidence — 2026-08-31:** The generated four-frame
-rambutan contact-attack strip is now selected from the existing 0.35 second
-melee contact timer and cycles at 8 fps. The strict asset validator and Level 1
-smoke suite cover the 2800 × 800 binary-alpha strip, runtime import, baseline
-and attack texture binding; tell, hurt/death, VFX and human readability review
-remain open.
+**Thornling action promotion evidence — 2026-08-31:** Generated four-frame
+rambutan attack-tell, attack and hurt strips are now selected from the existing
+contact/damage timers, with the tell handing off to attack inside the 0.35-second
+window. A dedicated rambutan contact-hit VFX strip is bound to the enemy damage
+hook. Strict asset validation and the Level 1 smoke suite cover binary alpha,
+runtime import, baseline, tell → attack handoff, hurt binding and VFX staging;
+death presentation and human readability review remain open.
 
 **Spitter-asset promotion evidence — 2026-08-31:** The shared Level 1–3
 Spitter now uses generated makrut-lime idle/walk strips instead of the legacy

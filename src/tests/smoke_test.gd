@@ -507,7 +507,13 @@ func _validate_levels() -> void:
 			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_idle_strip_normalized_v2.png") or str(thornling_visual.texture.resource_path).ends_with("thornling_run_strip_normalized_v2.png"), "Level 1 Thornling pilot is not using the promoted runtime texture.")
 			thornling.thornling_attack_timer = 0.35
 			await get_tree().physics_frame
-			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_attack_strip_normalized_v2.png"), "Level 1 Thornling did not bind its contact-attack animation.")
+			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_attack_tell_strip_normalized_v2.png"), "Level 1 Thornling did not bind its attack-tell animation.")
+			for _attack_frame in range(10):
+				await get_tree().physics_frame
+			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_attack_strip_normalized_v2.png"), "Level 1 Thornling did not hand off from tell to contact attack.")
+			thornling.take_damage(1)
+			await get_tree().physics_frame
+			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_hurt_strip_normalized_v2.png"), "Level 1 Thornling did not bind its hurt animation.")
 			var spitter := level.get_node("Enemies/Spitter") as EnemyController
 			var spitter_visual := spitter.get_node("Visual") as Sprite2D
 			_check(spitter_visual.hframes == 4 and spitter_visual.vframes == 1, "Level 1 Spitter pilot lost its four-frame grid.")
@@ -638,7 +644,8 @@ func _validate_levels() -> void:
 			await get_tree().physics_frame
 			_check(vfx_enemy.hit_vfx.visible, "Level 1 enemy damage did not show the generated contact VFX.")
 			_check(vfx_enemy.hit_vfx.sprite_frames.get_frame_count(&"contact") == 4, "Enemy contact VFX lost its four-frame strip.")
-			_check(str(vfx_enemy.hit_vfx.sprite_frames.get_frame_texture(&"contact", 0).atlas.resource_path).ends_with("damage_organic_hit_normalized_v1.png"), "Enemy contact VFX did not use the generated organic-hit strip.")
+			var expected_enemy_vfx := "thornling_contact_hit_normalized_v2.png" if vfx_enemy.enemy_type == "thornling" else "damage_organic_hit_normalized_v1.png"
+			_check(str(vfx_enemy.hit_vfx.sprite_frames.get_frame_texture(&"contact", 0).atlas.resource_path).ends_with(expected_enemy_vfx), "Enemy contact VFX did not use its generated fruit-specific strip.")
 			player.take_damage(1, Vector2.LEFT)
 			await get_tree().physics_frame
 			_check(player.player_hit_vfx.visible, "Player damage did not show the generated player-hit VFX.")

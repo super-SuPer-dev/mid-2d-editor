@@ -13,6 +13,10 @@ const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png"
 const THORNLING_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_idle_strip_normalized_v2.png")
 const THORNLING_RUN_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_run_strip_normalized_v2.png")
 const THORNLING_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_attack_strip_normalized_v2.png")
+const THORNLING_ATTACK_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_attack_tell_strip_normalized_v2.png")
+const THORNLING_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_hurt_strip_normalized_v2.png")
+const THORNLING_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_death_strip_normalized_v2.png")
+const THORNLING_CONTACT_HIT_TEXTURE: Texture2D = preload("res://assets/vfx/damage/thornling_contact_hit_normalized_v2.png")
 const SPITTER_TEXTURE := preload("res://assets/enemies/standard/spitter.png")
 const SPITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_idle_strip_normalized_v2.png")
 const SPITTER_WALK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/spitter/spitter_walk_strip_normalized_v2.png")
@@ -76,6 +80,7 @@ var root_skitter_frame_clock: float = 0.0
 var thornling_action: StringName = &"idle"
 var thornling_frame_clock: float = 0.0
 var thornling_attack_timer: float = 0.0
+var thornling_hurt_timer: float = 0.0
 var spitter_action: StringName = &"idle"
 var spitter_frame_clock: float = 0.0
 var spitter_attack_timer: float = 0.0
@@ -312,6 +317,7 @@ func _physics_process(delta: float) -> void:
 	shoot_cooldown = maxf(shoot_cooldown - delta, 0.0)
 	spitter_attack_timer = maxf(spitter_attack_timer - delta, 0.0)
 	thornling_attack_timer = maxf(thornling_attack_timer - delta, 0.0)
+	thornling_hurt_timer = maxf(thornling_hurt_timer - delta, 0.0)
 	velocity.y += GRAVITY * delta
 	if is_instance_valid(target):
 		var offset := target.global_position - global_position
@@ -356,21 +362,23 @@ func _physics_process(delta: float) -> void:
 func _update_thornling_animation(delta: float) -> void:
 	if enemy_type != "thornling":
 		return
-	var next_action: StringName = &"attack" if thornling_attack_timer > 0.0 else (&"run" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")
-	if next_action != thornling_action:
+	var next_action: StringName = &"hurt" if thornling_hurt_timer > 0.0 else (&"attack" if thornling_attack_timer > 0.0 else (&"run" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"))
+	var desired_texture: Texture2D = THORNLING_IDLE_TEXTURE
+	match next_action:
+		&"hurt":
+			desired_texture = THORNLING_HURT_TEXTURE
+		&"attack":
+			desired_texture = THORNLING_ATTACK_TELL_TEXTURE if thornling_attack_timer > 0.22 else THORNLING_ATTACK_TEXTURE
+		&"run":
+			desired_texture = THORNLING_RUN_TEXTURE
+	if next_action != thornling_action or visual.texture != desired_texture:
 		thornling_action = next_action
 		thornling_frame_clock = 0.0
-		match next_action:
-			&"attack":
-				visual.texture = THORNLING_ATTACK_TEXTURE
-			&"run":
-				visual.texture = THORNLING_RUN_TEXTURE
-			_:
-				visual.texture = THORNLING_IDLE_TEXTURE
+		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 8.0 if next_action == &"attack" else (7.0 if next_action == &"run" else 4.0)
+	var frame_rate := 8.0 if next_action == &"attack" or next_action == &"hurt" else (7.0 if next_action == &"run" else 4.0)
 	thornling_frame_clock = fmod(thornling_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(thornling_frame_clock)
 
@@ -586,6 +594,10 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 	var applied := health.take_damage(amount)
 	if applied:
 		AudioManager.play_named_sfx(&"enemy_hit", 1.0, -9.0)
+		if enemy_type == "thornling":
+			thornling_hurt_timer = 0.2
+			thornling_action = &"hurt"
+			thornling_frame_clock = 0.0
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")
@@ -593,7 +605,7 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 
 
 func _setup_hit_vfx() -> void:
-	var hit_texture: Texture2D = ORGANIC_HIT_VFX_TEXTURE
+	var hit_texture: Texture2D = THORNLING_CONTACT_HIT_TEXTURE if enemy_type == "thornling" else ORGANIC_HIT_VFX_TEXTURE
 	if is_boss:
 		hit_texture = BOSS_CORE_HIT_VFX_TEXTURE if enemy_type == "root_core_eye_boss" else ARMORED_HIT_VFX_TEXTURE
 	var frames := SpriteFrames.new()
