@@ -20,6 +20,11 @@ position = Vector2(0, -8)
 texture_filter = 1
 texture = ExtResource("3_art")
 
+[node name="VisualAccent" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+visible = false
+
 [node name="HitVfx" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -30)
 z_index = 3

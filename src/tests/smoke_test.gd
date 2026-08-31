@@ -788,6 +788,21 @@ func _validate_levels() -> void:
 			capsule_husk._update_capsule_husk_animation(0.0)
 			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_hurt_strip_normalized_v2.png"), "Level 5 Capsule Husk did not bind its hurt animation.")
 			_check(str(capsule_husk._get_standard_death_texture().resource_path).ends_with("capsule_husk_death_strip_normalized_v2.png"), "Level 5 Capsule Husk lost its death-strip contract.")
+			var mixed_elite := level.get_node("Enemies/MixedElite01") as EnemyController
+			var mixed_visual := mixed_elite.get_node("Visual") as Sprite2D
+			var mixed_accent := mixed_elite.get_node("VisualAccent") as Sprite2D
+			_check(mixed_visual.hframes == 4 and mixed_visual.vframes == 1, "Level 5 Mixed Elite body lost its four-frame grid.")
+			_check(str(mixed_visual.texture.resource_path).ends_with("capsule_husk_idle_strip_normalized_v2.png"), "Level 5 Mixed Elite body is still using a placeholder or wrong texture.")
+			_check(mixed_accent.visible and mixed_accent.hframes == 4 and mixed_accent.vframes == 1, "Level 5 Mixed Elite lost its eye-wisp overlay contract.")
+			_check(str(mixed_accent.texture.resource_path).ends_with("eye_wisp_hover_strip_normalized_v2.png"), "Level 5 Mixed Elite overlay is not using the promoted eye-wisp texture.")
+			mixed_elite.capsule_husk_attack_timer = 0.45
+			mixed_elite._update_capsule_husk_animation(0.0)
+			_check(str(mixed_visual.texture.resource_path).ends_with("capsule_husk_charge_tell_strip_normalized_v2.png"), "Level 5 Mixed Elite did not bind its charge-tell body animation.")
+			_check(mixed_accent.frame == mixed_visual.frame, "Level 5 Mixed Elite overlay is not synchronized with the body animation.")
+			mixed_elite.take_damage(1)
+			mixed_elite._update_capsule_husk_animation(0.0)
+			_check(str(mixed_visual.texture.resource_path).ends_with("capsule_husk_hurt_strip_normalized_v2.png"), "Level 5 Mixed Elite did not bind its hurt body animation.")
+			_check(str(mixed_elite._get_standard_death_texture().resource_path).ends_with("capsule_husk_death_strip_normalized_v2.png"), "Level 5 Mixed Elite lost its death-strip contract.")
 		_check(boss_count == 1, "%s did not spawn exactly one boss." % level_id)
 		_check(player_count == 1, "%s did not spawn exactly one player." % level_id)
 		_check(level.get_node("WorldGeometry").get_child_count() > 0, "%s has no authored world geometry." % level_id)

@@ -85,6 +85,7 @@ const POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE: Texture2D = preload("res://asse
 const POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_diagonal_root_cast_strip_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
+@onready var visual_accent: Sprite2D = $VisualAccent
 @onready var hit_vfx: AnimatedSprite2D = $HitVfx
 @onready var health: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar = $HealthBar
@@ -127,6 +128,8 @@ var capsule_husk_action: StringName = &"idle"
 var capsule_husk_frame_clock: float = 0.0
 var capsule_husk_attack_timer: float = 0.0
 var capsule_husk_hurt_timer: float = 0.0
+var mixed_elite_frame_clock: float = 0.0
+var mixed_elite_action: StringName = &"idle"
 var root_hydra_frame_clock: float = 0.0
 var root_hydra_visual_phase: int = 0
 var root_hydra_action: StringName = &"idle"
@@ -152,6 +155,7 @@ var possessed_banyan_action: StringName = &"idle"
 func configure(type_id: String) -> void:
 	enemy_type = type_id
 	is_boss = enemy_type.ends_with("_boss")
+	visual_accent.visible = false
 	if is_boss:
 		add_to_group("Boss")
 	match enemy_type:
@@ -250,7 +254,23 @@ func configure(type_id: String) -> void:
 			health.max_health = 14
 			contact_damage = 3
 			detection_range = 600.0
+			visual.texture = CAPSULE_HUSK_IDLE_TEXTURE
+			visual.hframes = 4
+			visual.vframes = 1
+			visual.frame = 0
+			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color("d09562")
+			visual.scale = Vector2(0.06, 0.06)
+			visual.position = Vector2(0.0, -18.0)
+			visual_accent.texture = EYE_WISP_HOVER_TEXTURE
+			visual_accent.hframes = 4
+			visual_accent.vframes = 1
+			visual_accent.frame = 0
+			visual_accent.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			visual_accent.modulate = Color("8ce7f6")
+			visual_accent.scale = Vector2(0.032, 0.032)
+			visual_accent.position = Vector2(0.0, -30.0)
+			visual_accent.visible = true
 			scale = Vector2(1.45, 1.45)
 		"banyan_boss":
 			move_speed = 105.0
@@ -408,7 +428,7 @@ func _physics_process(delta: float) -> void:
 					maw_attack_timer = 0.4
 					maw_action = &"anticipation"
 					maw_frame_clock = 0.0
-				elif enemy_type == "capsule_husk_elite":
+				elif enemy_type == "capsule_husk_elite" or enemy_type == "mixed_elite":
 					capsule_husk_attack_timer = 0.45
 					capsule_husk_action = &"charge_tell"
 					capsule_husk_frame_clock = 0.0
@@ -513,7 +533,7 @@ func _update_maw_animation(delta: float) -> void:
 
 
 func _update_capsule_husk_animation(delta: float) -> void:
-	if enemy_type != "capsule_husk_elite":
+	if enemy_type != "capsule_husk_elite" and enemy_type != "mixed_elite":
 		return
 	var next_action: StringName = &"hurt" if capsule_husk_hurt_timer > 0.0 else (&"charge_tell" if capsule_husk_attack_timer > 0.28 else (&"core_attack" if capsule_husk_attack_timer > 0.0 else (&"move" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle")))
 	var desired_texture: Texture2D = CAPSULE_HUSK_IDLE_TEXTURE
@@ -536,6 +556,10 @@ func _update_capsule_husk_animation(delta: float) -> void:
 	var frame_rate := 7.0 if next_action == &"charge_tell" or next_action == &"core_attack" or next_action == &"hurt" else (5.5 if next_action == &"move" else 3.5)
 	capsule_husk_frame_clock = fmod(capsule_husk_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(capsule_husk_frame_clock)
+	if enemy_type == "mixed_elite" and visual_accent.visible:
+		mixed_elite_action = next_action
+		mixed_elite_frame_clock = capsule_husk_frame_clock
+		visual_accent.frame = visual.frame
 
 
 func _update_root_skitter_animation(delta: float) -> void:
@@ -753,7 +777,7 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			maw_hurt_timer = 0.2
 			maw_action = &"hurt"
 			maw_frame_clock = 0.0
-		elif enemy_type == "capsule_husk_elite":
+		elif enemy_type == "capsule_husk_elite" or enemy_type == "mixed_elite":
 			capsule_husk_hurt_timer = 0.2
 			capsule_husk_action = &"hurt"
 			capsule_husk_frame_clock = 0.0
@@ -871,7 +895,7 @@ func _get_standard_death_texture() -> Texture2D:
 			return ROOT_SKITTER_DEATH_TEXTURE
 		"eye_wisp":
 			return EYE_WISP_DEATH_TEXTURE
-		"capsule_husk_elite":
+		"capsule_husk_elite", "mixed_elite":
 			return CAPSULE_HUSK_DEATH_TEXTURE
 		"thorn_matriarch_boss":
 			return THORN_MATRIARCH_DEATH_TEXTURE
