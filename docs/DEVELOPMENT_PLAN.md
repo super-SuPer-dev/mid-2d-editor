@@ -418,6 +418,11 @@ English/Thai-safe content margins. Smoke assertions cover both presentation
 modes and combat-safe radio anchoring; briefing/debrief full-screen shells remain
 open.
 
+**Briefing/debrief frame promotion evidence — 2026-08-31:** Generated tactical
+briefing and results shells are now selected by the dialogue presentation mode,
+with smoke coverage for both stable IDs. Full-screen mission composition and
+human visual review remain open.
+
 **Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
 bind their generated four-frame hazard strips through the shared DamageHazard
 contract at 8 fps: mangosteen spore vent, santol seed piston, nutrient-root

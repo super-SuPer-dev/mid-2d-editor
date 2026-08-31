@@ -397,6 +397,14 @@ func _validate_dialogue_presentations() -> void:
 	await get_tree().process_frame
 	var full_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
 	_check(full_style != null and full_style.texture != null and str(full_style.texture.resource_path).ends_with("dialogue_frame_normalized_v1.png"), "Full dialogue did not apply the generated frame skin.")
+	overlay._apply_presentation_mode("briefing")
+	await get_tree().process_frame
+	var briefing_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
+	_check(briefing_style != null and briefing_style.texture != null and str(briefing_style.texture.resource_path).ends_with("briefing_panel_normalized_v1.png"), "Briefing dialogue did not apply the generated frame skin.")
+	overlay._apply_presentation_mode("debrief")
+	await get_tree().process_frame
+	var debrief_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
+	_check(debrief_style != null and debrief_style.texture != null and str(debrief_style.texture.resource_path).ends_with("debrief_panel_normalized_v1.png"), "Debrief dialogue did not apply the generated frame skin.")
 	_check(overlay.panel.anchor_left == 0.5 and overlay.panel.anchor_top == 1.0, "Full dialogue did not restore its bottom-center layout.")
 	_check(overlay.actions.visible, "Full dialogue did not restore its controls.")
 	overlay.queue_free()

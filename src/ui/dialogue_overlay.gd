@@ -3,6 +3,8 @@ extends Control
 
 const DIALOGUE_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/dialogue_frame_normalized_v1.png")
 const RADIO_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/radio_overlay_frame_normalized_v1.png")
+const BRIEFING_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/briefing_panel_normalized_v1.png")
+const DEBRIEF_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/debrief_panel_normalized_v1.png")
 
 @onready var panel: PanelContainer = $Panel
 @onready var portrait: TextureRect = $Panel/Body/Portrait
@@ -20,6 +22,8 @@ var paused_by_dialogue: bool = false
 var pending_sequences: Array[String] = []
 var dialogue_frame_style: StyleBoxTexture
 var radio_frame_style: StyleBoxTexture
+var briefing_frame_style: StyleBoxTexture
+var debrief_frame_style: StyleBoxTexture
 
 
 func _ready() -> void:
@@ -29,6 +33,8 @@ func _ready() -> void:
 	LocalizationManager.language_changed.connect(_on_language_changed)
 	dialogue_frame_style = _build_frame_style(DIALOGUE_FRAME_TEXTURE)
 	radio_frame_style = _build_frame_style(RADIO_FRAME_TEXTURE)
+	briefing_frame_style = _build_frame_style(BRIEFING_FRAME_TEXTURE)
+	debrief_frame_style = _build_frame_style(DEBRIEF_FRAME_TEXTURE)
 
 
 func show_sequence(requested_sequence_id: String) -> void:
@@ -62,8 +68,9 @@ func _show_current_entry() -> void:
 	text_label.text = LocalizationManager.text(str(entry.get("text_key", "")))
 	continue_button.text = LocalizationManager.text("DIALOGUE_CONTINUE")
 	skip_button.text = LocalizationManager.text("DIALOGUE_SKIP")
-	var is_radio := str(entry.get("presentation_mode", "briefing")) == "radio"
-	_apply_presentation_mode("radio" if is_radio else "full")
+	var presentation_mode := str(entry.get("presentation_mode", "briefing"))
+	var is_radio := presentation_mode == "radio"
+	_apply_presentation_mode(presentation_mode)
 	continue_button.visible = not is_radio
 	skip_button.visible = not is_radio and bool(entry.get("skippable", true))
 	if bool(entry.get("pause_game", false)) and not get_tree().paused:
@@ -75,7 +82,14 @@ func _show_current_entry() -> void:
 
 func _apply_presentation_mode(mode: String) -> void:
 	var is_radio := mode == "radio"
-	panel.add_theme_stylebox_override("panel", radio_frame_style if is_radio else dialogue_frame_style)
+	var frame_style := dialogue_frame_style
+	if mode == "radio":
+		frame_style = radio_frame_style
+	elif mode == "briefing":
+		frame_style = briefing_frame_style
+	elif mode == "debrief":
+		frame_style = debrief_frame_style
+	panel.add_theme_stylebox_override("panel", frame_style)
 	if is_radio:
 		panel.custom_minimum_size = Vector2(500.0, 116.0)
 		panel.anchor_left = 1.0
