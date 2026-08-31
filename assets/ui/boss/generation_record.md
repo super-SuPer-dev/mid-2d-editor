@@ -19,3 +19,20 @@ sources; source masters remain unchanged for rollback. The HUD panel reserves
 an aspect-safe 660 × 220 presentation area and keeps all localized text outside
 the raster frame. Human visual composition and final platform memory review
 remain open before `Verified`.
+
+## Boss-intro frames
+
+The same package includes one text-free 1800 × 1000 binary-alpha intro frame
+per boss. `DialogueOverlay` applies the frame when a `presentation_mode: boss`
+sequence is shown; all buttons and copy remain runtime-localized.
+
+| Boss ID | Runtime file | Binary-alpha SHA-256 |
+|---|---|---|
+| `thorn_matriarch` | `thorn_matriarch_boss_intro_frame_v1.png` | `3BC93136E3719911ED8B38A60671FA64274494EB2491D61637E436D70C537DDE` |
+| `maw_bloom_sovereign` | `maw_sovereign_boss_intro_frame_v1.png` | `63A8217A1D03AFFB24A754B48AAC801EB748943ADBFD69E8F8A5E43997C389D1` |
+| `possessed_banyan` | `possessed_banyan_boss_intro_frame_v1.png` | `26A160C77F067EDB8A8B06408225435F9E35E8699B221836A84012BF7F712E5E` |
+| `root_hydra` | `root_hydra_boss_intro_frame_v1.png` | `2169DCD1E9BA1A1FF8EFCD8914425A4C1BCE6096E286AA3C0B45A222798A72A2` |
+| `root_core_eye` | `root_core_eye_boss_intro_frame_v1.png` | `767FA9DC888775C91A4104EB819F68E8D46FDF2A0BD17A984C880FF3810E0645` |
+
+Strict asset validation and headless Godot smoke coverage pass for all ten
+frames. Human composition, timing and final platform-memory review remain open.

@@ -456,6 +456,15 @@ Strict asset validation, project-structure validation and the full headless
 Godot smoke suite pass. Human visual composition, final platform memory and
 boss-intro presentation review remain open.
 
+**Boss introduction frame promotion evidence — 2026-08-31:** The paused boss
+introduction presentation now selects one of five generated 1800 × 1000
+binary-alpha frames by `GameManager.current_boss_id` through the existing
+`presentation_mode: boss` dialogue contract. Smoke coverage checks every boss
+ID and strict asset validation reports zero semi-transparent pixels across the
+HUD and intro frame package. Text, portraits and controls remain localized at
+runtime; human timing, composition and final platform-memory review remain
+open.
+
 ## 8. Definition of Ready
 
 A feature is ready for implementation when:

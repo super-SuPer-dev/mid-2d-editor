@@ -420,6 +420,15 @@ func _validate_dialogue_presentations() -> void:
 	await get_tree().process_frame
 	var briefing_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
 	_check(briefing_style != null and briefing_style.texture != null and str(briefing_style.texture.resource_path).ends_with("briefing_panel_normalized_v1.png"), "Briefing dialogue did not apply the generated frame skin.")
+	var original_boss_id := GameManager.current_boss_id
+	for boss_id: String in ["thorn_matriarch", "maw_bloom_sovereign", "possessed_banyan", "root_hydra", "root_core_eye"]:
+		GameManager.current_boss_id = boss_id
+		overlay._apply_presentation_mode("boss")
+		await get_tree().process_frame
+		var boss_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
+		var expected_intro_suffix: String = "%s_boss_intro_frame_v1.png" % ("maw_sovereign" if boss_id == "maw_bloom_sovereign" else boss_id)
+		_check(boss_style != null and boss_style.texture != null and str(boss_style.texture.resource_path).ends_with(expected_intro_suffix), "%s boss introduction did not apply its generated frame skin." % boss_id)
+	GameManager.current_boss_id = original_boss_id
 	overlay._apply_presentation_mode("debrief")
 	await get_tree().process_frame
 	var debrief_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
