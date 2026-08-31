@@ -59,3 +59,17 @@ boss defeat signal while disabling collision and pattern processing.
 |---|---|
 | `art_source/generated/bosses/root_hydra/body/root_hydra_death_normalized_v1.png` | `5B4169B8DECD9F9FD71E8C376DFD5D39492E1486A5D2F8675D0EC2C7644B4432` |
 | `assets/enemies/bosses/root_hydra/root_hydra_death_strip_normalized_v2.png` | `5B4169B8DECD9F9FD71E8C376DFD5D39492E1486A5D2F8675D0EC2C7644B4432` |
+
+## Hurt promotion
+
+The normalized source hurt strip is promoted to
+`root_hydra_hurt_strip_normalized_v2.png`. It is a 4000 × 900 four-frame
+binary-alpha strip using the same 1000 × 900 cell contract and 840 px
+baseline as the body package. The shared enemy lifecycle displays this strip
+for 0.2 seconds after damage, without blocking movement or pattern updates,
+then resumes the active phase animation.
+
+| File | SHA-256 |
+|---|---|
+| `art_source/generated/bosses/root_hydra/body/root_hydra_hurt_normalized_v1.png` | `A7F6E93EDD4117104347A217FA6D303545C157D9DF9F201E968DD768E840AB7F` |
+| `assets/enemies/bosses/root_hydra/root_hydra_hurt_strip_normalized_v2.png` | `A7F6E93EDD4117104347A217FA6D303545C157D9DF9F201E968DD768E840AB7F` |

@@ -65,3 +65,17 @@ processing.
 |---|---|
 | `art_source/generated/bosses/root_core_eye/body/root_core_eye_death_normalized_v1.png` | `5095F98C83913CE71EB6FE14E984C0526A8F9A543462D55C6623AF13BF01D106` |
 | `assets/enemies/bosses/root_core_eye/root_core_eye_death_strip_normalized_v2.png` | `5095F98C83913CE71EB6FE14E984C0526A8F9A543462D55C6623AF13BF01D106` |
+
+## Hurt promotion
+
+The normalized source hurt strip is promoted to
+`root_core_eye_hurt_strip_normalized_v2.png`. It is a 4000 × 900 four-frame
+binary-alpha strip using the same 1000 × 900 cell contract and 840 px
+baseline as the body package. The shared enemy lifecycle displays this strip
+for 0.2 seconds after damage, without blocking movement or pattern updates,
+then resumes the active phase animation.
+
+| File | SHA-256 |
+|---|---|
+| `art_source/generated/bosses/root_core_eye/body/root_core_eye_hurt_normalized_v1.png` | `580AE31DF0E62F82C42A59823DD7ED9C370F28A6B9AC01971ABF24212FDAC6FF` |
+| `assets/enemies/bosses/root_core_eye/root_core_eye_hurt_strip_normalized_v2.png` | `580AE31DF0E62F82C42A59823DD7ED9C370F28A6B9AC01971ABF24212FDAC6FF` |

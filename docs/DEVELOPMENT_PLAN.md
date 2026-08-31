@@ -341,6 +341,13 @@ review.
 the exact runtime path and native grid while the shared defeat lifecycle
 disables collision and pattern processing during playback.
 
+**Root Hydra hurt-presentation evidence — 2026-08-31:** The authored
+`root_hydra_hurt_normalized_v1.png` source is normalized into a four-frame
+1000 × 900 binary-alpha strip. A 0.2-second damage-priority timer selects it
+above idle or cast visuals, then returns to the current phase/action without
+altering projectile timing; English smoke covers both the hit handoff and
+recovery.
+
 **Level 5 enemy-asset promotion evidence — 2026-08-31:** The Eye Wisp (longan seed) now has all seven body actions promoted as quantized runtime strips. Every action uses 4 × 700 × 800 cells and the authored y = 740 lower guide; hover/fly run at 4.5/7 fps and aim/seed/beam/hurt at 8 fps. The controller alternates seed-bolt and beam projectile tells, gives spawned projectiles the matching four-frame fruit visual, and plays a short non-blocking death strip; the Level 5 smoke suite checks both handoffs, projectile binding and hurt state. Detached VFX and human nexus-scale review remain open.
 
 **Final-boss asset promotion evidence — 2026-08-31:** The Root-Core Eye now has sealed and exposed idle pilots. Both strips use 4 × 1000 × 900 cells, the authored 840 px baseline, binary alpha and nearest filtering; the runtime switches from sealed to exposed at phase 2 while keeping the deterministic Root-Core Eye projectile patterns unchanged. Smoke coverage checks the initial sealed state, baseline and grid. Remaining action/projectile/presentation art, audio and human final-boss review remain open.
@@ -368,6 +375,12 @@ final-boss review.
 `root_core_eye_death_normalized_v1.png` source is promoted as the four-frame
 `root_core_eye_death_strip_normalized_v2.png` runtime strip. English smoke
 checks the exact runtime path and native grid for the campaign-ending boss.
+
+**Root-Core Eye hurt-presentation evidence — 2026-08-31:** The authored
+`root_core_eye_hurt_normalized_v1.png` source is normalized into a four-frame
+1000 × 900 binary-alpha strip. A 0.2-second damage-priority timer selects it
+above sealed/exposed or cast visuals, then returns to the current phase/action;
+English smoke covers the hit handoff and recovery.
 
 **Campaign ending evidence — 2026-08-31:** The smoke suite now triggers the real Level 5 portal callback after boss defeat and proves the run ends before debrief presentation, the debrief is requested exactly once, its one-shot state is recorded, story stage reaches the final act, and the campaign-complete modal opens only after the dialogue queue drains. This closes the sequencing contract for the current greybox; ending art, final audio, platform exports and human tone review remain open.
 

@@ -678,6 +678,11 @@ func _validate_levels() -> void:
 			_check(absf(root_hydra_visual.position.y + 105.0) < 0.01, "Level 4 Root Hydra pilot lost its 840 px baseline offset.")
 			_check(str(root_hydra_visual.texture.resource_path).ends_with("root_hydra_idle_strip_normalized_v2.png"), "Level 4 Root Hydra pilot is not using the promoted runtime texture.")
 			_check(str(root_hydra._get_standard_death_texture().resource_path).ends_with("root_hydra_death_strip_normalized_v2.png"), "Level 4 Root Hydra lost its promoted death-strip contract.")
+			root_hydra.take_damage(1)
+			root_hydra._update_root_hydra_animation(0.0)
+			_check(str(root_hydra_visual.texture.resource_path).ends_with("root_hydra_hurt_strip_normalized_v2.png"), "Level 4 Root Hydra did not bind its hurt presentation.")
+			root_hydra.boss_hurt_timer = 0.0
+			root_hydra._update_root_hydra_animation(0.0)
 		if level_id == "level_05":
 			var nexus_tile := level.get_node("Environment/NexusTileAccentA") as Sprite2D
 			var nexus_corner := level.get_node("Environment/NexusCornerAccent") as Sprite2D
@@ -721,6 +726,11 @@ func _validate_levels() -> void:
 			_check(absf(root_core_eye_visual.position.y + 105.0) < 0.01, "Level 5 Root-Core Eye pilot lost its 840 px baseline offset.")
 			_check(str(root_core_eye_visual.texture.resource_path).ends_with("root_core_eye_idle_sealed_normalized_v2.png"), "Level 5 Root-Core Eye pilot did not begin in its sealed visual state.")
 			_check(str(root_core_eye._get_standard_death_texture().resource_path).ends_with("root_core_eye_death_strip_normalized_v2.png"), "Level 5 Root-Core Eye lost its promoted death-strip contract.")
+			root_core_eye.take_damage(1)
+			root_core_eye._update_root_core_eye_animation(0.0)
+			_check(str(root_core_eye_visual.texture.resource_path).ends_with("root_core_eye_hurt_strip_normalized_v2.png"), "Level 5 Root-Core Eye did not bind its hurt presentation.")
+			root_core_eye.boss_hurt_timer = 0.0
+			root_core_eye._update_root_core_eye_animation(0.0)
 			var capsule_husk := level.get_node("Enemies/CapsuleHusk01") as EnemyController
 			var capsule_husk_visual := capsule_husk.get_node("Visual") as Sprite2D
 			_check(capsule_husk_visual.hframes == 4 and capsule_husk_visual.vframes == 1, "Level 5 Capsule Husk pilot lost its four-frame grid.")

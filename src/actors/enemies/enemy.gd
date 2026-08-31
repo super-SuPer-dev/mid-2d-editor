@@ -52,6 +52,7 @@ const ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE: Texture2D = preload("res://assets/enemi
 const ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_radial_ring_cast_strip_normalized_v2.png")
 const ROOT_HYDRA_LANE_WALL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_lane_wall_cast_strip_normalized_v2.png")
 const ROOT_HYDRA_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_death_strip_normalized_v2.png")
+const ROOT_HYDRA_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_hurt_strip_normalized_v2.png")
 const EYE_WISP_HOVER_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_hover_strip_normalized_v2.png")
 const EYE_WISP_FLY_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_fly_strip_normalized_v2.png")
 const EYE_WISP_AIM_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/eye_wisp/eye_wisp_aim_tell_strip_normalized_v2.png")
@@ -65,6 +66,7 @@ const ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemi
 const ROOT_CORE_EYE_AIMED_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_aimed_seed_cast_strip_normalized_v2.png")
 const ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_bract_curtain_cast_strip_normalized_v2.png")
 const ROOT_CORE_EYE_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_death_strip_normalized_v2.png")
+const ROOT_CORE_EYE_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_hurt_strip_normalized_v2.png")
 const THORN_MATRIARCH_ARMORED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_armored_strip_normalized_v2.png")
 const THORN_MATRIARCH_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_idle_exposed_strip_normalized_v2.png")
 const THORN_MATRIARCH_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/thorn_matriarch_death_strip_normalized_v2.png")
@@ -102,6 +104,7 @@ var combat_active: bool = true
 var pattern_attack_locked: bool = false
 var boss_phase: int = 1
 var boss_phase_count: int = 1
+var boss_hurt_timer: float = 0.0
 var base_visual_modulate: Color = Color.WHITE
 var root_skitter_action: StringName = &"idle"
 var root_skitter_frame_clock: float = 0.0
@@ -372,6 +375,7 @@ func _physics_process(delta: float) -> void:
 	capsule_husk_hurt_timer = maxf(capsule_husk_hurt_timer - delta, 0.0)
 	root_skitter_attack_timer = maxf(root_skitter_attack_timer - delta, 0.0)
 	root_skitter_hurt_timer = maxf(root_skitter_hurt_timer - delta, 0.0)
+	boss_hurt_timer = maxf(boss_hurt_timer - delta, 0.0)
 	velocity.y += GRAVITY * delta
 	if is_instance_valid(target):
 		var offset := target.global_position - global_position
@@ -566,20 +570,23 @@ func _update_root_hydra_animation(delta: float) -> void:
 	if enemy_type != "root_hydra_boss":
 		return
 	var desired_texture: Texture2D = ROOT_HYDRA_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_HYDRA_IDLE_TEXTURE
-	match root_hydra_action:
-		&"crossfire_cast":
-			desired_texture = ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE
-		&"radial_ring_cast":
-			desired_texture = ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE
-		&"lane_wall_cast":
-			desired_texture = ROOT_HYDRA_LANE_WALL_CAST_TEXTURE
+	if boss_hurt_timer > 0.0:
+		desired_texture = ROOT_HYDRA_HURT_TEXTURE
+	else:
+		match root_hydra_action:
+			&"crossfire_cast":
+				desired_texture = ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE
+			&"radial_ring_cast":
+				desired_texture = ROOT_HYDRA_RADIAL_RING_CAST_TEXTURE
+			&"lane_wall_cast":
+				desired_texture = ROOT_HYDRA_LANE_WALL_CAST_TEXTURE
 	if root_hydra_visual_phase != boss_phase or visual.texture != desired_texture:
 		root_hydra_visual_phase = boss_phase
 		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 8.0 if root_hydra_action != &"idle" else 3.0
+	var frame_rate := 8.0 if boss_hurt_timer > 0.0 or root_hydra_action != &"idle" else 3.0
 	root_hydra_frame_clock = fmod(root_hydra_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(root_hydra_frame_clock)
 
@@ -617,20 +624,23 @@ func _update_root_core_eye_animation(delta: float) -> void:
 	if enemy_type != "root_core_eye_boss":
 		return
 	var desired_texture: Texture2D = ROOT_CORE_EYE_EXPOSED_TEXTURE if boss_phase >= 2 else ROOT_CORE_EYE_SEALED_TEXTURE
-	match root_core_eye_action:
-		&"spiral_cast":
-			desired_texture = ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE
-		&"aimed_cast":
-			desired_texture = ROOT_CORE_EYE_AIMED_CAST_TEXTURE
-		&"curtain_cast":
-			desired_texture = ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE
+	if boss_hurt_timer > 0.0:
+		desired_texture = ROOT_CORE_EYE_HURT_TEXTURE
+	else:
+		match root_core_eye_action:
+			&"spiral_cast":
+				desired_texture = ROOT_CORE_EYE_SPIRAL_CAST_TEXTURE
+			&"aimed_cast":
+				desired_texture = ROOT_CORE_EYE_AIMED_CAST_TEXTURE
+			&"curtain_cast":
+				desired_texture = ROOT_CORE_EYE_CURTAIN_CAST_TEXTURE
 	if root_core_eye_visual_phase != boss_phase or visual.texture != desired_texture:
 		root_core_eye_visual_phase = boss_phase
 		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 8.0 if root_core_eye_action != &"idle" else 3.0
+	var frame_rate := 8.0 if boss_hurt_timer > 0.0 or root_core_eye_action != &"idle" else 3.0
 	root_core_eye_frame_clock = fmod(root_core_eye_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(root_core_eye_frame_clock)
 
@@ -755,6 +765,12 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			eye_wisp_hurt_timer = 0.2
 			eye_wisp_action = &"hurt"
 			eye_wisp_frame_clock = 0.0
+		elif enemy_type == "root_hydra_boss":
+			boss_hurt_timer = 0.2
+			root_hydra_frame_clock = 0.0
+		elif enemy_type == "root_core_eye_boss":
+			boss_hurt_timer = 0.2
+			root_core_eye_frame_clock = 0.0
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")
