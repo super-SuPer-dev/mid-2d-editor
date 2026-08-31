@@ -535,8 +535,12 @@ func _validate_levels() -> void:
 			_check(str(spitter._get_standard_death_texture().resource_path).ends_with("spitter_death_strip_normalized_v2.png"), "Level 1 Spitter lost its death-strip contract.")
 		if level_id == "level_02":
 			var forest_tile := level.get_node("Environment/ForestTileAccentA") as Sprite2D
+			var forest_corner := level.get_node("Environment/ForestCornerAccent") as Sprite2D
+			var forest_floating := level.get_node("Environment/ForestFloatingAccent") as Sprite2D
 			_check(forest_tile.hframes == 3 and forest_tile.frame == 1, "Level 2 forest tile accent lost its three-cell strip contract.")
 			_check(str(forest_tile.texture.resource_path).ends_with("forest_ground_straight_v1.png"), "Level 2 forest tile accent is not using the biome runtime strip.")
+			_check(forest_corner.z_index == -2 and str(forest_corner.texture.resource_path).ends_with("forest_corner_v1.png"), "Level 2 forest corner accent is not using the biome runtime strip.")
+			_check(forest_floating.z_index == -2 and str(forest_floating.texture.resource_path).ends_with("forest_platform_floating_v1.png"), "Level 2 forest floating accent is not using the biome runtime strip.")
 			var maw := level.get_node("Enemies/Maw01") as EnemyController
 			var maw_visual := maw.get_node("Visual") as Sprite2D
 			_check(maw_visual.hframes == 4 and maw_visual.vframes == 1, "Level 2 Maw pilot lost its four-frame grid.")
@@ -559,8 +563,12 @@ func _validate_levels() -> void:
 			_check(str(maw_boss_visual.texture.resource_path).ends_with("maw_sovereign_idle_armored_strip_normalized_v2.png"), "Level 2 Maw Sovereign pilot did not begin in its armored visual state.")
 		if level_id == "level_03":
 			var capsule_tile := level.get_node("Environment/CapsuleTileAccentA") as Sprite2D
+			var capsule_corner := level.get_node("Environment/CapsuleCornerAccent") as Sprite2D
+			var capsule_floating := level.get_node("Environment/CapsuleFloatingAccent") as Sprite2D
 			_check(capsule_tile.hframes == 3 and capsule_tile.frame == 1, "Level 3 capsule tile accent lost its three-cell strip contract.")
 			_check(str(capsule_tile.texture.resource_path).ends_with("capsule_ground_straight_v1.png"), "Level 3 capsule tile accent is not using the biome runtime strip.")
+			_check(capsule_corner.z_index == -2 and str(capsule_corner.texture.resource_path).ends_with("capsule_corner_v1.png"), "Level 3 capsule corner accent is not using the biome runtime strip.")
+			_check(capsule_floating.z_index == -2 and str(capsule_floating.texture.resource_path).ends_with("capsule_platform_floating_v1.png"), "Level 3 capsule floating accent is not using the biome runtime strip.")
 			var banyan_boss := level.get_node("Enemies/BanyanBoss") as EnemyController
 			var banyan_visual := banyan_boss.get_node("Visual") as Sprite2D
 			_check(banyan_visual.hframes == 4 and banyan_visual.vframes == 1, "Level 3 Possessed Banyan pilot lost its four-frame grid.")
@@ -624,8 +632,12 @@ func _validate_levels() -> void:
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var marsh_tile := level.get_node("Environment/MarshTileAccentA") as Sprite2D
+			var marsh_corner := level.get_node("Environment/MarshCornerAccent") as Sprite2D
+			var marsh_floating := level.get_node("Environment/MarshFloatingAccent") as Sprite2D
 			_check(marsh_tile.hframes == 3 and marsh_tile.frame == 1, "Level 4 marsh tile accent lost its three-cell strip contract.")
 			_check(str(marsh_tile.texture.resource_path).ends_with("marsh_ground_straight_v2.png"), "Level 4 marsh tile accent is not using the biome runtime strip.")
+			_check(marsh_corner.z_index == -2 and str(marsh_corner.texture.resource_path).ends_with("marsh_corner_v2.png"), "Level 4 marsh corner accent is not using the biome runtime strip.")
+			_check(marsh_floating.z_index == -2 and str(marsh_floating.texture.resource_path).ends_with("marsh_platform_floating_v2.png"), "Level 4 marsh floating accent is not using the biome runtime strip.")
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
 			var root_skitter_visual := root_skitter.get_node("Visual") as Sprite2D
 			_check(root_skitter_visual.hframes == 4 and root_skitter_visual.vframes == 1, "Level 4 root-skitter pilot lost its four-frame grid.")
@@ -665,8 +677,12 @@ func _validate_levels() -> void:
 			_check(str(root_hydra._get_standard_death_texture().resource_path).ends_with("root_hydra_death_strip_normalized_v2.png"), "Level 4 Root Hydra lost its promoted death-strip contract.")
 		if level_id == "level_05":
 			var nexus_tile := level.get_node("Environment/NexusTileAccentA") as Sprite2D
+			var nexus_corner := level.get_node("Environment/NexusCornerAccent") as Sprite2D
+			var nexus_floating := level.get_node("Environment/NexusFloatingAccent") as Sprite2D
 			_check(nexus_tile.hframes == 3 and nexus_tile.frame == 1, "Level 5 nexus tile accent lost its three-cell strip contract.")
 			_check(str(nexus_tile.texture.resource_path).ends_with("nexus_ground_straight_v2.png"), "Level 5 nexus tile accent is not using the biome runtime strip.")
+			_check(nexus_corner.z_index == -2 and str(nexus_corner.texture.resource_path).ends_with("nexus_corner_v2.png"), "Level 5 nexus corner accent is not using the biome runtime strip.")
+			_check(nexus_floating.z_index == -2 and str(nexus_floating.texture.resource_path).ends_with("nexus_platform_floating_v2.png"), "Level 5 nexus floating accent is not using the biome runtime strip.")
 			var eye_wisp := level.get_node("Enemies/EyeWisp01") as EnemyController
 			var eye_wisp_visual := eye_wisp.get_node("Visual") as Sprite2D
 			_check(eye_wisp_visual.hframes == 4 and eye_wisp_visual.vframes == 1, "Level 5 Eye Wisp pilot lost its four-frame grid.")

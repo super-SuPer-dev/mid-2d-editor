@@ -311,6 +311,13 @@ route timing; English scene-load and asset validation cover the paths. Corner,
 broken, cap, slope and infestation variants remain for later art placement and
 human pixel-art review.
 
+**Biome tile-variant promotion evidence — 2026-08-31:** Corner and floating
+platform candidates are now also promoted for each Level 2–5 biome and placed
+as two additional z = -2, non-colliding nearest-filtered accents per scene.
+Smoke checks the canonical texture paths and background draw order; broken,
+cap, slope and infestation variants remain intentionally unplaced until their
+silhouette and route-occlusion review.
+
 **Generated-asset audit evidence — 2026-08-31:** `tools/validate_generated_assets.ps1` now provides a repeatable, memory-safe source audit. It scanned all 474 PNG candidates (831,196,936 bytes), decoded 474/474, confirmed 188/188 normalized strips have widths divisible by four, found nearby Markdown provenance for 450/474 files, and reported 335 opaque-art soft-alpha warnings. The validator intentionally leaves candidates in `Review`; binary-alpha remediation, per-package grid/pivot/baseline review, runtime promotion, and human pixel-art approval remain open.
 
 **Generated-asset promotion evidence — 2026-08-31:** The Root Skitter (salak) package now has a reversible runtime pilot. Seven source actions were normalized to 4 × 700 × 800 strips with a 740 px baseline and threshold-128 binary alpha; idle and scuttle are wired to the Level 4 enemy controller with nearest filtering, floor offset and measured 5.5/8 fps timing. Godot MCP runtime inspection confirmed `hframes=4`, the promoted texture path, `position.y=-17`, and frame advancement. The package remains `Integrated` rather than `Verified` pending visual silhouette, animation-continuity and combat-scale review; the other five actions still need binding.

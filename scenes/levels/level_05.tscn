@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/landmarks/awakened_sensory_nexus_v2.png" id="10_landmark"]
 [ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/extraction/nexus_extraction_beacon_v2.png" id="11_beacon"]
 [ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_straight_v2.png" id="12_tile"]
+[ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_corner_v2.png" id="13_corner"]
+[ext_resource type="Texture2D" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_platform_floating_v2.png" id="14_float"]
 
 [node name="AlienEyeNexus" type="Node2D"]
 script = ExtResource("1")
@@ -48,6 +50,18 @@ texture_filter = 1
 texture = ExtResource("12_tile")
 hframes = 3
 frame = 1
+[node name="NexusCornerAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(1080, 540)
+z_index = -2
+scale = Vector2(0.13, 0.13)
+texture_filter = 1
+texture = ExtResource("13_corner")
+[node name="NexusFloatingAccent" type="Sprite2D" parent="Environment"]
+position = Vector2(2320, 500)
+z_index = -2
+scale = Vector2(0.13, 0.13)
+texture_filter = 1
+texture = ExtResource("14_float")
 [node name="NexusVoid" type="Polygon2D" parent="Environment"]
 z_index = -5
 polygon = PackedVector2Array(0, 850, 0, 390, 350, 340, 700, 410, 1050, 320, 1400, 395, 1750, 300, 2100, 380, 2450, 315, 2800, 390, 3150, 300, 3600, 370, 3600, 850)
