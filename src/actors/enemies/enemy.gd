@@ -41,6 +41,11 @@ const CAPSULE_HUSK_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/stan
 const THORN_MATRIARCH_TEXTURE := preload("res://assets/enemies/bosses/thorn_matriarch.png")
 const ROOT_SKITTER_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_idle_strip_normalized_v2.png")
 const ROOT_SKITTER_SCUTTLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_scuttle_strip_normalized_v2.png")
+const ROOT_SKITTER_BURROW_TELL_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_burrow_tell_strip_normalized_v2.png")
+const ROOT_SKITTER_BURROW_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_burrow_strip_normalized_v2.png")
+const ROOT_SKITTER_EMERGE_ATTACK_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_emerge_attack_strip_normalized_v2.png")
+const ROOT_SKITTER_HURT_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_hurt_strip_normalized_v2.png")
+const ROOT_SKITTER_DEATH_TEXTURE: Texture2D = preload("res://assets/enemies/standard/root_skitter/root_skitter_death_strip_normalized_v2.png")
 const ROOT_HYDRA_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_strip_normalized_v2.png")
 const ROOT_HYDRA_EXPOSED_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_idle_exposed_strip_normalized_v2.png")
 const ROOT_HYDRA_CROSSFIRE_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/root_hydra_crossfire_cast_strip_normalized_v2.png")
@@ -90,6 +95,8 @@ var boss_phase_count: int = 1
 var base_visual_modulate: Color = Color.WHITE
 var root_skitter_action: StringName = &"idle"
 var root_skitter_frame_clock: float = 0.0
+var root_skitter_attack_timer: float = 0.0
+var root_skitter_hurt_timer: float = 0.0
 var thornling_action: StringName = &"idle"
 var thornling_frame_clock: float = 0.0
 var thornling_attack_timer: float = 0.0
@@ -341,6 +348,8 @@ func _physics_process(delta: float) -> void:
 	maw_hurt_timer = maxf(maw_hurt_timer - delta, 0.0)
 	capsule_husk_attack_timer = maxf(capsule_husk_attack_timer - delta, 0.0)
 	capsule_husk_hurt_timer = maxf(capsule_husk_hurt_timer - delta, 0.0)
+	root_skitter_attack_timer = maxf(root_skitter_attack_timer - delta, 0.0)
+	root_skitter_hurt_timer = maxf(root_skitter_hurt_timer - delta, 0.0)
 	velocity.y += GRAVITY * delta
 	if is_instance_valid(target):
 		var offset := target.global_position - global_position
@@ -373,6 +382,10 @@ func _physics_process(delta: float) -> void:
 					capsule_husk_attack_timer = 0.45
 					capsule_husk_action = &"charge_tell"
 					capsule_husk_frame_clock = 0.0
+				elif enemy_type == "root_skitter":
+					root_skitter_attack_timer = 0.5
+					root_skitter_action = &"burrow_tell"
+					root_skitter_frame_clock = 0.0
 		else:
 			velocity.x = move_toward(velocity.x, 0.0, 500.0 * delta)
 	visual.scale.x = absf(visual.scale.x) * facing
@@ -495,15 +508,27 @@ func _update_capsule_husk_animation(delta: float) -> void:
 func _update_root_skitter_animation(delta: float) -> void:
 	if enemy_type != "root_skitter":
 		return
-	var next_action: StringName = &"scuttle" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"
-	if next_action != root_skitter_action:
+	var next_action: StringName = &"hurt" if root_skitter_hurt_timer > 0.0 else (&"burrow_tell" if root_skitter_attack_timer > 0.34 else (&"burrow" if root_skitter_attack_timer > 0.2 else (&"emerge_attack" if root_skitter_attack_timer > 0.0 else (&"scuttle" if is_on_floor() and absf(velocity.x) > 8.0 else &"idle"))))
+	var desired_texture: Texture2D = ROOT_SKITTER_IDLE_TEXTURE
+	match next_action:
+		&"hurt":
+			desired_texture = ROOT_SKITTER_HURT_TEXTURE
+		&"burrow_tell":
+			desired_texture = ROOT_SKITTER_BURROW_TELL_TEXTURE
+		&"burrow":
+			desired_texture = ROOT_SKITTER_BURROW_TEXTURE
+		&"emerge_attack":
+			desired_texture = ROOT_SKITTER_EMERGE_ATTACK_TEXTURE
+		&"scuttle":
+			desired_texture = ROOT_SKITTER_SCUTTLE_TEXTURE
+	if next_action != root_skitter_action or visual.texture != desired_texture:
 		root_skitter_action = next_action
 		root_skitter_frame_clock = 0.0
-		visual.texture = ROOT_SKITTER_SCUTTLE_TEXTURE if next_action == &"scuttle" else ROOT_SKITTER_IDLE_TEXTURE
+		visual.texture = desired_texture
 		visual.hframes = 4
 		visual.vframes = 1
 		visual.frame = 0
-	var frame_rate := 8.0 if next_action == &"scuttle" else 5.5
+	var frame_rate := 8.0 if next_action == &"scuttle" or next_action == &"burrow_tell" or next_action == &"burrow" or next_action == &"emerge_attack" or next_action == &"hurt" else 5.5
 	root_skitter_frame_clock = fmod(root_skitter_frame_clock + delta * frame_rate, 4.0)
 	visual.frame = int(root_skitter_frame_clock)
 
@@ -665,6 +690,10 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 			capsule_husk_hurt_timer = 0.2
 			capsule_husk_action = &"hurt"
 			capsule_husk_frame_clock = 0.0
+		elif enemy_type == "root_skitter":
+			root_skitter_hurt_timer = 0.2
+			root_skitter_action = &"hurt"
+			root_skitter_frame_clock = 0.0
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
 		hit_vfx.visible = true
 		hit_vfx.play(&"contact")

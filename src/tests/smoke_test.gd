@@ -617,6 +617,15 @@ func _validate_levels() -> void:
 			for _pilot_frame in range(8):
 				await get_tree().physics_frame
 			_check(root_skitter_visual.frame != pilot_frame or root_skitter_visual.texture.resource_path.ends_with("root_skitter_scuttle_strip_normalized_v2.png"), "Level 4 root-skitter pilot frame did not advance.")
+			root_skitter.root_skitter_attack_timer = 0.5
+			root_skitter._update_root_skitter_animation(0.0)
+			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_burrow_tell_strip_normalized_v2.png"), "Level 4 Root Skitter did not bind its burrow-tell animation.")
+			root_skitter.root_skitter_attack_timer = 0.1
+			root_skitter._update_root_skitter_animation(0.0)
+			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_emerge_attack_strip_normalized_v2.png"), "Level 4 Root Skitter did not hand off to emerge attack.")
+			root_skitter.take_damage(1)
+			root_skitter._update_root_skitter_animation(0.0)
+			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_hurt_strip_normalized_v2.png"), "Level 4 Root Skitter did not bind its hurt animation.")
 			var root_hydra := level.get_node("Enemies/RootHydra") as EnemyController
 			var root_hydra_visual := root_hydra.get_node("Visual") as Sprite2D
 			_check(root_hydra_visual.hframes == 4 and root_hydra_visual.vframes == 1, "Level 4 Root Hydra pilot lost its four-frame grid.")
