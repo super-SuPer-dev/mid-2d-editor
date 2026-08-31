@@ -32,6 +32,7 @@ if (-not (Test-Path -LiteralPath $godot -PathType Leaf)) {
     Invoke-Step "project structure" { & (Join-Path $ProjectRoot "tools\validate_project_structure.ps1") -ProjectRoot $ProjectRoot }
     Invoke-Step "localization" { & (Join-Path $ProjectRoot "tools\validate_localization.ps1") -ProjectRoot $ProjectRoot }
     Invoke-Step "release readiness" { & (Join-Path $ProjectRoot "tools\validate_release_readiness.ps1") -ProjectRoot $ProjectRoot }
+    Invoke-Step "runtime alpha" { & python (Join-Path $ProjectRoot "tools\quantize_runtime_alpha.py") --project-root $ProjectRoot --check }
     Invoke-Step "Godot smoke" { & $godot --headless --path $ProjectRoot --scene res://scenes/tests/smoke_test.tscn --quit-after 25 }
     if ($RunSoak) {
         Invoke-Step "scene-transition soak" { & (Join-Path $ProjectRoot "tools\run_soak_validation.ps1") -ProjectRoot $ProjectRoot -DurationSeconds $SoakSeconds }

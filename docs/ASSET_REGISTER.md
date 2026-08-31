@@ -51,6 +51,13 @@ not a runtime asset. Its generation record is stored beside the image.
 
 [ASSET-AUDIT-01] The 2026-08-31 audit found 477/477 decodable PNG candidates, with 188/188 normalized widths divisible by four and 337 opaque-art candidates above the 2% soft-alpha limit. File integrity and nearby English provenance coverage pass; hard-edge pixel-art approval, package-level grid validation, runtime filtering, platform memory, and human visual approval remain blocked or pending. `true alpha` records transparency presence only and must not be read as clean-edge approval. No generated candidate advances beyond `Review` from this audit. See [Generated Asset Audit](GENERATED_ASSET_AUDIT.md).
 
+[ASSET-RUNTIME-ALPHA-01] The scoped runtime enemy-art check now passes: 15
+opaque enemy/boss files were thresholded at alpha 128, while projectile
+subdirectories and intentional translucent VFX were excluded. Dimensions,
+frame grids and paths were preserved; the check-only command is part of the
+release runner. This establishes the binary-alpha contract for the remediated
+runtime group but does not promote source candidates or replace visual review.
+
 ## 3. Character and Narrative Assets
 
 [ASSET-CHAR-01]

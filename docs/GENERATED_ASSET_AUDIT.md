@@ -17,7 +17,7 @@ This is a source-candidate audit, not production approval. Generated files remai
 | Normalized strip geometry | Provisional pass | All 188 files named `_normalized_` have widths divisible by four; declared cell mappings, gutters, pivots, and baselines still require package-by-package verification |
 | Hard-edge pixel-art alpha | Blocked | 337 opaque-art candidates exceed the 2% semi-transparent-pixel limit; this conflicts with the current hard-cluster acceptance rule for opaque sprites, tiles, portraits, and UI |
 | Provenance records | Pass with scope note | The repeatable validator finds a nearby English Markdown record for all 477/477 candidates; package-level one-to-one source/session/license confirmation is still incomplete |
-| Runtime import/filtering | Not tested | `art_source/` is excluded from Godot import; candidates must be selected and promoted before runtime verification |
+| Runtime import/filtering | Partial | The promoted `assets/enemies/` opaque-art group passes the binary-alpha check; generated source remains excluded from Godot import and still requires package-level grid, filtering, memory and visual verification |
 | Windows/Web appearance and memory | Not tested | Requires integrated assets, 1280 x 720 captures, and platform builds |
 | Art-direction approval | Blocked | High-resolution pixel-art style, silhouette quality, animation continuity, and intentional transparency require human visual review |
 
@@ -47,6 +47,15 @@ Semi-transparent pixels may be intentional for glow, smoke, projectile trails, o
 4. Select only approved candidates for promotion into `assets/`; configure nearest filtering and avoid unnecessary transparent canvas memory.
 5. Capture every integrated screen and gameplay asset at 1280 x 720 in English and Thai on Windows and Web.
 6. Require human approval for art direction, animation smoothness, silhouette readability, fruit identity, and boss projectile readability before advancing beyond `Integrated`.
+
+The runtime enemy-art check is reproducible with:
+
+```powershell
+python .\tools\quantize_runtime_alpha.py --project-root (Get-Location).Path --check
+```
+
+It intentionally excludes `assets/enemies/**/projectiles/`, where translucent
+glow is part of the projectile readability contract.
 
 ## 5. Progress Impact
 

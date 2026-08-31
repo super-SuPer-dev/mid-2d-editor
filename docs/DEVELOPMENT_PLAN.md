@@ -349,6 +349,14 @@ advancement. The package remains `Integrated` rather than `Verified` pending
 visual silhouette, animation-continuity, death-presentation and combat-scale
 review.
 
+**Runtime alpha remediation evidence — 2026-08-31:** A scoped
+`tools/quantize_runtime_alpha.py` pass thresholded only opaque enemy and boss
+runtime art at alpha 128; projectile subdirectories and generated source art
+were excluded because translucent projectile glow is intentional. Fifteen
+runtime files were rewritten, removing 8,235,240 semi-transparent pixels while
+preserving dimensions and frame grids. The check-only mode now runs in
+`tools/run_release_validation.ps1` and reports zero remaining candidates.
+
 **Boss-asset promotion evidence — 2026-08-31:** The Root Hydra (nipa-palm cluster) now has matching armored/exposed idle runtime pilots. Both authored strips are quantized to 4 × 1000 × 900 cells with an 840 px baseline, nearest filtering and a 3 fps breathing loop; the runtime switches at phase 2 while the existing multi-origin projectile contract is unchanged. Smoke coverage checks the promoted texture, four-frame grid, -105 px baseline offset and phase transition. The package remains `Integrated` pending phase-specific action animation, projectile/presentation art, audio and human boss-feel review.
 
 **Root Hydra cast promotion evidence — 2026-08-31:** Three additional authored strips now cover the `hydra_head_crossfire`, `hydra_offset_rings` and `hydra_water_lane_walls` telegraphs. Crossfire, radial-ring and lane-wall casts are normalized to the same 4 × 1000 × 900 binary-alpha grid and bound through the existing boss pattern signals at 8 fps; smoke coverage checks the opening cast and phase-2/3 cast paths. The package remains `Integrated` pending projectile/presentation art, audio and human boss-feel review.
