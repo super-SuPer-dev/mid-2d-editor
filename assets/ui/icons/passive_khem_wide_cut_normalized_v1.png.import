@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wm8afhdtihwo"
-path="res://.godot/imported/passive_t800_reinforced_chassis_normalized_v1.png-9cda7db4f22d520845101cc3bb5975cc.ctex"
+uid="uid://beny8bhwwlgwk"
+path="res://.godot/imported/passive_khem_wide_cut_normalized_v1.png-659ee7529493a4e4f57adc7cf285ba03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/icons/passive_t800_reinforced_chassis_normalized_v1.png"
-dest_files=["res://.godot/imported/passive_t800_reinforced_chassis_normalized_v1.png-9cda7db4f22d520845101cc3bb5975cc.ctex"]
+source_file="res://assets/ui/icons/passive_khem_wide_cut_normalized_v1.png"
+dest_files=["res://.godot/imported/passive_khem_wide_cut_normalized_v1.png-659ee7529493a4e4f57adc7cf285ba03.ctex"]
 
 [params]
 

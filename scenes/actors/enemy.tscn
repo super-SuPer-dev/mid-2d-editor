@@ -20,6 +20,13 @@ position = Vector2(0, -8)
 texture_filter = 1
 texture = ExtResource("3_art")
 
+[node name="HitVfx" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -30)
+z_index = 3
+scale = Vector2(0.1, 0.1)
+texture_filter = 1
+visible = false
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("BodyShape")
 [node name="HurtBox" type="Area2D" parent="."]

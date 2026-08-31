@@ -553,6 +553,19 @@ func _validate_levels() -> void:
 		var character := CharacterCatalog.get_character(GameManager.selected_character_id)
 		var expected_attack := int(character["attack_damage"]) + SaveManager.get_upgrade_level("blade")
 		_check(player.attack_damage == expected_attack, "%s did not apply base attack upgrades." % level_id)
+		if level_id == "level_01":
+			player._start_attack()
+			await get_tree().physics_frame
+			_check(player.attack_vfx.visible, "Level 1 player attack did not show the generated cutter VFX.")
+			_check(player.attack_vfx.sprite_frames.get_frame_count(&"swing") == 4, "Level 1 cutter swing VFX lost its four-frame strip.")
+			for _vfx_frame in range(24):
+				await get_tree().physics_frame
+			_check(not player.attack_vfx.visible, "Level 1 player attack VFX did not hide after playback.")
+			var vfx_enemy := get_tree().get_nodes_in_group("Enemy").filter(func(node: Node) -> bool: return node is EnemyController and not node.is_boss)[0] as EnemyController
+			vfx_enemy.take_damage(1, Vector2.RIGHT)
+			await get_tree().physics_frame
+			_check(vfx_enemy.hit_vfx.visible, "Level 1 enemy damage did not show the generated contact VFX.")
+			_check(vfx_enemy.hit_vfx.sprite_frames.get_frame_count(&"contact") == 4, "Enemy contact VFX lost its four-frame strip.")
 		var health_before := player.health.current_health
 		player.take_damage(1, Vector2.LEFT)
 		_check(player.health.current_health == health_before - 1, "%s player damage did not apply." % level_id)

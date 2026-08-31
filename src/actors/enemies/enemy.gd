@@ -6,6 +6,7 @@ signal boss_phase_changed(current_phase: int, phase_count: int)
 
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
+const ORGANIC_CONTACT_VFX_TEXTURE: Texture2D = preload("res://assets/vfx/cutter/cutter_organic_contact_normalized_v1.png")
 const THORNLING_TEXTURE := preload("res://assets/enemies/standard/thornling.png")
 const THORNLING_IDLE_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_idle_strip_normalized_v2.png")
 const THORNLING_RUN_TEXTURE: Texture2D = preload("res://assets/enemies/standard/thornling/thornling_run_strip_normalized_v2.png")
@@ -48,6 +49,7 @@ const POSSESSED_BANYAN_SEED_COLUMN_CAST_TEXTURE: Texture2D = preload("res://asse
 const POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/possessed_banyan_diagonal_root_cast_strip_normalized_v2.png")
 
 @onready var visual: Sprite2D = $Visual
+@onready var hit_vfx: AnimatedSprite2D = $HitVfx
 @onready var health: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var pattern_runner: BossProjectilePatternRunner = $BossProjectilePatternRunner
@@ -278,6 +280,7 @@ func configure(type_id: String) -> void:
 
 func _ready() -> void:
 	configure(enemy_type)
+	_setup_hit_vfx()
 	base_visual_modulate = visual.modulate
 	if is_boss:
 		pattern_runner.configure(self, _get_boss_pattern_set_id(), contact_damage)
@@ -581,7 +584,29 @@ func take_damage(amount: int = 1, source_direction: Vector2 = Vector2.ZERO) -> b
 	var applied := health.take_damage(amount)
 	if applied:
 		velocity = Vector2(source_direction.x * 180.0, -120.0)
+		hit_vfx.visible = true
+		hit_vfx.play(&"contact")
 	return applied
+
+
+func _setup_hit_vfx() -> void:
+	var frames := SpriteFrames.new()
+	frames.remove_animation(&"default")
+	frames.add_animation(&"contact")
+	frames.set_animation_speed(&"contact", 16.0)
+	frames.set_animation_loop(&"contact", false)
+	for column in range(4):
+		var frame := AtlasTexture.new()
+		frame.atlas = ORGANIC_CONTACT_VFX_TEXTURE
+		frame.region = Rect2(Vector2(column * 800.0, 0.0), Vector2(800.0, 800.0))
+		frame.filter_clip = true
+		frames.add_frame(&"contact", frame)
+	hit_vfx.sprite_frames = frames
+	hit_vfx.animation_finished.connect(_on_hit_vfx_finished)
+
+
+func _on_hit_vfx_finished() -> void:
+	hit_vfx.visible = false
 
 
 func _on_health_changed(current_health: int, maximum_health: int) -> void:

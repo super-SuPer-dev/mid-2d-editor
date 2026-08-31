@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3xfssjsufqkm"
-path="res://.godot/imported/passive_khem_wide_cut_normalized_v1.png-c2058297bbd51948b682a1d83290e251.ctex"
+uid="uid://cukjmtutharos"
+path="res://.godot/imported/passive_tonkla_field_recovery_normalized_v1.png-0f898926abbe758474c22235b6a1bda5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/icons/passive_khem_wide_cut_normalized_v1.png"
-dest_files=["res://.godot/imported/passive_khem_wide_cut_normalized_v1.png-c2058297bbd51948b682a1d83290e251.ctex"]
+source_file="res://assets/ui/icons/passive_tonkla_field_recovery_normalized_v1.png"
+dest_files=["res://.godot/imported/passive_tonkla_field_recovery_normalized_v1.png-0f898926abbe758474c22235b6a1bda5.ctex"]
 
 [params]
 

@@ -12,8 +12,10 @@ const DASH_COOLDOWN := 0.7
 const ATTACK_DURATION := 0.15
 const IDLE_VISUAL_Y := -12.0
 const RUN_VISUAL_Y := -9.0
+const CUTTER_SWING_TEXTURE: Texture2D = preload("res://assets/vfx/cutter/cutter_swing_arc_normalized_v1.png")
 
 @onready var body_visual: AnimatedSprite2D = $BodyVisual
+@onready var attack_vfx: AnimatedSprite2D = $AttackVfx
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var health: HealthComponent = $HealthComponent
@@ -50,6 +52,7 @@ func _ready() -> void:
 	idle_visual_y = float(character.get("idle_visual_y", IDLE_VISUAL_Y))
 	run_visual_y = float(character.get("run_visual_y", RUN_VISUAL_Y))
 	_setup_character_animations(character["art_texture"], float(character.get("frame_inset", CharacterCatalog.FRAME_INSET)))
+	_setup_cutter_vfx()
 	attack_damage += SaveManager.get_upgrade_level("blade")
 	var engine_level := SaveManager.get_upgrade_level("engine")
 	move_speed *= 1.0 + engine_level * 0.05
@@ -150,7 +153,31 @@ func _start_attack() -> void:
 	attack_timer = ATTACK_DURATION
 	hit_targets.clear()
 	attack_area.position.x = 34.0 * facing
+	attack_vfx.position.x = 34.0 * facing
+	attack_vfx.flip_h = facing < 0.0
+	attack_vfx.visible = true
+	attack_vfx.play(&"swing")
 	attack_area.set_deferred("monitoring", true)
+
+
+func _setup_cutter_vfx() -> void:
+	var frames := SpriteFrames.new()
+	frames.remove_animation(&"default")
+	frames.add_animation(&"swing")
+	frames.set_animation_speed(&"swing", 18.0)
+	frames.set_animation_loop(&"swing", false)
+	for column in range(4):
+		var frame := AtlasTexture.new()
+		frame.atlas = CUTTER_SWING_TEXTURE
+		frame.region = Rect2(Vector2(column * 800.0, 0.0), Vector2(800.0, 800.0))
+		frame.filter_clip = true
+		frames.add_frame(&"swing", frame)
+	attack_vfx.sprite_frames = frames
+	attack_vfx.animation_finished.connect(_on_attack_vfx_finished)
+
+
+func _on_attack_vfx_finished() -> void:
+	attack_vfx.visible = false
 
 
 func _start_dash() -> void:

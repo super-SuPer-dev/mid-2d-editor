@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daw2gqwo74wl1"
-path="res://.godot/imported/passive_tonkla_field_recovery_normalized_v1.png-954f23eeb527e590aeca4028400528fb.ctex"
+uid="uid://12bkv4ap33x3"
+path="res://.godot/imported/passive_t800_reinforced_chassis_normalized_v1.png-e9281600415174134f179e7d0af83ec3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/icons/passive_tonkla_field_recovery_normalized_v1.png"
-dest_files=["res://.godot/imported/passive_tonkla_field_recovery_normalized_v1.png-954f23eeb527e590aeca4028400528fb.ctex"]
+source_file="res://assets/ui/icons/passive_t800_reinforced_chassis_normalized_v1.png"
+dest_files=["res://.godot/imported/passive_t800_reinforced_chassis_normalized_v1.png-e9281600415174134f179e7d0af83ec3.ctex"]
 
 [params]
 

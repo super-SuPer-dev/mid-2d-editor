@@ -1,10 +1,10 @@
 extends Control
 
 const PASSIVE_ICONS := {
-	"tonkla": preload("res://assets/UI/icons/passive_tonkla_field_recovery_normalized_v1.png"),
-	"rin": preload("res://assets/UI/icons/passive_rin_rapid_evade_normalized_v1.png"),
-	"khem": preload("res://assets/UI/icons/passive_khem_wide_cut_normalized_v1.png"),
-	"t800": preload("res://assets/UI/icons/passive_t800_reinforced_chassis_normalized_v1.png"),
+	"tonkla": preload("res://assets/ui/icons/passive_tonkla_field_recovery_normalized_v1.png"),
+	"rin": preload("res://assets/ui/icons/passive_rin_rapid_evade_normalized_v1.png"),
+	"khem": preload("res://assets/ui/icons/passive_khem_wide_cut_normalized_v1.png"),
+	"t800": preload("res://assets/ui/icons/passive_t800_reinforced_chassis_normalized_v1.png"),
 }
 
 

@@ -395,10 +395,16 @@ atlas frames; visual portrait cropping and bilingual typography review remain
 open.
 
 **Passive icon promotion evidence — 2026-08-31:** Four generated operator
-passive icons are copied into `assets/UI/icons/`, rendered at 44 px on the
+passive icons are copied into `assets/ui/icons/`, rendered at 44 px on the
 English character-select cards, and covered by the existing bilingual layout
 smoke checks. Runtime copies use binary alpha; tooltip and mastery-screen
 presentation remain open.
+
+**Cutter VFX promotion evidence — 2026-08-31:** Generated four-frame swing-arc
+and organic-contact strips are now bound to player attack and enemy damage
+events at calibrated 0.11/0.10 scales. Smoke assertions cover playback,
+four-frame grids and automatic hide; charged-swing and upgrade-activation
+variants remain open.
 
 **Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
 bind their generated four-frame hazard strips through the shared DamageHazard
