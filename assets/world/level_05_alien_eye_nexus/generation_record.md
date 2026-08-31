@@ -25,3 +25,8 @@ The generated sensory-platform collapse strip is bound to every Level 5 hazard
 with a four-frame 800 px-cell animation at 8 fps. Source SHA-256:
 77F6ECACEC166C96D6B655EF48F71385BFA70B47779DCD2B685CC87E48593FA8.
 Runtime binary-alpha SHA-256: A08D373A9326437694D1FA004B67EF4EF8D0D4B9672BAAB79122224A45D5ADCF.
+
+The generated awakened sensory nexus landmark (1536 × 1024) is placed behind
+the Level 5 final arena at a 0.34 presentation scale and does not add collision.
+Source SHA-256: 4B9750F3146A753D16FF5DADB8634A1A747193DB31657CB2B52C0B6AD0B5EAB5.
+Runtime binary-alpha SHA-256: C94B1876BC8CA87B9AB733DD98DAC96A9B4DCAE25E64DE591011C5EB29CC8CCC.

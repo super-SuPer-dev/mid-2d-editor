@@ -463,19 +463,36 @@ func _validate_levels() -> void:
 			_check(absf(banyan_visual.position.y + 39.0) < 0.01, "Level 3 Possessed Banyan pilot lost its 840 px baseline offset.")
 			_check(str(banyan_visual.texture.resource_path).ends_with("possessed_banyan_idle_armored_strip_normalized_v2.png"), "Level 3 Possessed Banyan pilot did not begin in its armored visual state.")
 		var expected_hazard_texture := ""
+		var expected_landmark_texture := ""
+		var expected_landmark_node := ""
 		match level_id:
 			"level_02":
 				expected_hazard_texture = "mangosteen_spore_vent_normalized_v1.png"
+				expected_landmark_texture = "maw_bloom_lair_v1.png"
+				expected_landmark_node = "MawBloomLandmark"
 			"level_03":
 				expected_hazard_texture = "santol_seed_piston_normalized_v1.png"
+				expected_landmark_texture = "capsule_07_seed_harvester_v1.png"
+				expected_landmark_node = "Capsule07Landmark"
 			"level_04":
 				expected_hazard_texture = "nutrient_root_eruption_normalized_v2.png"
+				expected_landmark_texture = "root_nutrient_conduit_v2.png"
+				expected_landmark_node = "NutrientConduitLandmark"
 			"level_05":
 				expected_hazard_texture = "sensory_platform_collapse_normalized_v2.png"
+				expected_landmark_texture = "awakened_sensory_nexus_v2.png"
+				expected_landmark_node = "AwakenedNexusLandmark"
 		if not expected_hazard_texture.is_empty():
 			var hazard_visual := level.get_node("WorldGeometry/Hazard01/Visual") as Sprite2D
 			_check(hazard_visual.hframes == 4 and hazard_visual.vframes == 1, "%s biome hazard did not use a four-frame strip." % level_id)
 			_check(str(hazard_visual.texture.resource_path).ends_with(expected_hazard_texture), "%s biome hazard did not bind its generated texture." % level_id)
+		if not expected_landmark_node.is_empty():
+			var landmark := level.get_node_or_null("Environment/%s" % expected_landmark_node) as Sprite2D
+			_check(landmark != null, "%s is missing its generated landmark node." % level_id)
+			if landmark != null:
+				_check(str(landmark.texture.resource_path).ends_with(expected_landmark_texture), "%s landmark did not bind its generated texture." % level_id)
+				_check(landmark.z_index == -5, "%s landmark changed its background draw order." % level_id)
+				_check(landmark.scale.is_equal_approx(Vector2(0.34, 0.34)), "%s landmark lost its calibrated presentation scale." % level_id)
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
 		if level_id == "level_04":
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController

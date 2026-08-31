@@ -381,6 +381,12 @@ encounter contracts remain unchanged. The smoke suite still passes across all
 five levels; tile kits, landmarks, hazard art, memory, 1280 × 720 composition
 and human pixel-art review remain open.
 
+**Biome landmark promotion evidence — 2026-08-31:** Generated Maw Bloom,
+Capsule 07 seed-harvester, nutrient-conduit and awakened sensory nexus
+landmarks are now placed behind their Level 2–5 boss arenas at a consistent 0.34
+presentation scale with no collision. Smoke coverage remains green; occlusion,
+composition, memory and human pixel-art review remain open.
+
 **Biome hazard animation promotion evidence — 2026-08-31:** Levels 2–5 now
 bind their generated four-frame hazard strips through the shared DamageHazard
 contract at 8 fps: mangosteen spore vent, santol seed piston, nutrient-root

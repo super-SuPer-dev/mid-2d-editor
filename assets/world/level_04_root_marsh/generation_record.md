@@ -24,3 +24,8 @@ The generated nutrient-root eruption strip is bound to every Level 4 hazard
 with a four-frame 800 px-cell animation at 8 fps. Source SHA-256:
 D5614E7297FE548997181321F9AF734D6DB0C69F18762A451BEB1A6CD657D316.
 Runtime binary-alpha SHA-256: B81146782D30498A90E4E8330651CFA6212A46F86E526C283540307C7CDD8F7A.
+
+The generated nutrient-conduit landmark (1536 × 1024) is placed behind the
+Level 4 boss arena at a 0.34 presentation scale and does not add collision.
+Source SHA-256: AB567935B52D6FD910D1C557242CBCCDBF164EDC7EA6661BECFFCB3A18FA0E0D.
+Runtime binary-alpha SHA-256: 1E3EBC84B23B53B506EEB122E18B9FE3AFD2AF75963ED3FE3D0B720A2AD0FCE2.

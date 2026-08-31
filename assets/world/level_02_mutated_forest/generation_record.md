@@ -41,6 +41,11 @@ human review confirms pixel-art edge quality, composition at 1280 × 720,
 foreground readability and memory/performance behavior during a full mission.
 
 The generated mangosteen spore-vent strip is bound to every Level 2 hazard with
-a four-frame 800 px-cell animation at 8 fps. Source SHA-256:
+a four-frame 800 px-cell animation at 8 fps.
 Source SHA-256: 3B5699E9F46F92F648868B4F6C234A58801DCDA65FCCE639AC5398CA0DD35AE4.
 Runtime binary-alpha SHA-256: 1F4888158BDD4D339FD5E98A063416A7E750FC1A12259AF45F5FC2AE36A20623.
+
+The generated Maw Bloom lair landmark (1536 × 1024) is placed behind the Level
+2 boss arena at a 0.34 presentation scale and does not add collision.
+Source SHA-256: 1B045AD45CB352713E305862E60EF12A8F26F081DDD81B9B68DADFBDE63ADB88.
+Runtime binary-alpha SHA-256: F729C2E8F657896B025080ABEF01298A2A0C39C4149FB5B7DA792219D8609FC2.

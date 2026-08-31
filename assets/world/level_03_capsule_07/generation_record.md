@@ -24,3 +24,8 @@ The generated santol seed-piston strip is bound to every Level 3 hazard with a
 four-frame 800 px-cell animation at 8 fps. Source SHA-256:
 Source SHA-256: 599D1F0BE240FDCB7C2231C4688144D394895C6241388BB8FCF2102357E6BAC0.
 Runtime binary-alpha SHA-256: 09882826C19C4AA1774BAC5C124D93F9CFD47F49BC85F31F554333C0B8F66FE3.
+
+The generated Capsule 07 seed-harvester landmark (1224 × 1285) is placed behind
+the midpoint/boss route at a 0.34 presentation scale and does not add collision.
+Source SHA-256: 22F1BF022277E1BFAC734B0707F211EBFA30D9C3AEFE808D7008E86025920249.
+Runtime binary-alpha SHA-256: 00490F82CD0AA83E43925DB7AC2D5605BC211C447194768AA95B3CA9108FB9A0.
