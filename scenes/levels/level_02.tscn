@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_ground_broken_v1.png" id="16_broken"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_ground_cap_left_v1.png" id="17_cap"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_slope_up_v1.png" id="18_slope"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/encounter_gate.tscn" id="19_gate"]
 
 [node name="MutatedForest" type="Node2D"]
 script = ExtResource("1")
@@ -198,3 +199,17 @@ position = Vector2(3110, 595)
 [node name="Visual" parent="Portal"]
 texture = ExtResource("12_beacon")
 [node name="HUD" parent="." instance=ExtResource("8")]
+
+[node name="EncounterGates" type="Node2D" parent="."]
+[node name="CanopyEntry" parent="EncounterGates" instance=ExtResource("19_gate")]
+position = Vector2(1100, 430)
+encounter_id = "canopy_entry"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/Thornling01"), NodePath("../../Enemies/Spitter01")])
+[node name="SporeClearing" parent="EncounterGates" instance=ExtResource("19_gate")]
+position = Vector2(2200, 430)
+encounter_id = "spore_clearing"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/Maw01"), NodePath("../../Enemies/Spitter02")])
+[node name="BloomApproach" parent="EncounterGates" instance=ExtResource("19_gate")]
+position = Vector2(2800, 430)
+encounter_id = "bloom_approach"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/Maw02")])

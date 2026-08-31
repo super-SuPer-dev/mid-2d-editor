@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_04_root_marsh/tiles/marsh_ground_broken_v2.png" id="15_broken"]
 [ext_resource type="Texture2D" path="res://assets/world/level_04_root_marsh/tiles/marsh_ground_cap_left_v2.png" id="16_cap"]
 [ext_resource type="Texture2D" path="res://assets/world/level_04_root_marsh/tiles/marsh_slope_up_v2.png" id="17_slope"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/encounter_gate.tscn" id="18_gate"]
 
 [node name="DevouringRootMarsh" type="Node2D"]
 script = ExtResource("1")
@@ -179,3 +180,17 @@ position = Vector2(3290, 700)
 [node name="Visual" parent="Portal"]
 texture = ExtResource("11_beacon")
 [node name="HUD" parent="." instance=ExtResource("8")]
+
+[node name="EncounterGates" type="Node2D" parent="."]
+[node name="ReedEntry" parent="EncounterGates" instance=ExtResource("18_gate")]
+position = Vector2(900, 430)
+encounter_id = "reed_entry"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/RootSkitter01"), NodePath("../../Enemies/MarshSpitter01")])
+[node name="ConduitCrossing" parent="EncounterGates" instance=ExtResource("18_gate")]
+position = Vector2(1800, 430)
+encounter_id = "conduit_crossing"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/Maw01"), NodePath("../../Enemies/RootSkitter02")])
+[node name="HydraApproach" parent="EncounterGates" instance=ExtResource("18_gate")]
+position = Vector2(2450, 430)
+encounter_id = "hydra_approach"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/MarshSpitter02"), NodePath("../../Enemies/Maw02")])

@@ -315,8 +315,18 @@ human pixel-art review.
 platform candidates are now also promoted for each Level 2–5 biome and placed
 as two additional z = -2, non-colliding nearest-filtered accents per scene.
 Smoke checks the canonical texture paths and background draw order; broken,
-cap, slope and infestation variants remain intentionally unplaced until their
-silhouette and route-occlusion review.
+cap and slope variants are now also placed as three additional accents per
+scene, leaving only infestation overlays for later silhouette and route-
+occlusion review.
+
+**Encounter-gate pacing evidence — 2026-08-31:** Levels 2–5 now implement
+three reusable `EncounterGate` beats each, matching the English
+`LevelCatalog.encounter_contracts` IDs and threat counts. Gates suspend their
+assigned enemy group until the operator enters the trigger, then release the
+barrier after the group is cleared. Smoke validates all twelve assignments and
+quota coverage; live Godot inspection confirms gate positions and enemy paths.
+This makes the 5–7 minute route contract actionable without inflating enemy
+health or changing collision geometry.
 
 **Generated-asset audit evidence — 2026-08-31:** `tools/validate_generated_assets.ps1` now provides a repeatable, memory-safe source audit. It scanned all 474 PNG candidates (831,196,936 bytes), decoded 474/474, confirmed 188/188 normalized strips have widths divisible by four, found nearby Markdown provenance for 450/474 files, and reported 335 opaque-art soft-alpha warnings. The validator intentionally leaves candidates in `Review`; binary-alpha remediation, per-package grid/pivot/baseline review, runtime promotion, and human pixel-art approval remain open.
 

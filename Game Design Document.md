@@ -168,6 +168,12 @@ long repeated corridor. Optional samples may reward a short side route but may
 not add more than 45 seconds to the critical path. Boss health is tuned around
 pattern mastery rather than extended damage sponging.
 
+Levels 2–5 implement those beats with three reusable encounter gates. Each gate
+holds its assigned enemy group inactive, starts when the operator enters its
+trigger volume, and releases its barrier only after that group is defeated.
+Gate IDs and threat assignments are canonical English data in `LevelCatalog`;
+they do not alter platform collision or boss quota bookkeeping.
+
 ## 5. Controls and Player Rules
 
 | Action | Default input | Rule |

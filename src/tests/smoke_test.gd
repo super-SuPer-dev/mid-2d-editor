@@ -642,6 +642,21 @@ func _validate_levels() -> void:
 			var portal_visual := level.get_node("Portal/Visual") as Sprite2D
 			_check(str(portal_visual.texture.resource_path).ends_with(expected_portal_texture), "%s portal did not bind its biome extraction beacon." % level_id)
 		_check(enemy_count == expected_enemies, "%s spawned %d/%d enemies." % [level_id, enemy_count, expected_enemies])
+		if level_id != "level_01":
+			var planned_gates := level.get_node_or_null("EncounterGates")
+			var contracts: Array = LevelCatalog.get_level(level_id).get("encounter_contracts", [])
+			_check(planned_gates != null and planned_gates.get_child_count() == contracts.size(), "%s does not contain the planned encounter gate count." % level_id)
+			var assigned_threats := 0
+			if planned_gates != null:
+				for gate_index in range(planned_gates.get_child_count()):
+					var gate := planned_gates.get_child(gate_index) as EncounterGate
+					_check(gate != null, "%s encounter gate %d has the wrong script type." % [level_id, gate_index + 1])
+					if gate != null and gate_index < contracts.size():
+						var contract: Dictionary = contracts[gate_index]
+						_check(gate.encounter_id == str(contract.get("encounter_id", "")), "%s encounter gate %d has the wrong canonical ID." % [level_id, gate_index + 1])
+						_check(gate.enemy_paths.size() == int(contract.get("threat_count", -1)), "%s encounter gate %d has the wrong threat count." % [level_id, gate_index + 1])
+						assigned_threats += gate.enemy_paths.size()
+			_check(assigned_threats == expected_enemies, "%s encounter gates do not assign every threat exactly once." % level_id)
 		if level_id == "level_04":
 			var marsh_tile := level.get_node("Environment/MarshTileAccentA") as Sprite2D
 			var marsh_corner := level.get_node("Environment/MarshCornerAccent") as Sprite2D
