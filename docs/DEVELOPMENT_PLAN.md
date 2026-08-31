@@ -440,6 +440,14 @@ English smoke covers the hit handoff and recovery.
 
 **Retry and recovery evidence — 2026-08-31:** The smoke suite now deals lethal damage to a live operator, verifies `GameManager.run_active` becomes false, the game pauses, and the game-over modal is visible, then recreates the same level as a retry. The retry resets health and reactivates the mission without replaying the completed one-shot briefing or duplicating its request. Save writes remain disabled inside the test session, so this check cannot mutate a developer profile.
 
+**Operator passive evidence — 2026-08-31:** The English smoke suite now instantiates
+each operator and verifies the runtime contract, not only the catalog entries:
+Tonkla heals at the rank-0 sample threshold, Rin applies the reduced dash
+cooldown, Khem expands the live attack rectangle, and T-800 reduces a two-point
+hit to one while preserving minimum damage. The same check asserts the rank-0
+and rank-3 mastery strengths for all four passive IDs, protecting the shared
+progression formulas during balance work.
+
 **Scoped asset-loading and soak evidence — 2026-08-31:** Enemy and boss animation
 strips, boss projectile presentations, biome hazard/platform textures, operator
 sheets, portraits, boss HUD frames and boss-introduction frames now resolve on

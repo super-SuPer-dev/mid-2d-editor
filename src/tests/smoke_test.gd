@@ -5,6 +5,7 @@ const DIALOGUE_OVERLAY_SCENE := preload("res://scenes/ui/dialogue_overlay.tscn")
 const CHARACTER_SELECT_SCENE := preload("res://scenes/ui/character_select.tscn")
 const UPGRADES_SCENE := preload("res://scenes/ui/upgrades.tscn")
 const MASTERY_SCENE := preload("res://scenes/ui/character_upgrades.tscn")
+const PLAYER_SCENE := preload("res://scenes/actors/player.tscn")
 const GAME_LEVELS := {
 	"level_01": preload("res://scenes/levels/level_01.tscn"),
 	"level_02": preload("res://scenes/levels/level_02.tscn"),
@@ -73,6 +74,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	AudioManager.muted_for_tests = true
 	_validate_catalogs()
+	_validate_operator_passives()
 	_validate_localization_and_dialogue()
 	_validate_save_and_story_foundation()
 	await _validate_dialogue_presentations()
@@ -193,6 +195,48 @@ func _validate_localization_and_dialogue() -> void:
 		_check(debrief.size() == 4, "Level 1 debrief does not contain four exchanges for %s." % character_id)
 		_check(_count_operator_entries(briefing, character_id) == 1, "Level 1 briefing bark is missing or mismatched for %s." % character_id)
 		_check(_count_operator_entries(debrief, character_id) == 1, "Level 1 debrief bark is missing or mismatched for %s." % character_id)
+
+
+func _validate_operator_passives() -> void:
+	var original_character := GameManager.selected_character_id
+	var original_mastery: Dictionary = SaveManager.profile.get("operator_mastery", {}).duplicate(true)
+	var mastery_strengths := {
+		"tonkla": [3.0, 2.0],
+		"rin": [0.25, 0.34],
+		"khem": [0.25, 0.4],
+		"t800": [1.0, 2.0],
+	}
+	for character_id: String in CharacterCatalog.get_ids():
+		SaveManager.profile["operator_mastery"][character_id] = 0
+		GameManager.select_character(character_id)
+		var player := PLAYER_SCENE.instantiate() as PlayerController
+		add_child(player)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		_check(player.character_id == character_id, "%s passive test instantiated the wrong operator." % character_id)
+		_check(is_equal_approx(CharacterCatalog.get_passive_strength(character_id, 0), mastery_strengths[character_id][0]), "%s rank-0 passive strength drifted from the design contract." % character_id)
+		_check(is_equal_approx(CharacterCatalog.get_passive_strength(character_id, 3), mastery_strengths[character_id][1]), "%s rank-3 passive strength drifted from the design contract." % character_id)
+		match character_id:
+			"tonkla":
+				var starting_health := player.health.current_health
+				player.take_damage(1, Vector2.RIGHT)
+				player._on_currency_changed(0, 2)
+				_check(player.health.current_health == starting_health - 1, "Tonkla recovered before collecting the rank-0 sample threshold.")
+				player._on_currency_changed(0, 1)
+				_check(player.health.current_health == starting_health, "Tonkla did not recover health at the rank-0 sample threshold.")
+			"rin":
+				_check(is_equal_approx(player.dash_cooldown_duration, PlayerController.DASH_COOLDOWN * 0.75), "Rin did not apply the rank-0 dash cooldown reduction.")
+			"khem":
+				var attack_rectangle := player.attack_shape.shape as RectangleShape2D
+				_check(attack_rectangle != null and is_equal_approx(attack_rectangle.size.x, 54.0 * 1.25), "Khem did not apply the rank-0 attack-area increase.")
+			"t800":
+				var starting_health := player.health.current_health
+				player.take_damage(2, Vector2.RIGHT)
+				_check(player.health.current_health == starting_health - 1, "T-800 did not reduce incoming damage while preserving minimum damage of one.")
+		player.queue_free()
+		await get_tree().process_frame
+	SaveManager.profile["operator_mastery"] = original_mastery
+	GameManager.select_character(original_character)
 
 
 func _validate_save_and_story_foundation() -> void:

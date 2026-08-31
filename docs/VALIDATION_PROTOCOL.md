@@ -251,6 +251,12 @@ Minimum release matrix:
 
 The repeatable Gate 6 command is `tools/run_release_validation.ps1`. It runs the structure, localization and release-readiness checks, the runtime enemy-art binary-alpha check (`tools/quantize_runtime_alpha.py --check`), the Godot smoke scene, fresh Web and Windows exports, `tools/validate_export_artifacts.ps1`, an exported-build bilingual self-test (`tools/validate_export_localization.ps1`), and a three-second headless Windows launch. Use `-SkipExport` for fast regression checks against an existing build root. Add `-RunSoak -SoakSeconds 1800` to run the full scene-transition soak; use a smaller positive duration for a local smoke. Passing the runner does not replace exported-build gameplay, performance, memory, browser or human sign-off evidence.
 
+The smoke scene also instantiates every operator and exercises the passive
+contracts at runtime: sample-threshold healing, dash cooldown reduction, attack
+area growth and minimum-one damage reduction. It checks rank-0 and rank-3
+mastery strengths against the canonical formulas so passive tuning cannot drift
+silently from the English design contract.
+
 ## 13. Release Sign-off
 
 [VAL-RELEASE-01]
