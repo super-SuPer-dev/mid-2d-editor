@@ -414,7 +414,7 @@ English smoke covers the hit handoff and recovery.
 
 **Exit criteria:** Weighted readiness is at least 90%; no Must-have item is below Verified; no P0/P1 defects are open; English and Thai coverage is complete; release checklist is signed off.
 
-**Release export evidence — 2026-08-31:** `export_presets.cfg` registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. Using the project-local Godot 4.7 template cache, both release exports now complete: `low_altitude_warrior.exe` and `low_altitude_warrior.pck` for Windows, plus `game.html`, `game.js`, `game.wasm` and `game.pck` for Web. `tools/validate_release_readiness.ps1` covers configuration and `tools/validate_export_artifacts.ps1` checks the produced files and minimum sizes. Performance, memory, soak, browser execution, localization parity and human sign-off remain open Gate 6 work.
+**Release export evidence — 2026-08-31:** `export_presets.cfg` registers both the Web and Windows Desktop targets, with the shared 1280×720 project reference and the canonical `res://scenes/main.tscn` entry point. Using the project-local Godot 4.7 template cache, both release exports now complete: `low_altitude_warrior.exe` and `low_altitude_warrior.pck` for Windows, plus `game.html`, `game.js`, `game.wasm` and `game.pck` for Web. The exported Windows executable also launches headlessly and exits cleanly after a three-second smoke run. `tools/validate_release_readiness.ps1` covers configuration and `tools/validate_export_artifacts.ps1` checks the produced files and minimum sizes. Performance, memory, soak, browser execution, localization parity and human sign-off remain open Gate 6 work.
 
 ## 5. Dependency Order
 
