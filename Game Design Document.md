@@ -352,6 +352,10 @@ rhythm and safe lanes, not uncontrolled random projectile spam.
 
 - Every pattern has a named ID, preview tell, active interval, recovery window,
   projectile speed band, active-projectile cap and deterministic cleanup rule.
+- Every pattern also declares a stable `projectile_visual_id` and calibrated
+  presentation scale. The ID resolves to a four-frame, nearest-filtered
+  fruit-specific atlas; it never changes the collision, damage, timing or
+  guaranteed-safe-route contract.
 - Bullets may form fans, aimed bursts, rotating rings, alternating lane walls,
   arcs or spirals. Randomness may vary an angle or starting side but may not
   remove the guaranteed safe route.

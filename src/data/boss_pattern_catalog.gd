@@ -11,39 +11,39 @@ static var PATTERN_SETS: Dictionary = {
 	"thorn_matriarch_tutorial": {
 		"max_projectiles": 18,
 		"patterns": [
-			_pattern("thorn_fan_three_way", 1, "fan", 3, 3.0, 1.0, 220.0, 76.0),
-			_pattern("thorn_alternating_lanes", 2, "lane_wall", 8, 3.5, 1.1, 180.0, 88.0),
+			_pattern("thorn_fan_three_way", 1, "fan", 3, 3.0, 1.0, 220.0, 76.0, "thorn_hair_spin", 0.012),
+			_pattern("thorn_alternating_lanes", 2, "lane_wall", 8, 3.5, 1.1, 180.0, 88.0, "thorn_lane_emerge", 0.011),
 		],
 	},
 	"maw_sovereign_spore": {
 		"max_projectiles": 32,
 		"patterns": [
-			_pattern("maw_spore_rain", 1, "arc_rain", 12, 4.0, 0.9, 190.0, 64.0),
-			_pattern("maw_rotating_five_way", 2, "rotating_fan", 20, 4.5, 1.0, 210.0, 64.0),
-			_pattern("maw_aimed_seed_burst", 3, "aimed_burst", 9, 3.0, 0.9, 250.0, 72.0),
+			_pattern("maw_spore_rain", 1, "arc_rain", 12, 4.0, 0.9, 190.0, 64.0, "maw_spore_pod", 0.012),
+			_pattern("maw_rotating_five_way", 2, "rotating_fan", 20, 4.5, 1.0, 210.0, 64.0, "maw_seed_spin", 0.011),
+			_pattern("maw_aimed_seed_burst", 3, "aimed_burst", 9, 3.0, 0.9, 250.0, 72.0, "maw_seed_spin", 0.012),
 		],
 	},
 	"possessed_banyan_control": {
 		"max_projectiles": 36,
 		"patterns": [
-			_pattern("banyan_seed_columns", 1, "vertical_columns", 16, 4.0, 1.0, 210.0, 64.0),
-			_pattern("banyan_diagonal_roots", 2, "diagonal_lines", 18, 4.5, 1.0, 200.0, 64.0),
+			_pattern("banyan_seed_columns", 1, "vertical_columns", 16, 4.0, 1.0, 210.0, 64.0, "banyan_seed_fall", 0.011),
+			_pattern("banyan_diagonal_roots", 2, "diagonal_lines", 18, 4.5, 1.0, 200.0, 64.0, "banyan_diagonal_root", 0.011),
 		],
 	},
 	"root_hydra_crossfire": {
 		"max_projectiles": 48,
 		"patterns": [
-			_pattern("hydra_head_crossfire", 1, "crossfire", 24, 4.5, 0.9, 230.0, 64.0),
-			_pattern("hydra_offset_rings", 2, "radial_rings", 32, 5.0, 1.0, 190.0, 64.0),
-			_pattern("hydra_water_lane_walls", 3, "lane_wall", 28, 4.0, 1.1, 210.0, 72.0),
+			_pattern("hydra_head_crossfire", 1, "crossfire", 24, 4.5, 0.9, 230.0, 64.0, "hydra_wedge_bolt", 0.011),
+			_pattern("hydra_offset_rings", 2, "radial_rings", 32, 5.0, 1.0, 190.0, 64.0, "hydra_nutrient_orb", 0.011),
+			_pattern("hydra_water_lane_walls", 3, "lane_wall", 28, 4.0, 1.1, 210.0, 72.0, "hydra_water_eruption", 0.011),
 		],
 	},
 	"root_core_eye_final": {
 		"max_projectiles": 64,
 		"patterns": [
-			_pattern("eye_rotating_spirals", 1, "spiral", 48, 5.0, 0.8, 210.0, 64.0),
-			_pattern("eye_aimed_rings", 2, "aimed_rings", 36, 4.0, 0.9, 240.0, 64.0),
-			_pattern("eye_alternating_curtains", 3, "bullet_curtain", 56, 5.5, 1.0, 220.0, 72.0),
+			_pattern("eye_rotating_spirals", 1, "spiral", 48, 5.0, 0.8, 210.0, 64.0, "eye_spiral_orb", 0.016),
+			_pattern("eye_aimed_rings", 2, "aimed_rings", 36, 4.0, 0.9, 240.0, 64.0, "eye_pupil_dart", 0.014),
+			_pattern("eye_alternating_curtains", 3, "bullet_curtain", 56, 5.5, 1.0, 220.0, 72.0, "eye_bract_blade", 0.012),
 		],
 	},
 }
@@ -57,7 +57,9 @@ static func _pattern(
 	active_duration: float,
 	recovery_duration: float,
 	projectile_speed: float,
-	safe_lane_width: float
+	safe_lane_width: float,
+	projectile_visual_id: String = "",
+	projectile_visual_scale: float = 0.009
 ) -> Dictionary:
 	return {
 		"pattern_id": pattern_id,
@@ -70,6 +72,8 @@ static func _pattern(
 		"projectile_speed": projectile_speed,
 		"projectile_lifetime": 4.0,
 		"safe_lane_width": safe_lane_width,
+		"projectile_visual_id": projectile_visual_id,
+		"projectile_visual_scale": projectile_visual_scale,
 		"cleanup_events": REQUIRED_CLEANUP_EVENTS,
 	}
 

@@ -360,26 +360,35 @@ recovery.
 
 **Level 5 enemy-asset promotion evidence — 2026-08-31:** The Eye Wisp (longan seed) now has all seven body actions promoted as quantized runtime strips. Every action uses 4 × 700 × 800 cells and the authored y = 740 lower guide; hover/fly run at 4.5/7 fps and aim/seed/beam/hurt at 8 fps. The controller alternates seed-bolt and beam projectile tells, gives spawned projectiles the matching four-frame fruit visual, and plays a short non-blocking death strip; the Level 5 smoke suite checks both handoffs, projectile binding and hurt state. Detached VFX and human nexus-scale review remain open.
 
-**Final-boss asset promotion evidence — 2026-08-31:** The Root-Core Eye now has sealed and exposed idle pilots. Both strips use 4 × 1000 × 900 cells, the authored 840 px baseline, binary alpha and nearest filtering; the runtime switches from sealed to exposed at phase 2 while keeping the deterministic Root-Core Eye projectile patterns unchanged. Smoke coverage checks the initial sealed state, baseline and grid. Remaining action/projectile/presentation art, audio and human final-boss review remain open.
+**Final-boss asset promotion evidence — 2026-08-31:** The Root-Core Eye now has sealed and exposed idle pilots. Both strips use 4 × 1000 × 900 cells, the authored 840 px baseline, binary alpha and nearest filtering; the runtime switches from sealed to exposed at phase 2 while keeping the deterministic Root-Core Eye projectile patterns unchanged. Smoke coverage checks the initial sealed state, baseline and grid. Remaining body action variants, impact/presentation art, audio and human final-boss review remain open.
 
-**Projectile pilot evidence — 2026-08-31:** The Root-Core Eye now selects a
-four-frame longan-seed projectile strip for its pooled bullet instances. The
-3200 × 800 runtime strip uses 800 px cells, binary alpha, nearest filtering and
-10 fps visual cycling; pooled instances explicitly reset to the default
-one-frame projectile texture for other bosses. Headless smoke and the strict
-generated-asset validator pass the grid, texture-path, scale and reset
-contracts. Live projectile capture remains blocked by the backgrounded Godot
-window; final contrast and bullet readability still require human review in the
-Level 5 nexus.
+**Boss projectile presentation evidence — 2026-08-31:** Twelve generated
+projectile strips are now promoted as clean 4 × 800 × 800 binary-alpha runtime
+atlases under the five boss folders. `BossPatternCatalog` assigns a stable
+`projectile_visual_id` and calibrated scale to every canonical boss pattern;
+`BossProjectilePatternRunner` resolves the ID, applies the four-frame texture
+and resets it safely through the pooled projectile activation path. Smoke
+coverage now checks the opening pattern binding for all five bosses, while the
+existing phase caps and cleanup tests remain green. Impact variants, final
+contrast, memory profiling and human boss-feel review remain open.
+
+**Projectile pilot evidence — 2026-08-31:** The original Root-Core Eye
+longan-seed projectile pilot established the pooled four-frame visual contract;
+it is now extended by the five-boss pattern-specific package documented above.
+The pilot's 3200 × 800 runtime strip remains available as a fallback, while
+each canonical pattern selects its own binary-alpha atlas and calibrated scale.
+Headless smoke and the strict generated-asset validator pass the grid,
+texture-path, scale and reset contracts. Final contrast and bullet readability
+still require human review in the Level 5 nexus.
 
 **Root-Core Eye cast promotion evidence — 2026-08-31:** Three generated cast
 strips now cover `eye_rotating_spirals`, `eye_aimed_rings` and
-`eye_alternating_curtains`. Spiral, aimed-seed and bract-curtain visuals are
-normalized to 4 × 1000 × 900 binary-alpha cells, bound through the existing
+`eye_alternating_curtains`. Spiral, aimed-seed and bract-curtain body visuals
+are normalized to 4 × 1000 × 900 binary-alpha cells, bound through the existing
 pattern telegraph signals at 8 fps, and covered by Level 5 smoke checks for the
 opening, phase-2 and phase-3 cast states. The package remains `Integrated`
-pending remaining action/projectile/presentation art, audio and human
-final-boss review.
+pending remaining body action variants, impact/presentation art, audio and
+human final-boss review.
 
 **Root-Core Eye defeat promotion evidence — 2026-08-31:** The authored
 `root_core_eye_death_normalized_v1.png` source is promoted as the four-frame

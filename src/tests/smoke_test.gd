@@ -876,6 +876,20 @@ func _validate_levels() -> void:
 		for _frame in range(50):
 			await get_tree().physics_frame
 		_check(pattern_runner.get_active_projectile_count() > 0, "%s boss did not emit its opening projectile pattern." % level_id)
+		_assert_boss_projectile_visual(pattern_runner, str(pattern_runner.current_pattern.get("pattern_id", "")), level_id)
+		if pattern_runner.get_active_projectile_count() > 0:
+			var opening_projectile := pattern_runner.active_projectiles[0] as EnemyProjectile
+			var opening_visual := opening_projectile.get_node("Visual") as Sprite2D
+			var expected_projectile_visual: String = str({
+				"level_01": "hair_thorn_spin_strip_normalized_v2.png",
+				"level_02": "spore_pod_fall_strip_normalized_v2.png",
+				"level_03": "jackfruit_seed_fall_strip_normalized_v2.png",
+				"level_04": "root_hydra_nipa_wedge_bolt_normalized_v2.png",
+				"level_05": "root_core_eye_spiral_seed_eye_orb_normalized_v2.png",
+			}.get(level_id, ""))
+			_check(opening_visual.hframes == 4 and opening_visual.vframes == 1, "%s boss projectile lost its four-frame visual grid." % level_id)
+			_check(str(opening_visual.texture.resource_path).ends_with(expected_projectile_visual), "%s boss did not bind its fruit-specific opening projectile visual." % level_id)
+			_check(float(opening_visual.scale.x) > 0.009, "%s boss projectile visual scale is too small for gameplay readability." % level_id)
 		if level_id == "level_01":
 			var thorn_cast_visual := boss.get_node("Visual") as Sprite2D
 			_check(str(thorn_cast_visual.texture.resource_path).ends_with("thorn_matriarch_fan_cast_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not bind its fan-cast animation to the opening pattern.")
@@ -894,8 +908,8 @@ func _validate_levels() -> void:
 			var pilot_projectile := pattern_runner.active_projectiles[0] as EnemyProjectile
 			var pilot_projectile_visual := pilot_projectile.get_node("Visual") as Sprite2D
 			_check(pilot_projectile_visual.hframes == 4 and pilot_projectile_visual.vframes == 1, "Level 5 Root-Core Eye projectile pilot lost its four-frame grid.")
-			_check(str(pilot_projectile_visual.texture.resource_path).ends_with("root_core_eye_longan_seed_bullet_normalized_v2.png"), "Level 5 Root-Core Eye projectile did not use the promoted longan bullet texture.")
-			_check(absf(pilot_projectile_visual.scale.x - 0.018) < 0.001, "Level 5 Root-Core Eye projectile pilot lost its calibrated scale.")
+			_check(str(pilot_projectile_visual.texture.resource_path).ends_with("root_core_eye_spiral_seed_eye_orb_normalized_v2.png"), "Level 5 Root-Core Eye projectile did not use the promoted spiral seed-eye texture.")
+			_check(absf(pilot_projectile_visual.scale.x - 0.016) < 0.001, "Level 5 Root-Core Eye projectile pilot lost its calibrated scale.")
 		_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s boss exceeded its projectile cap." % level_id)
 		_check(pattern_runner.all_projectiles.size() <= pattern_runner.projectile_cap, "%s boss projectile pool exceeded its cap." % level_id)
 		if boss.boss_phase_count > 1 and level_id != "level_01":
@@ -933,6 +947,7 @@ func _validate_levels() -> void:
 				for _phase_frame in range(50):
 					await get_tree().physics_frame
 				_check(pattern_runner.get_active_projectile_count() > 0, "%s phase %d did not emit its projectile pattern." % [level_id, expected_phase])
+				_assert_boss_projectile_visual(pattern_runner, str(pattern_runner.current_pattern.get("pattern_id", "")), "%s phase %d" % [level_id, expected_phase])
 				if level_id == "level_04":
 					var hydra_cast_visual := boss.get_node("Visual") as Sprite2D
 					var expected_hydra_cast := "root_hydra_radial_ring_cast_strip_normalized_v2.png" if expected_phase == 2 else "root_hydra_lane_wall_cast_strip_normalized_v2.png"
@@ -956,6 +971,7 @@ func _validate_levels() -> void:
 			for _phase_frame in range(50):
 				await get_tree().physics_frame
 			_check(pattern_runner.get_active_projectile_count() > 0, "%s phase 2 did not emit its projectile pattern." % level_id)
+			_assert_boss_projectile_visual(pattern_runner, str(pattern_runner.current_pattern.get("pattern_id", "")), "%s phase 2" % level_id)
 			if level_id == "level_01":
 				var thorn_phase_cast_visual := boss.get_node("Visual") as Sprite2D
 				_check(str(thorn_phase_cast_visual.texture.resource_path).ends_with("thorn_matriarch_mine_cast_strip_normalized_v2.png"), "Level 1 Thorn Matriarch did not bind its lane cast animation to the phase-2 pattern.")
@@ -993,6 +1009,33 @@ func _validate_levels() -> void:
 		await get_tree().process_frame
 	GameManager.reset_run()
 	get_tree().paused = false
+
+
+func _assert_boss_projectile_visual(pattern_runner: BossProjectilePatternRunner, pattern_id: String, label: String) -> void:
+	var expected_visual: String = str({
+		"thorn_fan_three_way": "hair_thorn_spin_strip_normalized_v2.png",
+		"thorn_alternating_lanes": "lane_thorn_emerge_strip_normalized_v2.png",
+		"maw_spore_rain": "spore_pod_fall_strip_normalized_v2.png",
+		"maw_rotating_five_way": "seed_bullet_spin_strip_normalized_v2.png",
+		"maw_aimed_seed_burst": "seed_bullet_spin_strip_normalized_v2.png",
+		"banyan_seed_columns": "jackfruit_seed_fall_strip_normalized_v2.png",
+		"banyan_diagonal_roots": "diagonal_root_line_strip_normalized_v2.png",
+		"hydra_head_crossfire": "root_hydra_nipa_wedge_bolt_normalized_v2.png",
+		"hydra_offset_rings": "root_hydra_nutrient_ring_orb_normalized_v2.png",
+		"hydra_water_lane_walls": "root_hydra_water_lane_eruption_normalized_v2.png",
+		"eye_rotating_spirals": "root_core_eye_spiral_seed_eye_orb_normalized_v2.png",
+		"eye_aimed_rings": "root_core_eye_pupil_lance_dart_normalized_v2.png",
+		"eye_alternating_curtains": "root_core_eye_bract_curtain_blade_normalized_v2.png",
+	}.get(pattern_id, ""))
+	_check(not expected_visual.is_empty(), "%s selected an unknown projectile visual ID for %s." % [label, pattern_id])
+	if pattern_runner.active_projectiles.is_empty():
+		_check(false, "%s emitted no projectile to validate its visual binding." % label)
+		return
+	var projectile := pattern_runner.active_projectiles[0] as EnemyProjectile
+	var visual := projectile.get_node("Visual") as Sprite2D
+	_check(visual.hframes == 4 and visual.vframes == 1, "%s projectile lost its four-frame visual grid." % label)
+	_check(str(visual.texture.resource_path).ends_with(expected_visual), "%s did not bind its canonical projectile visual." % label)
+	_check(float(visual.scale.x) > 0.009, "%s projectile visual scale is too small for gameplay readability." % label)
 
 
 func _drain_dialogue(dialogue: DialogueOverlay) -> void:

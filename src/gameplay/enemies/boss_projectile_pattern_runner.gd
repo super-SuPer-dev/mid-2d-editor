@@ -8,6 +8,18 @@ signal phase_changed(current_phase: int, phase_count: int)
 
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
 const ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/root_core_eye_longan_seed_bullet_normalized_v2.png")
+const THORN_HAIR_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/projectiles/hair_thorn_spin_strip_normalized_v2.png")
+const THORN_LANE_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/thorn_matriarch/projectiles/lane_thorn_emerge_strip_normalized_v2.png")
+const MAW_SPORE_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/projectiles/spore_pod_fall_strip_normalized_v2.png")
+const MAW_SEED_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/maw_sovereign/projectiles/seed_bullet_spin_strip_normalized_v2.png")
+const BANYAN_SEED_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/projectiles/jackfruit_seed_fall_strip_normalized_v2.png")
+const BANYAN_ROOT_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/possessed_banyan/projectiles/diagonal_root_line_strip_normalized_v2.png")
+const HYDRA_WEDGE_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_nipa_wedge_bolt_normalized_v2.png")
+const HYDRA_NUTRIENT_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_nutrient_ring_orb_normalized_v2.png")
+const HYDRA_WATER_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_hydra/projectiles/root_hydra_water_lane_eruption_normalized_v2.png")
+const EYE_SPIRAL_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_spiral_seed_eye_orb_normalized_v2.png")
+const EYE_PUPIL_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_pupil_lance_dart_normalized_v2.png")
+const EYE_BRACT_PROJECTILE_TEXTURE: Texture2D = preload("res://assets/enemies/bosses/root_core_eye/projectiles/root_core_eye_bract_curtain_blade_normalized_v2.png")
 const STATE_IDLE := &"idle"
 const STATE_TELEGRAPH := &"telegraph"
 const STATE_ACTIVE := &"active"
@@ -174,10 +186,11 @@ func _emit_projectile(sequence_index: int) -> void:
 			direction = Vector2.DOWN
 		_:
 			direction = aim.rotated(lerpf(-0.18, 0.18, float(sequence_index % 3) / 2.0))
-	var projectile_texture: Texture2D = null
-	var visual_frame_count := 1
-	var visual_scale := 0.009
-	if host is EnemyController and host.enemy_type == "root_core_eye_boss":
+	var presentation := _get_projectile_presentation(str(current_pattern.get("pattern_id", "")))
+	var projectile_texture: Texture2D = presentation.get("texture", null) as Texture2D
+	var visual_frame_count := int(presentation.get("frame_count", 1))
+	var visual_scale := float(presentation.get("scale", 0.009))
+	if projectile_texture == null and host is EnemyController and host.enemy_type == "root_core_eye_boss":
 		projectile_texture = ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE
 		visual_frame_count = 4
 		visual_scale = 0.018
@@ -193,6 +206,38 @@ func _emit_projectile(sequence_index: int) -> void:
 	)
 	projectile.add_to_group("BossProjectile")
 	active_projectiles.append(projectile)
+
+
+func _get_projectile_presentation(pattern_id: String) -> Dictionary:
+	var visual_id := str(current_pattern.get("projectile_visual_id", ""))
+	var visual_scale := float(current_pattern.get("projectile_visual_scale", 0.009))
+	var texture: Texture2D = null
+	match visual_id:
+		"thorn_hair_spin":
+			texture = THORN_HAIR_PROJECTILE_TEXTURE
+		"thorn_lane_emerge":
+			texture = THORN_LANE_PROJECTILE_TEXTURE
+		"maw_spore_pod":
+			texture = MAW_SPORE_PROJECTILE_TEXTURE
+		"maw_seed_spin":
+			texture = MAW_SEED_PROJECTILE_TEXTURE
+		"banyan_seed_fall":
+			texture = BANYAN_SEED_PROJECTILE_TEXTURE
+		"banyan_diagonal_root":
+			texture = BANYAN_ROOT_PROJECTILE_TEXTURE
+		"hydra_wedge_bolt":
+			texture = HYDRA_WEDGE_PROJECTILE_TEXTURE
+		"hydra_nutrient_orb":
+			texture = HYDRA_NUTRIENT_PROJECTILE_TEXTURE
+		"hydra_water_eruption":
+			texture = HYDRA_WATER_PROJECTILE_TEXTURE
+		"eye_spiral_orb":
+			texture = EYE_SPIRAL_PROJECTILE_TEXTURE
+		"eye_pupil_dart":
+			texture = EYE_PUPIL_PROJECTILE_TEXTURE
+		"eye_bract_blade":
+			texture = EYE_BRACT_PROJECTILE_TEXTURE
+	return {"texture": texture, "frame_count": 4 if texture != null else 1, "scale": visual_scale}
 
 
 func _acquire_projectile() -> EnemyProjectile:
