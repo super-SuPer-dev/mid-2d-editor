@@ -655,6 +655,9 @@ func _validate_levels() -> void:
 						var contract: Dictionary = contracts[gate_index]
 						_check(gate.encounter_id == str(contract.get("encounter_id", "")), "%s encounter gate %d has the wrong canonical ID." % [level_id, gate_index + 1])
 						_check(gate.enemy_paths.size() == int(contract.get("threat_count", -1)), "%s encounter gate %d has the wrong threat count." % [level_id, gate_index + 1])
+						_check(gate.assigned_enemies.size() == gate.enemy_paths.size(), "%s encounter gate %d could not resolve every assigned enemy path." % [level_id, gate_index + 1])
+						gate.start_encounter()
+						_check(gate.started, "%s encounter gate %d could not activate its assigned group." % [level_id, gate_index + 1])
 						assigned_threats += gate.enemy_paths.size()
 			_check(assigned_threats == expected_enemies, "%s encounter gates do not assign every threat exactly once." % level_id)
 		if level_id == "level_04":
