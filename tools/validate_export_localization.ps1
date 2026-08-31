@@ -19,9 +19,12 @@ $startInfo.WorkingDirectory = $BuildRoot
 $startInfo.UseShellExecute = $false
 $startInfo.RedirectStandardOutput = $true
 $startInfo.RedirectStandardError = $true
+$startInfo.EnvironmentVariables["LOW_ALTITUDE_VALIDATE_LOCALIZATION"] = "1"
 $startInfo.ArgumentList.Add("--headless")
 $startInfo.ArgumentList.Add("--quit-after")
 $startInfo.ArgumentList.Add("3")
+$startInfo.ArgumentList.Add("--")
+$startInfo.ArgumentList.Add("--validate-localization")
 $process = [System.Diagnostics.Process]::new()
 $process.StartInfo = $startInfo
 if (-not $process.Start()) {
@@ -40,7 +43,8 @@ $output = ($stdoutTask.Result + "`n" + $stderrTask.Result)
 $patterns = @(
     "Localization table could not be opened",
     "Missing localization key",
-    "Failed to load localization"
+    "Failed to load localization",
+    "LOCALIZATION EXPORT SELF TEST FAIL"
 )
 $matches = @($patterns | ForEach-Object {
     $pattern = $_
@@ -54,6 +58,11 @@ if ($matches.Count -gt 0) {
 if ($process.ExitCode -ne 0) {
     Write-Output ("EXPORTED LOCALIZATION: FAIL`n- Windows executable exit code: {0}" -f $process.ExitCode)
     exit $process.ExitCode
+}
+if ($output -notmatch "LOCALIZATION EXPORT SELF TEST PASS") {
+    Write-Output "EXPORTED LOCALIZATION: FAIL"
+    Write-Output "- Exported self-test did not report bilingual sample coverage."
+    exit 1
 }
 Write-Output "EXPORTED LOCALIZATION: PASS"
 Write-Output "- Windows export loaded localization tables without missing-key errors."

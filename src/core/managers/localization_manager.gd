@@ -7,6 +7,10 @@ const SUPPORTED_LANGUAGES := ["en", "th"]
 const PSEUDO_PREFIX := "[!"
 const PSEUDO_SUFFIX := "!]"
 const PSEUDO_MIN_EXPANSION := 1.35
+const EXPORT_SELF_TEST_KEYS := [
+	"MENU_SUBTITLE", "MENU_SETTINGS", "LEVEL_05_NAME", "BOSS_ROOT_CORE_EYE",
+	"SETTINGS_LANGUAGE", "DIALOGUE_CONTINUE",
+]
 const PSEUDO_ACCENTS := {
 	"a": "à", "A": "À", "b": "ḃ", "B": "Ḃ", "c": "ç", "C": "Ç",
 	"d": "đ", "D": "Đ", "e": "é", "E": "É", "f": "ḟ", "F": "Ḟ",
@@ -45,6 +49,26 @@ var compiled_english_fallbacks: Array[Translation] = []
 func _enter_tree() -> void:
 	_load_tables()
 	set_language(DEFAULT_LANGUAGE, false)
+	if "--validate-localization" in OS.get_cmdline_user_args() or OS.get_environment("LOW_ALTITUDE_VALIDATE_LOCALIZATION") == "1":
+		call_deferred("_run_export_self_test")
+
+
+func _run_export_self_test() -> void:
+	var failures: Array[String] = []
+	for locale: String in SUPPORTED_LANGUAGES:
+		TranslationServer.set_locale(locale)
+		for key: String in EXPORT_SELF_TEST_KEYS:
+			var translated := TranslationServer.translate(StringName(key))
+			if translated.is_empty() or translated == key:
+				failures.append("%s:%s" % [locale, key])
+	if failures.is_empty():
+		print("LOCALIZATION EXPORT SELF TEST PASS: English and Thai samples loaded.")
+	else:
+		for failure: String in failures:
+			push_error("Localization self-test missing translation: %s" % failure)
+		print("LOCALIZATION EXPORT SELF TEST FAIL: %d missing samples." % failures.size())
+	if OS.has_feature("headless"):
+		get_tree().quit(0 if failures.is_empty() else 1)
 
 
 func _load_tables() -> void:

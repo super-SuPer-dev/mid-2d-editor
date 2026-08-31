@@ -363,6 +363,10 @@ without `Localization table could not be opened` or missing-key warnings, and
 `tools/validate_export_localization.ps1` now makes that check part of the
 release runner rather than relying on source-only table validation.
 
+The exported self-test exercises representative English and Thai UI, level,
+boss, settings and dialogue keys before the process exits, so a packaged
+translation resource cannot silently regress to an English-only build.
+
 **Runtime PNG optimization evidence — 2026-08-31:** `tools/optimize_runtime_pngs.py`
 losslessly re-encoded 180 runtime PNGs with decoded RGBA pixel digests checked
 before replacement. Changed-file storage fell from 295,315,477 to 252,606,173
