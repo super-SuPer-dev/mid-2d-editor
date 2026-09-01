@@ -31,6 +31,10 @@ func _ready() -> void:
 	var barrier_rectangle := RectangleShape2D.new()
 	barrier_rectangle.size = barrier_size
 	barrier_shape.shape = barrier_rectangle
+	# Layer 32 is reserved for encounter barriers. Players opt into it;
+	# enemies keep mask 1 so a spawn can always cross toward the arena.
+	barrier.collision_layer = 32
+	barrier.collision_mask = 2
 	trigger.body_entered.connect(_on_trigger_body_entered)
 	call_deferred("_initialize_encounter")
 	queue_redraw()

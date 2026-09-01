@@ -13,6 +13,13 @@ const GAME_LEVELS := {
 	"level_04": preload("res://scenes/levels/level_04.tscn"),
 	"level_05": preload("res://scenes/levels/level_05.tscn"),
 }
+const BIOME_PLATFORM_CONTACT_ROWS := {
+	"level_02": [141.0, 164.0, 139.0],
+	"level_03": [139.0, 139.0, 139.0],
+	"level_04": [128.0, 152.0, 122.0],
+	"level_05": [137.0, 202.0, 137.0],
+}
+const ENCOUNTER_BARRIER_LAYER := 32
 const REQUIRED_JUMP_ROUTES := {
 	"level_01": [
 		["Ground", "Platform01"], ["Platform01", "Platform02"],
@@ -636,6 +643,11 @@ func _validate_levels() -> void:
 				var platform_visual := platform.get_node("Visual") as Sprite2D
 				_check(platform_visual.material is ShaderMaterial, "%s platform %s lost its non-stretching repeat shader." % [level_id, platform.name])
 				_check(is_equal_approx(absf(platform_visual.scale.y * (platform as Node2D).scale.y), 40.0 / 724.0), "%s platform %s stretches its tile vertically." % [level_id, platform.name])
+				var contact_rows: Array = BIOME_PLATFORM_CONTACT_ROWS[level_id]
+				var contact_row := float(contact_rows[platform_visual.frame])
+				var parent_scale_y := maxf(absf((platform as Node2D).scale.y), 0.001)
+				var expected_visual_y := -10.0 + (20.0 - contact_row * 40.0 / 724.0) / parent_scale_y
+				_check(is_equal_approx(platform_visual.position.y, expected_visual_y), "%s platform %s does not align its painted top with collision." % [level_id, platform.name])
 		var expected_enemies: int = int(LevelCatalog.get_level(level_id)["threat_quota"])
 		var enemy_count := 0
 		var boss_count := 0
@@ -867,11 +879,19 @@ func _validate_levels() -> void:
 				for gate_index in range(planned_gates.get_child_count()):
 					var gate := planned_gates.get_child(gate_index) as EncounterGate
 					_check(gate != null, "%s encounter gate %d has the wrong script type." % [level_id, gate_index + 1])
+					if gate != null:
+						_check(gate.barrier.collision_layer == ENCOUNTER_BARRIER_LAYER, "%s encounter gate %d is not on the player-only barrier layer." % [level_id, gate_index + 1])
+						_check((level.get_node("Player") as PlayerController).collision_mask & ENCOUNTER_BARRIER_LAYER != 0, "%s player cannot collide with encounter gate %d." % [level_id, gate_index + 1])
 					if gate != null and gate_index < contracts.size():
 						var contract: Dictionary = contracts[gate_index]
 						_check(gate.encounter_id == str(contract.get("encounter_id", "")), "%s encounter gate %d has the wrong canonical ID." % [level_id, gate_index + 1])
 						_check(gate.enemy_paths.size() == int(contract.get("threat_count", -1)), "%s encounter gate %d has the wrong threat count." % [level_id, gate_index + 1])
 						_check(gate.assigned_enemies.size() == gate.enemy_paths.size(), "%s encounter gate %d could not resolve every assigned enemy path." % [level_id, gate_index + 1])
+						var arena_direction := signf(gate.trigger_offset.x)
+						for assigned_enemy: EnemyController in gate.assigned_enemies:
+							_check(assigned_enemy.collision_mask & ENCOUNTER_BARRIER_LAYER == 0, "%s gate %d blocks assigned enemy %s." % [level_id, gate_index + 1, assigned_enemy.name])
+							var arena_clearance := (assigned_enemy.global_position.x - gate.global_position.x) * arena_direction
+							_check(arena_clearance >= 30.0, "%s gate %d leaves assigned enemy %s outside its arena." % [level_id, gate_index + 1, assigned_enemy.name])
 						gate.start_encounter()
 						_check(gate.started, "%s encounter gate %d could not activate its assigned group." % [level_id, gate_index + 1])
 						assigned_threats += gate.enemy_paths.size()

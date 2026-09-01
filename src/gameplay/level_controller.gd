@@ -15,6 +15,15 @@ const BIOME_PLATFORM_TEXTURE_PATHS: Dictionary = {
 const BIOME_PLATFORM_FRAME_SIZE := Vector2(724.0, 724.0)
 const BIOME_PLATFORM_WORLD_SIZE := Vector2(100.0, 40.0)
 const BIOME_PLATFORM_SCALE := BIOME_PLATFORM_WORLD_SIZE / BIOME_PLATFORM_FRAME_SIZE
+# First opaque ground row in each three-frame biome strip. The generated
+# textures include transparent headroom; aligning the texture rectangle
+# instead of this painted row makes every collider-supported object float.
+const BIOME_PLATFORM_CONTACT_ROWS: Dictionary = {
+	"level_02": [141.0, 164.0, 139.0],
+	"level_03": [139.0, 139.0, 139.0],
+	"level_04": [128.0, 152.0, 122.0],
+	"level_05": [137.0, 202.0, 137.0],
+}
 
 @onready var hud: GameHUD = $HUD
 @onready var player: PlayerController = $Player
@@ -69,6 +78,7 @@ func _configure_biome_platforms() -> void:
 	var texture := GameManager.load_runtime_texture(platform_path) if not platform_path.is_empty() else null
 	if texture == null:
 		return
+	var contact_rows: Array = BIOME_PLATFORM_CONTACT_ROWS.get(GameManager.current_level_id, [0.0, 0.0, 0.0])
 	var frame_index := 0
 	for child: Node in get_node("WorldGeometry").get_children():
 		if not child.is_in_group("Platform"):
@@ -83,9 +93,15 @@ func _configure_biome_platforms() -> void:
 		visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		var parent_scale_y := maxf(absf((child as Node2D).scale.y), 0.001)
 		visual.scale = Vector2(BIOME_PLATFORM_SCALE.x, BIOME_PLATFORM_SCALE.y / parent_scale_y)
-		# Keep the authored 40 px wall depth and its top edge aligned with the
-		# scaled 20 px collision shape instead of stretching the artwork.
-		visual.position = Vector2(0.0, -10.0 + BIOME_PLATFORM_WORLD_SIZE.y * 0.5 / parent_scale_y)
+		# Keep the authored 40 px wall depth while lifting the texture's
+		# transparent headroom above the collider. The first painted terrain
+		# row now lands exactly on the collision surface.
+		var contact_row := float(contact_rows[frame_index % contact_rows.size()])
+		var transparent_headroom_world := contact_row * BIOME_PLATFORM_SCALE.y
+		visual.position = Vector2(
+			0.0,
+			-10.0 + (BIOME_PLATFORM_WORLD_SIZE.y * 0.5 - transparent_headroom_world) / parent_scale_y
+		)
 		frame_index += 1
 
 

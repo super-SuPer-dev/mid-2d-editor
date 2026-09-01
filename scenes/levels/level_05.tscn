@@ -186,13 +186,13 @@ position = Vector2(100, 750)
 position = Vector2(700, 500)
 enemy_type = "eye_wisp"
 [node name="CapsuleHusk01" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(1100, 520)
+position = Vector2(800, 520)
 enemy_type = "capsule_husk_elite"
 [node name="MixedElite01" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(1450, 600)
 enemy_type = "mixed_elite"
 [node name="EyeWisp02" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(1800, 430)
+position = Vector2(1700, 430)
 enemy_type = "eye_wisp"
 [node name="CapsuleHusk02" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(2150, 600)
