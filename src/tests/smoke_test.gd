@@ -20,21 +20,30 @@ const REQUIRED_JUMP_ROUTES := {
 		["Platform06", "Platform07"], ["Platform07", "Platform08"], ["Platform08", "Platform09"],
 	],
 	"level_02": [
-		["GroundA", "Platform03"], ["GroundB", "Platform04"],
-		["GroundB", "Platform01"], ["GroundC", "Platform05"],
-		["GroundC", "Platform02"], ["GroundD", "Platform06"],
+		["GroundA", "Platform03"], ["Platform03", "GroundB"],
+		["GroundB", "Platform04"], ["Platform04", "Platform01"],
+		["Platform01", "GroundC"], ["GroundC", "Platform05"],
+		["Platform05", "Platform02"], ["Platform02", "GroundD"],
+		["GroundD", "Platform06"],
 	],
 	"level_03": [
 		["Ground", "Platform01"], ["Platform01", "Platform02"],
-		["Platform03", "Platform04"],
+		["Platform02", "GroundB"], ["GroundB", "Platform03"],
+		["Platform03", "Platform04"], ["Platform04", "Platform05"],
+		["Platform05", "GroundC"],
 	],
 	"level_04": [
 		["Ground", "Platform01"], ["Platform01", "Platform02"],
-		["Platform03", "Platform04"], ["Platform05", "Platform06"], ["Platform06", "Platform07"],
+		["Platform02", "Platform03"], ["Platform03", "Platform04"],
+		["Platform04", "Platform05"], ["Platform05", "Platform06"],
+		["Platform06", "Platform07"],
 	],
 	"level_05": [
 		["Ground", "Platform01"], ["Platform01", "Platform02"],
-		["Platform03", "Platform04"], ["Platform05", "Platform06"], ["Platform07", "Platform08"],
+		["Platform02", "GroundB"], ["GroundB", "Platform03"],
+		["Platform03", "Platform04"], ["Platform04", "Platform05"],
+		["Platform05", "Platform06"], ["Platform06", "GroundC"],
+		["GroundC", "Platform07"], ["Platform07", "Platform08"],
 	],
 }
 const UI_SCENES := [
@@ -606,6 +615,9 @@ func _validate_levels() -> void:
 					parallax_scales[(parallax_layer as Parallax2D).scroll_scale] = true
 			_check(parallax_scales.size() >= 4, "%s parallax layers do not have distinct depth speeds." % level_id)
 		var world_geometry := level.get_node("WorldGeometry")
+		if level_id != "level_01":
+			for pickup: Node2D in level.get_node("Pickups").get_children():
+				_check(_point_is_above_authored_surface(pickup.global_position, world_geometry), "%s pickup %s is not staged above a reachable surface." % [level_id, pickup.name])
 		for environment_child: Node in level.get_node("Environment").get_children():
 			if "Accent" in str(environment_child.name):
 				_check(not (environment_child as CanvasItem).visible, "%s exposes collisionless accent %s as misleading level geometry." % [level_id, environment_child.name])
@@ -665,7 +677,7 @@ func _validate_levels() -> void:
 			var thornling := level.get_node("Enemies/Thornling01") as EnemyController
 			var thornling_visual := thornling.get_node("Visual") as Sprite2D
 			_check(thornling_visual.hframes == 4 and thornling_visual.vframes == 1, "Level 1 Thornling pilot lost its four-frame grid.")
-			_check(absf(thornling_visual.position.y + 18.0) < 0.01, "Level 1 Thornling pilot lost its 740 px baseline offset.")
+			_check(absf(thornling_visual.position.y + 1.5) < 0.01, "Level 1 Thornling pilot lost its 740 px baseline offset.")
 			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_idle_strip_normalized_v2.png") or str(thornling_visual.texture.resource_path).ends_with("thornling_run_strip_normalized_v2.png"), "Level 1 Thornling pilot is not using the promoted runtime texture.")
 			thornling.thornling_attack_timer = 0.35
 			await get_tree().physics_frame
@@ -679,7 +691,7 @@ func _validate_levels() -> void:
 			var spitter := level.get_node("Enemies/Spitter") as EnemyController
 			var spitter_visual := spitter.get_node("Visual") as Sprite2D
 			_check(spitter_visual.hframes == 4 and spitter_visual.vframes == 1, "Level 1 Spitter pilot lost its four-frame grid.")
-			_check(absf(spitter_visual.position.y + 18.0) < 0.01, "Level 1 Spitter pilot lost its 740 px baseline offset.")
+			_check(absf(spitter_visual.position.y + 1.5) < 0.01, "Level 1 Spitter pilot lost its 740 px baseline offset.")
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png") or str(spitter_visual.texture.resource_path).ends_with("spitter_walk_strip_normalized_v2.png"), "Level 1 Spitter pilot is not using the promoted runtime texture.")
 			spitter._shoot(Vector2.RIGHT)
 			await get_tree().physics_frame
@@ -712,7 +724,7 @@ func _validate_levels() -> void:
 			var maw := level.get_node("Enemies/Maw01") as EnemyController
 			var maw_visual := maw.get_node("Visual") as Sprite2D
 			_check(maw_visual.hframes == 4 and maw_visual.vframes == 1, "Level 2 Maw pilot lost its four-frame grid.")
-			_check(absf(maw_visual.position.y + 18.0) < 0.01, "Level 2 Maw pilot lost its 740 px baseline offset.")
+			_check(absf(maw_visual.position.y + 1.5) < 0.01, "Level 2 Maw pilot lost its 740 px baseline offset.")
 			_check(str(maw_visual.texture.resource_path).ends_with("maw_idle_strip_normalized_v2.png") or str(maw_visual.texture.resource_path).ends_with("maw_move_strip_normalized_v2.png"), "Level 2 Maw pilot is not using the promoted runtime texture.")
 			maw.maw_attack_timer = 0.4
 			maw._update_maw_animation(0.0)
@@ -727,7 +739,7 @@ func _validate_levels() -> void:
 			var maw_boss := level.get_node("Enemies/MawBloomSovereign") as EnemyController
 			var maw_boss_visual := maw_boss.get_node("Visual") as Sprite2D
 			_check(maw_boss_visual.hframes == 4 and maw_boss_visual.vframes == 1, "Level 2 Maw Sovereign pilot lost its four-frame grid.")
-			_check(absf(maw_boss_visual.position.y + 39.0) < 0.01, "Level 2 Maw Sovereign pilot lost its 840 px baseline offset.")
+			_check(absf(maw_boss_visual.position.y + 20.0) < 0.01, "Level 2 Maw Sovereign pilot lost its 840 px baseline offset.")
 			_check(str(maw_boss_visual.texture.resource_path).ends_with("maw_sovereign_idle_armored_strip_normalized_v2.png"), "Level 2 Maw Sovereign pilot did not begin in its armored visual state.")
 		if level_id == "level_03":
 			var capsule_tile := level.get_node("Environment/CapsuleTileAccentA") as Sprite2D
@@ -746,7 +758,7 @@ func _validate_levels() -> void:
 			var banyan_boss := level.get_node("Enemies/BanyanBoss") as EnemyController
 			var banyan_visual := banyan_boss.get_node("Visual") as Sprite2D
 			_check(banyan_visual.hframes == 4 and banyan_visual.vframes == 1, "Level 3 Possessed Banyan pilot lost its four-frame grid.")
-			_check(absf(banyan_visual.position.y + 39.0) < 0.01, "Level 3 Possessed Banyan pilot lost its 840 px baseline offset.")
+			_check(absf(banyan_visual.position.y + 20.0) < 0.01, "Level 3 Possessed Banyan pilot lost its 840 px baseline offset.")
 			_check(str(banyan_visual.texture.resource_path).ends_with("possessed_banyan_idle_armored_strip_normalized_v2.png"), "Level 3 Possessed Banyan pilot did not begin in its armored visual state.")
 		var expected_hazard_texture := ""
 		var expected_landmark_texture := ""
@@ -861,7 +873,7 @@ func _validate_levels() -> void:
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
 			var root_skitter_visual := root_skitter.get_node("Visual") as Sprite2D
 			_check(root_skitter_visual.hframes == 4 and root_skitter_visual.vframes == 1, "Level 4 root-skitter pilot lost its four-frame grid.")
-			_check(absf(root_skitter_visual.position.y + 17.0) < 0.01, "Level 4 root-skitter pilot lost its 740 px baseline offset.")
+			_check(absf(root_skitter_visual.position.y - 2.0) < 0.01, "Level 4 root-skitter pilot lost its 740 px baseline offset.")
 			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_idle_strip_normalized_v2.png") or str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_scuttle_strip_normalized_v2.png"), "Level 4 root-skitter pilot is not using the promoted runtime texture.")
 			var pilot_frame := root_skitter_visual.frame
 			for _pilot_frame in range(8):
@@ -883,7 +895,7 @@ func _validate_levels() -> void:
 			var marsh_spitter := level.get_node("Enemies/MarshSpitter01") as EnemyController
 			var marsh_spitter_visual := marsh_spitter.get_node("Visual") as Sprite2D
 			_check(marsh_spitter_visual.hframes == 4 and marsh_spitter_visual.vframes == 1, "Level 4 Marsh Spitter did not bind the generated four-frame strip.")
-			_check(absf(marsh_spitter_visual.position.y + 18.0) < 0.01, "Level 4 Marsh Spitter lost its calibrated baseline offset.")
+			_check(absf(marsh_spitter_visual.position.y - 3.5) < 0.01, "Level 4 Marsh Spitter lost its calibrated baseline offset.")
 			_check(str(marsh_spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png"), "Level 4 Marsh Spitter did not bind its marsh Spitter idle art.")
 			marsh_spitter._shoot(Vector2.RIGHT)
 			marsh_spitter._update_spitter_animation(0.0)
@@ -895,7 +907,7 @@ func _validate_levels() -> void:
 			var root_hydra := level.get_node("Enemies/RootHydra") as EnemyController
 			var root_hydra_visual := root_hydra.get_node("Visual") as Sprite2D
 			_check(root_hydra_visual.hframes == 4 and root_hydra_visual.vframes == 1, "Level 4 Root Hydra pilot lost its four-frame grid.")
-			_check(absf(root_hydra_visual.position.y + 105.0) < 0.01, "Level 4 Root Hydra pilot lost its 840 px baseline offset.")
+			_check(absf(root_hydra_visual.position.y + 28.0) < 0.01, "Level 4 Root Hydra pilot lost its 840 px baseline offset.")
 			_check(str(root_hydra_visual.texture.resource_path).ends_with("root_hydra_idle_strip_normalized_v2.png"), "Level 4 Root Hydra pilot is not using the promoted runtime texture.")
 			_check(str(root_hydra._get_standard_death_texture().resource_path).ends_with("root_hydra_death_strip_normalized_v2.png"), "Level 4 Root Hydra lost its promoted death-strip contract.")
 			root_hydra.take_damage(1)
@@ -949,7 +961,7 @@ func _validate_levels() -> void:
 			var root_core_eye := level.get_node("Enemies/RootCoreEye") as EnemyController
 			var root_core_eye_visual := root_core_eye.get_node("Visual") as Sprite2D
 			_check(root_core_eye_visual.hframes == 4 and root_core_eye_visual.vframes == 1, "Level 5 Root-Core Eye pilot lost its four-frame grid.")
-			_check(absf(root_core_eye_visual.position.y + 105.0) < 0.01, "Level 5 Root-Core Eye pilot lost its 840 px baseline offset.")
+			_check(absf(root_core_eye_visual.position.y + 20.0) < 0.01, "Level 5 Root-Core Eye pilot lost its 840 px baseline offset.")
 			_check(str(root_core_eye_visual.texture.resource_path).ends_with("root_core_eye_idle_sealed_normalized_v2.png"), "Level 5 Root-Core Eye pilot did not begin in its sealed visual state.")
 			_check(str(root_core_eye._get_standard_death_texture().resource_path).ends_with("root_core_eye_death_strip_normalized_v2.png"), "Level 5 Root-Core Eye lost its promoted death-strip contract.")
 			root_core_eye.take_damage(1)
@@ -960,7 +972,7 @@ func _validate_levels() -> void:
 			var capsule_husk := level.get_node("Enemies/CapsuleHusk01") as EnemyController
 			var capsule_husk_visual := capsule_husk.get_node("Visual") as Sprite2D
 			_check(capsule_husk_visual.hframes == 4 and capsule_husk_visual.vframes == 1, "Level 5 Capsule Husk pilot lost its four-frame grid.")
-			_check(absf(capsule_husk_visual.position.y + 18.0) < 0.01, "Level 5 Capsule Husk pilot lost its 740 px baseline offset.")
+			_check(absf(capsule_husk_visual.position.y + 1.5) < 0.01, "Level 5 Capsule Husk pilot lost its 740 px baseline offset.")
 			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_idle_strip_normalized_v2.png") or str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_move_strip_normalized_v2.png"), "Level 5 Capsule Husk pilot is not using the promoted runtime texture.")
 			capsule_husk.capsule_husk_attack_timer = 0.45
 			capsule_husk._update_capsule_husk_animation(0.0)
@@ -1161,7 +1173,7 @@ func _validate_levels() -> void:
 			_check(boss.boss_phase == 1 and pattern_runner.current_phase == 1, "%s boss did not begin in phase 1." % level_id)
 			var thorn_matriarch_visual := boss.get_node("Visual") as Sprite2D
 			_check(thorn_matriarch_visual.hframes == 4 and thorn_matriarch_visual.vframes == 1, "Level 1 Thorn Matriarch pilot lost its four-frame grid.")
-			_check(absf(thorn_matriarch_visual.position.y + 39.0) < 0.01, "Level 1 Thorn Matriarch pilot lost its 840 px baseline offset.")
+			_check(absf(thorn_matriarch_visual.position.y + 20.0) < 0.01, "Level 1 Thorn Matriarch pilot lost its 840 px baseline offset.")
 			_check(str(thorn_matriarch_visual.texture.resource_path).ends_with("thorn_matriarch_fan_cast_strip_normalized_v2.png"), "Level 1 Thorn Matriarch pilot did not bind its opening fan-cast visual.")
 			_check(int(pattern_runner.current_pattern.get("phase", 0)) == 1, "%s boss opened with a pattern from the wrong phase." % level_id)
 			boss.take_damage(1, Vector2.RIGHT)
@@ -1269,13 +1281,44 @@ func _drain_dialogue(dialogue: DialogueOverlay) -> void:
 
 
 func _validate_jump_routes(level_id: String, world_geometry: Node) -> void:
+	var highest_surface := INF
+	var lowest_surface := -INF
+	for platform: Node in world_geometry.get_children():
+		if not platform.is_in_group("Platform"):
+			continue
+		var platform_node := platform as Node2D
+		var surface_y := platform_node.position.y - 10.0 * platform_node.scale.y
+		highest_surface = minf(highest_surface, surface_y)
+		lowest_surface = maxf(lowest_surface, surface_y)
+	if level_id != "level_01":
+		_check(lowest_surface - highest_surface >= 180.0, "%s redesign lost its intended high/low terrain depth." % level_id)
 	for route: Array in REQUIRED_JUMP_ROUTES[level_id]:
 		var source := world_geometry.get_node(str(route[0])) as Node2D
 		var target := world_geometry.get_node(str(route[1])) as Node2D
 		var source_surface := source.position.y - 10.0 * source.scale.y
 		var target_surface := target.position.y - 10.0 * target.scale.y
 		var step_height := source_surface - target_surface
+		var horizontal_gap := absf(target.position.x - source.position.x) - 50.0 * absf(source.scale.x) - 50.0 * absf(target.scale.x)
 		_check(step_height <= 100.0, "%s route %s -> %s is too high (%.1f px)." % [level_id, route[0], route[1], step_height])
+		if level_id != "level_01":
+			_check(horizontal_gap <= 165.0, "%s route %s -> %s is too wide (%.1f px edge gap)." % [level_id, route[0], route[1], horizontal_gap])
+
+
+func _point_is_above_authored_surface(point: Vector2, world_geometry: Node) -> bool:
+	for platform: Node in world_geometry.get_children():
+		if not platform.is_in_group("Platform"):
+			continue
+		var platform_collider := platform.get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if platform_collider == null or not platform_collider.shape is RectangleShape2D:
+			continue
+		var shape := platform_collider.shape as RectangleShape2D
+		var platform_scale := platform_collider.global_transform.get_scale().abs()
+		var half_width := shape.size.x * platform_scale.x * 0.5
+		var top_y := platform_collider.global_position.y - shape.size.y * platform_scale.y * 0.5
+		var clearance := top_y - point.y
+		if absf(point.x - platform_collider.global_position.x) <= half_width and clearance >= 20.0 and clearance <= 80.0:
+			return true
+	return false
 
 
 func _character_has_authored_support(character: CharacterBody2D, world_geometry: Node) -> bool:

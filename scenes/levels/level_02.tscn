@@ -119,91 +119,91 @@ color = Color(0.314, 0.659, 0.463, 0.55)
 
 [node name="WorldGeometry" type="Node2D" parent="."]
 [node name="GroundA" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(380, 770)
-scale = Vector2(7.6, 3)
+position = Vector2(330, 760)
+scale = Vector2(6.6, 3)
 [node name="GroundB" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1060, 690)
-scale = Vector2(4.2, 2)
+position = Vector2(1040, 730)
+scale = Vector2(3.8, 2.4)
 [node name="Platform01" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1500, 606)
-scale = Vector2(3, 1.6)
+position = Vector2(1430, 530)
+scale = Vector2(2.4, 1.4)
 [node name="GroundC" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1970, 720)
-scale = Vector2(5, 2)
+position = Vector2(1840, 760)
+scale = Vector2(4.8, 2.5)
 [node name="Platform02" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(2425, 626)
-scale = Vector2(2.7, 1.6)
-[node name="GroundD" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(2965, 715)
-scale = Vector2(6.7, 2.5)
-[node name="Platform03" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(500, 654)
-scale = Vector2(2.2, 1.4)
-[node name="Platform04" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1145, 594)
-scale = Vector2(2.1, 1.4)
-[node name="Platform05" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(1985, 614)
-scale = Vector2(2.3, 1.4)
-[node name="Platform06" parent="WorldGeometry" instance=ExtResource("2")]
-position = Vector2(2870, 604)
+position = Vector2(2180, 564)
 scale = Vector2(2.6, 1.4)
+[node name="GroundD" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(2850, 735)
+scale = Vector2(11, 2.5)
+[node name="Platform03" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(650, 644)
+scale = Vector2(2.4, 1.4)
+[node name="Platform04" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(1120, 620)
+scale = Vector2(2, 1.4)
+[node name="Platform05" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(1840, 654)
+scale = Vector2(2.4, 1.4)
+[node name="Platform06" parent="WorldGeometry" instance=ExtResource("2")]
+position = Vector2(2700, 624)
+scale = Vector2(2.8, 1.4)
 [node name="Hazard01" parent="WorldGeometry" instance=ExtResource("6")]
-position = Vector2(805, 760)
+position = Vector2(500, 716)
 scale = Vector2(1.4, 1.25)
 [node name="Hazard02" parent="WorldGeometry" instance=ExtResource("6")]
-position = Vector2(1310, 760)
+position = Vector2(1000, 692)
 scale = Vector2(1.25, 1.25)
 [node name="Hazard03" parent="WorldGeometry" instance=ExtResource("6")]
-position = Vector2(2255, 760)
+position = Vector2(2450, 696)
 scale = Vector2(1.09, 1.25)
 [node name="Hazard04" parent="WorldGeometry" instance=ExtResource("6")]
-position = Vector2(2595, 760)
+position = Vector2(2580, 696)
 scale = Vector2(1.09, 1.25)
 
 [node name="Player" parent="." instance=ExtResource("3")]
 position = Vector2(100, 660)
 [node name="Enemies" type="Node2D" parent="."]
 [node name="Thornling01" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(430, 590)
+position = Vector2(650, 580)
 enemy_type = "thornling"
 [node name="Spitter01" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(980, 620)
+position = Vector2(1120, 560)
 enemy_type = "spitter"
 [node name="Maw01" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(1450, 530)
+position = Vector2(1430, 450)
 enemy_type = "maw"
 [node name="Spitter02" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(2380, 560)
+position = Vector2(1840, 590)
 enemy_type = "spitter"
 [node name="Maw02" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(2850, 625)
+position = Vector2(2700, 550)
 enemy_type = "maw"
 
 [node name="MawBloomSovereign" parent="Enemies" instance=ExtResource("4")]
-position = Vector2(2990, 625)
+position = Vector2(3070, 640)
 enemy_type = "maw_sovereign_boss"
 
 [node name="Pickups" type="Node2D" parent="."]
 [node name="Sample01" parent="Pickups" instance=ExtResource("5")]
 position = Vector2(260, 690)
 [node name="Sample02" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(480, 595)
+position = Vector2(650, 590)
 [node name="Sample03" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(930, 620)
+position = Vector2(930, 666)
 [node name="Sample04" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(1100, 535)
+position = Vector2(1120, 566)
 [node name="Sample05" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(1480, 545)
+position = Vector2(1430, 476)
 [node name="Sample06" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(1830, 650)
+position = Vector2(1840, 600)
 [node name="Sample07" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(2380, 565)
+position = Vector2(2180, 510)
 [node name="Sample08" parent="Pickups" instance=ExtResource("5")]
-position = Vector2(2810, 545)
+position = Vector2(2700, 570)
 
 [node name="Portal" parent="." instance=ExtResource("7")]
-position = Vector2(3110, 595)
+position = Vector2(3110, 615)
 [node name="Visual" parent="Portal"]
 texture = ExtResource("12_beacon")
 [node name="HUD" parent="." instance=ExtResource("8")]
