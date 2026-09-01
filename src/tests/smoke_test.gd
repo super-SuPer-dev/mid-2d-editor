@@ -20,6 +20,16 @@ const BIOME_PLATFORM_CONTACT_ROWS := {
 	"level_05": [137.0, 202.0, 137.0],
 }
 const ENCOUNTER_BARRIER_LAYER := 32
+const STANDARD_ENEMY_VISUAL_SCALES := {
+	"thornling": 0.09,
+	"spitter": 0.09,
+	"maw": 0.085,
+	"root_skitter": 0.08,
+	"marsh_spitter": 0.075,
+	"eye_wisp": 0.07,
+	"capsule_husk_elite": 0.075,
+	"mixed_elite": 0.075,
+}
 const REQUIRED_JUMP_ROUTES := {
 	"level_01": [
 		["Ground", "Platform01"], ["Platform01", "Platform02"],
@@ -652,6 +662,10 @@ func _validate_levels() -> void:
 		var enemy_count := 0
 		var boss_count := 0
 		for enemy: EnemyController in get_tree().get_nodes_in_group("Enemy"):
+			if STANDARD_ENEMY_VISUAL_SCALES.has(enemy.enemy_type):
+				var enemy_visual := enemy.get_node("Visual") as Sprite2D
+				var expected_visual_scale := float(STANDARD_ENEMY_VISUAL_SCALES[enemy.enemy_type])
+				_check(is_equal_approx(absf(enemy_visual.scale.x), expected_visual_scale) and is_equal_approx(enemy_visual.scale.y, expected_visual_scale), "%s enemy %s lost its readable presentation scale." % [level_id, enemy.name])
 			if enemy.enemy_type != "eye_wisp":
 				_check(_character_has_authored_support(enemy, world_geometry), "%s enemy %s begins suspended away from collision geometry." % [level_id, enemy.name])
 			if enemy.is_boss:
@@ -689,7 +703,7 @@ func _validate_levels() -> void:
 			var thornling := level.get_node("Enemies/Thornling01") as EnemyController
 			var thornling_visual := thornling.get_node("Visual") as Sprite2D
 			_check(thornling_visual.hframes == 4 and thornling_visual.vframes == 1, "Level 1 Thornling pilot lost its four-frame grid.")
-			_check(absf(thornling_visual.position.y + 1.5) < 0.01, "Level 1 Thornling pilot lost its 740 px baseline offset.")
+			_check(absf(thornling_visual.position.y + 11.6) < 0.01, "Level 1 Thornling pilot lost its 740 px baseline offset.")
 			_check(str(thornling_visual.texture.resource_path).ends_with("thornling_idle_strip_normalized_v2.png") or str(thornling_visual.texture.resource_path).ends_with("thornling_run_strip_normalized_v2.png"), "Level 1 Thornling pilot is not using the promoted runtime texture.")
 			thornling.thornling_attack_timer = 0.35
 			await get_tree().physics_frame
@@ -703,7 +717,7 @@ func _validate_levels() -> void:
 			var spitter := level.get_node("Enemies/Spitter") as EnemyController
 			var spitter_visual := spitter.get_node("Visual") as Sprite2D
 			_check(spitter_visual.hframes == 4 and spitter_visual.vframes == 1, "Level 1 Spitter pilot lost its four-frame grid.")
-			_check(absf(spitter_visual.position.y + 1.5) < 0.01, "Level 1 Spitter pilot lost its 740 px baseline offset.")
+			_check(absf(spitter_visual.position.y + 11.6) < 0.01, "Level 1 Spitter pilot lost its 740 px baseline offset.")
 			_check(str(spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png") or str(spitter_visual.texture.resource_path).ends_with("spitter_walk_strip_normalized_v2.png"), "Level 1 Spitter pilot is not using the promoted runtime texture.")
 			spitter._shoot(Vector2.RIGHT)
 			await get_tree().physics_frame
@@ -736,7 +750,7 @@ func _validate_levels() -> void:
 			var maw := level.get_node("Enemies/Maw01") as EnemyController
 			var maw_visual := maw.get_node("Visual") as Sprite2D
 			_check(maw_visual.hframes == 4 and maw_visual.vframes == 1, "Level 2 Maw pilot lost its four-frame grid.")
-			_check(absf(maw_visual.position.y + 1.5) < 0.01, "Level 2 Maw pilot lost its 740 px baseline offset.")
+			_check(absf(maw_visual.position.y + 9.9) < 0.01, "Level 2 Maw pilot lost its 740 px baseline offset.")
 			_check(str(maw_visual.texture.resource_path).ends_with("maw_idle_strip_normalized_v2.png") or str(maw_visual.texture.resource_path).ends_with("maw_move_strip_normalized_v2.png"), "Level 2 Maw pilot is not using the promoted runtime texture.")
 			maw.maw_attack_timer = 0.4
 			maw._update_maw_animation(0.0)
@@ -913,7 +927,7 @@ func _validate_levels() -> void:
 			var root_skitter := level.get_node("Enemies/RootSkitter01") as EnemyController
 			var root_skitter_visual := root_skitter.get_node("Visual") as Sprite2D
 			_check(root_skitter_visual.hframes == 4 and root_skitter_visual.vframes == 1, "Level 4 root-skitter pilot lost its four-frame grid.")
-			_check(absf(root_skitter_visual.position.y - 2.0) < 0.01, "Level 4 root-skitter pilot lost its 740 px baseline offset.")
+			_check(absf(root_skitter_visual.position.y + 8.2) < 0.01, "Level 4 root-skitter pilot lost its 740 px baseline offset.")
 			_check(str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_idle_strip_normalized_v2.png") or str(root_skitter_visual.texture.resource_path).ends_with("root_skitter_scuttle_strip_normalized_v2.png"), "Level 4 root-skitter pilot is not using the promoted runtime texture.")
 			var pilot_frame := root_skitter_visual.frame
 			for _pilot_frame in range(8):
@@ -935,7 +949,7 @@ func _validate_levels() -> void:
 			var marsh_spitter := level.get_node("Enemies/MarshSpitter01") as EnemyController
 			var marsh_spitter_visual := marsh_spitter.get_node("Visual") as Sprite2D
 			_check(marsh_spitter_visual.hframes == 4 and marsh_spitter_visual.vframes == 1, "Level 4 Marsh Spitter did not bind the generated four-frame strip.")
-			_check(absf(marsh_spitter_visual.position.y - 3.5) < 0.01, "Level 4 Marsh Spitter lost its calibrated baseline offset.")
+			_check(absf(marsh_spitter_visual.position.y + 6.5) < 0.01, "Level 4 Marsh Spitter lost its calibrated baseline offset.")
 			_check(str(marsh_spitter_visual.texture.resource_path).ends_with("spitter_idle_strip_normalized_v2.png"), "Level 4 Marsh Spitter did not bind its marsh Spitter idle art.")
 			marsh_spitter._shoot(Vector2.RIGHT)
 			marsh_spitter._update_spitter_animation(0.0)
@@ -1012,7 +1026,7 @@ func _validate_levels() -> void:
 			var capsule_husk := level.get_node("Enemies/CapsuleHusk01") as EnemyController
 			var capsule_husk_visual := capsule_husk.get_node("Visual") as Sprite2D
 			_check(capsule_husk_visual.hframes == 4 and capsule_husk_visual.vframes == 1, "Level 5 Capsule Husk pilot lost its four-frame grid.")
-			_check(absf(capsule_husk_visual.position.y + 1.5) < 0.01, "Level 5 Capsule Husk pilot lost its 740 px baseline offset.")
+			_check(absf(capsule_husk_visual.position.y + 6.5) < 0.01, "Level 5 Capsule Husk pilot lost its 740 px baseline offset.")
 			_check(str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_idle_strip_normalized_v2.png") or str(capsule_husk_visual.texture.resource_path).ends_with("capsule_husk_move_strip_normalized_v2.png"), "Level 5 Capsule Husk pilot is not using the promoted runtime texture.")
 			capsule_husk.capsule_husk_attack_timer = 0.45
 			capsule_husk._update_capsule_husk_animation(0.0)
@@ -1121,6 +1135,13 @@ func _validate_levels() -> void:
 		var frame_texture := level_hud.boss_frame.texture as Texture2D
 		_check(frame_texture != null and str(frame_texture.resource_path).ends_with(expected_boss_frame), "%s boss HUD did not bind its generated frame." % level_id)
 		_check(level_hud.boss_panel.size.x >= 600.0 and level_hud.boss_panel.size.y >= 180.0, "%s boss HUD frame panel is too small for its aspect-safe art." % level_id)
+		_check(level_hud.boss_health_value.text == "%d / %d" % [boss.health.current_health, boss.health.max_health], "%s boss HUD does not expose numeric health." % level_id)
+		_check(level_hud.boss_phase_pips.get_child_count() == boss.boss_phase_count, "%s boss HUD phase meter has the wrong segment count." % level_id)
+		_check(level_hud.boss_phase_value.text == "%02d / %02d" % [boss.boss_phase, boss.boss_phase_count], "%s boss HUD phase value is stale." % level_id)
+		var preview_health := maxi(boss.health.current_health - 1, 0)
+		level_hud._on_boss_health_changed(preview_health, boss.health.max_health)
+		_check(level_hud.boss_health_trail.value > level_hud.boss_health.value, "%s boss HUD has no delayed damage trail." % level_id)
+		level_hud._on_boss_health_changed(boss.health.current_health, boss.health.max_health)
 		await _drain_dialogue(dialogue)
 		_check(boss.combat_active and pattern_runner.active, "%s boss did not activate after its introduction completed." % level_id)
 		_check(pattern_runner.active, "%s boss projectile runner did not activate." % level_id)

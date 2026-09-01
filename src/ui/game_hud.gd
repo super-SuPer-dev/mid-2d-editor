@@ -9,7 +9,11 @@ extends CanvasLayer
 @onready var boss_panel: Panel = $Root/BossPanel
 @onready var boss_frame: TextureRect = $Root/BossPanel/Frame
 @onready var boss_name: Label = $Root/BossPanel/Content/Name
-@onready var boss_health: ProgressBar = $Root/BossPanel/Content/Health
+@onready var boss_phase_pips: HBoxContainer = $Root/BossPanel/Content/PhaseRow/PhasePips
+@onready var boss_phase_value: Label = $Root/BossPanel/Content/PhaseRow/PhaseValue
+@onready var boss_health_trail: ProgressBar = $Root/BossPanel/Content/HealthStack/Trail
+@onready var boss_health: ProgressBar = $Root/BossPanel/Content/HealthStack/Health
+@onready var boss_health_value: Label = $Root/BossPanel/Content/HealthStack/Value
 @onready var modal: ColorRect = $Root/Modal
 @onready var modal_title: Label = $Root/Modal/Center/Panel/Content/Title
 @onready var modal_subtitle: Label = $Root/Modal/Center/Panel/Content/Subtitle
@@ -24,6 +28,7 @@ var modal_actions: Array[Callable] = []
 var pending_complete: bool = false
 var pending_campaign_complete: bool = false
 var last_health := Vector2i(0, 0)
+var boss_health_initialized := false
 
 const BOSS_HUD_FRAME_PATHS := {
 	"thorn_matriarch": "res://assets/ui/boss/thorn_matriarch_boss_hud_frame_v1.png",
@@ -47,6 +52,14 @@ func _ready() -> void:
 	_on_objective_changed(GameManager.defeated_enemies, GameManager.required_enemies)
 	_on_mission_phase_changed(GameManager.mission_phase)
 	_refresh_text(LocalizationManager.current_language)
+
+
+func _process(delta: float) -> void:
+	if not boss_panel.visible or not boss_health_initialized:
+		return
+	if boss_health_trail.value > boss_health.value:
+		var trail_speed := maxf(12.0, boss_health.max_value * 0.55)
+		boss_health_trail.value = move_toward(boss_health_trail.value, boss_health.value, trail_speed * delta)
 
 
 func bind_player(value: PlayerController) -> void:
@@ -201,11 +214,29 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 
 
 func _refresh_boss_name() -> void:
-	boss_name.text = LocalizationManager.text("HUD_BOSS_ACTIVE", {
-		"name": LocalizationManager.text(GameManager.current_boss_name_key),
-		"current": GameManager.current_boss_phase,
-		"total": GameManager.current_boss_phase_count,
-	})
+	boss_name.text = LocalizationManager.text(GameManager.current_boss_name_key)
+	_refresh_boss_phase_meter()
+
+
+func _refresh_boss_phase_meter() -> void:
+	var total := maxi(GameManager.current_boss_phase_count, 1)
+	var current := clampi(GameManager.current_boss_phase, 1, total)
+	boss_phase_value.text = "%02d / %02d" % [current, total]
+	for child in boss_phase_pips.get_children():
+		boss_phase_pips.remove_child(child)
+		child.queue_free()
+	for index in range(total):
+		var pip := Panel.new()
+		pip.custom_minimum_size = Vector2(0.0, 8.0)
+		pip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		pip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color("ef5a65") if index < current else Color("3d252c")
+		style.border_color = Color("ffad72") if index < current else Color("6d4245")
+		style.set_border_width_all(1)
+		style.set_corner_radius_all(3)
+		pip.add_theme_stylebox_override("panel", style)
+		boss_phase_pips.add_child(pip)
 
 
 func _refresh_boss_frame() -> void:
@@ -215,7 +246,12 @@ func _refresh_boss_frame() -> void:
 
 func _on_boss_health_changed(current_health: int, maximum_health: int) -> void:
 	boss_health.max_value = maximum_health
+	boss_health_trail.max_value = maximum_health
+	if not boss_health_initialized or current_health > boss_health_trail.value:
+		boss_health_trail.value = current_health
+	boss_health_initialized = true
 	boss_health.value = current_health
+	boss_health_value.text = "%d / %d" % [current_health, maximum_health]
 
 
 func _on_boss_phase_changed(_current_phase: int, _phase_count: int) -> void:

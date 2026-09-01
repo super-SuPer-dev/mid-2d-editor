@@ -49,6 +49,34 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxFlat" id="BossTrailFill"]
+bg_color = Color(0.96, 0.47, 0.18, 0.82)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="BossOverlayTrack"]
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="BossPanelBackdrop"]
+bg_color = Color(0.025, 0.035, 0.03, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47, 0.38, 0.16, 0.9)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 8
+
 [node name="HUD" type="CanvasLayer" unique_id=154325126]
 process_mode = 3
 script = ExtResource("1")
@@ -177,6 +205,7 @@ offset_top = 108.0
 offset_right = 330.0
 offset_bottom = 328.0
 grow_horizontal = 2
+theme_override_styles/panel = SubResource("BossPanelBackdrop")
 
 [node name="Frame" type="TextureRect" parent="Root/BossPanel" unique_id=118424023]
 layout_mode = 1
@@ -194,25 +223,91 @@ stretch_mode = 5
 layout_mode = 1
 anchors_preset = 15
 anchor_left = 0.08
-anchor_top = 0.22
+anchor_top = 0.16
 anchor_right = 0.92
-anchor_bottom = 0.78
+anchor_bottom = 0.84
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 6
+alignment = 1
 
 [node name="Name" type="Label" parent="Root/BossPanel/Content" unique_id=407399875]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.52, 0.63, 1)
-theme_override_font_sizes/font_size = 24
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.72, 0.66, 1)
+theme_override_colors/font_shadow_color = Color(0.08, 0.02, 0.03, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
 
-[node name="Health" type="ProgressBar" parent="Root/BossPanel/Content" unique_id=1778776993]
-custom_minimum_size = Vector2(520, 28)
+[node name="PhaseRow" type="HBoxContainer" parent="Root/BossPanel/Content"]
+custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="PhasePips" type="HBoxContainer" parent="Root/BossPanel/Content/PhaseRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="PhaseValue" type="Label" parent="Root/BossPanel/Content/PhaseRow"]
+custom_minimum_size = Vector2(64, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.67, 0.48, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HealthStack" type="Control" parent="Root/BossPanel/Content"]
+custom_minimum_size = Vector2(520, 38)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Trail" type="ProgressBar" parent="Root/BossPanel/Content/HealthStack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/background = SubResource("BossTrack")
+theme_override_styles/fill = SubResource("BossTrailFill")
+show_percentage = false
+value = 100.0
+
+[node name="Health" type="ProgressBar" parent="Root/BossPanel/Content/HealthStack" unique_id=1778776993]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("BossOverlayTrack")
 theme_override_styles/fill = SubResource("BossFill")
 show_percentage = false
+value = 100.0
+
+[node name="Value" type="Label" parent="Root/BossPanel/Content/HealthStack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
+theme_override_colors/font_shadow_color = Color(0.08, 0.02, 0.03, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Modal" type="ColorRect" parent="Root" unique_id=1406394126]
 visible = false

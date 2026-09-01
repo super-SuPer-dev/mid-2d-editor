@@ -363,9 +363,9 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.06, 0.06)
-			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
-			visual.position = Vector2(0.0, -1.5)
+			visual.scale = Vector2(0.09, 0.09)
+			# Preserve collider contact after enlarging the 740 px art baseline.
+			visual.position = Vector2(0.0, -11.6)
 		"spitter":
 			move_speed = 35.0
 			health.max_health = 5
@@ -376,9 +376,8 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.06, 0.06)
-			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
-			visual.position = Vector2(0.0, -1.5)
+			visual.scale = Vector2(0.09, 0.09)
+			visual.position = Vector2(0.0, -11.6)
 		"maw":
 			move_speed = 70.0
 			health.max_health = 8
@@ -389,9 +388,8 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.06, 0.06)
-			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
-			visual.position = Vector2(0.0, -1.5)
+			visual.scale = Vector2(0.085, 0.085)
+			visual.position = Vector2(0.0, -9.9)
 			scale = Vector2(1.25, 1.25)
 		"root_skitter":
 			move_speed = 110.0
@@ -402,9 +400,9 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.05, 0.05)
-			# Align the 740 px art baseline with the collider bottom.
-			visual.position = Vector2(0.0, 2.0)
+			visual.scale = Vector2(0.08, 0.08)
+			# Align the enlarged 740 px art baseline with the collider bottom.
+			visual.position = Vector2(0.0, -8.2)
 		"marsh_spitter":
 			move_speed = 28.0
 			health.max_health = 6
@@ -415,8 +413,8 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color("6fabc0")
-			visual.scale = Vector2(0.045, 0.045)
-			visual.position = Vector2(0.0, 3.5)
+			visual.scale = Vector2(0.075, 0.075)
+			visual.position = Vector2(0.0, -6.5)
 		"eye_wisp":
 			move_speed = 95.0
 			health.max_health = 5
@@ -428,7 +426,7 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.045, 0.045)
+			visual.scale = Vector2(0.07, 0.07)
 			visual.position = Vector2(0.0, -16.0)
 		"capsule_husk_elite":
 			move_speed = 58.0
@@ -440,9 +438,8 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color.WHITE
-			visual.scale = Vector2(0.06, 0.06)
-			# The normalized strip uses a 740 px foot baseline in an 800 px cell.
-			visual.position = Vector2(0.0, -1.5)
+			visual.scale = Vector2(0.075, 0.075)
+			visual.position = Vector2(0.0, -6.5)
 			scale = Vector2(1.35, 1.35)
 		"mixed_elite":
 			move_speed = 82.0
@@ -455,15 +452,15 @@ func configure(type_id: String) -> void:
 			visual.frame = 0
 			visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual.modulate = Color("d09562")
-			visual.scale = Vector2(0.06, 0.06)
-			visual.position = Vector2(0.0, -1.5)
+			visual.scale = Vector2(0.075, 0.075)
+			visual.position = Vector2(0.0, -6.5)
 			visual_accent.texture = EYE_WISP_HOVER_TEXTURE
 			visual_accent.hframes = 4
 			visual_accent.vframes = 1
 			visual_accent.frame = 0
 			visual_accent.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			visual_accent.modulate = Color("8ce7f6")
-			visual_accent.scale = Vector2(0.032, 0.032)
+			visual_accent.scale = Vector2(0.04, 0.04)
 			visual_accent.position = Vector2(0.0, -30.0)
 			visual_accent.visible = true
 			scale = Vector2(1.45, 1.45)
