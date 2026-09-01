@@ -12,6 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://cr0yvd84gnwmw" path="res://scenes/gameplay/encounter_gate.tscn" id="10_r72dd"]
 [ext_resource type="Texture2D" uid="uid://cyp71kee2wu57" path="res://assets/world/level_01_contaminated_grassland/landmarks/irrigation_root_tower_v1.png" id="11_landmark"]
 [ext_resource type="Texture2D" uid="uid://c4oe7a8mht4ih" path="res://assets/world/level_01_contaminated_grassland/props/rice_root_props_v1.png" id="12_props"]
+[ext_resource type="Texture2D" path="res://assets/world/grassland/dense_floor_wall_pixel_v3.png" id="13_floor_fill"]
+
+[sub_resource type="Shader" id="Shader_floor_fill"]
+code = "shader_type canvas_item;\n\nconst float BASE_TILE_SCALE = 0.1953125;\nvarying vec2 tile_repeat;\n\nvoid vertex() {\n\ttile_repeat = max(vec2(length(MODEL_MATRIX[0].xy), length(MODEL_MATRIX[1].xy)) / BASE_TILE_SCALE, vec2(1.0));\n}\n\nvoid fragment() {\n\tvec2 tiled_uv = fract((UV - vec2(0.5)) * tile_repeat + vec2(0.5));\n\tCOLOR = texture(TEXTURE, tiled_uv) * COLOR;\n}\n"
+
+[sub_resource type="ShaderMaterial" id="Material_floor_fill"]
+shader = SubResource("Shader_floor_fill")
 
 [node name="ContaminatedGrassland" type="Node2D" unique_id=1038700248]
 script = ExtResource("1")
@@ -78,10 +85,13 @@ texture = ExtResource("12_props")
 
 [node name="WorldGeometry" type="Node2D" parent="." unique_id=1070526112]
 
-[node name="GroundFill" type="Polygon2D" parent="WorldGeometry" unique_id=1622026944]
+[node name="GroundFill" type="Sprite2D" parent="WorldGeometry" unique_id=1622026944]
 z_index = -1
-color = Color(0.176, 0.105, 0.067, 1)
-polygon = PackedVector2Array(0, 620, 4300, 620, 4300, 720, 0, 720)
+texture_filter = 1
+position = Vector2(2150, 670)
+scale = Vector2(8.3984375, 0.1953125)
+material = SubResource("Material_floor_fill")
+texture = ExtResource("13_floor_fill")
 
 [node name="Ground" parent="WorldGeometry" unique_id=133764118 instance=ExtResource("2")]
 position = Vector2(2150, 650)

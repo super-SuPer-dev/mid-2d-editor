@@ -12,7 +12,9 @@ const BIOME_PLATFORM_TEXTURE_PATHS: Dictionary = {
 	"level_04": "res://assets/world/level_04_root_marsh/tiles/marsh_ground_straight_v2.png",
 	"level_05": "res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_straight_v2.png"
 }
-const BIOME_PLATFORM_SCALE := Vector2(0.13812155, 0.045)
+const BIOME_PLATFORM_FRAME_SIZE := Vector2(724.0, 724.0)
+const BIOME_PLATFORM_WORLD_SIZE := Vector2(100.0, 40.0)
+const BIOME_PLATFORM_SCALE := BIOME_PLATFORM_WORLD_SIZE / BIOME_PLATFORM_FRAME_SIZE
 
 @onready var hud: GameHUD = $HUD
 @onready var player: PlayerController = $Player
@@ -73,14 +75,16 @@ func _configure_biome_platforms() -> void:
 		var visual := child.get_node_or_null("Visual") as Sprite2D
 		if visual == null:
 			continue
-		visual.material = null
 		visual.texture = texture
 		visual.hframes = 3
 		visual.vframes = 1
 		visual.frame = frame_index % 3
 		visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		visual.scale = BIOME_PLATFORM_SCALE
-		visual.position = Vector2.ZERO
+		var parent_scale_y := maxf(absf((child as Node2D).scale.y), 0.001)
+		visual.scale = Vector2(BIOME_PLATFORM_SCALE.x, BIOME_PLATFORM_SCALE.y / parent_scale_y)
+		# Keep the authored 40 px wall depth and its top edge aligned with the
+		# scaled 20 px collision shape instead of stretching the artwork.
+		visual.position = Vector2(0.0, -10.0 + BIOME_PLATFORM_WORLD_SIZE.y * 0.5 / parent_scale_y)
 		frame_index += 1
 
 

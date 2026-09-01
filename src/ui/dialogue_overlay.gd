@@ -15,6 +15,8 @@ const BOSS_INTRO_FRAME_PATHS := {
 
 @onready var panel: PanelContainer = $Panel
 @onready var portrait: TextureRect = $Panel/Body/Portrait
+@onready var body: HBoxContainer = $Panel/Body
+@onready var frame_top_padding: Control = $Panel/Body/Content/FrameTopPadding
 @onready var speaker_label: Label = $Panel/Body/Content/Speaker
 @onready var text_label: Label = $Panel/Body/Content/Text
 @onready var actions: HBoxContainer = $Panel/Body/Content/Actions
@@ -118,6 +120,8 @@ func _apply_presentation_mode(mode: String) -> void:
 			frame_style = boss_style
 	panel.add_theme_stylebox_override("panel", frame_style)
 	if is_radio:
+		frame_top_padding.visible = false
+		body.add_theme_constant_override("separation", 16)
 		panel.custom_minimum_size = Vector2(500.0, 116.0)
 		panel.anchor_left = 1.0
 		panel.anchor_top = 0.0
@@ -133,6 +137,8 @@ func _apply_presentation_mode(mode: String) -> void:
 		text_label.add_theme_font_size_override("font_size", 16)
 		actions.visible = false
 	else:
+		frame_top_padding.visible = true
+		body.add_theme_constant_override("separation", 42)
 		panel.custom_minimum_size = Vector2(900.0, 220.0)
 		panel.anchor_left = 0.5
 		panel.anchor_top = 1.0

@@ -545,6 +545,11 @@ func _validate_dialogue_presentations() -> void:
 	await get_tree().process_frame
 	var briefing_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
 	_check(briefing_style != null and briefing_style.texture != null and str(briefing_style.texture.resource_path).ends_with("briefing_panel_normalized_v1.png"), "Briefing dialogue did not apply the generated frame skin.")
+	var panel_rect := overlay.panel.get_global_rect()
+	var speaker_rect := overlay.speaker_label.get_global_rect()
+	var text_rect := overlay.text_label.get_global_rect()
+	_check(speaker_rect.position.x >= panel_rect.position.x + 220.0 and speaker_rect.position.y >= panel_rect.position.y + 48.0, "Briefing speaker label is not inset into the visible frame.")
+	_check(text_rect.position.x >= panel_rect.position.x + 220.0 and text_rect.position.y > speaker_rect.position.y, "Briefing body text is not aligned beneath the speaker inside the frame.")
 	var original_boss_id := GameManager.current_boss_id
 	for boss_id: String in ["thorn_matriarch", "maw_bloom_sovereign", "possessed_banyan", "root_hydra", "root_core_eye"]:
 		GameManager.current_boss_id = boss_id
@@ -601,6 +606,17 @@ func _validate_levels() -> void:
 				if parallax_layer is Parallax2D:
 					parallax_scales[(parallax_layer as Parallax2D).scroll_scale] = true
 			_check(parallax_scales.size() >= 4, "%s parallax layers do not have distinct depth speeds." % level_id)
+		var world_geometry := level.get_node("WorldGeometry")
+		if level_id == "level_01":
+			var floor_fill := world_geometry.get_node("GroundFill") as Sprite2D
+			_check(floor_fill != null and str(floor_fill.texture.resource_path).ends_with("dense_floor_wall_pixel_v3.png"), "Level 1 floor wall is not using the dense tiled texture.")
+		else:
+			for platform: Node in world_geometry.get_children():
+				if not platform.is_in_group("Platform"):
+					continue
+				var platform_visual := platform.get_node("Visual") as Sprite2D
+				_check(platform_visual.material is ShaderMaterial, "%s platform %s lost its non-stretching repeat shader." % [level_id, platform.name])
+				_check(is_equal_approx(absf(platform_visual.scale.y * (platform as Node2D).scale.y), 40.0 / 724.0), "%s platform %s stretches its tile vertically." % [level_id, platform.name])
 		var expected_enemies: int = int(LevelCatalog.get_level(level_id)["threat_quota"])
 		var enemy_count := 0
 		var boss_count := 0
@@ -767,9 +783,11 @@ func _validate_levels() -> void:
 			_check(hazard_visual.hframes == 4 and hazard_visual.vframes == 1, "%s biome hazard did not use a four-frame strip." % level_id)
 			_check(str(hazard_visual.texture.resource_path).ends_with(expected_hazard_texture), "%s biome hazard did not bind its generated texture." % level_id)
 		if not expected_platform_texture.is_empty():
+			var biome_platform: Node2D
 			var biome_platform_visual: Sprite2D
 			for platform_candidate: Node in level.get_node("WorldGeometry").get_children():
 				if platform_candidate.is_in_group("Platform"):
+					biome_platform = platform_candidate as Node2D
 					biome_platform_visual = platform_candidate.get_node_or_null("Visual") as Sprite2D
 					if biome_platform_visual != null:
 						break
@@ -778,7 +796,9 @@ func _validate_levels() -> void:
 				_check(biome_platform_visual.hframes == 3 and biome_platform_visual.vframes == 1, "%s biome collision platform lost its three-frame tile grid." % level_id)
 				_check(str(biome_platform_visual.texture.resource_path).ends_with(expected_platform_texture), "%s collision platform is still using the generic placeholder." % level_id)
 				_check(biome_platform_visual.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST, "%s collision platform lost nearest filtering." % level_id)
-				_check(biome_platform_visual.scale.is_equal_approx(Vector2(0.13812155, 0.045)), "%s collision platform lost its calibrated tile scale." % level_id)
+				_check(is_equal_approx(biome_platform_visual.scale.x, 100.0 / 724.0), "%s collision platform lost its calibrated tile width." % level_id)
+				_check(is_equal_approx(absf(biome_platform_visual.scale.y * biome_platform.scale.y), 40.0 / 724.0), "%s collision platform stretches its tile depth." % level_id)
+				_check(biome_platform_visual.material is ShaderMaterial, "%s collision platform lost its horizontal repeat shader." % level_id)
 		if not expected_landmark_node.is_empty():
 			var landmark := level.get_node_or_null("Environment/%s" % expected_landmark_node) as Sprite2D
 			_check(landmark != null, "%s is missing its generated landmark node." % level_id)

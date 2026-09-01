@@ -52,3 +52,12 @@ Layer prompts:
 - Terrain tile: seamless side-view platform with uneven grass lip, layered reddish soil, stones, roots, purple contamination veins, and lower-edge shadow; transparent background.
 
 Normalization: nearest-neighbor crop/resize to 1280 x 720 for parallax layers and 576 x 192 for the platform tile. SHA-256: sky `5183F1EA05139BD599FCAE4B512B002EE59B533586C530A08F06358E772CC37C`; fields `A1029A47BE7B7F55343B09D4520425CD41DF30E13062D897FB72711DE5330A69`; corruption `396A637CCFB5208943B1B155B32D50FC5AB46AAFCA8975B0E2847BC79578C12D`; near roots `B4A90035BB8489B0076B97C5CA2EA13B4F9AEDBEAC07D5875FB1B77E050E9B8E`; foreground `AFB07D992B5FA00364A846C3F84E6D931B29175B7F556D97216477BDE21C1383`; terrain `D7F434B9D78D9129D35240FC888D4CC42C48A63B92C8AAEFEDE94137275462BD`.
+
+
+## Dense floor wall v3 (2026-09-01)
+
+Tool: built-in ImageGen. Image 1 (the reported gameplay screenshot) was used as a style/reference image only. The generated output was visually reviewed before integration, then normalized with nearest-neighbor sampling to a 512 x 512 opaque runtime texture.
+
+Final prompt: seamless pixel-art underground wall/floor texture for the contaminated grassland; densely packed tangled roots, layered reddish-brown soil, small stones, buried irrigation fragments, and restrained purple contamination veins; authentic crisp 16-bit art with hard 4 x 4 pixel clusters and indexed-palette feel; straight-on side view; evenly distributed detail; tileable on all four edges; no grass top, text, logo, watermark, blur, antialiasing, gradients, painterly rendering, empty flat regions, obvious square seams, or large focal objects.
+
+Runtime file: `assets/world/grassland/dense_floor_wall_pixel_v3.png`. SHA-256: `00486D5124CB8D637A3E38D8775710D2610EE22268F8BDE84AFC5BA3C8D5B4DF`.
