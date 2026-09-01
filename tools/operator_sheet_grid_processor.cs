@@ -37,7 +37,7 @@ public static class OperatorSheetGridProcessor
             {
                 var cellRect = new Rectangle(column * cellSize, row * cellSize, cellSize, cellSize);
                 using var cell = cropped.Clone(cellRect, PixelFormat.Format32bppArgb);
-                bool[] component = FindLargestComponent(cell, alphaThreshold, out int componentSize);
+                bool[] component = FindSubjectComponents(cell, alphaThreshold, out int componentSize);
                 if (componentSize == 0)
                     throw new Exception($"Cell ({column},{row}) has no alpha component at threshold {alphaThreshold}.");
 
@@ -84,17 +84,17 @@ public static class OperatorSheetGridProcessor
         return report;
     }
 
-    private static bool[] FindLargestComponent(Bitmap image, int alphaThreshold, out int largestSize)
+    private static bool[] FindSubjectComponents(Bitmap image, int alphaThreshold, out int retainedSize)
     {
         int width = image.Width;
         int height = image.Height;
         int pixelCount = checked(width * height);
         var visited = new bool[pixelCount];
-        var largest = new bool[pixelCount];
-        var current = new bool[pixelCount];
+        var components = new bool[pixelCount][];
+        var sizes = new int[pixelCount];
+        int componentCount = 0;
         var queueX = new int[pixelCount];
         var queueY = new int[pixelCount];
-        largestSize = 0;
 
         for (int startY = 0; startY < height; startY++)
         {
@@ -104,7 +104,7 @@ public static class OperatorSheetGridProcessor
                 if (visited[startIndex] || image.GetPixel(startX, startY).A < alphaThreshold)
                     continue;
 
-                Array.Clear(current, 0, current.Length);
+                var current = new bool[pixelCount];
                 int head = 0;
                 int tail = 0;
                 int size = 0;
@@ -143,14 +143,55 @@ public static class OperatorSheetGridProcessor
                     }
                 }
 
-                if (size > largestSize)
-                {
-                    Array.Copy(current, largest, pixelCount);
-                    largestSize = size;
-                }
+                components[componentCount] = current;
+                sizes[componentCount] = size;
+                componentCount++;
             }
         }
-        return largest;
+
+        retainedSize = 0;
+        var retained = new bool[pixelCount];
+        if (componentCount == 0)
+            return retained;
+
+        int largestIndex = 0;
+        for (int index = 1; index < componentCount; index++)
+            if (sizes[index] > sizes[largestIndex])
+                largestIndex = index;
+
+        Rectangle mainBounds = GetBounds(components[largestIndex], width, height);
+        float mainCenterX = mainBounds.Left + mainBounds.Width * 0.5f;
+        float mainCenterY = mainBounds.Top + mainBounds.Height * 0.5f;
+
+        for (int componentIndex = 0; componentIndex < componentCount; componentIndex++)
+        {
+            Rectangle bounds = GetBounds(components[componentIndex], width, height);
+            bool touchesCellEdge = bounds.Left <= 1 || bounds.Top <= 1 ||
+                bounds.Right >= width - 1 || bounds.Bottom >= height - 1;
+            int gapX = Math.Max(0, Math.Max(mainBounds.Left - bounds.Right, bounds.Left - mainBounds.Right));
+            int gapY = Math.Max(0, Math.Max(mainBounds.Top - bounds.Bottom, bounds.Top - mainBounds.Bottom));
+            double centerX = bounds.Left + bounds.Width * 0.5;
+            double centerY = bounds.Top + bounds.Height * 0.5;
+            double centerDistance = Math.Sqrt(
+                Math.Pow(centerX - mainCenterX, 2.0) + Math.Pow(centerY - mainCenterY, 2.0));
+            bool nearby = gapX <= 56 && gapY <= 56;
+            bool substantialNearby = sizes[componentIndex] >= 64 && centerDistance <= 150.0;
+            bool keep = componentIndex == largestIndex ||
+                (!touchesCellEdge && sizes[componentIndex] >= 8 && (nearby || substantialNearby));
+            if (!keep)
+                continue;
+
+            bool[] sourceComponent = components[componentIndex];
+            for (int pixel = 0; pixel < pixelCount; pixel++)
+            {
+                if (!sourceComponent[pixel])
+                    continue;
+                retained[pixel] = true;
+                retainedSize++;
+            }
+        }
+
+        return retained;
     }
 
     private static Rectangle GetBounds(bool[] component, int width, int height)

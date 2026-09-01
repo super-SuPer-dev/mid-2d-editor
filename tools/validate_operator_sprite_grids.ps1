@@ -13,7 +13,7 @@ $columns = 4
 $rows = 5
 
 foreach ($operator in $operators) {
-    $path = Join-Path $PSScriptRoot "..\assets\characters\operators\${operator}_sprite_sheet_generated_v3.png"
+    $path = Join-Path $PSScriptRoot "..\assets\characters\operators\${operator}_sprite_sheet_generated_v4.png"
     if (-not (Test-Path -LiteralPath $path)) {
         $failures.Add("Missing operator sheet: $path")
         continue

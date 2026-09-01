@@ -14,8 +14,6 @@ const RUN_ACCELERATION := 1800.0
 const GROUND_DECELERATION := 2400.0
 const AIR_CONTROL_FACTOR := 0.72
 const JUMP_RELEASE_FACTOR := 0.52
-const CAMERA_LOOK_AHEAD := 96.0
-const CAMERA_LOOK_SPEED := 7.0
 const VISUAL_Y_SPEED := 48.0
 const IDLE_VISUAL_Y := -12.0
 const RUN_VISUAL_Y := -9.0
@@ -113,8 +111,6 @@ func _physics_process(delta: float) -> void:
 		if not is_zero_approx(direction):
 			facing = signf(direction)
 			body_visual.scale.x = absf(body_visual.scale.x) * facing
-		var look_target := facing * CAMERA_LOOK_AHEAD
-		camera.position.x = lerpf(camera.position.x, look_target, 1.0 - exp(-CAMERA_LOOK_SPEED * delta))
 
 	if is_on_floor():
 		coyote_timer = COYOTE_TIME

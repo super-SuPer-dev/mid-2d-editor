@@ -128,7 +128,7 @@ func _validate_catalogs() -> void:
 		var art_texture := data["art_texture"] as Texture2D
 		_check(art_texture != null and art_texture.get_width() == 1120 and art_texture.get_height() == 1400, "%s operator sheet is not cropped to the exact 4 × 5 280 px grid." % character_id)
 		if art_texture != null:
-			_check(str(art_texture.resource_path).ends_with("_sprite_sheet_generated_v3.png"), "%s is not using the regenerated leak-safe operator sheet." % character_id)
+			_check(str(art_texture.resource_path).ends_with("_sprite_sheet_generated_v4.png"), "%s is not using the regenerated leak-safe operator sheet." % character_id)
 			var edge_frame := CharacterCatalog.get_sprite_frame(art_texture, CharacterCatalog.SHEET_COLUMNS - 1, CharacterCatalog.SHEET_ROWS - 1, 0.0)
 			_check(edge_frame.region.size.is_equal_approx(Vector2(280.0, 280.0)), "%s operator atlas slicing lost its exact 280 px cell size." % character_id)
 		var jump_height := pow(float(data["jump_velocity"]), 2.0) / (2.0 * PlayerController.GRAVITY)

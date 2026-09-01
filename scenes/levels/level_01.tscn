@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" uid="uid://efaabwm4watx" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform_grassland.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://clipau6l6j6eq" path="res://scenes/actors/player.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/actors/enemy.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/crystal.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/hazard_grassland.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://cu14wa4tahqd8" path="res://scenes/gameplay/portal.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://dpr5ii86tyln3" path="res://scenes/ui/game_hud.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://scenes/backgrounds/grassland_generated_parallax.tscn" id="9_bg"]
+[ext_resource type="PackedScene" uid="uid://ichxneyttqnq" path="res://scenes/backgrounds/grassland_generated_parallax.tscn" id="9_bg"]
 [ext_resource type="PackedScene" uid="uid://cr0yvd84gnwmw" path="res://scenes/gameplay/encounter_gate.tscn" id="10_r72dd"]
-[ext_resource type="Texture2D" path="res://assets/world/level_01_contaminated_grassland/landmarks/irrigation_root_tower_v1.png" id="11_landmark"]
-[ext_resource type="Texture2D" path="res://assets/world/level_01_contaminated_grassland/props/rice_root_props_v1.png" id="12_props"]
+[ext_resource type="Texture2D" uid="uid://cyp71kee2wu57" path="res://assets/world/level_01_contaminated_grassland/landmarks/irrigation_root_tower_v1.png" id="11_landmark"]
+[ext_resource type="Texture2D" uid="uid://c4oe7a8mht4ih" path="res://assets/world/level_01_contaminated_grassland/props/rice_root_props_v1.png" id="12_props"]
 
 [node name="ContaminatedGrassland" type="Node2D" unique_id=1038700248]
 script = ExtResource("1")
@@ -22,25 +22,25 @@ script = ExtResource("1")
 
 [node name="IrrigationRootLandmark" type="Sprite2D" parent="Environment" unique_id=204671883]
 z_index = -5
+texture_filter = 1
 position = Vector2(3650, 360)
 scale = Vector2(0.34, 0.34)
-texture_filter = 1
 texture = ExtResource("11_landmark")
 
 [node name="RiceRootPropsA" type="Sprite2D" parent="Environment" unique_id=204671884]
 z_index = -4
+texture_filter = 1
 position = Vector2(1450, 505)
 scale = Vector2(0.24, 0.24)
-texture_filter = 1
 texture = ExtResource("12_props")
 
 [node name="RiceRootPropsB" type="Sprite2D" parent="Environment" unique_id=204671885]
 z_index = -4
+texture_filter = 1
 position = Vector2(2670, 510)
 scale = Vector2(0.2, 0.2)
-flip_h = true
-texture_filter = 1
 texture = ExtResource("12_props")
+flip_h = true
 
 [node name="Hills" type="Polygon2D" parent="Environment" unique_id=2097272914]
 visible = false
@@ -68,6 +68,13 @@ z_index = -40
 position = Vector2(2200, 95)
 color = Color(0.55, 0.61, 0.62, 1)
 polygon = PackedVector2Array(-55, 7, -32, -9, -12, -5, 0, -22, 22, -13, 35, 0, 58, 8)
+
+[node name="RiceRootPropsIntro" type="Sprite2D" parent="Environment" unique_id=1624955650]
+z_index = -4
+texture_filter = 1
+position = Vector2(620, 505)
+scale = Vector2(0.055, 0.055)
+texture = ExtResource("12_props")
 
 [node name="WorldGeometry" type="Node2D" parent="." unique_id=1070526112]
 
@@ -127,6 +134,14 @@ position = Vector2(2680, 632)
 
 [node name="Hazard04" parent="WorldGeometry" unique_id=255513622 instance=ExtResource("6")]
 position = Vector2(3260, 632)
+
+[node name="PlatformIntro" parent="WorldGeometry" unique_id=410799641 instance=ExtResource("2")]
+position = Vector2(300, 500)
+scale = Vector2(1.15, 1)
+
+[node name="PlatformBossApproach" parent="WorldGeometry" unique_id=790799963 instance=ExtResource("2")]
+position = Vector2(3820, 470)
+scale = Vector2(1.45, 1)
 
 [node name="Player" parent="." unique_id=513109941 instance=ExtResource("3")]
 position = Vector2(120, 560)

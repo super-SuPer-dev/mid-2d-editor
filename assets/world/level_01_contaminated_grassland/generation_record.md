@@ -35,3 +35,20 @@ then verified as `Format32bppArgb` with a zero-alpha corner before promotion.
 
 `tools/normalize_parallax_layer.ps1` performs the aspect-safe crop and
 high-quality downscale to the exact 1280 × 720 runtime contract.
+
+
+## Pixel-art v3 parallax and terrain pass (2026-09-01)
+
+Tool: built-in ImageGen, generated one layer at a time and visually validated before continuing. Local-file edit ingestion was blocked by the Windows ACL helper, so the validated gameplay capture and preceding accepted layer were used as visual references.
+
+Shared prompt direction: authentic 16-bit side-scroller pixel art; deliberate hard-edged 4 x 4 pixel clusters; limited indexed-color feel; crisp stepped silhouettes; consistent pixel density; horizontally repeatable; no blur, antialiasing, smooth gradients, painterly brushwork, text, logo, or watermark. Transparent layers used the simple phrase `transparent background`.
+
+Layer prompts:
+- Sky: opaque teal contaminated sky, low distant Thai rice-field mountains, sparse trees, quiet lower half.
+- Fields: distant Thai rice paddies, irrigation banks, fence posts, rural trees, restrained purple sprouts; transparent upper sky.
+- Corruption: irrigation structures, broken fences, black root towers, thorn vines, purple alien growths; transparent background.
+- Near roots: sparse close rice stalks, root arches, posts, thorn vines along lower third and sides; transparent center.
+- Foreground: very sparse rice leaves, root tips, spores, and stakes along the bottom edge/corners; at least 75% transparent.
+- Terrain tile: seamless side-view platform with uneven grass lip, layered reddish soil, stones, roots, purple contamination veins, and lower-edge shadow; transparent background.
+
+Normalization: nearest-neighbor crop/resize to 1280 x 720 for parallax layers and 576 x 192 for the platform tile. SHA-256: sky `5183F1EA05139BD599FCAE4B512B002EE59B533586C530A08F06358E772CC37C`; fields `A1029A47BE7B7F55343B09D4520425CD41DF30E13062D897FB72711DE5330A69`; corruption `396A637CCFB5208943B1B155B32D50FC5AB46AAFCA8975B0E2847BC79578C12D`; near roots `B4A90035BB8489B0076B97C5CA2EA13B4F9AEDBEAC07D5875FB1B77E050E9B8E`; foreground `AFB07D992B5FA00364A846C3F84E6D931B29175B7F556D97216477BDE21C1383`; terrain `D7F434B9D78D9129D35240FC888D4CC42C48A63B92C8AAEFEDE94137275462BD`.

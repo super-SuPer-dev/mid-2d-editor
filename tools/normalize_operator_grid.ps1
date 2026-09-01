@@ -16,8 +16,10 @@ if (-not ('OperatorSheetGridProcessor' -as [type])) {
     Add-Type -Path $processorSource -ReferencedAssemblies @(
         [System.Drawing.Bitmap].Assembly.Location,
         [System.Drawing.Color].Assembly.Location,
+        [System.Collections.Generic.List[int]].Assembly.Location,
         (Join-Path $drawingDirectory 'System.Private.Windows.GdiPlus.dll'),
-        (Join-Path $drawingDirectory 'System.Private.Windows.Core.dll')
+        (Join-Path $drawingDirectory 'System.Private.Windows.Core.dll'),
+        (Join-Path $drawingDirectory 'System.Collections.dll')
     )
 }
 

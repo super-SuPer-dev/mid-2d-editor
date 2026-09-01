@@ -44,3 +44,12 @@ Human-readable proofs are stored in `validation/sprite_grids/`. Magenta lines
 mark the exact 280 px dividers and green rectangles mark the protected gutters.
 `tools/validate_operator_sprite_grids.ps1` repeats the alpha/dimension/gutter
 gate without regenerating the sheets.
+
+
+## v4 subject-preserving grid correction (2026-09-01)
+
+- Built-in ImageGen source sheets reused from the v3 generation pass; no new identity redesign.
+- Runtime outputs: `tonkla_sprite_sheet_generated_v4.png`, `rin_sprite_sheet_generated_v4.png`, `khem_sprite_sheet_generated_v4.png`, `t800_sprite_sheet_generated_v4.png`.
+- Processor change: retain the main body plus nearby meaningful disconnected components (boots, tools, rifle, backpack parts); reject edge-touching spill fragments; fit complete subject into a 240 x 240 safe area in each 280 x 280 cell.
+- Grid remains exact 4 columns x 5 rows at 1120 x 1400 with 20 px protected gutters; runtime frame inset is 0 px.
+- SHA-256: Tonkla `FBD0164C487D009FA5B10C707794B55C926920FE4648126990AAC9027F659B25`; Rin `A0B006F85FFAA9A647A1F05F1194BC5ED10270EA87FDF8A3D58796B3BF83C281`; Khem `1735F962F9429B55BD5AA6DE0B3CC8AFCBABFD622B89DE5ACFE5FD9D8C46F05E`; T-800 `9438B945AF37BF2562599E15BF826BF48B6E6CFD8F99864E083696EA3212A1C7`.

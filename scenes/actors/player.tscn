@@ -56,10 +56,10 @@ script = ExtResource("2_health")
 max_health = 8
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=254088694]
-position = Vector2(96, -50)
+position = Vector2(0, -50)
 zoom = Vector2(2, 2)
 limit_smoothed = true
 position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+position_smoothing_speed = 6.0
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

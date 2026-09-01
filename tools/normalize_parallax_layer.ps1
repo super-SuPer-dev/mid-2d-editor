@@ -45,9 +45,9 @@ try {
         $graphics = [System.Drawing.Graphics]::FromImage($output)
         try {
             $graphics.CompositingMode = [System.Drawing.Drawing2D.CompositingMode]::SourceCopy
-            $graphics.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
-            $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
-            $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+            $graphics.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighSpeed
+            $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::NearestNeighbor
+            $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::Half
             $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::None
             $graphics.DrawImage(
                 $source,
