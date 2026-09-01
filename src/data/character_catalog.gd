@@ -23,8 +23,8 @@ const CHARACTERS := {
 		"uniform": Color("343a2f"),
 		"art_texture": "res://assets/characters/operators/tonkla_sprite_sheet_generated_v4.png",
 		"frame_inset": 0.0,
-		"idle_visual_y": -9.0,
-		"run_visual_y": -9.0,
+		"idle_visual_y": -8.75,
+		"run_visual_y": -8.75,
 	},
 	"rin": {
 		"name_key": "CHAR_RIN_NAME",

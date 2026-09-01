@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cyp71kee2wu57" path="res://assets/world/level_01_contaminated_grassland/landmarks/irrigation_root_tower_v1.png" id="11_landmark"]
 [ext_resource type="Texture2D" uid="uid://c4oe7a8mht4ih" path="res://assets/world/level_01_contaminated_grassland/props/rice_root_props_v1.png" id="12_props"]
 [ext_resource type="Texture2D" path="res://assets/world/grassland/dense_floor_wall_pixel_v3.png" id="13_floor_fill"]
+[ext_resource type="Material" path="res://assets/materials/pixel_prop_cutout.tres" id="prop_cutout"]
 
 [sub_resource type="Shader" id="Shader_floor_fill"]
 code = "shader_type canvas_item;\n\nconst float BASE_TILE_SCALE = 0.1953125;\nvarying vec2 tile_repeat;\n\nvoid vertex() {\n\ttile_repeat = max(vec2(length(MODEL_MATRIX[0].xy), length(MODEL_MATRIX[1].xy)) / BASE_TILE_SCALE, vec2(1.0));\n}\n\nvoid fragment() {\n\tvec2 tiled_uv = fract((UV - vec2(0.5)) * tile_repeat + vec2(0.5));\n\tCOLOR = texture(TEXTURE, tiled_uv) * COLOR;\n}\n"
@@ -29,6 +30,7 @@ script = ExtResource("1")
 
 [node name="IrrigationRootLandmark" type="Sprite2D" parent="Environment" unique_id=204671883]
 z_index = -5
+material = ExtResource("prop_cutout")
 texture_filter = 1
 position = Vector2(3650, 360)
 scale = Vector2(0.34, 0.34)
@@ -36,6 +38,7 @@ texture = ExtResource("11_landmark")
 
 [node name="RiceRootPropsA" type="Sprite2D" parent="Environment" unique_id=204671884]
 z_index = -4
+material = ExtResource("prop_cutout")
 texture_filter = 1
 position = Vector2(1450, 505)
 scale = Vector2(0.24, 0.24)
@@ -43,6 +46,7 @@ texture = ExtResource("12_props")
 
 [node name="RiceRootPropsB" type="Sprite2D" parent="Environment" unique_id=204671885]
 z_index = -4
+material = ExtResource("prop_cutout")
 texture_filter = 1
 position = Vector2(2670, 510)
 scale = Vector2(0.2, 0.2)
@@ -78,6 +82,7 @@ polygon = PackedVector2Array(-55, 7, -32, -9, -12, -5, 0, -22, 22, -13, 35, 0, 5
 
 [node name="RiceRootPropsIntro" type="Sprite2D" parent="Environment" unique_id=1624955650]
 z_index = -4
+material = ExtResource("prop_cutout")
 texture_filter = 1
 position = Vector2(620, 505)
 scale = Vector2(0.055, 0.055)

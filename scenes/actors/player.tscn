@@ -15,7 +15,7 @@ script = ExtResource("1_player")
 
 [node name="BodyVisual" type="AnimatedSprite2D" parent="." unique_id=1964188212]
 texture_filter = 1
-position = Vector2(4, -12)
+position = Vector2(4, -8.75)
 scale = Vector2(0.25, 0.25)
 
 [node name="AttackVfx" type="AnimatedSprite2D" parent="." unique_id=178423281]

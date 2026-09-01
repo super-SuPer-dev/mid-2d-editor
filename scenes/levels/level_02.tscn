@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_ground_cap_left_v1.png" id="17_cap"]
 [ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/tiles/forest_slope_up_v1.png" id="18_slope"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/encounter_gate.tscn" id="19_gate"]
+[ext_resource type="Texture2D" path="res://assets/world/level_02_mutated_forest/props/mutated_forest_root_cluster_v2.png" id="prop_cluster"]
+[ext_resource type="Material" path="res://assets/materials/pixel_prop_cutout.tres" id="prop_cutout"]
 
 [node name="MutatedForest" type="Node2D"]
 script = ExtResource("1")
@@ -26,17 +28,44 @@ script = ExtResource("1")
 [node name="Environment" type="Node2D" parent="."]
 [node name="ParallaxBackground" parent="Environment" instance=ExtResource("9_bg")]
 [node name="MawBloomLandmark" type="Sprite2D" parent="Environment"]
-position = Vector2(2920, 470)
+position = Vector2(2920, 537.6)
 z_index = -5
+material = ExtResource("prop_cutout")
 scale = Vector2(0.34, 0.34)
 texture_filter = 1
 texture = ExtResource("10_landmark")
 [node name="ForestFieldShrine" type="Sprite2D" parent="Environment"]
-position = Vector2(2280, 500)
+position = Vector2(2450, 558.8)
 z_index = -4
+material = ExtResource("prop_cutout")
 scale = Vector2(0.23, 0.23)
 texture_filter = 1
 texture = ExtResource("11_shrine")
+
+[node name="ForestRootPropsA" type="Sprite2D" parent="Environment"]
+position = Vector2(280, 664.76)
+z_index = -2
+material = ExtResource("prop_cutout")
+texture_filter = 1
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("prop_cluster")
+
+[node name="ForestRootPropsB" type="Sprite2D" parent="Environment"]
+position = Vector2(1740, 679.08)
+z_index = -2
+material = ExtResource("prop_cutout")
+texture_filter = 1
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("prop_cluster")
+flip_h = true
+
+[node name="ForestRootPropsC" type="Sprite2D" parent="Environment"]
+position = Vector2(2740, 649.42)
+z_index = -2
+material = ExtResource("prop_cutout")
+texture_filter = 1
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("prop_cluster")
 [node name="ForestTileAccentA" type="Sprite2D" parent="Environment"]
 visible = false
 position = Vector2(900, 650)
