@@ -30,6 +30,7 @@ scale = Vector2(0.34, 0.34)
 texture_filter = 1
 texture = ExtResource("10_landmark")
 [node name="CapsuleTileAccentA" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(820, 600)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -38,6 +39,7 @@ texture = ExtResource("12_tile")
 hframes = 3
 frame = 1
 [node name="CapsuleTileAccentB" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1720, 620)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -46,6 +48,7 @@ texture = ExtResource("12_tile")
 hframes = 3
 frame = 1
 [node name="CapsuleTileAccentC" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2600, 600)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -54,30 +57,35 @@ texture = ExtResource("12_tile")
 hframes = 3
 frame = 1
 [node name="CapsuleCornerAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1200, 480)
 z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("13_corner")
 [node name="CapsuleFloatingAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1920, 430)
 z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("14_float")
 [node name="CapsuleBrokenAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(965, 464)
 z_index = -2
 scale = Vector2(0.11, 0.11)
 texture_filter = 1
 texture = ExtResource("15_broken")
 [node name="CapsuleCapAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1775, 444)
 z_index = -2
 scale = Vector2(0.11, 0.11)
 texture_filter = 1
 texture = ExtResource("16_cap")
 [node name="CapsuleSlopeAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2180, 534)
 z_index = -2
 scale = Vector2(0.11, 0.11)

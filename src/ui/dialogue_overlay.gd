@@ -1,22 +1,9 @@
 class_name DialogueOverlay
 extends Control
 
-const DIALOGUE_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/dialogue_frame_normalized_v1.png")
-const RADIO_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/radio_overlay_frame_normalized_v1.png")
-const BRIEFING_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/briefing_panel_normalized_v1.png")
-const DEBRIEF_FRAME_TEXTURE: Texture2D = preload("res://assets/ui/narrative/debrief_panel_normalized_v1.png")
-const BOSS_INTRO_FRAME_PATHS := {
-	"thorn_matriarch": "res://assets/ui/boss/thorn_matriarch_boss_intro_frame_v1.png",
-	"maw_bloom_sovereign": "res://assets/ui/boss/maw_sovereign_boss_intro_frame_v1.png",
-	"possessed_banyan": "res://assets/ui/boss/possessed_banyan_boss_intro_frame_v1.png",
-	"root_hydra": "res://assets/ui/boss/root_hydra_boss_intro_frame_v1.png",
-	"root_core_eye": "res://assets/ui/boss/root_core_eye_boss_intro_frame_v1.png",
-}
-
 @onready var panel: PanelContainer = $Panel
 @onready var portrait: TextureRect = $Panel/Body/Portrait
 @onready var body: HBoxContainer = $Panel/Body
-@onready var frame_top_padding: Control = $Panel/Body/Content/FrameTopPadding
 @onready var speaker_label: Label = $Panel/Body/Content/Speaker
 @onready var text_label: Label = $Panel/Body/Content/Text
 @onready var actions: HBoxContainer = $Panel/Body/Content/Actions
@@ -29,11 +16,11 @@ var entries: Array = []
 var entry_index: int = 0
 var paused_by_dialogue: bool = false
 var pending_sequences: Array[String] = []
-var dialogue_frame_style: StyleBoxTexture
-var radio_frame_style: StyleBoxTexture
-var briefing_frame_style: StyleBoxTexture
-var debrief_frame_style: StyleBoxTexture
-var boss_intro_frame_styles: Dictionary = {}
+var dialogue_frame_style: StyleBoxFlat
+var radio_frame_style: StyleBoxFlat
+var briefing_frame_style: StyleBoxFlat
+var debrief_frame_style: StyleBoxFlat
+var boss_frame_style: StyleBoxFlat
 var text_reveal_tween: Tween
 
 
@@ -42,10 +29,11 @@ func _ready() -> void:
 	visible = false
 	StoryManager.sequence_requested.connect(show_sequence)
 	LocalizationManager.language_changed.connect(_on_language_changed)
-	dialogue_frame_style = _build_frame_style(DIALOGUE_FRAME_TEXTURE)
-	radio_frame_style = _build_frame_style(RADIO_FRAME_TEXTURE)
-	briefing_frame_style = _build_frame_style(BRIEFING_FRAME_TEXTURE)
-	debrief_frame_style = _build_frame_style(DEBRIEF_FRAME_TEXTURE)
+	dialogue_frame_style = _build_panel_style(Color("88a84f"))
+	radio_frame_style = _build_panel_style(Color("5ba98c"), true)
+	briefing_frame_style = _build_panel_style(Color("d2a63f"))
+	debrief_frame_style = _build_panel_style(Color("79b9a5"))
+	boss_frame_style = _build_panel_style(Color("b85d8e"))
 
 
 func show_sequence(requested_sequence_id: String) -> void:
@@ -102,7 +90,7 @@ func _show_current_entry() -> void:
 
 func _apply_presentation_mode(mode: String) -> void:
 	var is_radio := mode == "radio"
-	var frame_style := dialogue_frame_style
+	var frame_style: StyleBoxFlat = dialogue_frame_style
 	if mode == "radio":
 		frame_style = radio_frame_style
 	elif mode == "briefing":
@@ -110,19 +98,11 @@ func _apply_presentation_mode(mode: String) -> void:
 	elif mode == "debrief":
 		frame_style = debrief_frame_style
 	elif mode == "boss":
-		var boss_style := boss_intro_frame_styles.get(GameManager.current_boss_id) as StyleBoxTexture
-		if boss_style == null:
-			var boss_path := str(BOSS_INTRO_FRAME_PATHS.get(GameManager.current_boss_id, ""))
-			if not boss_path.is_empty():
-				boss_style = _build_frame_style(GameManager.load_runtime_texture(boss_path))
-				boss_intro_frame_styles[GameManager.current_boss_id] = boss_style
-		if boss_style != null:
-			frame_style = boss_style
+		frame_style = boss_frame_style
 	panel.add_theme_stylebox_override("panel", frame_style)
 	if is_radio:
-		frame_top_padding.visible = false
-		body.add_theme_constant_override("separation", 16)
-		panel.custom_minimum_size = Vector2(500.0, 116.0)
+		body.add_theme_constant_override("separation", 12)
+		panel.custom_minimum_size = Vector2(520.0, 136.0)
 		panel.anchor_left = 1.0
 		panel.anchor_top = 0.0
 		panel.anchor_right = 1.0
@@ -132,40 +112,46 @@ func _apply_presentation_mode(mode: String) -> void:
 		panel.offset_right = -30.0
 		panel.offset_bottom = 326.0
 		portrait.custom_minimum_size = Vector2(76.0, 92.0)
-		text_label.custom_minimum_size = Vector2(0.0, 36.0)
+		text_label.custom_minimum_size = Vector2(0.0, 42.0)
 		speaker_label.add_theme_font_size_override("font_size", 18)
 		text_label.add_theme_font_size_override("font_size", 16)
 		actions.visible = false
 	else:
-		frame_top_padding.visible = true
-		body.add_theme_constant_override("separation", 42)
-		panel.custom_minimum_size = Vector2(900.0, 220.0)
+		body.add_theme_constant_override("separation", 20)
+		panel.custom_minimum_size = Vector2(920.0, 240.0)
 		panel.anchor_left = 0.5
 		panel.anchor_top = 1.0
 		panel.anchor_right = 0.5
 		panel.anchor_bottom = 1.0
-		panel.offset_left = -450.0
-		panel.offset_top = -250.0
-		panel.offset_right = 450.0
+		panel.offset_left = -460.0
+		panel.offset_top = -270.0
+		panel.offset_right = 460.0
 		panel.offset_bottom = -30.0
-		portrait.custom_minimum_size = Vector2(160.0, 184.0)
-		text_label.custom_minimum_size = Vector2(0.0, 92.0)
-		speaker_label.add_theme_font_size_override("font_size", 24)
-		text_label.add_theme_font_size_override("font_size", 21)
+		portrait.custom_minimum_size = Vector2(160.0, 190.0)
+		text_label.custom_minimum_size = Vector2(0.0, 76.0)
+		speaker_label.add_theme_font_size_override("font_size", 22)
+		text_label.add_theme_font_size_override("font_size", 20)
 		actions.visible = true
 
 
-func _build_frame_style(texture: Texture2D) -> StyleBoxTexture:
-	var style := StyleBoxTexture.new()
-	style.texture = texture
-	style.texture_margin_left = 150.0
-	style.texture_margin_top = 120.0
-	style.texture_margin_right = 150.0
-	style.texture_margin_bottom = 120.0
-	style.content_margin_left = 34.0
-	style.content_margin_top = 26.0
-	style.content_margin_right = 34.0
-	style.content_margin_bottom = 24.0
+func _build_panel_style(border_color: Color, compact: bool = false) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.018, 0.035, 0.028, 0.97)
+	style.border_color = border_color
+	style.border_width_left = 3
+	style.border_width_top = 3
+	style.border_width_right = 3
+	style.border_width_bottom = 3
+	style.corner_radius_top_left = 10
+	style.corner_radius_top_right = 10
+	style.corner_radius_bottom_right = 10
+	style.corner_radius_bottom_left = 10
+	style.content_margin_left = 16.0 if compact else 22.0
+	style.content_margin_top = 12.0 if compact else 18.0
+	style.content_margin_right = 16.0 if compact else 22.0
+	style.content_margin_bottom = 12.0 if compact else 18.0
+	style.shadow_color = Color(0.0, 0.0, 0.0, 0.45)
+	style.shadow_size = 8
 	return style
 
 

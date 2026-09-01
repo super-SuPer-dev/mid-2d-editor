@@ -31,6 +31,7 @@ scale = Vector2(0.34, 0.34)
 texture_filter = 1
 texture = ExtResource("10_landmark")
 [node name="NexusTileAccentA" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(700, 700)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -39,6 +40,7 @@ texture = ExtResource("12_tile")
 hframes = 3
 frame = 1
 [node name="NexusTileAccentB" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1740, 650)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -47,6 +49,7 @@ texture = ExtResource("12_tile")
 hframes = 3
 frame = 1
 [node name="NexusTileAccentC" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2760, 700)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -55,30 +58,35 @@ texture = ExtResource("12_tile")
 hframes = 3
 frame = 1
 [node name="NexusCornerAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1080, 540)
 z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("13_corner")
 [node name="NexusFloatingAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2320, 500)
 z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("14_float")
 [node name="NexusBrokenAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(910, 610)
 z_index = -2
 scale = Vector2(0.11, 0.11)
 texture_filter = 1
 texture = ExtResource("15_broken")
 [node name="NexusCapAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2110, 690)
 z_index = -2
 scale = Vector2(0.11, 0.11)
 texture_filter = 1
 texture = ExtResource("16_cap")
 [node name="NexusSlopeAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2940, 690)
 z_index = -2
 scale = Vector2(0.11, 0.11)

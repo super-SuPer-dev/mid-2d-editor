@@ -34,6 +34,7 @@ func _ready() -> void:
 	AudioManager.play_music(StringName(GameManager.current_level_id))
 	_configure_biome_hazards()
 	_configure_biome_platforms()
+	_snap_characters_to_surfaces()
 	RenderingServer.set_default_clear_color(level_data["background"])
 	player.set_camera_limits(level_data["size"])
 	player.died.connect(_on_player_died)
@@ -86,6 +87,58 @@ func _configure_biome_platforms() -> void:
 		# scaled 20 px collision shape instead of stretching the artwork.
 		visual.position = Vector2(0.0, -10.0 + BIOME_PLATFORM_WORLD_SIZE.y * 0.5 / parent_scale_y)
 		frame_index += 1
+
+
+func _snap_characters_to_surfaces() -> void:
+	# Briefing dialogue pauses the scene immediately. Align authored characters
+	# before that pause so they never appear suspended above their platforms.
+	_snap_character_to_surface(player)
+	for node: Node in get_node("Enemies").get_children():
+		if not node is EnemyController:
+			continue
+		var enemy := node as EnemyController
+		if enemy.enemy_type == "eye_wisp":
+			continue
+		_snap_character_to_surface(enemy)
+
+
+func _snap_character_to_surface(character: CharacterBody2D) -> void:
+	var character_collider := character.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if character_collider == null or character_collider.shape == null:
+		return
+	var character_scale := character_collider.global_transform.get_scale().abs()
+	var character_half_height := _shape_half_height(character_collider.shape) * character_scale.y
+	var collider_offset_y := character_collider.global_position.y - character.global_position.y
+	var support_y := INF
+	for platform_node: Node in get_node("WorldGeometry").get_children():
+		if not platform_node.is_in_group("Platform"):
+			continue
+		var platform_collider := platform_node.get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if platform_collider == null or not platform_collider.shape is RectangleShape2D:
+			continue
+		var platform_shape := platform_collider.shape as RectangleShape2D
+		var platform_scale := platform_collider.global_transform.get_scale().abs()
+		var half_width := platform_shape.size.x * platform_scale.x * 0.5
+		var top_y := platform_collider.global_position.y - platform_shape.size.y * platform_scale.y * 0.5
+		if absf(character.global_position.x - platform_collider.global_position.x) > half_width + 6.0:
+			continue
+		if top_y < character.global_position.y - 2.0:
+			continue
+		support_y = minf(support_y, top_y)
+	if is_inf(support_y):
+		return
+	character.global_position.y = support_y - collider_offset_y - character_half_height
+	character.velocity.y = 0.0
+
+
+func _shape_half_height(shape: Shape2D) -> float:
+	if shape is RectangleShape2D:
+		return (shape as RectangleShape2D).size.y * 0.5
+	if shape is CapsuleShape2D:
+		return (shape as CapsuleShape2D).height * 0.5
+	if shape is CircleShape2D:
+		return (shape as CircleShape2D).radius
+	return 0.0
 
 
 func _on_objective_changed(defeated: int, required: int) -> void:

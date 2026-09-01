@@ -531,38 +531,37 @@ func _validate_dialogue_presentations() -> void:
 	overlay.visible = true
 	overlay._apply_presentation_mode("radio")
 	await get_tree().process_frame
-	var radio_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
-	_check(radio_style != null and radio_style.texture != null and str(radio_style.texture.resource_path).ends_with("radio_overlay_frame_normalized_v1.png"), "Radio dialogue did not apply the generated frame skin.")
+	var radio_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxFlat
+	_check(radio_style != null and radio_style.border_width_left == 3 and radio_style.border_color.is_equal_approx(Color("5ba98c")), "Radio dialogue did not apply its bounds-matched panel style.")
 	_check(overlay.panel.anchor_left == 1.0 and overlay.panel.anchor_top == 0.0, "Radio dialogue is not anchored to the top-right safe area.")
 	_check(overlay.panel.offset_top >= 180.0, "Radio dialogue overlaps the combat HUD or boss bar.")
 	_check(overlay.panel.size.x <= 520.0 and overlay.panel.size.y <= 180.0, "Radio dialogue is not compact enough for active combat (panel %s, portrait %s, text %s, actions %s)." % [overlay.panel.size, overlay.portrait.size, overlay.text_label.size, overlay.actions.size])
 	_check(not overlay.actions.visible, "Radio dialogue exposes blocking action controls.")
 	overlay._apply_presentation_mode("full")
 	await get_tree().process_frame
-	var full_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
-	_check(full_style != null and full_style.texture != null and str(full_style.texture.resource_path).ends_with("dialogue_frame_normalized_v1.png"), "Full dialogue did not apply the generated frame skin.")
+	var full_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxFlat
+	_check(full_style != null and full_style.border_color.is_equal_approx(Color("88a84f")), "Full dialogue did not apply its bounds-matched panel style.")
 	overlay._apply_presentation_mode("briefing")
 	await get_tree().process_frame
-	var briefing_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
-	_check(briefing_style != null and briefing_style.texture != null and str(briefing_style.texture.resource_path).ends_with("briefing_panel_normalized_v1.png"), "Briefing dialogue did not apply the generated frame skin.")
+	var briefing_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxFlat
+	_check(briefing_style != null and briefing_style.border_color.is_equal_approx(Color("d2a63f")), "Briefing dialogue did not apply its bounds-matched panel style.")
 	var panel_rect := overlay.panel.get_global_rect()
 	var speaker_rect := overlay.speaker_label.get_global_rect()
 	var text_rect := overlay.text_label.get_global_rect()
-	_check(speaker_rect.position.x >= panel_rect.position.x + 220.0 and speaker_rect.position.y >= panel_rect.position.y + 48.0, "Briefing speaker label is not inset into the visible frame.")
-	_check(text_rect.position.x >= panel_rect.position.x + 220.0 and text_rect.position.y > speaker_rect.position.y, "Briefing body text is not aligned beneath the speaker inside the frame.")
+	_check(speaker_rect.position.x >= panel_rect.position.x + 190.0 and speaker_rect.position.y >= panel_rect.position.y + 16.0 and speaker_rect.end.x <= panel_rect.end.x - 16.0, "Briefing speaker label is not contained by the visible panel.")
+	_check(text_rect.position.x >= panel_rect.position.x + 190.0 and text_rect.position.y >= speaker_rect.end.y and text_rect.end.x <= panel_rect.end.x - 16.0 and text_rect.end.y <= panel_rect.end.y - 52.0, "Briefing body text is not aligned beneath the speaker inside the panel.")
 	var original_boss_id := GameManager.current_boss_id
 	for boss_id: String in ["thorn_matriarch", "maw_bloom_sovereign", "possessed_banyan", "root_hydra", "root_core_eye"]:
 		GameManager.current_boss_id = boss_id
 		overlay._apply_presentation_mode("boss")
 		await get_tree().process_frame
-		var boss_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
-		var expected_intro_suffix: String = "%s_boss_intro_frame_v1.png" % ("maw_sovereign" if boss_id == "maw_bloom_sovereign" else boss_id)
-		_check(boss_style != null and boss_style.texture != null and str(boss_style.texture.resource_path).ends_with(expected_intro_suffix), "%s boss introduction did not apply its generated frame skin." % boss_id)
+		var boss_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxFlat
+		_check(boss_style != null and boss_style.border_color.is_equal_approx(Color("b85d8e")), "%s boss introduction did not apply its bounds-matched panel style." % boss_id)
 	GameManager.current_boss_id = original_boss_id
 	overlay._apply_presentation_mode("debrief")
 	await get_tree().process_frame
-	var debrief_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxTexture
-	_check(debrief_style != null and debrief_style.texture != null and str(debrief_style.texture.resource_path).ends_with("debrief_panel_normalized_v1.png"), "Debrief dialogue did not apply the generated frame skin.")
+	var debrief_style := overlay.panel.get_theme_stylebox("panel") as StyleBoxFlat
+	_check(debrief_style != null and debrief_style.border_color.is_equal_approx(Color("79b9a5")), "Debrief dialogue did not apply its bounds-matched panel style.")
 	_check(overlay.panel.anchor_left == 0.5 and overlay.panel.anchor_top == 1.0, "Full dialogue did not restore its bottom-center layout.")
 	_check(overlay.actions.visible, "Full dialogue did not restore its controls.")
 	SaveManager.profile["settings"]["immediate_dialogue_text"] = false
@@ -607,6 +606,14 @@ func _validate_levels() -> void:
 					parallax_scales[(parallax_layer as Parallax2D).scroll_scale] = true
 			_check(parallax_scales.size() >= 4, "%s parallax layers do not have distinct depth speeds." % level_id)
 		var world_geometry := level.get_node("WorldGeometry")
+		for environment_child: Node in level.get_node("Environment").get_children():
+			if "Accent" in str(environment_child.name):
+				_check(not (environment_child as CanvasItem).visible, "%s exposes collisionless accent %s as misleading level geometry." % [level_id, environment_child.name])
+		for platform: Node in world_geometry.get_children():
+			if not platform.is_in_group("Platform"):
+				continue
+			var platform_collider := platform.get_node("CollisionShape2D") as CollisionShape2D
+			_check(platform_collider.one_way_collision and platform_collider.one_way_collision_margin >= 6.0, "%s platform %s blocks jump-through movement." % [level_id, platform.name])
 		if level_id == "level_01":
 			var floor_fill := world_geometry.get_node("GroundFill") as Sprite2D
 			_check(floor_fill != null and str(floor_fill.texture.resource_path).ends_with("dense_floor_wall_pixel_v3.png"), "Level 1 floor wall is not using the dense tiled texture.")
@@ -621,6 +628,8 @@ func _validate_levels() -> void:
 		var enemy_count := 0
 		var boss_count := 0
 		for enemy: EnemyController in get_tree().get_nodes_in_group("Enemy"):
+			if enemy.enemy_type != "eye_wisp":
+				_check(_character_has_authored_support(enemy, world_geometry), "%s enemy %s begins suspended away from collision geometry." % [level_id, enemy.name])
 			if enemy.is_boss:
 				boss_count += 1
 			else:
@@ -1267,6 +1276,34 @@ func _validate_jump_routes(level_id: String, world_geometry: Node) -> void:
 		var target_surface := target.position.y - 10.0 * target.scale.y
 		var step_height := source_surface - target_surface
 		_check(step_height <= 100.0, "%s route %s -> %s is too high (%.1f px)." % [level_id, route[0], route[1], step_height])
+
+
+func _character_has_authored_support(character: CharacterBody2D, world_geometry: Node) -> bool:
+	var character_collider := character.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if character_collider == null or character_collider.shape == null:
+		return false
+	var character_half_height := 0.0
+	if character_collider.shape is RectangleShape2D:
+		character_half_height = (character_collider.shape as RectangleShape2D).size.y * 0.5
+	elif character_collider.shape is CapsuleShape2D:
+		character_half_height = (character_collider.shape as CapsuleShape2D).height * 0.5
+	elif character_collider.shape is CircleShape2D:
+		character_half_height = (character_collider.shape as CircleShape2D).radius
+	character_half_height *= character_collider.global_transform.get_scale().abs().y
+	var bottom_y := character_collider.global_position.y + character_half_height
+	for platform: Node in world_geometry.get_children():
+		if not platform.is_in_group("Platform"):
+			continue
+		var platform_collider := platform.get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if platform_collider == null or not platform_collider.shape is RectangleShape2D:
+			continue
+		var shape := platform_collider.shape as RectangleShape2D
+		var platform_scale := platform_collider.global_transform.get_scale().abs()
+		var half_width := shape.size.x * platform_scale.x * 0.5
+		var top_y := platform_collider.global_position.y - shape.size.y * platform_scale.y * 0.5
+		if absf(character.global_position.x - platform_collider.global_position.x) <= half_width + 6.0 and absf(bottom_y - top_y) <= 1.0:
+			return true
+	return false
 
 
 func _check(condition: bool, message: String) -> void:

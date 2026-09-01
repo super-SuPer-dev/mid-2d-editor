@@ -38,6 +38,7 @@ scale = Vector2(0.23, 0.23)
 texture_filter = 1
 texture = ExtResource("11_shrine")
 [node name="ForestTileAccentA" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(900, 650)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -46,6 +47,7 @@ texture = ExtResource("13_tile")
 hframes = 3
 frame = 1
 [node name="ForestTileAccentB" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1780, 610)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -54,6 +56,7 @@ texture = ExtResource("13_tile")
 hframes = 3
 frame = 1
 [node name="ForestTileAccentC" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2640, 650)
 z_index = -2
 scale = Vector2(0.18, 0.18)
@@ -62,30 +65,35 @@ texture = ExtResource("13_tile")
 hframes = 3
 frame = 1
 [node name="ForestCornerAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1160, 520)
 z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("14_corner")
 [node name="ForestFloatingAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2060, 505)
 z_index = -2
 scale = Vector2(0.13, 0.13)
 texture_filter = 1
 texture = ExtResource("15_float")
 [node name="ForestBrokenAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(1310, 690)
 z_index = -2
 scale = Vector2(0.11, 0.11)
 texture_filter = 1
 texture = ExtResource("16_broken")
 [node name="ForestCapAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2425, 626)
 z_index = -2
 scale = Vector2(0.11, 0.11)
 texture_filter = 1
 texture = ExtResource("17_cap")
 [node name="ForestSlopeAccent" type="Sprite2D" parent="Environment"]
+visible = false
 position = Vector2(2870, 715)
 z_index = -2
 scale = Vector2(0.11, 0.11)
