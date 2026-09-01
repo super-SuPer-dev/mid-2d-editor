@@ -101,83 +101,142 @@ size_flags_vertical = 0
 theme_override_constants/separation = 16
 alignment = 1
 
+[node name="OperatorList" type="PanelContainer" parent="Margin/Layout/Cards"]
+custom_minimum_size = Vector2(280, 320)
+layout_mode = 2
+theme_type_variation = &"UpgradeCard"
+
+[node name="Content" type="VBoxContainer" parent="Margin/Layout/Cards/OperatorList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Margin/Layout/Cards/OperatorList/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73, 0.82, 0.52, 1)
+theme_override_font_sizes/font_size = 18
+text = "MASTERY_SELECT_OPERATOR"
+horizontal_alignment = 1
+
+[node name="Selectors" type="VBoxContainer" parent="Margin/Layout/Cards/OperatorList/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="tonkla" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+toggle_mode = true
+
+[node name="rin" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+toggle_mode = true
+
+[node name="khem" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+toggle_mode = true
+
+[node name="t800" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+toggle_mode = true
+
 [node name="blade" type="PanelContainer" parent="Margin/Layout/Cards" unique_id=1067122312]
-custom_minimum_size = Vector2(384, 320)
+custom_minimum_size = Vector2(650, 320)
 layout_mode = 2
 theme_type_variation = &"UpgradeCard"
 
 [node name="Content" type="VBoxContainer" parent="Margin/Layout/Cards/blade" unique_id=1093681305]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 alignment = 1
 
 [node name="Icon" type="Label" parent="Margin/Layout/Cards/blade/Content" unique_id=1619626441]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.74, 0.27, 1)
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 
 [node name="Name" type="Label" parent="Margin/Layout/Cards/blade/Content" unique_id=984821509]
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 22
 text = "MASTERY_TITLE"
 horizontal_alignment = 1
 
 [node name="RankTrack" type="HBoxContainer" parent="Margin/Layout/Cards/blade/Content" unique_id=984821510]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
 [node name="Rank0" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821511]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Rank1" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821512]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Rank2" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821513]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Rank3" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821514]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Rank4" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821515]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Rank5" type="TextureRect" parent="Margin/Layout/Cards/blade/Content/RankTrack" unique_id=984821516]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Description" type="Label" parent="Margin/Layout/Cards/blade/Content" unique_id=492066863]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.78, 0.78, 0.7, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "MASTERY_DESC"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CurrentBenefit" type="Label" parent="Margin/Layout/Cards/blade/Content"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.82, 0.57, 1)
+theme_override_font_sizes/font_size = 15
+text = "MASTERY_CURRENT_EFFECT"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="NextBenefit" type="Label" parent="Margin/Layout/Cards/blade/Content"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.78, 0.38, 1)
+theme_override_font_sizes/font_size = 15
+text = "MASTERY_NEXT_EFFECT"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Level" type="Label" parent="Margin/Layout/Cards/blade/Content" unique_id=1580741244]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
 [node name="Purchase" type="Button" parent="Margin/Layout/Cards/blade/Content" unique_id=1949291556]
@@ -263,7 +322,7 @@ custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 
 [node name="Status" type="Label" parent="Margin/Layout" unique_id=134272231]
-visible = false
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.78, 0.78, 0.7, 1)
 theme_override_font_sizes/font_size = 18

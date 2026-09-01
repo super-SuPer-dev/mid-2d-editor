@@ -109,6 +109,10 @@ static func get_passive_strength(character_id: String, mastery_rank: int) -> flo
 	return 0.0
 
 
+static func get_mastery_health_bonus(mastery_rank: int) -> int:
+	return clampi(mastery_rank, 0, 5)
+
+
 static func get_sprite_frame(texture: Texture2D, column: int, row: int, inset: float = FRAME_INSET) -> AtlasTexture:
 	var cell_size := Vector2(
 		float(texture.get_width()) / SHEET_COLUMNS,

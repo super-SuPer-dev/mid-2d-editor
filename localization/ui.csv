@@ -83,6 +83,19 @@ MASTERY_DESC,Improve this operator's passive and milestone bonuses.,พัฒน
 MASTERY_RANK,Rank {rank}/5,แรงก์ {rank}/5
 MASTERY_PURCHASE,Train • {cost},ฝึกฝน • {cost}
 MASTERY_MAX,Maximum Mastery,ความชำนาญสูงสุด
+MASTERY_SELECT_OPERATOR,Choose an operator,เลือกเจ้าหน้าที่
+MASTERY_CURRENT_EFFECT,CURRENT • {effect},ปัจจุบัน • {effect}
+MASTERY_NEXT_EFFECT,NEXT RANK • {effect},แรงก์ถัดไป • {effect}
+MASTERY_EFFECT_TONKLA,Restore 1 heart every {value} samples,ฟื้นฟู 1 หัวใจทุก {value} ตัวอย่าง
+MASTERY_EFFECT_RIN,Dash cooldown -{value}%,ลดคูลดาวน์พุ่งตัว {value}%
+MASTERY_EFFECT_KHEM,Attack width +{value}%,เพิ่มระยะโจมตี {value}%
+MASTERY_EFFECT_T800,Incoming damage -{value},ลดความเสียหายที่ได้รับ {value}
+MASTERY_EFFECT_VITALITY,Max health +{value},พลังชีวิตสูงสุด +{value}
+MASTERY_NEED_SAMPLES,Need {missing} more • Cost {cost},ต้องการอีก {missing} • ราคา {cost}
+MASTERY_INSUFFICIENT,Not enough samples — collect {missing} more in missions.,ตัวอย่างไม่พอ — เก็บเพิ่มอีก {missing} จากภารกิจ
+MASTERY_READY,Training is available. The new rank applies on the next mission.,พร้อมฝึกฝน แรงก์ใหม่มีผลในภารกิจถัดไป
+MASTERY_PURCHASED,Training complete — Rank {rank} unlocked.,ฝึกฝนสำเร็จ — ปลดล็อกแรงก์ {rank}
+MASTERY_ALL_UNLOCKED,All mastery bonuses unlocked.,ปลดล็อกโบนัสความชำนาญครบแล้ว
 HUD_HEALTH,HP {current}/{maximum},ชีวิต {current}/{maximum}
 HUD_SAMPLES,Samples {count},ตัวอย่าง {count}
 HUD_THREATS,Threats {current}/{required},ภัยคุกคาม {current}/{required}

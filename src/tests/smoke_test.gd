@@ -226,6 +226,8 @@ func _validate_localization_and_dialogue() -> void:
 
 
 func _validate_operator_passives() -> void:
+	_check(CharacterCatalog.get_mastery_health_bonus(0) == 0, "Rank-0 mastery unexpectedly changed operator vitality.")
+	_check(CharacterCatalog.get_mastery_health_bonus(5) == 5, "Maximum mastery did not grant all five vitality ranks.")
 	var original_character := GameManager.selected_character_id
 	var original_mastery: Dictionary = SaveManager.profile.get("operator_mastery", {}).duplicate(true)
 	var mastery_strengths := {
@@ -289,6 +291,29 @@ func _validate_progression_purchases() -> void:
 	_check(SaveManager.purchase_mastery("rin"), "Operator Mastery purchase was rejected despite sufficient currency.")
 	_check(SaveManager.get_mastery_rank("rin") == 1 and SaveManager.profile["total_crystals"] == 97, "Operator Mastery purchase did not apply exactly one rank and its exact cost.")
 	_check(SaveManager.get_character_upgrade_level("blade", "rin") == 1, "Legacy mastery level accessor no longer reflects the shared Mastery rank.")
+	var mastery_screen := MASTERY_SCENE.instantiate() as Control
+	add_child(mastery_screen)
+	await get_tree().process_frame
+	mastery_screen._select_operator("khem")
+	var mastery_button := mastery_screen.get_node("Margin/Layout/Cards/blade/Content/Purchase") as Button
+	_check(mastery_screen.target_character_id == "khem" and not mastery_button.disabled, "Mastery screen could not target another operator for training.")
+	var khem_rank_before := SaveManager.get_mastery_rank("khem")
+	var khem_cost_before := SaveManager.get_mastery_cost("khem")
+	var samples_before_khem := int(SaveManager.profile["total_crystals"])
+	mastery_button.pressed.emit()
+	await get_tree().process_frame
+	_check(SaveManager.get_mastery_rank("khem") == khem_rank_before + 1, "Mastery screen purchase button did not train its selected operator.")
+	_check(int(SaveManager.profile["total_crystals"]) == samples_before_khem - khem_cost_before, "Mastery screen purchase did not deduct the displayed rank cost.")
+	SaveManager.profile["total_crystals"] = 0
+	mastery_screen._select_operator("tonkla")
+	var tonkla_rank_before := SaveManager.get_mastery_rank("tonkla")
+	_check(not mastery_button.disabled, "Insufficient-sample mastery action became a dead disabled control.")
+	mastery_button.pressed.emit()
+	await get_tree().process_frame
+	_check(SaveManager.get_mastery_rank("tonkla") == tonkla_rank_before, "Insufficient-sample mastery attempt changed rank.")
+	_check(mastery_screen.feedback_key == "MASTERY_INSUFFICIENT", "Insufficient-sample mastery attempt did not explain why training failed.")
+	mastery_screen.queue_free()
+	await get_tree().process_frame
 	SaveManager.profile["operator_mastery"]["rin"] = 5
 	var crystals_at_mastery_cap := int(SaveManager.profile["total_crystals"])
 	_check(not SaveManager.purchase_mastery("rin"), "Operator Mastery purchase exceeded rank 5.")
@@ -438,6 +463,8 @@ func _validate_mastery_layout() -> void:
 	var frame := screen.get_node("MasteryFrame") as TextureRect
 	_check(frame != null and frame.texture != null and str(frame.texture.resource_path).ends_with("operator_mastery_screen_normalized_v1.png"), "Mastery screen did not apply the generated shell frame.")
 	_check(frame != null and frame.get_global_rect().size.x >= 1200.0 and frame.get_global_rect().size.y >= 680.0, "Mastery shell did not cover the 1280x720 safe area.")
+	var selectors := screen.get_node("Margin/Layout/Cards/OperatorList/Content/Selectors") as VBoxContainer
+	_check(selectors != null and selectors.get_child_count() == CharacterCatalog.get_ids().size(), "Mastery screen did not expose every operator as a selectable training target.")
 	var rank_track := screen.get_node("Margin/Layout/Cards/blade/Content/RankTrack") as HBoxContainer
 	_check(rank_track != null and rank_track.get_child_count() == 6, "Mastery rank track did not construct six nodes.")
 	if rank_track != null:
@@ -1061,6 +1088,8 @@ func _validate_levels() -> void:
 		var character := CharacterCatalog.get_character(GameManager.selected_character_id)
 		var expected_attack := int(character["attack_damage"]) + SaveManager.get_upgrade_level("blade")
 		_check(player.attack_damage == expected_attack, "%s did not apply base attack upgrades." % level_id)
+		var expected_health := int(character["max_health"]) + SaveManager.get_upgrade_level("armor") + CharacterCatalog.get_mastery_health_bonus(SaveManager.get_mastery_rank(GameManager.selected_character_id))
+		_check(player.health.max_health == expected_health, "%s did not apply operator mastery vitality." % level_id)
 		_check(absf(player.body_visual.position.y + 8.75) < 0.01, "%s player sprite lost its painted-foot baseline." % level_id)
 		if level_id == "level_01":
 			player._start_attack()

@@ -68,7 +68,7 @@ func _ready() -> void:
 	var engine_level := SaveManager.get_upgrade_level("engine")
 	move_speed *= 1.0 + engine_level * 0.05
 	dash_speed *= 1.0 + engine_level * 0.04
-	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor")
+	health.max_health = int(character["max_health"]) + SaveManager.get_upgrade_level("armor") + CharacterCatalog.get_mastery_health_bonus(mastery_rank)
 	_apply_passive()
 	health.reset()
 	health.health_changed.connect(_on_health_changed)
