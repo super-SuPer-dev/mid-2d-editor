@@ -110,6 +110,7 @@ func _show_modal(title_key: String, subtitle_key: String, accent: Color, actions
 	modal_actions.clear()
 	for index in modal_buttons.size():
 		var button := modal_buttons[index]
+		button.disabled = false
 		if index < actions.size():
 			button.visible = true
 			button.text = LocalizationManager.text(str(actions[index][0]))
@@ -122,8 +123,12 @@ func _show_modal(title_key: String, subtitle_key: String, accent: Color, actions
 func _activate_action(index: int) -> void:
 	if index >= modal_actions.size():
 		return
+	var action: Callable = modal_actions[index]
+	modal_actions.clear()
+	for button in modal_buttons:
+		button.disabled = true
 	AudioManager.play_click()
-	modal_actions[index].call()
+	action.call_deferred()
 
 
 func _on_action_1() -> void:
