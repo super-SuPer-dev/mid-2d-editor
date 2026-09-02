@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://7tkvx8bqypgv"
+
+[deps]
+
+files=["res://localization/glossary.en.translation", "res://localization/glossary.th.translation"]
+
+source_file="res://localization/glossary.csv"
+dest_files=["res://localization/glossary.en.translation", "res://localization/glossary.th.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

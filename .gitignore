@@ -17,3 +17,16 @@ mono_crash.*.json
 
 # Local verification runtimes and screenshots
 .codex-tools/
+
+# Source-art import metadata is intentionally excluded from Godot/runtime use.
+art_source/**/*.import
+
+# Validation evidence is retained as source material, not imported at runtime.
+validation/**/*.import
+
+# Editor recovery and interrupted-merge artifacts.
+*.tmp
+*.bak
+*.orig
+*.rej
+*~

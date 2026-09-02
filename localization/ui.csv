@@ -1,0 +1,127 @@
+key,en,th
+LANGUAGE_ENGLISH,English,English
+LANGUAGE_THAI,ไทย,ไทย
+GAME_TITLE,Low Altitude Warrior,Low Altitude Warrior
+MENU_SUBTITLE,Thai Rural Sci-Fi Action,แอ็กชันไซไฟชนบทไทย
+MENU_START_MISSION,Start Mission,เริ่มภารกิจ
+MENU_FIELD_MAP,Field Map,แผนที่ภารกิจ
+MENU_SETTINGS,Settings,ตั้งค่า
+MENU_CREDITS,Credits,เครดิต
+MENU_EXIT,Exit Game,ออกจากเกม
+UI_BACK,Back,ย้อนกลับ
+UI_BACK_MENU,Back to Main Menu,กลับเมนูหลัก
+UI_BACK_MAP,Back to Mission Map,กลับแผนที่ภารกิจ
+UI_CONFIRM_RESET,Confirm Data Reset,ยืนยันการล้างข้อมูล
+CHARACTER_SELECT_TITLE,Select Field Operator,เลือกเจ้าหน้าที่ภาคสนาม
+CHARACTER_DEPLOY,Select Operator,เลือกเจ้าหน้าที่
+CHARACTER_STATS,HP {health} • ATK {attack} • SPD {speed},ชีวิต {health} • โจมตี {attack} • เร็ว {speed}
+CHAR_TONKLA_NAME,Tonkla,ต้นกล้า
+CHAR_TONKLA_ROLE,ACO Field Operator,เจ้าหน้าที่ ACO
+CHAR_TONKLA_DESC,A balanced cutter specialist prepared for any field condition.,ผู้เชี่ยวชาญเครื่องตัดหญ้าสมดุล พร้อมรับมือทุกสถานการณ์
+CHAR_RIN_NAME,Rin,ริน
+CHAR_RIN_ROLE,Recon Operator,หน่วยลาดตระเวน
+CHAR_RIN_DESC,A fast scout who strikes and repositions before the threat can react.,ทหารลาดตระเวนว่องไว โจมตีแล้วเปลี่ยนตำแหน่งได้รวดเร็ว
+CHAR_KHEM_NAME,Khem,เข้ม
+CHAR_KHEM_ROLE,Local Volunteer,อาสาสมัครอีสาน
+CHAR_KHEM_DESC,A resilient survivor who controls a wider area with every cutter swing.,ผู้รอดชีวิตจอมแกร่ง เหวี่ยงเครื่องตัดหญ้าได้กว้างและรุนแรง
+CHAR_T800_NAME,T-800,T-800
+CHAR_T800_ROLE,Synthetic Containment Unit,จักรกลสังเคราะห์
+CHAR_T800_DESC,An armored machine built to keep advancing under heavy damage.,จักรกลหุ้มเกราะ ทนทานสูงและทรงพลังอย่างไม่หยุดยั้ง
+LEVEL_SELECT_TITLE,Select Mission,เลือกด่าน
+LEVEL_OPERATOR,Operator: {name},เจ้าหน้าที่: {name}
+LEVEL_SAMPLES,Alien Samples  {count},ตัวอย่างต่างดาว  {count}
+LEVEL_LOCKED,Complete the previous mission to unlock.,ทำภารกิจก่อนหน้าเพื่อปลดล็อก
+LEVEL_LOCKED_SHORT,LOCKED,ล็อก
+LEVEL_TITLE,Mission {number} • {name},ด่าน {number} • {name}
+LEVEL_COMPLETED_BEST,Complete • Best {count} samples,สำเร็จแล้ว • ดีที่สุด {count} ตัวอย่าง
+LEVEL_OBJECTIVE,Objective • Eliminate {count} threats,เป้าหมาย • กำจัดภัยคุกคาม {count} ตัว
+LEVEL_START,Start Mission  {number},เริ่มภารกิจ  {number}
+LEVEL_BASE_UPGRADES,Base Upgrades,อัปเกรดฐาน
+LEVEL_OPERATOR_MASTERY,Operator Mastery,ความชำนาญเจ้าหน้าที่
+LEVEL_01_NAME,Contaminated Grassland,ทุ่งหญ้าปนเปื้อน
+LEVEL_01_SUBTITLE,Reopen the evacuation route and recover living samples.,เปิดเส้นทางอพยพและเก็บตัวอย่างมีชีวิต
+LEVEL_01_LOCATION,Northeastern Farmland • Day 05,ทุ่งภาคอีสาน • วันที่ 05
+LEVEL_02_NAME,Mutated Forest,ป่ากลายพันธุ์
+LEVEL_02_SUBTITLE,Track the data-bearing spores through the containment forest.,ตามสปอร์บรรทุกข้อมูลผ่านเขตกักกันป่า
+LEVEL_02_LOCATION,Forest Containment Zone • Dusk,เขตกักกันป่า • พลบค่ำ
+LEVEL_03_NAME,Roots Beneath Capsule 07,รากใต้ Capsule 07
+LEVEL_03_SUBTITLE,Enter the impact chamber and expose the seed-harvester.,เข้าห้องรากใต้จุดตกและเปิดโปงเครื่องเก็บเกี่ยว
+LEVEL_03_LOCATION,Capsule 07 Root Depth • Signal Lost,ความลึกราก Capsule 07 • สัญญาณขาดหาย
+LEVEL_04_NAME,Devouring Root Marsh,บึงรากกินกลืน
+LEVEL_04_SUBTITLE,Cut the primary nutrient conduit beneath the wetlands.,ตัดท่อส่งธาตุอาหารหลักใต้พื้นที่ชุ่มน้ำ
+LEVEL_04_LOCATION,Containment Wetlands • Flood Stage,พื้นที่ชุ่มน้ำกักกัน • ระดับน้ำวิกฤต
+LEVEL_05_NAME,Alien Eye Nexus,แกนตาต่างดาว
+LEVEL_05_SUBTITLE,Assault the awakened network and destroy the germination core.,บุกเครือข่ายที่ตื่นและทำลายแกนงอก
+LEVEL_05_LOCATION,Nexus Exclusion Zone • Final Signal,เขตห้ามเข้าแกนกลาง • สัญญาณสุดท้าย
+BOSS_THORN_MATRIARCH,Thorn Matriarch,มารดาหนาม
+BOSS_MAW_SOVEREIGN,Maw Bloom Sovereign,ราชันบุปผาเขมือบ
+BOSS_POSSESSED_BANYAN,Possessed Banyan,ต้นไทรสิงสู่
+BOSS_ROOT_HYDRA,Root Hydra,ไฮดราราก
+BOSS_ROOT_CORE_EYE,Root-Core Eye,ดวงตาแกนราก
+SETTINGS_TITLE,Settings,ตั้งค่าระบบ
+SETTINGS_MASTER_VOLUME,Master Volume,ระดับเสียงหลัก
+SETTINGS_LANGUAGE,Language,ภาษา
+SETTINGS_FULLSCREEN,Fullscreen,เต็มหน้าจอ
+SETTINGS_IMMEDIATE_DIALOGUE,Immediate dialogue text,แสดงบทสนทนาทันที
+SETTINGS_REDUCED_FLASHING,Reduced flashing,ลดการกะพริบ
+SETTINGS_RESET,Erase Progress,ล้างความคืบหน้า
+SETTINGS_SAVE_BACK,Save and Return,บันทึกและกลับ
+UPGRADES_TITLE,Base Workshop,โรงช่างประจำฐาน
+UPGRADES_INTRO,Upgrade shared cutter technology with recovered alien biomass.,อัปเกรดเครื่องตัดด้วยชีวมวลต่างดาวที่เก็บกลับมา
+UPGRADE_SAMPLES,Samples {count},ตัวอย่าง {count}
+UPGRADE_BLADE_NAME,Cutter Blade,ใบมีดเครื่องตัด
+UPGRADE_BLADE_DESC,+1 attack damage per level,+1 พลังโจมตีต่อระดับ
+UPGRADE_ENGINE_NAME,Cutter Engine,เครื่องยนต์ตัดหญ้า
+UPGRADE_ENGINE_DESC,+5% movement and +4% dash speed per level,+5% ความเร็วเคลื่อนที่และ +4% ความเร็วแดชต่อระดับ
+UPGRADE_ARMOR_NAME,Field Armor,เกราะภาคสนาม
+UPGRADE_ARMOR_DESC,+1 maximum health per level,+1 พลังชีวิตสูงสุดต่อระดับ
+UPGRADE_LEVEL,Level {level}/5,ระดับ {level}/5
+UPGRADE_MAX,MAX,สูงสุด
+UPGRADE_PURCHASE,Upgrade • {cost},อัปเกรด • {cost}
+MASTERY_TITLE,Operator Mastery,ความชำนาญเจ้าหน้าที่
+MASTERY_OPERATOR,Operator: {name},เจ้าหน้าที่: {name}
+MASTERY_DESC,Improve this operator's passive and milestone bonuses.,พัฒนาความสามารถติดตัวและโบนัสตามระดับของเจ้าหน้าที่คนนี้
+MASTERY_RANK,Rank {rank}/5,แรงก์ {rank}/5
+MASTERY_PURCHASE,Train • {cost},ฝึกฝน • {cost}
+MASTERY_MAX,Maximum Mastery,ความชำนาญสูงสุด
+MASTERY_SELECT_OPERATOR,Choose an operator,เลือกเจ้าหน้าที่
+MASTERY_CURRENT_EFFECT,CURRENT • {effect},ปัจจุบัน • {effect}
+MASTERY_NEXT_EFFECT,NEXT RANK • {effect},แรงก์ถัดไป • {effect}
+MASTERY_EFFECT_TONKLA,Restore 1 heart every {value} samples,ฟื้นฟู 1 หัวใจทุก {value} ตัวอย่าง
+MASTERY_EFFECT_RIN,Dash cooldown -{value}%,ลดคูลดาวน์พุ่งตัว {value}%
+MASTERY_EFFECT_KHEM,Attack width +{value}%,เพิ่มระยะโจมตี {value}%
+MASTERY_EFFECT_T800,Incoming damage -{value},ลดความเสียหายที่ได้รับ {value}
+MASTERY_EFFECT_VITALITY,Max health +{value},พลังชีวิตสูงสุด +{value}
+MASTERY_NEED_SAMPLES,Need {missing} more • Cost {cost},ต้องการอีก {missing} • ราคา {cost}
+MASTERY_INSUFFICIENT,Not enough samples — collect {missing} more in missions.,ตัวอย่างไม่พอ — เก็บเพิ่มอีก {missing} จากภารกิจ
+MASTERY_READY,Training is available. The new rank applies on the next mission.,พร้อมฝึกฝน แรงก์ใหม่มีผลในภารกิจถัดไป
+MASTERY_PURCHASED,Training complete — Rank {rank} unlocked.,ฝึกฝนสำเร็จ — ปลดล็อกแรงก์ {rank}
+MASTERY_ALL_UNLOCKED,All mastery bonuses unlocked.,ปลดล็อกโบนัสความชำนาญครบแล้ว
+HUD_HEALTH,HP {current}/{maximum},ชีวิต {current}/{maximum}
+HUD_SAMPLES,Samples {count},ตัวอย่าง {count}
+HUD_THREATS,Threats {current}/{required},ภัยคุกคาม {current}/{required}
+HUD_BOSS_INCOMING,Boss signal detected,ตรวจพบสัญญาณบอส
+HUD_BOSS_ACTIVE,{name} · Phase {current}/{total},{name} · ระยะ {current}/{total}
+HUD_EXTRACTION,Extraction point open,จุดถอนกำลังเปิดแล้ว
+PORTAL_READY,Extraction Point,จุดถอนกำลัง
+PORTAL_LOCKED,Area Not Secure,พื้นที่ยังไม่ปลอดภัย
+HUD_HINT,A/D Move   W/SPACE Jump   SHIFT Dash   Left Click Cut   ESC Pause,A/D เคลื่อนที่   W/SPACE กระโดด   SHIFT แดช   คลิกซ้าย ตัด   ESC หยุดเกม
+HUD_PAUSE_TITLE,Mission Paused,หยุดภารกิจชั่วคราว
+HUD_PAUSE_SUBTITLE,Field systems suspended.,ระบบภาคสนามพักการทำงาน
+HUD_RESUME,Resume,ทำต่อ
+HUD_RESTART,Restart Mission,เริ่มภารกิจใหม่
+HUD_SELECT_MISSION,Select Mission,เลือกภารกิจ
+HUD_GAME_OVER,Operator Lost,เจ้าหน้าที่เสียชีวิต
+HUD_GAME_OVER_SUBTITLE,Signal lost. Restart the mission?,สัญญาณขาดหาย ต้องการเริ่มภารกิจใหม่หรือไม่?
+HUD_RETRY,Retry Mission,ลองภารกิจอีกครั้ง
+HUD_CAMPAIGN_COMPLETE,Campaign Complete,จบแคมเปญ
+HUD_MISSION_COMPLETE,Mission Complete,ภารกิจสำเร็จ
+HUD_CAMPAIGN_COMPLETE_SUBTITLE,Capsule 07's germination core has been destroyed.,แกนงอกของ Capsule 07 ถูกทำลายแล้ว
+HUD_MISSION_COMPLETE_SUBTITLE,Recovered {count} samples. A new area is available.,เก็บตัวอย่างได้ {count} ชิ้น ปลดล็อกพื้นที่ใหม่แล้ว
+HUD_NEXT_MISSION,Next Mission,ภารกิจถัดไป
+HUD_MAIN_MENU,Main Menu,เมนูหลัก
+DIALOGUE_CONTINUE,Continue,ต่อไป
+DIALOGUE_SKIP,Skip,ข้าม
+CREDITS_TITLE,Credits,เครดิต
+CREDITS_TEAM,673380322-2  Tham Athoiram  CP-AI,673380322-2  นายธาม อะทอยรัมย์  CP-AI
+CREDITS_THANKS,Thank you for protecting the land.,ขอบคุณที่ร่วมปกป้องผืนดิน

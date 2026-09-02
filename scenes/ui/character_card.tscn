@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://c7kurbnqk5kei"]
+
+[ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="1_theme"]
+
+[node name="CharacterCard" type="PanelContainer" unique_id=1704960491]
+texture_filter = 1
+custom_minimum_size = Vector2(586, 286)
+theme = ExtResource("1_theme")
+theme_type_variation = &"CharacterCard"
+
+[node name="Content" type="HBoxContainer" parent="." unique_id=578062796]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PortraitColumn" type="VBoxContainer" parent="Content" unique_id=301141170]
+custom_minimum_size = Vector2(138, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Portrait" type="TextureRect" parent="Content/PortraitColumn" unique_id=955018550]
+texture_filter = 1
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Stats" type="Label" parent="Content/PortraitColumn" unique_id=1025735882]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.67, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+
+[node name="Info" type="VBoxContainer" parent="Content" unique_id=298557747]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="Content/Info" unique_id=269560046]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+
+[node name="Role" type="Label" parent="Content/Info" unique_id=1735247777]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.65, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+
+[node name="PassiveIcon" type="TextureRect" parent="Content/Info" unique_id=328612900]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Description" type="Label" parent="Content/Info" unique_id=1479396998]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.78, 0.78, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+
+[node name="Deploy" type="Button" parent="Content/Info" unique_id=504286245]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "CHARACTER_DEPLOY"

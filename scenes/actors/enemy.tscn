@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b77qxyd7n1qiq"]
+
+[ext_resource type="Script" uid="uid://b41uiy4aldvl8" path="res://src/actors/enemies/enemy.gd" id="1_enemy"]
+[ext_resource type="Script" uid="uid://ippj42uh7ts8" path="res://src/core/components/health_component.gd" id="2_health"]
+[ext_resource type="Script" uid="uid://dd4mr4sa7isjt" path="res://src/gameplay/enemies/boss_projectile_pattern_runner.gd" id="4_pattern"]
+
+[sub_resource type="RectangleShape2D" id="BodyShape"]
+size = Vector2(34, 38)
+
+[sub_resource type="RectangleShape2D" id="HurtShape"]
+size = Vector2(42, 44)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=686820728 groups=["Enemy"]]
+collision_layer = 4
+script = ExtResource("1_enemy")
+
+[node name="Visual" type="Sprite2D" parent="." unique_id=1830644769]
+texture_filter = 1
+position = Vector2(0, -8)
+
+[node name="VisualAccent" type="Sprite2D" parent="." unique_id=609357890]
+visible = false
+z_index = 1
+texture_filter = 1
+
+[node name="HitVfx" type="AnimatedSprite2D" parent="." unique_id=30653317]
+visible = false
+z_index = 3
+texture_filter = 1
+position = Vector2(0, -30)
+scale = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1605940037]
+shape = SubResource("BodyShape")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=659080880]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1692937972]
+shape = SubResource("HurtShape")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1155116039]
+script = ExtResource("2_health")
+max_health = 3
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=963345882]
+visible = false
+offset_left = -24.0
+offset_top = -46.0
+offset_right = 24.0
+offset_bottom = -39.0
+show_percentage = false
+
+[node name="BossProjectilePatternRunner" type="Node" parent="." unique_id=1783441502]
+script = ExtResource("4_pattern")
