@@ -21,9 +21,10 @@ Controls:
 - F2: debug mode
 - F3: invulnerability debug mode
 
-The project separates scripts under `src/` from Godot resources under
-`Scenes/`. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before adding a new
-system or moving scenes.
+The repository layout and source/runtime asset boundary are defined in
+[docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md). See
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before adding a new system or
+moving scenes.
 
 Placeholder visuals are built from Godot polygons and controls. Follow
 [docs/ASSET_REPLACEMENT.md](docs/ASSET_REPLACEMENT.md) when replacing them with
@@ -31,14 +32,27 @@ pixel-art or generated assets.
 
 The active visual direction is documented in
 [docs/ART_DIRECTION.md](docs/ART_DIRECTION.md) and is derived from the boards in
-`art_refs/`. Those boards are reference material, not runtime textures.
+`art_source/references/`. Those boards are reference material, not runtime textures.
+
+## Project validation
+
+Run the repository structure checks before opening a pull request:
+
+```powershell
+./tools/validate_project_structure.ps1
+./tools/validate_localization.ps1
+```
+
+The validator rejects missing `res://` targets, source-art imports, recovery
+files, legacy path casing, and nonconforming runtime names. The localization
+check rejects missing English/Thai text, duplicate keys, and placeholder drift.
 
 ## Smoke test
 
 Run the project-level smoke scene headlessly with Godot 4.7:
 
 ```powershell
-godot --headless --path . Scenes/tests/smoke_test.tscn
+godot --headless --path . scenes/tests/smoke_test.tscn
 ```
 
 It instantiates every front-end screen and all campaign levels, and validates

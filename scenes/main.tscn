@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bi5p7c4y5kiun"]
+
+[ext_resource type="PackedScene" uid="uid://co2qa1uf6u57p" path="res://scenes/ui/main_menu.tscn" id="1_main_menu"]
+
+[node name="MainEntrance" type="Node" unique_id=805753074]
+
+[node name="MainMenu" parent="." unique_id=231493423 instance=ExtResource("1_main_menu")]
+
+[node name="Label" type="Label" parent="." unique_id=1860286289]
+offset_left = 1218.0
+offset_top = 671.0
+offset_right = 1270.0
+offset_bottom = 717.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+text = "v1.0"

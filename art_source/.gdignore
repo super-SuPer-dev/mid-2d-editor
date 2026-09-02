@@ -1,0 +1,2 @@
+# Source artwork is not runtime content. Promote approved files into assets/
+# before referencing them from scenes or scripts.

@@ -1,0 +1,280 @@
+[gd_scene format=3 uid="uid://b1hngwejne0il"]
+
+[ext_resource type="Script" uid="uid://efaabwm4watx" path="res://src/gameplay/level_controller.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/platform.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://clipau6l6j6eq" path="res://scenes/actors/player.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b77qxyd7n1qiq" path="res://scenes/actors/enemy.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/crystal.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/hazard.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cu14wa4tahqd8" path="res://scenes/gameplay/portal.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://dpr5ii86tyln3" path="res://scenes/ui/game_hud.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/backgrounds/nexus_generated_parallax.tscn" id="9_bg"]
+[ext_resource type="Texture2D" uid="uid://co6kugsdxn0ss" path="res://assets/world/level_05_alien_eye_nexus/landmarks/awakened_sensory_nexus_v2.png" id="10_landmark"]
+[ext_resource type="Texture2D" uid="uid://cg3tn63e7e81y" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_straight_v2.png" id="12_tile"]
+[ext_resource type="Texture2D" uid="uid://c8lnt67thmsf" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_corner_v2.png" id="13_corner"]
+[ext_resource type="Texture2D" uid="uid://3lm85cy1gldv" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_platform_floating_v2.png" id="14_float"]
+[ext_resource type="Texture2D" uid="uid://cxuntyk8c7etb" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_broken_v2.png" id="15_broken"]
+[ext_resource type="Texture2D" uid="uid://csxmqutl25u7" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_ground_cap_left_v2.png" id="16_cap"]
+[ext_resource type="Texture2D" uid="uid://s3vg68a0pfuj" path="res://assets/world/level_05_alien_eye_nexus/tiles/nexus_slope_up_v2.png" id="17_slope"]
+[ext_resource type="PackedScene" uid="uid://cr0yvd84gnwmw" path="res://scenes/gameplay/encounter_gate.tscn" id="18_gate"]
+[ext_resource type="Texture2D" uid="uid://b7e4yxwvjct13" path="res://assets/world/level_05_alien_eye_nexus/props/nexus_eye_crystal_cluster_v2.png" id="prop_cluster"]
+[ext_resource type="Material" path="res://assets/materials/pixel_prop_cutout.tres" id="prop_cutout"]
+
+[node name="AlienEyeNexus" type="Node2D" unique_id=714586301]
+script = ExtResource("1")
+
+[node name="Environment" type="Node2D" parent="." unique_id=617244557]
+
+[node name="ParallaxBackground" parent="Environment" unique_id=831085206 instance=ExtResource("9_bg")]
+
+[node name="AwakenedNexusLandmark" type="Sprite2D" parent="Environment" unique_id=493587673]
+z_index = -5
+texture_filter = 1
+material = ExtResource("prop_cutout")
+position = Vector2(3180, 591.36)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("10_landmark")
+
+[node name="NexusPropsA" type="Sprite2D" parent="Environment" unique_id=1570753845]
+z_index = -2
+texture_filter = 1
+material = ExtResource("prop_cutout")
+position = Vector2(300, 700.96)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("prop_cluster")
+
+[node name="NexusPropsB" type="Sprite2D" parent="Environment" unique_id=1486925884]
+z_index = -2
+texture_filter = 1
+material = ExtResource("prop_cutout")
+position = Vector2(1650, 696.04)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("prop_cluster")
+flip_h = true
+
+[node name="NexusPropsC" type="Sprite2D" parent="Environment" unique_id=2134612785]
+z_index = -2
+texture_filter = 1
+material = ExtResource("prop_cutout")
+position = Vector2(2700, 705.88)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("prop_cluster")
+
+[node name="NexusTileAccentA" type="Sprite2D" parent="Environment" unique_id=1593500122]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(700, 700)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
+
+[node name="NexusTileAccentB" type="Sprite2D" parent="Environment" unique_id=1236326482]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(1740, 650)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
+
+[node name="NexusTileAccentC" type="Sprite2D" parent="Environment" unique_id=1489078114]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(2760, 700)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("12_tile")
+hframes = 3
+frame = 1
+
+[node name="NexusCornerAccent" type="Sprite2D" parent="Environment" unique_id=1218226350]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(1080, 540)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("13_corner")
+
+[node name="NexusFloatingAccent" type="Sprite2D" parent="Environment" unique_id=788498974]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(2320, 500)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("14_float")
+
+[node name="NexusBrokenAccent" type="Sprite2D" parent="Environment" unique_id=61107545]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(910, 610)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("15_broken")
+
+[node name="NexusCapAccent" type="Sprite2D" parent="Environment" unique_id=1744095863]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(2110, 690)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("16_cap")
+
+[node name="NexusSlopeAccent" type="Sprite2D" parent="Environment" unique_id=1460871680]
+visible = false
+z_index = -2
+texture_filter = 1
+position = Vector2(2940, 690)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("17_slope")
+
+[node name="WorldGeometry" type="Node2D" parent="." unique_id=375481864]
+
+[node name="Ground" parent="WorldGeometry" unique_id=37540822 instance=ExtResource("2")]
+position = Vector2(350, 790)
+scale = Vector2(7, 3)
+
+[node name="GroundB" parent="WorldGeometry" unique_id=1860009710 instance=ExtResource("2")]
+position = Vector2(1800, 790)
+scale = Vector2(9, 3)
+
+[node name="GroundC" parent="WorldGeometry" unique_id=885785798 instance=ExtResource("2")]
+position = Vector2(3150, 790)
+scale = Vector2(9, 3)
+
+[node name="Platform01" parent="WorldGeometry" unique_id=2097231441 instance=ExtResource("2")]
+position = Vector2(700, 686)
+scale = Vector2(2.6, 1.6)
+
+[node name="Platform02" parent="WorldGeometry" unique_id=2128024754 instance=ExtResource("2")]
+position = Vector2(1100, 595)
+scale = Vector2(2.4, 1.5)
+
+[node name="Platform03" parent="WorldGeometry" unique_id=731669818 instance=ExtResource("2")]
+position = Vector2(1450, 681)
+scale = Vector2(2.8, 1.6)
+
+[node name="Platform04" parent="WorldGeometry" unique_id=1507576219 instance=ExtResource("2")]
+position = Vector2(1800, 585)
+scale = Vector2(2.5, 1.5)
+
+[node name="Platform05" parent="WorldGeometry" unique_id=654581694 instance=ExtResource("2")]
+position = Vector2(2150, 676)
+scale = Vector2(2.7, 1.6)
+
+[node name="Platform06" parent="WorldGeometry" unique_id=12036108 instance=ExtResource("2")]
+position = Vector2(2500, 575)
+scale = Vector2(2.5, 1.5)
+
+[node name="Platform07" parent="WorldGeometry" unique_id=1449125114 instance=ExtResource("2")]
+position = Vector2(2860, 681)
+scale = Vector2(2.8, 1.6)
+
+[node name="Platform08" parent="WorldGeometry" unique_id=849159457 instance=ExtResource("2")]
+position = Vector2(3250, 585)
+scale = Vector2(2.5, 1.5)
+
+[node name="Hazard01" parent="WorldGeometry" unique_id=704310026 instance=ExtResource("6")]
+position = Vector2(500, 748)
+scale = Vector2(1.5, 1.2)
+
+[node name="Hazard02" parent="WorldGeometry" unique_id=1271361082 instance=ExtResource("6")]
+position = Vector2(1550, 748)
+scale = Vector2(1.3, 1.2)
+
+[node name="Hazard03" parent="WorldGeometry" unique_id=544335143 instance=ExtResource("6")]
+position = Vector2(2200, 748)
+scale = Vector2(1.5, 1.2)
+
+[node name="Hazard04" parent="WorldGeometry" unique_id=1610730885 instance=ExtResource("6")]
+position = Vector2(3100, 748)
+scale = Vector2(1.3, 1.2)
+
+[node name="Player" parent="." unique_id=1818021214 instance=ExtResource("3")]
+position = Vector2(100, 750)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1651168466]
+
+[node name="EyeWisp01" parent="Enemies" unique_id=1727765129 instance=ExtResource("4")]
+position = Vector2(700, 500)
+enemy_type = "eye_wisp"
+
+[node name="CapsuleHusk01" parent="Enemies" unique_id=378337845 instance=ExtResource("4")]
+position = Vector2(800, 520)
+enemy_type = "capsule_husk_elite"
+
+[node name="MixedElite01" parent="Enemies" unique_id=677934380 instance=ExtResource("4")]
+position = Vector2(1450, 600)
+enemy_type = "mixed_elite"
+
+[node name="EyeWisp02" parent="Enemies" unique_id=1237302849 instance=ExtResource("4")]
+position = Vector2(1700, 430)
+enemy_type = "eye_wisp"
+
+[node name="CapsuleHusk02" parent="Enemies" unique_id=1191707425 instance=ExtResource("4")]
+position = Vector2(2150, 600)
+enemy_type = "capsule_husk_elite"
+
+[node name="MixedElite02" parent="Enemies" unique_id=1656006016 instance=ExtResource("4")]
+position = Vector2(2500, 490)
+enemy_type = "mixed_elite"
+
+[node name="RootCoreEye" parent="Enemies" unique_id=310008550 instance=ExtResource("4")]
+position = Vector2(3200, 650)
+enemy_type = "root_core_eye_boss"
+
+[node name="Pickups" type="Node2D" parent="." unique_id=1731500963]
+
+[node name="Sample01" parent="Pickups" unique_id=1991822042 instance=ExtResource("5")]
+position = Vector2(300, 720)
+
+[node name="Sample02" parent="Pickups" unique_id=555513507 instance=ExtResource("5")]
+position = Vector2(700, 630)
+
+[node name="Sample03" parent="Pickups" unique_id=918699186 instance=ExtResource("5")]
+position = Vector2(1100, 540)
+
+[node name="Sample04" parent="Pickups" unique_id=1545894652 instance=ExtResource("5")]
+position = Vector2(1450, 625)
+
+[node name="Sample05" parent="Pickups" unique_id=1528138152 instance=ExtResource("5")]
+position = Vector2(1800, 530)
+
+[node name="Sample06" parent="Pickups" unique_id=1718501021 instance=ExtResource("5")]
+position = Vector2(2150, 620)
+
+[node name="Sample07" parent="Pickups" unique_id=1998065046 instance=ExtResource("5")]
+position = Vector2(2500, 520)
+
+[node name="Sample08" parent="Pickups" unique_id=385112793 instance=ExtResource("5")]
+position = Vector2(2860, 625)
+
+[node name="Sample09" parent="Pickups" unique_id=1574024821 instance=ExtResource("5")]
+position = Vector2(3250, 530)
+
+[node name="Sample10" parent="Pickups" unique_id=679408784 instance=ExtResource("5")]
+position = Vector2(3450, 720)
+
+[node name="Portal" parent="." unique_id=1865265871 instance=ExtResource("7")]
+position = Vector2(3520, 720)
+
+[node name="HUD" parent="." unique_id=155939589 instance=ExtResource("8")]
+
+[node name="EncounterGates" type="Node2D" parent="." unique_id=681516445]
+
+[node name="NexusEntry" parent="EncounterGates" unique_id=303238104 instance=ExtResource("18_gate")]
+position = Vector2(900, 430)
+encounter_id = "nexus_entry"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/EyeWisp01"), NodePath("../../Enemies/CapsuleHusk01")])
+
+[node name="LatticeCrossing" parent="EncounterGates" unique_id=1090486988 instance=ExtResource("18_gate")]
+position = Vector2(1800, 430)
+encounter_id = "lattice_crossing"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/MixedElite01"), NodePath("../../Enemies/EyeWisp02")])
+
+[node name="EyeApproach" parent="EncounterGates" unique_id=1944300605 instance=ExtResource("18_gate")]
+position = Vector2(2600, 430)
+encounter_id = "eye_approach"
+enemy_paths = Array[NodePath]([NodePath("../../Enemies/CapsuleHusk02"), NodePath("../../Enemies/MixedElite02")])

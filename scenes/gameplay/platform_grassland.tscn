@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/grassland/platform_tile_pixel_v2.png" id="1_texture"]
+
+[sub_resource type="Shader" id="Shader_repeat"]
+code = "shader_type canvas_item;\n\nvarying float horizontal_repeat;\n\nvoid vertex() {\n\thorizontal_repeat = max(length(MODEL_MATRIX[0].xy) / 0.173611, 1.0);\n}\n\nvoid fragment() {\n\tvec2 tiled_uv = UV;\n\ttiled_uv.x = fract((UV.x - 0.5) * horizontal_repeat + 0.5);\n\tCOLOR = texture(TEXTURE, tiled_uv) * COLOR;\n}\n"
+
+[sub_resource type="ShaderMaterial" id="Material_repeat"]
+shader = SubResource("Shader_repeat")
+
+[sub_resource type="RectangleShape2D" id="Shape"]
+size = Vector2(100, 20)
+
+[node name="PlatformGrassland" type="StaticBody2D" groups=["Platform"]]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Visual" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("Material_repeat")
+scale = Vector2(0.173611, 0.208333)
+texture = ExtResource("1_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+one_way_collision = true
+one_way_collision_margin = 8.0
+shape = SubResource("Shape")

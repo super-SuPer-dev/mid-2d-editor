@@ -11,16 +11,19 @@ config_version=5
 [application]
 
 config/name="Low Altitude Warrior"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://Assets/Icon/icon.svg"
+config/icon="res://assets/icons/icon.svg"
 
 [autoload]
 
-AudioManager="*res://Scenes/core/audio_manager.tscn"
+AudioManager="*res://scenes/core/audio_manager.tscn"
+LocalizationManager="*res://src/core/managers/localization_manager.gd"
 GameManager="*res://src/core/managers/game_manager.gd"
 SaveManager="*res://src/core/managers/save_manager.gd"
-SceneManager="*res://Scenes/core/scene_manager.tscn"
+StoryManager="*res://src/core/managers/story_manager.gd"
+SceneManager="*res://scenes/core/scene_manager.tscn"
+_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
 
@@ -31,24 +34,24 @@ window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
-[gui]
-
-theme/custom="res://Scenes/ui/field_theme.tres"
-
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_mcp_server/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
-"res://Assets/": "red"
+"res://assets/": "red"
 }
 
 [global_group]
 
 Player=""
 Enemy=""
+
+[gui]
+
+theme/custom="res://scenes/ui/field_theme.tres"
 
 [input]
 
@@ -116,9 +119,11 @@ pause={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+common/physics_interpolation=true
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

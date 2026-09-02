@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://co2qa1uf6u57p"]
+
+[ext_resource type="Script" uid="uid://cccnhb7utx4aq" path="res://src/ui/screens/main_menu.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://c02tfrdibcle2" path="res://assets/images/ui/backgrounds/menu_background.png" id="3_sn23y"]
+[ext_resource type="Texture2D" uid="uid://b3n8p6ed2s1fj" path="res://assets/images/ui/branding/game_logo.png" id="4_baxwh"]
+
+[node name="MainMenu" type="Control" unique_id=1059778678]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+
+[node name="Background" type="TextureRect" parent="." unique_id=6332355]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_sn23y")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Center" type="PanelContainer" parent="." unique_id=927681839]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 72.0
+offset_top = 48.0
+offset_right = 572.0
+offset_bottom = 672.0
+
+[node name="Content" type="VBoxContainer" parent="Center" unique_id=1347114172]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Center/Content" unique_id=605483811]
+custom_minimum_size = Vector2(420, 220)
+layout_mode = 2
+texture = ExtResource("4_baxwh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Subtitle" type="Label" parent="Center/Content" unique_id=362958876]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.82, 0.65, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+text = "MENU_SUBTITLE"
+horizontal_alignment = 1
+
+[node name="StartMission" type="Button" parent="Center/Content" unique_id=740037755]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "MENU_START_MISSION"
+
+[node name="FieldMap" type="Button" parent="Center/Content" unique_id=1097794591]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+text = "MENU_FIELD_MAP"
+
+[node name="Footer" type="HBoxContainer" parent="Center/Content" unique_id=1096903553]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Settings" type="Button" parent="Center/Content/Footer" unique_id=1831597533]
+custom_minimum_size = Vector2(136, 54)
+layout_mode = 2
+text = "MENU_SETTINGS"
+
+[node name="Credits" type="Button" parent="Center/Content/Footer" unique_id=1938806641]
+custom_minimum_size = Vector2(136, 54)
+layout_mode = 2
+text = "MENU_CREDITS"
+
+[node name="Exit" type="Button" parent="Center/Content/Footer" unique_id=1430948299]
+custom_minimum_size = Vector2(136, 54)
+layout_mode = 2
+text = "MENU_EXIT"
+
+[connection signal="pressed" from="Center/Content/StartMission" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Center/Content/FieldMap" to="." method="_on_field_map_pressed"]
+[connection signal="pressed" from="Center/Content/Footer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Center/Content/Footer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Center/Content/Footer/Exit" to="." method="_on_exit_pressed"]

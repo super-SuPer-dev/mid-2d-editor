@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://yviybh77alhk"]
+
+[ext_resource type="Script" uid="uid://bb154t81fb37q" path="res://src/ui/dialogue_overlay.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+content_margin_left = 18.0
+content_margin_top = 14.0
+content_margin_right = 22.0
+content_margin_bottom = 14.0
+bg_color = Color(0.035, 0.055, 0.045, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.52, 0.65, 0.32, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="DialogueOverlay" type="Control" unique_id=506611539]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1990492270]
+custom_minimum_size = Vector2(920, 240)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -460.0
+offset_top = -270.0
+offset_right = 460.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("PanelStyle")
+
+[node name="Body" type="HBoxContainer" parent="Panel" unique_id=1378081530]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Portrait" type="TextureRect" parent="Panel/Body" unique_id=567991880]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 190)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Content" type="VBoxContainer" parent="Panel/Body" unique_id=445511552]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+
+[node name="Speaker" type="Label" parent="Panel/Body/Content" unique_id=167595288]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "SPEAKER_OPERATOR"
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Panel/Body/Content" unique_id=2129032323]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="Panel/Body/Content" unique_id=1814450317]
+layout_mode = 2
+alignment = 2
+
+[node name="Skip" type="Button" parent="Panel/Body/Content/Actions" unique_id=442500032]
+custom_minimum_size = Vector2(130, 46)
+layout_mode = 2
+text = "DIALOGUE_SKIP"
+
+[node name="Continue" type="Button" parent="Panel/Body/Content/Actions" unique_id=948440420]
+custom_minimum_size = Vector2(150, 46)
+layout_mode = 2
+text = "DIALOGUE_CONTINUE"
+
+[node name="RadioTimer" type="Timer" parent="." unique_id=1610980160]
+one_shot = true
+
+[connection signal="pressed" from="Panel/Body/Content/Actions/Skip" to="." method="_on_skip_pressed"]
+[connection signal="pressed" from="Panel/Body/Content/Actions/Continue" to="." method="_on_continue_pressed"]
+[connection signal="timeout" from="RadioTimer" to="." method="_on_radio_timeout"]
