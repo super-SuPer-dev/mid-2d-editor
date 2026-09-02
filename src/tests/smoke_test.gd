@@ -263,6 +263,16 @@ func _validate_operator_passives() -> void:
 				var starting_health := player.health.current_health
 				player.take_damage(2, Vector2.RIGHT)
 				_check(player.health.current_health == starting_health - 1, "T-800 did not reduce incoming damage while preserving minimum damage of one.")
+		if character_id == "tonkla":
+			SaveManager.profile["settings"]["reduced_flashing"] = false
+			player.invulnerability_timer = 0.8
+			player._update_timers(0.0)
+			_check(is_equal_approx(player.body_visual.modulate.a, 0.45), "Standard damage feedback lost its invulnerability blink.")
+			SaveManager.profile["settings"]["reduced_flashing"] = true
+			player.invulnerability_timer = 0.8
+			player._update_timers(0.0)
+			_check(is_equal_approx(player.body_visual.modulate.a, 0.72), "Reduced-flashing mode did not replace the blink with steady feedback.")
+			SaveManager.profile["settings"]["reduced_flashing"] = false
 		player.queue_free()
 		await get_tree().process_frame
 	SaveManager.profile["operator_mastery"] = original_mastery
@@ -341,6 +351,7 @@ func _validate_save_and_story_foundation() -> void:
 	_check(not migrated.has("character_upgrade_levels"), "Legacy per-character upgrade tracks survived migration.")
 	_check(str(migrated.get("settings", {}).get("language", "")) == LocalizationManager.DEFAULT_LANGUAGE, "Migrated profile did not default to English.")
 	_check(not bool(migrated.get("settings", {}).get("immediate_dialogue_text", true)), "Migrated profile did not receive the default dialogue accessibility setting.")
+	_check(not bool(migrated.get("settings", {}).get("reduced_flashing", true)), "Migrated profile did not receive the default flashing accessibility setting.")
 	var recovery_backup := {
 		"version": SaveManager.CURRENT_VERSION,
 		"selected_character": "rin",
@@ -359,6 +370,7 @@ func _validate_save_and_story_foundation() -> void:
 	SaveManager.begin_test_session()
 	_check(str(SaveManager.profile.get("settings", {}).get("language", "")) == "en", "Fresh test profile did not default to English.")
 	_check(not bool(SaveManager.profile.get("settings", {}).get("immediate_dialogue_text", true)), "Fresh test profile did not default to typewriter dialogue.")
+	_check(not bool(SaveManager.profile.get("settings", {}).get("reduced_flashing", true)), "Fresh test profile did not default to standard damage feedback.")
 	SaveManager.complete_level("level_01", 3)
 	_check("level_01" in SaveManager.profile.get("completed_levels", []), "Level completion was not recorded.")
 	_check("level_02" in SaveManager.profile.get("unlocked_levels", []), "Level 2 did not unlock after Level 1 completion.")
@@ -388,12 +400,19 @@ func _validate_ui_scenes() -> void:
 	var settings := UI_SCENES[3].instantiate() as Control
 	add_child(settings)
 	await get_tree().process_frame
-	var immediate_dialogue := settings.get_node("Center/Panel/Content/ImmediateDialogue") as CheckButton
+	var immediate_dialogue := settings.get_node("Center/Panel/Content/ToggleRow/ImmediateDialogue") as CheckButton
 	_check(immediate_dialogue != null, "Settings is missing the immediate-dialogue accessibility control.")
 	if immediate_dialogue != null:
 		settings._on_immediate_dialogue_toggled(true)
 		_check(bool(SaveManager.profile.get("settings", {}).get("immediate_dialogue_text", false)), "Immediate-dialogue setting did not persist in the active profile.")
 		settings._on_immediate_dialogue_toggled(false)
+	var reduced_flashing := settings.get_node("Center/Panel/Content/ToggleRow/ReducedFlashing") as CheckButton
+	_check(reduced_flashing != null, "Settings is missing the reduced-flashing accessibility control.")
+	if reduced_flashing != null:
+		settings._on_reduced_flashing_toggled(true)
+		_check(bool(SaveManager.profile.get("settings", {}).get("reduced_flashing", false)), "Reduced-flashing setting did not persist in the active profile.")
+		settings._on_reduced_flashing_toggled(false)
+	_check(settings.get_node("Center/Panel").get_global_rect().end.y <= settings.size.y, "Settings panel extends outside the 1280x720 safe area.")
 	settings.queue_free()
 	await get_tree().process_frame
 

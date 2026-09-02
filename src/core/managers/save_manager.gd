@@ -36,7 +36,13 @@ func default_profile() -> Dictionary:
 		},
 		"story_stage": 1,
 		"seen_dialogue_sequences": [],
-		"settings": {"master_volume": 0.8, "fullscreen": false, "language": "en", "immediate_dialogue_text": false},
+		"settings": {
+			"master_volume": 0.8,
+			"fullscreen": false,
+			"language": "en",
+			"immediate_dialogue_text": false,
+			"reduced_flashing": false,
+		},
 	}
 
 
@@ -152,6 +158,7 @@ func _migrate_profile(loaded_profile: Dictionary) -> Dictionary:
 		var settings: Dictionary = migrated.get("settings", {})
 		settings["language"] = LocalizationManager.DEFAULT_LANGUAGE
 		settings["immediate_dialogue_text"] = bool(settings.get("immediate_dialogue_text", false))
+		settings["reduced_flashing"] = bool(settings.get("reduced_flashing", false))
 		migrated["settings"] = settings
 		migrated["version"] = 2
 	return migrated
@@ -299,6 +306,12 @@ func set_language(locale: String) -> void:
 
 func set_immediate_dialogue_text(enabled: bool) -> void:
 	profile["settings"]["immediate_dialogue_text"] = enabled
+	profile_changed.emit()
+	save_game()
+
+
+func set_reduced_flashing(enabled: bool) -> void:
+	profile["settings"]["reduced_flashing"] = enabled
 	profile_changed.emit()
 	save_game()
 

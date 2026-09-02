@@ -63,6 +63,7 @@ SETTINGS_MASTER_VOLUME,Master Volume,ระดับเสียงหลัก
 SETTINGS_LANGUAGE,Language,ภาษา
 SETTINGS_FULLSCREEN,Fullscreen,เต็มหน้าจอ
 SETTINGS_IMMEDIATE_DIALOGUE,Immediate dialogue text,แสดงบทสนทนาทันที
+SETTINGS_REDUCED_FLASHING,Reduced flashing,ลดการกะพริบ
 SETTINGS_RESET,Erase Progress,ล้างความคืบหน้า
 SETTINGS_SAVE_BACK,Save and Return,บันทึกและกลับ
 UPGRADES_TITLE,Base Workshop,โรงช่างประจำฐาน

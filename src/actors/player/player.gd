@@ -164,7 +164,12 @@ func _update_timers(delta: float) -> void:
 		attack_timer = maxf(attack_timer - delta, 0.0)
 		if attack_timer <= 0.0:
 			attack_area.set_deferred("monitoring", false)
-	body_visual.modulate.a = 0.45 if invulnerability_timer > 0.0 and int(invulnerability_timer * 18.0) % 2 == 0 else 1.0
+	if invulnerability_timer <= 0.0:
+		body_visual.modulate.a = 1.0
+	elif bool(SaveManager.profile.get("settings", {}).get("reduced_flashing", false)):
+		body_visual.modulate.a = 0.72
+	else:
+		body_visual.modulate.a = 0.45 if int(invulnerability_timer * 18.0) % 2 == 0 else 1.0
 
 
 func _start_attack() -> void:

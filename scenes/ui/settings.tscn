@@ -35,12 +35,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center" unique_id=1652943748]
-custom_minimum_size = Vector2(840, 540)
+custom_minimum_size = Vector2(840, 620)
 layout_mode = 2
 
 [node name="Content" type="VBoxContainer" parent="Center/Panel" unique_id=1468036758]
 layout_mode = 2
-theme_override_constants/separation = 26
+theme_override_constants/separation = 18
 alignment = 1
 
 [node name="Title" type="Label" parent="Center/Panel/Content" unique_id=729335291]
@@ -70,13 +70,25 @@ custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.79, 0.66, 0.37, 1)
 
-[node name="Fullscreen" type="CheckButton" parent="Center/Panel/Content" unique_id=1754889876]
+[node name="ToggleRow" type="HBoxContainer" parent="Center/Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Fullscreen" type="CheckButton" parent="Center/Panel/Content/ToggleRow" unique_id=1754889876]
+size_flags_horizontal = 3
 layout_mode = 2
 text = "SETTINGS_FULLSCREEN"
 
-[node name="ImmediateDialogue" type="CheckButton" parent="Center/Panel/Content" unique_id=1785452312]
+[node name="ImmediateDialogue" type="CheckButton" parent="Center/Panel/Content/ToggleRow" unique_id=1785452312]
+size_flags_horizontal = 3
 layout_mode = 2
 text = "SETTINGS_IMMEDIATE_DIALOGUE"
+
+[node name="ReducedFlashing" type="CheckButton" parent="Center/Panel/Content/ToggleRow"]
+size_flags_horizontal = 3
+layout_mode = 2
+text = "SETTINGS_REDUCED_FLASHING"
 
 [node name="LanguageRow" type="HBoxContainer" parent="Center/Panel/Content" unique_id=441246653]
 layout_mode = 2
@@ -101,8 +113,9 @@ layout_mode = 2
 text = "SETTINGS_SAVE_BACK"
 
 [connection signal="value_changed" from="Center/Panel/Content/VolumeRow/Volume" to="." method="_on_volume_changed"]
-[connection signal="toggled" from="Center/Panel/Content/Fullscreen" to="." method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="Center/Panel/Content/ImmediateDialogue" to="." method="_on_immediate_dialogue_toggled"]
+[connection signal="toggled" from="Center/Panel/Content/ToggleRow/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="Center/Panel/Content/ToggleRow/ImmediateDialogue" to="." method="_on_immediate_dialogue_toggled"]
+[connection signal="toggled" from="Center/Panel/Content/ToggleRow/ReducedFlashing" to="." method="_on_reduced_flashing_toggled"]
 [connection signal="item_selected" from="Center/Panel/Content/LanguageRow/Language" to="." method="_on_language_selected"]
 [connection signal="pressed" from="Center/Panel/Content/ResetCampaign" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Center/Panel/Content/Back" to="." method="_on_back_pressed"]

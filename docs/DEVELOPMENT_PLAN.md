@@ -281,6 +281,16 @@ human boss-feel review remain open.
 
 **Main-flow UI audit evidence — 2026-08-30:** Live Godot MCP review covered the main menu, mission map, Base Workshop, settings and operator mastery at 1280×720 in English and Thai. The workshop Engine description no longer produces the visible `pe\nr` split: the shared row disables arbitrary engine wrapping and the screen binder now reflows font-measured text only at spaces after locale or viewport changes. Automated tests prove source-text preservation, a three-line ceiling, disabled clipping/autowrap, card bounds and purchase-button bounds for all three upgrades in both locales. The Thai mastery description now uses complete Thai terminology instead of exposing the English words “passive” and “milestone.” Live screenshots verified the final English `+5% movement and +4% dash speed\nper level` and the corresponding Thai wrap without overlap or clipping. Pseudo-localization, non-native resolutions, accessibility options and Windows/Web evidence remain before Gate 2 closes.
 
+**Reduced-flashing accessibility evidence — 2026-09-02:** Settings now exposes
+a persistent bilingual reduced-flashing option alongside fullscreen and immediate
+dialogue. Standard play retains the rapid invulnerability blink; reduced-flashing
+mode replaces it with steady 72% opacity while keeping the hurt animation and
+invulnerability timing unchanged. Save defaults and v1 migration initialize the
+option safely, and smoke coverage verifies persistence plus both visual-feedback
+branches. Live Godot MCP interaction toggled the Thai control on and back off,
+and the consolidated toggle row keeps the 840 × 620 panel fully inside the
+1280 × 720 safe area without clipping Thai labels.
+
 **Current Godot MCP visual pass — 2026-08-31:** A fresh live-session check
 captured the main menu, five-level field map and Level 1 gameplay at the
 1280×720 reference viewport after the projectile-lifecycle changes. The

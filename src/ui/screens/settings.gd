@@ -2,8 +2,9 @@ extends Control
 
 @onready var volume: HSlider = $Center/Panel/Content/VolumeRow/Volume
 @onready var volume_value: Label = $Center/Panel/Content/VolumeRow/Value
-@onready var fullscreen: CheckButton = $Center/Panel/Content/Fullscreen
-@onready var immediate_dialogue: CheckButton = $Center/Panel/Content/ImmediateDialogue
+@onready var fullscreen: CheckButton = $Center/Panel/Content/ToggleRow/Fullscreen
+@onready var immediate_dialogue: CheckButton = $Center/Panel/Content/ToggleRow/ImmediateDialogue
+@onready var reduced_flashing: CheckButton = $Center/Panel/Content/ToggleRow/ReducedFlashing
 @onready var language: OptionButton = $Center/Panel/Content/LanguageRow/Language
 @onready var reset_button: Button = $Center/Panel/Content/ResetCampaign
 
@@ -18,6 +19,7 @@ func _ready() -> void:
 	volume.set_value_no_signal(float(SaveManager.profile["settings"]["master_volume"]))
 	fullscreen.set_pressed_no_signal(bool(SaveManager.profile["settings"]["fullscreen"]))
 	immediate_dialogue.set_pressed_no_signal(bool(SaveManager.profile["settings"].get("immediate_dialogue_text", false)))
+	reduced_flashing.set_pressed_no_signal(bool(SaveManager.profile["settings"].get("reduced_flashing", false)))
 	_select_current_language()
 	LocalizationManager.language_changed.connect(_refresh_text)
 	_refresh_text(LocalizationManager.current_language)
@@ -37,6 +39,7 @@ func _refresh_text(_locale: String) -> void:
 	$Center/Panel/Content/LanguageRow/Caption.text = LocalizationManager.text("SETTINGS_LANGUAGE")
 	fullscreen.text = LocalizationManager.text("SETTINGS_FULLSCREEN")
 	immediate_dialogue.text = LocalizationManager.text("SETTINGS_IMMEDIATE_DIALOGUE")
+	reduced_flashing.text = LocalizationManager.text("SETTINGS_REDUCED_FLASHING")
 	reset_button.text = LocalizationManager.text("UI_CONFIRM_RESET" if reset_armed else "SETTINGS_RESET")
 	$Center/Panel/Content/Back.text = LocalizationManager.text("SETTINGS_SAVE_BACK")
 	for index in language.item_count:
@@ -60,6 +63,10 @@ func _on_fullscreen_toggled(enabled: bool) -> void:
 
 func _on_immediate_dialogue_toggled(enabled: bool) -> void:
 	SaveManager.set_immediate_dialogue_text(enabled)
+
+
+func _on_reduced_flashing_toggled(enabled: bool) -> void:
+	SaveManager.set_reduced_flashing(enabled)
 
 
 func _on_language_selected(index: int) -> void:
