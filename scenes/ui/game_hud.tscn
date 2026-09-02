@@ -195,45 +195,50 @@ theme_override_font_sizes/font_size = 18
 text = "HUD_HINT"
 
 [node name="BossPanel" type="Panel" parent="Root" unique_id=1126058829]
-visible = false
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -280.0
-offset_top = 108.0
-offset_right = 280.0
-offset_bottom = 270.0
+anchor_bottom = 1.0
+offset_left = 241.0
+offset_top = -97.0
+offset_right = 721.0
+offset_bottom = 7.0
 grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.7966983, 0.7966983)
 theme_override_styles/panel = SubResource("BossPanelBackdrop")
 
 [node name="Content" type="VBoxContainer" parent="Root/BossPanel" unique_id=773603433]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.08
-anchor_top = 0.16
-anchor_right = 0.92
-anchor_bottom = 0.84
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 5
 alignment = 1
 
 [node name="Name" type="Label" parent="Root/BossPanel/Content" unique_id=407399875]
-custom_minimum_size = Vector2(0, 36)
+custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 0.72, 0.66, 1)
 theme_override_colors/font_shadow_color = Color(0.08, 0.02, 0.03, 0.9)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
 
 [node name="PhaseRow" type="HBoxContainer" parent="Root/BossPanel/Content" unique_id=1893082573]
-custom_minimum_size = Vector2(0, 18)
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 10
@@ -244,15 +249,15 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
 [node name="PhaseValue" type="Label" parent="Root/BossPanel/Content/PhaseRow" unique_id=1291070573]
-custom_minimum_size = Vector2(64, 18)
+custom_minimum_size = Vector2(56, 16)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.67, 0.48, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="HealthStack" type="Control" parent="Root/BossPanel/Content" unique_id=1519632409]
-custom_minimum_size = Vector2(420, 28)
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 size_flags_vertical = 0
 
@@ -292,7 +297,7 @@ theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
 theme_override_colors/font_shadow_color = Color(0.08, 0.02, 0.03, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -346,6 +351,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="DialogueOverlay" parent="Root" unique_id=1193366916 instance=ExtResource("4_dialogue")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="Root/Modal/Center/Panel/Content/Action1" to="." method="_on_action_1"]

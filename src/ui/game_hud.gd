@@ -216,7 +216,7 @@ func _refresh_boss_phase_meter() -> void:
 		child.queue_free()
 	for index in range(total):
 		var pip := Panel.new()
-		pip.custom_minimum_size = Vector2(0.0, 8.0)
+		pip.custom_minimum_size = Vector2(0.0, 6.0)
 		pip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		pip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var style := StyleBoxFlat.new()
