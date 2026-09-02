@@ -37,7 +37,9 @@ var runtime_texture_cache: Dictionary = {}
 func load_runtime_texture(path: String) -> Texture2D:
 	if runtime_texture_cache.has(path):
 		return runtime_texture_cache[path] as Texture2D
-	var texture := ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_IGNORE) as Texture2D
+	# CACHE_MODE_REUSE shares textures with Godot's global resource cache so the
+	# first spawn of each enemy type does not load a second copy of every set.
+	var texture := ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_REUSE) as Texture2D
 	if texture != null:
 		runtime_texture_cache[path] = texture
 	else:

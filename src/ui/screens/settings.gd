@@ -12,6 +12,7 @@ var reset_armed := false
 
 
 func _ready() -> void:
+	AudioManager.play_music(&"main_theme")
 	language.clear()
 	for locale in LocalizationManager.SUPPORTED_LANGUAGES:
 		language.add_item(LocalizationManager.text("LANGUAGE_ENGLISH" if locale == "en" else "LANGUAGE_THAI"))

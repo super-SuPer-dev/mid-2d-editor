@@ -6,6 +6,7 @@ signal boss_phase_changed(current_phase: int, phase_count: int)
 
 const GRAVITY := 1200.0
 const PROJECTILE_SCENE := preload("res://scenes/gameplay/enemy_projectile.tscn")
+const HEALTH_COMPONENT_SCRIPT := preload("res://src/core/components/health_component.gd")
 var ORGANIC_HIT_VFX_TEXTURE: Texture2D
 const ORGANIC_HIT_VFX_TEXTURE_PATH := "res://assets/vfx/damage/damage_organic_hit_normalized_v1.png"
 var ARMORED_HIT_VFX_TEXTURE: Texture2D
@@ -172,7 +173,7 @@ const POSSESSED_BANYAN_DIAGONAL_CAST_TEXTURE_PATH := "res://assets/enemies/bosse
 @onready var visual: Sprite2D = $Visual
 @onready var visual_accent: Sprite2D = $VisualAccent
 @onready var hit_vfx: AnimatedSprite2D = $HitVfx
-@onready var health: HealthComponent = $HealthComponent
+@onready var health: HealthComponent = _resolve_health_component()
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var pattern_runner: BossProjectilePatternRunner = $BossProjectilePatternRunner
 
@@ -346,6 +347,20 @@ func _load_textures_for_type(type_id: String) -> void:
 	_loaded_texture_type = type_id
 
 
+func _resolve_health_component() -> HealthComponent:
+	var component := get_node_or_null("HealthComponent")
+	if component is HealthComponent:
+		return component as HealthComponent
+	if component != null:
+		component.set_script(HEALTH_COMPONENT_SCRIPT)
+		if component is HealthComponent:
+			return component as HealthComponent
+	var created := HEALTH_COMPONENT_SCRIPT.new() as HealthComponent
+	created.name = "HealthComponent"
+	add_child(created)
+	return created
+
+
 func configure(type_id: String) -> void:
 	enemy_type = type_id
 	_load_textures_for_type(enemy_type)
@@ -478,7 +493,7 @@ func configure(type_id: String) -> void:
 			visual.scale = Vector2(0.10, 0.10)
 			# The normalized strip uses an 840 px foot baseline in a 900 px cell.
 			visual.position = Vector2(0.0, -20.0)
-			scale = Vector2(1.8, 1.8)
+			scale = Vector2(2.7, 2.7)
 		"root_hydra_boss":
 			move_speed = 58.0
 			health.max_health = 40
@@ -493,7 +508,7 @@ func configure(type_id: String) -> void:
 			visual.scale = Vector2(0.12, 0.12)
 			# Align the 840 px art baseline with the collider bottom.
 			visual.position = Vector2(0.0, -28.0)
-			scale = Vector2(2.25, 2.25)
+			scale = Vector2(3.3, 3.3)
 		"root_core_eye_boss":
 			move_speed = 48.0
 			health.max_health = 48
@@ -508,7 +523,7 @@ func configure(type_id: String) -> void:
 			visual.scale = Vector2(0.10, 0.10)
 			# Align the 840 px art baseline with the collider bottom.
 			visual.position = Vector2(0.0, -20.0)
-			scale = Vector2(2.5, 2.5)
+			scale = Vector2(3.75, 3.75)
 		"thorn_matriarch_boss":
 			move_speed = 82.0
 			health.max_health = 28
@@ -523,7 +538,7 @@ func configure(type_id: String) -> void:
 			visual.scale = Vector2(0.10, 0.10)
 			# The normalized strip uses an 840 px foot baseline in a 900 px cell.
 			visual.position = Vector2(0.0, -20.0)
-			scale = Vector2(1.9, 1.9)
+			scale = Vector2(2.85, 2.85)
 		"maw_sovereign_boss":
 			move_speed = 64.0
 			health.max_health = 34
@@ -538,7 +553,7 @@ func configure(type_id: String) -> void:
 			visual.scale = Vector2(0.10, 0.10)
 			# The normalized strip uses an 840 px foot baseline in a 900 px cell.
 			visual.position = Vector2(0.0, -20.0)
-			scale = Vector2(2.0, 2.0)
+			scale = Vector2(3.0, 3.0)
 		_:
 			health.max_health = 3
 			visual.modulate = Color.WHITE
@@ -634,17 +649,35 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0.0, 500.0 * delta)
 	visual.scale.x = absf(visual.scale.x) * facing
 	move_and_slide()
-	_update_root_skitter_animation(delta)
-	_update_thornling_animation(delta)
-	_update_spitter_animation(delta)
-	_update_maw_animation(delta)
-	_update_capsule_husk_animation(delta)
-	_update_root_hydra_animation(delta)
-	_update_eye_wisp_animation(delta)
-	_update_root_core_eye_animation(delta)
-	_update_thorn_matriarch_animation(delta)
-	_update_maw_sovereign_animation(delta)
-	_update_possessed_banyan_animation(delta)
+	_update_animation(delta)
+
+
+func _update_animation(delta: float) -> void:
+	# Dispatch on type once instead of running every per-type animation updater
+	# (each of which early-returns on type mismatch) every physics tick.
+	match enemy_type:
+		"root_skitter":
+			_update_root_skitter_animation(delta)
+		"thornling":
+			_update_thornling_animation(delta)
+		"spitter", "marsh_spitter":
+			_update_spitter_animation(delta)
+		"maw":
+			_update_maw_animation(delta)
+		"capsule_husk_elite", "mixed_elite":
+			_update_capsule_husk_animation(delta)
+		"root_hydra_boss":
+			_update_root_hydra_animation(delta)
+		"eye_wisp":
+			_update_eye_wisp_animation(delta)
+		"root_core_eye_boss":
+			_update_root_core_eye_animation(delta)
+		"thorn_matriarch_boss":
+			_update_thorn_matriarch_animation(delta)
+		"maw_sovereign_boss":
+			_update_maw_sovereign_animation(delta)
+		"banyan_boss":
+			_update_possessed_banyan_animation(delta)
 
 
 func _update_thornling_animation(delta: float) -> void:
@@ -1089,7 +1122,8 @@ func _on_died() -> void:
 		return
 	defeated = true
 	defeated_event.emit(self)
-	pattern_runner.dispose_projectiles()
+	if pattern_runner != null and pattern_runner.has_method("dispose_projectiles"):
+		pattern_runner.dispose_projectiles()
 	AudioManager.play_named_sfx(&"boss_defeat" if is_boss else &"enemy_hit", 1.0 if is_boss else 0.85, -8.0)
 	if is_boss:
 		GameManager.register_boss_defeated()
@@ -1159,7 +1193,7 @@ func set_combat_active(active: bool) -> void:
 
 func _exit_tree() -> void:
 	var runner := get_node_or_null("BossProjectilePatternRunner") as BossProjectilePatternRunner
-	if runner != null:
+	if runner != null and runner.has_method("dispose_projectiles"):
 		runner.dispose_projectiles()
 
 

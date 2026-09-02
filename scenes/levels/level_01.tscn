@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://efaabwm4watx" path="res://src/gameplay/level_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/platform_grassland.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://clipau6l6j6eq" path="res://scenes/actors/player.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/actors/enemy.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b77qxyd7n1qiq" path="res://scenes/actors/enemy.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/crystal.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/hazard_grassland.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://cu14wa4tahqd8" path="res://scenes/gameplay/portal.tscn" id="7"]
@@ -12,11 +12,24 @@
 [ext_resource type="PackedScene" uid="uid://cr0yvd84gnwmw" path="res://scenes/gameplay/encounter_gate.tscn" id="10_r72dd"]
 [ext_resource type="Texture2D" uid="uid://cyp71kee2wu57" path="res://assets/world/level_01_contaminated_grassland/landmarks/irrigation_root_tower_v1.png" id="11_landmark"]
 [ext_resource type="Texture2D" uid="uid://c4oe7a8mht4ih" path="res://assets/world/level_01_contaminated_grassland/props/rice_root_props_v1.png" id="12_props"]
-[ext_resource type="Texture2D" path="res://assets/world/grassland/dense_floor_wall_pixel_v3.png" id="13_floor_fill"]
+[ext_resource type="Texture2D" uid="uid://c3twcjl13d7t3" path="res://assets/world/grassland/dense_floor_wall_pixel_v3.png" id="13_floor_fill"]
 [ext_resource type="Material" path="res://assets/materials/pixel_prop_cutout.tres" id="prop_cutout"]
 
 [sub_resource type="Shader" id="Shader_floor_fill"]
-code = "shader_type canvas_item;\n\nconst float BASE_TILE_SCALE = 0.1953125;\nvarying vec2 tile_repeat;\n\nvoid vertex() {\n\ttile_repeat = max(vec2(length(MODEL_MATRIX[0].xy), length(MODEL_MATRIX[1].xy)) / BASE_TILE_SCALE, vec2(1.0));\n}\n\nvoid fragment() {\n\tvec2 tiled_uv = fract((UV - vec2(0.5)) * tile_repeat + vec2(0.5));\n\tCOLOR = texture(TEXTURE, tiled_uv) * COLOR;\n}\n"
+code = "shader_type canvas_item;
+
+const float BASE_TILE_SCALE = 0.1953125;
+varying vec2 tile_repeat;
+
+void vertex() {
+	tile_repeat = max(vec2(length(MODEL_MATRIX[0].xy), length(MODEL_MATRIX[1].xy)) / BASE_TILE_SCALE, vec2(1.0));
+}
+
+void fragment() {
+	vec2 tiled_uv = fract((UV - vec2(0.5)) * tile_repeat + vec2(0.5));
+	COLOR = texture(TEXTURE, tiled_uv) * COLOR;
+}
+"
 
 [sub_resource type="ShaderMaterial" id="Material_floor_fill"]
 shader = SubResource("Shader_floor_fill")
@@ -27,31 +40,23 @@ script = ExtResource("1")
 [node name="Environment" type="Node2D" parent="." unique_id=1245746543]
 
 [node name="ParallaxBackground" parent="Environment" unique_id=1867639933 instance=ExtResource("9_bg")]
+position = Vector2(352, -50)
 
 [node name="IrrigationRootLandmark" type="Sprite2D" parent="Environment" unique_id=204671883]
 z_index = -5
-material = ExtResource("prop_cutout")
 texture_filter = 1
-position = Vector2(3650, 360)
+material = ExtResource("prop_cutout")
+position = Vector2(3651.0002, 393.00003)
 scale = Vector2(0.34, 0.34)
 texture = ExtResource("11_landmark")
 
 [node name="RiceRootPropsA" type="Sprite2D" parent="Environment" unique_id=204671884]
 z_index = -4
-material = ExtResource("prop_cutout")
 texture_filter = 1
-position = Vector2(1450, 505)
-scale = Vector2(0.24, 0.24)
-texture = ExtResource("12_props")
-
-[node name="RiceRootPropsB" type="Sprite2D" parent="Environment" unique_id=204671885]
-z_index = -4
 material = ExtResource("prop_cutout")
-texture_filter = 1
-position = Vector2(2670, 510)
-scale = Vector2(0.2, 0.2)
+position = Vector2(121.00006, 602)
+scale = Vector2(0.122929625, 0.122929625)
 texture = ExtResource("12_props")
-flip_h = true
 
 [node name="Hills" type="Polygon2D" parent="Environment" unique_id=2097272914]
 visible = false
@@ -80,22 +85,14 @@ position = Vector2(2200, 95)
 color = Color(0.55, 0.61, 0.62, 1)
 polygon = PackedVector2Array(-55, 7, -32, -9, -12, -5, 0, -22, 22, -13, 35, 0, 58, 8)
 
-[node name="RiceRootPropsIntro" type="Sprite2D" parent="Environment" unique_id=1624955650]
-z_index = -4
-material = ExtResource("prop_cutout")
-texture_filter = 1
-position = Vector2(620, 505)
-scale = Vector2(0.055, 0.055)
-texture = ExtResource("12_props")
-
 [node name="WorldGeometry" type="Node2D" parent="." unique_id=1070526112]
 
 [node name="GroundFill" type="Sprite2D" parent="WorldGeometry" unique_id=1622026944]
 z_index = -1
 texture_filter = 1
-position = Vector2(2150, 670)
-scale = Vector2(8.3984375, 0.1953125)
 material = SubResource("Material_floor_fill")
+position = Vector2(2152, 695)
+scale = Vector2(8.3984375, 0.1953125)
 texture = ExtResource("13_floor_fill")
 
 [node name="Ground" parent="WorldGeometry" unique_id=133764118 instance=ExtResource("2")]

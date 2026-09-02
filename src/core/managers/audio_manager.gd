@@ -26,20 +26,25 @@ const GENERATED_SFX: Dictionary = {
 	&"menu_back": preload("res://assets/audio/generated/menu_back.wav"),
 }
 
-const GENERATED_MUSIC: Dictionary = {
-	&"menu_base": preload("res://assets/audio/generated/menu_base_loop.wav"),
-	&"level_01": preload("res://assets/audio/generated/level_01_grassland_loop.wav"),
-	&"level_02": preload("res://assets/audio/generated/level_02_forest_loop.wav"),
-	&"level_03": preload("res://assets/audio/generated/level_03_capsule_loop.wav"),
-	&"level_04": preload("res://assets/audio/generated/level_04_marsh_loop.wav"),
-	&"level_05": preload("res://assets/audio/generated/level_05_nexus_loop.wav"),
-	&"boss_organic": preload("res://assets/audio/generated/boss_organic_loop.wav"),
-	&"boss_nexus": preload("res://assets/audio/generated/boss_nexus_loop.wav"),
+# Music is loaded on demand instead of preloaded: the five MP3 tracks total
+# ~21 MB on disk and only one plays at a time, so preloading all of them at
+# boot delays startup without any benefit.
+const MUSIC_PATHS: Dictionary = {
+	&"main_theme": "res://assets/audio/91476_Glorious_morning.mp3",
+	&"menu_base": "res://assets/audio/generated/menu_base_loop.wav",
+	&"level_01": "res://assets/audio/1_Team-Strike-Force-Theme.mp3",
+	&"level_02": "res://assets/audio/2_Rose_at_Midnight.mp3",
+	&"level_03": "res://assets/audio/3_-New-Dawn-.mp3",
+	&"level_04": "res://assets/audio/4_Rose_At_Eclipse.mp3",
+	&"level_05": "res://assets/audio/5_Rising-Sun.mp3",
+	&"boss_organic": "res://assets/audio/generated/boss_organic_loop.wav",
+	&"boss_nexus": "res://assets/audio/generated/boss_nexus_loop.wav",
 }
 const SFX_POOL_SIZE := 16
 
 var music_player: AudioStreamPlayer
 var current_music_id: StringName = &""
+var _music_streams: Dictionary = {}
 var sfx_pool: Array[AudioStreamPlayer] = []
 var sfx_cursor := 0
 
@@ -104,17 +109,35 @@ func get_active_sfx_count() -> int:
 
 
 func play_music(music_id: StringName, volume_db: float = -16.0) -> void:
-	if muted_for_tests or music_player == null or current_music_id == music_id:
+	if muted_for_tests or music_player == null:
 		return
-	var stream := GENERATED_MUSIC.get(music_id) as AudioStream
+	# Do not restart a track that is already playing, but recover if playback
+	# stopped unexpectedly (for example while transitioning into a boss fight).
+	if current_music_id == music_id and music_player.playing:
+		return
+	var stream := _get_music_stream(music_id)
 	if stream == null:
 		return
 	if stream is AudioStreamWAV:
 		(stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_FORWARD
+	elif stream is AudioStreamMP3:
+		(stream as AudioStreamMP3).loop = true
 	music_player.stream = stream
 	music_player.volume_db = volume_db
 	current_music_id = music_id
 	music_player.play()
+
+
+func _get_music_stream(music_id: StringName) -> AudioStream:
+	if _music_streams.has(music_id):
+		return _music_streams[music_id] as AudioStream
+	var path := MUSIC_PATHS.get(music_id, "") as String
+	if path.is_empty() or not ResourceLoader.exists(path):
+		return null
+	var stream := ResourceLoader.load(path, "AudioStream") as AudioStream
+	if stream != null:
+		_music_streams[music_id] = stream
+	return stream
 
 
 func stop_music() -> void:

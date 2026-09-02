@@ -130,7 +130,7 @@ func _validate_catalogs() -> void:
 	_check(CharacterCatalog.get_ids().size() == 4, "Expected four playable characters.")
 	_check(LevelCatalog.LEVEL_ORDER.size() == 5, "Expected five campaign levels in the catalog.")
 	_check(AudioManager.GENERATED_SFX.size() >= 20, "Generated gameplay SFX registry is incomplete.")
-	_check(AudioManager.GENERATED_MUSIC.size() == 8, "Generated music registry is incomplete.")
+	_check(AudioManager.MUSIC_PATHS.size() == 8, "Generated music registry is incomplete.")
 	_check(AudioManager.sfx_pool.size() == AudioManager.SFX_POOL_SIZE, "AudioManager did not initialize its bounded SFX pool.")
 	var audio_children_before := AudioManager.get_child_count()
 	var audio_muted_before := AudioManager.muted_for_tests
@@ -143,8 +143,8 @@ func _validate_catalogs() -> void:
 	AudioManager.muted_for_tests = audio_muted_before
 	for audio_stream: Variant in AudioManager.GENERATED_SFX.values():
 		_check(audio_stream is AudioStream, "Generated SFX registry contains an invalid stream.")
-	for music_stream: Variant in AudioManager.GENERATED_MUSIC.values():
-		_check(music_stream is AudioStream, "Generated music registry contains an invalid stream.")
+	for music_id: StringName in AudioManager.MUSIC_PATHS.keys():
+		_check(AudioManager._get_music_stream(music_id) is AudioStream, "Generated music registry contains an invalid stream: %s" % music_id)
 	_check(SaveManager.get_mastery_rank() >= 0, "Operator mastery data is missing.")
 	for character_id in CharacterCatalog.get_ids():
 		_check(SaveManager.profile.get("operator_mastery", {}).has(character_id), "%s has no mastery profile." % character_id)
@@ -1235,7 +1235,7 @@ func _validate_levels() -> void:
 			var pilot_projectile_visual := pilot_projectile.get_node("Visual") as Sprite2D
 			_check(pilot_projectile_visual.hframes == 4 and pilot_projectile_visual.vframes == 1, "Level 5 Root-Core Eye projectile pilot lost its four-frame grid.")
 			_check(str(pilot_projectile_visual.texture.resource_path).ends_with("root_core_eye_spiral_seed_eye_orb_normalized_v2.png"), "Level 5 Root-Core Eye projectile did not use the promoted spiral seed-eye texture.")
-			_check(absf(pilot_projectile_visual.scale.x - 0.016) < 0.001, "Level 5 Root-Core Eye projectile pilot lost its calibrated scale.")
+			_check(absf(pilot_projectile_visual.scale.x - 0.024) < 0.001, "Level 5 Root-Core Eye projectile pilot lost its calibrated scale.")
 		_check(pattern_runner.get_active_projectile_count() <= pattern_runner.projectile_cap, "%s boss exceeded its projectile cap." % level_id)
 		_check(pattern_runner.all_projectiles.size() <= pattern_runner.projectile_cap, "%s boss projectile pool exceeded its cap." % level_id)
 		if boss.boss_phase_count > 1 and level_id != "level_01":

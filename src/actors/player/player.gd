@@ -14,12 +14,18 @@ const RUN_ACCELERATION := 1800.0
 const GROUND_DECELERATION := 2400.0
 const AIR_CONTROL_FACTOR := 0.72
 const JUMP_RELEASE_FACTOR := 0.52
+const DROP_THROUGH_DURATION := 0.24
+const PLATFORM_COLLISION_LAYER := 1
 const VISUAL_Y_SPEED := 48.0
 const IDLE_VISUAL_Y := -8.75
 const RUN_VISUAL_Y := -8.75
 const CUTTER_SWING_TEXTURE: Texture2D = preload("res://assets/vfx/cutter/cutter_swing_arc_normalized_v1.png")
 const PLAYER_HIT_TEXTURE: Texture2D = preload("res://assets/vfx/damage/damage_player_hit_normalized_v1.png")
 const STATUS_CONTAMINATION_TEXTURE: Texture2D = preload("res://assets/vfx/damage/status_root_contamination_normalized_v1.png")
+const RIN_PROJECTILE_SCENE: PackedScene = preload("res://scenes/gameplay/rin_projectile.tscn")
+const RIN_PROJECTILE_SPEED := 640.0
+const RIN_PROJECTILE_RANGE := 480.0
+const RIN_PROJECTILE_LIFETIME := RIN_PROJECTILE_RANGE / RIN_PROJECTILE_SPEED
 
 @onready var body_visual: AnimatedSprite2D = $BodyVisual
 @onready var attack_vfx: AnimatedSprite2D = $AttackVfx
@@ -28,7 +34,7 @@ const STATUS_CONTAMINATION_TEXTURE: Texture2D = preload("res://assets/vfx/damage
 @onready var camera: Camera2D = $Camera2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
-@onready var health: HealthComponent = $HealthComponent
+@onready var health: HealthComponent = $HealthComponent as HealthComponent
 
 var move_speed: float = 190.0
 var jump_velocity: float = -390.0
@@ -38,6 +44,7 @@ var movement_enabled: bool = true
 var facing: float = 1.0
 var coyote_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
+var drop_through_timer: float = 0.0
 var dash_timer: float = 0.0
 var dash_cooldown_timer: float = 0.0
 var dash_cooldown_duration: float = DASH_COOLDOWN
@@ -80,7 +87,9 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("move_up"):
+	if event.is_action_pressed("move_down") and movement_enabled:
+		_start_drop_through()
+	elif event.is_action_pressed("move_up"):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	elif event.is_action_released("move_up") and velocity.y < -80.0:
 		velocity.y *= JUMP_RELEASE_FACTOR
@@ -120,7 +129,8 @@ func _physics_process(delta: float) -> void:
 		coyote_timer = 0.0
 
 	move_and_slide()
-	_update_character_animation(delta)
+	if has_method("_update_character_animation"):
+		_update_character_animation(delta)
 
 
 func _setup_character_animations(texture: Texture2D, frame_inset: float) -> void:
@@ -157,6 +167,10 @@ func _update_character_animation(delta: float) -> void:
 func _update_timers(delta: float) -> void:
 	coyote_timer = maxf(coyote_timer - delta, 0.0)
 	jump_buffer_timer = maxf(jump_buffer_timer - delta, 0.0)
+	if drop_through_timer > 0.0:
+		drop_through_timer = maxf(drop_through_timer - delta, 0.0)
+		if drop_through_timer <= 0.0:
+			set_collision_mask_value(PLATFORM_COLLISION_LAYER, true)
 	dash_timer = maxf(dash_timer - delta, 0.0)
 	dash_cooldown_timer = maxf(dash_cooldown_timer - delta, 0.0)
 	invulnerability_timer = maxf(invulnerability_timer - delta, 0.0)
@@ -172,7 +186,30 @@ func _update_timers(delta: float) -> void:
 		body_visual.modulate.a = 0.45 if int(invulnerability_timer * 18.0) % 2 == 0 else 1.0
 
 
+func _is_standing_on_floating_platform() -> bool:
+	if not is_on_floor():
+		return false
+	for index in get_slide_collision_count():
+		var collision := get_slide_collision(index)
+		var collider := collision.get_collider()
+		if collider is Node and collider.is_in_group("Platform") and not str(collider.name).begins_with("Ground"):
+			if collision.get_normal().dot(Vector2.UP) > 0.7:
+				return true
+	return false
+
+
+func _start_drop_through() -> void:
+	if not _is_standing_on_floating_platform() or drop_through_timer > 0.0:
+		return
+	drop_through_timer = DROP_THROUGH_DURATION
+	set_collision_mask_value(PLATFORM_COLLISION_LAYER, false)
+	velocity.y = maxf(velocity.y, 80.0)
+
+
 func _start_attack() -> void:
+	if character_id == "rin":
+		_start_rin_ranged_attack()
+		return
 	AudioManager.play_named_sfx(&"cutter_swing", 1.0, -10.0)
 	attack_timer = ATTACK_DURATION
 	hit_targets.clear()
@@ -182,6 +219,27 @@ func _start_attack() -> void:
 	attack_vfx.visible = true
 	attack_vfx.play(&"swing")
 	attack_area.set_deferred("monitoring", true)
+
+
+func _start_rin_ranged_attack() -> void:
+	AudioManager.play_named_sfx(&"cutter_swing", 1.2, -16.0)
+	attack_timer = 0.22
+	hit_targets.clear()
+	attack_area.set_deferred("monitoring", false)
+	attack_vfx.visible = false
+	body_visual.play(&"attack")
+
+	var projectile := RIN_PROJECTILE_SCENE.instantiate() as RinProjectile
+	if projectile == null:
+		return
+	get_tree().current_scene.add_child(projectile)
+	projectile.activate(
+		global_position + Vector2(32.0 * facing, -12.0),
+		Vector2(facing, 0.0),
+		RIN_PROJECTILE_SPEED,
+		attack_damage,
+		RIN_PROJECTILE_LIFETIME
+	)
 
 
 func _setup_cutter_vfx() -> void:

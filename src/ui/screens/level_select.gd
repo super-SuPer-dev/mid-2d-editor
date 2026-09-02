@@ -4,6 +4,7 @@ var selected_level_id: String = LevelCatalog.LEVEL_ORDER[0]
 
 
 func _ready() -> void:
+	AudioManager.play_music(&"main_theme")
 	LocalizationManager.language_changed.connect(_refresh_text)
 	for level_id in LevelCatalog.LEVEL_ORDER:
 		var item := $MissionMarkers.get_node(level_id) as TextureButton

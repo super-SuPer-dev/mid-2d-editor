@@ -195,11 +195,11 @@ func _emit_projectile(sequence_index: int) -> void:
 	var presentation := _get_projectile_presentation(str(current_pattern.get("pattern_id", "")))
 	var projectile_texture: Texture2D = presentation.get("texture", null) as Texture2D
 	var visual_frame_count := int(presentation.get("frame_count", 1))
-	var visual_scale := float(presentation.get("scale", 0.009))
+	var visual_scale := float(presentation.get("scale", 0.014))
 	if projectile_texture == null and host is EnemyController and host.enemy_type == "root_core_eye_boss":
 		projectile_texture = _load_projectile_texture(ROOT_CORE_EYE_LONGAN_PROJECTILE_TEXTURE_PATH)
 		visual_frame_count = 4
-		visual_scale = 0.018
+		visual_scale = 0.027
 	projectile.activate(
 		origin,
 		direction,
@@ -217,7 +217,7 @@ func _emit_projectile(sequence_index: int) -> void:
 
 func _get_projectile_presentation(pattern_id: String) -> Dictionary:
 	var visual_id := str(current_pattern.get("projectile_visual_id", ""))
-	var visual_scale := float(current_pattern.get("projectile_visual_scale", 0.009))
+	var visual_scale := float(current_pattern.get("projectile_visual_scale", 0.014))
 	var texture: Texture2D = null
 	match visual_id:
 		"thorn_hair_spin":

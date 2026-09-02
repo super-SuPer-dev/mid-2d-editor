@@ -47,7 +47,7 @@ const LEVELS := {
 	"level_03": {
 		"implemented": true,
 		"name_key": "LEVEL_03_NAME", "subtitle_key": "LEVEL_03_SUBTITLE", "location_key": "LEVEL_03_LOCATION",
-		"size": Vector2(2900, 720), "threat_quota": 5, "required_kills": 5, "sample_target": 5,
+		"size": Vector2(2900, 800), "threat_quota": 5, "required_kills": 5, "sample_target": 5,
 		"boss_id": "possessed_banyan", "boss_name_key": "BOSS_POSSESSED_BANYAN", "biome": "capsule_root_chamber",
 		"target_duration_seconds": Vector2i(300, 420), "encounter_segments": MISSION_SEGMENTS,
 		"pacing_budget_seconds": {"briefing": 45, "traversal": 75, "encounters": 150, "boss": 90, "extraction": 15},

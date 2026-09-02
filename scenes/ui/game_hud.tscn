@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dpr5ii86tyln3"]
 
-[ext_resource type="Script" path="res://src/ui/game_hud.gd" id="1"]
+[ext_resource type="Script" uid="uid://c0xra83sxow4g" path="res://src/ui/game_hud.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b4ih0kqcbw8i5" path="res://scenes/ui/field_theme.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://day8jxkivypuy" path="res://assets/images/ui/atlases/game_hud_icons.png" id="3_icons"]
-[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_overlay.tscn" id="4_dialogue"]
+[ext_resource type="PackedScene" uid="uid://yviybh77alhk" path="res://scenes/ui/dialogue_overlay.tscn" id="4_dialogue"]
 
 [sub_resource type="AtlasTexture" id="LevelIcon"]
 atlas = ExtResource("3_icons")
@@ -25,6 +25,20 @@ atlas = ExtResource("3_icons")
 region = Rect2(827, 10, 84, 84)
 filter_clip = true
 
+[sub_resource type="StyleBoxFlat" id="BossPanelBackdrop"]
+bg_color = Color(0.025, 0.035, 0.03, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47, 0.38, 0.16, 0.9)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 8
+
 [sub_resource type="StyleBoxFlat" id="BossTrack"]
 bg_color = Color(0.12, 0.08, 0.09, 1)
 border_width_left = 2
@@ -32,18 +46,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.38, 0.24, 0.2, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="BossFill"]
-bg_color = Color(0.72, 0.16, 0.27, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.95, 0.48, 0.38, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -63,19 +65,17 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id="BossPanelBackdrop"]
-bg_color = Color(0.025, 0.035, 0.03, 0.94)
+[sub_resource type="StyleBoxFlat" id="BossFill"]
+bg_color = Color(0.72, 0.16, 0.27, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.47, 0.38, 0.16, 0.9)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_right = 14
-corner_radius_bottom_left = 14
-shadow_color = Color(0, 0, 0, 0.55)
-shadow_size = 8
+border_color = Color(0.95, 0.48, 0.38, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="HUD" type="CanvasLayer" unique_id=154325126]
 process_mode = 3
@@ -200,28 +200,16 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -330.0
+offset_left = -280.0
 offset_top = 108.0
-offset_right = 330.0
-offset_bottom = 328.0
+offset_right = 280.0
+offset_bottom = 270.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("BossPanelBackdrop")
 
-[node name="Frame" type="TextureRect" parent="Root/BossPanel" unique_id=118424023]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = null
-expand_mode = 1
-stretch_mode = 5
-
 [node name="Content" type="VBoxContainer" parent="Root/BossPanel" unique_id=773603433]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_left = 0.08
 anchor_top = 0.16
 anchor_right = 0.92
@@ -239,23 +227,23 @@ theme_override_colors/font_color = Color(1, 0.72, 0.66, 1)
 theme_override_colors/font_shadow_color = Color(0.08, 0.02, 0.03, 0.9)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="PhaseRow" type="HBoxContainer" parent="Root/BossPanel/Content"]
+[node name="PhaseRow" type="HBoxContainer" parent="Root/BossPanel/Content" unique_id=1893082573]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="PhasePips" type="HBoxContainer" parent="Root/BossPanel/Content/PhaseRow"]
+[node name="PhasePips" type="HBoxContainer" parent="Root/BossPanel/Content/PhaseRow" unique_id=964812520]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="PhaseValue" type="Label" parent="Root/BossPanel/Content/PhaseRow"]
+[node name="PhaseValue" type="Label" parent="Root/BossPanel/Content/PhaseRow" unique_id=1291070573]
 custom_minimum_size = Vector2(64, 18)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.67, 0.48, 1)
@@ -263,12 +251,12 @@ theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HealthStack" type="Control" parent="Root/BossPanel/Content"]
-custom_minimum_size = Vector2(520, 38)
+[node name="HealthStack" type="Control" parent="Root/BossPanel/Content" unique_id=1519632409]
+custom_minimum_size = Vector2(420, 28)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Trail" type="ProgressBar" parent="Root/BossPanel/Content/HealthStack"]
+[node name="Trail" type="ProgressBar" parent="Root/BossPanel/Content/HealthStack" unique_id=476912997]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -277,8 +265,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("BossTrack")
 theme_override_styles/fill = SubResource("BossTrailFill")
-show_percentage = false
 value = 100.0
+show_percentage = false
 
 [node name="Health" type="ProgressBar" parent="Root/BossPanel/Content/HealthStack" unique_id=1778776993]
 layout_mode = 1
@@ -290,17 +278,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("BossOverlayTrack")
 theme_override_styles/fill = SubResource("BossFill")
-show_percentage = false
 value = 100.0
+show_percentage = false
 
-[node name="Value" type="Label" parent="Root/BossPanel/Content/HealthStack"]
+[node name="Value" type="Label" parent="Root/BossPanel/Content/HealthStack" unique_id=29374446]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
 theme_override_colors/font_shadow_color = Color(0.08, 0.02, 0.03, 1)
 theme_override_constants/shadow_offset_x = 2

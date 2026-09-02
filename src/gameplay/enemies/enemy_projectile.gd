@@ -49,7 +49,7 @@ func activate(
 	active_lifetime: float,
 	projectile_texture: Texture2D = null,
 	frame_count: int = 1,
-	visual_scale: float = 0.009
+	visual_scale: float = 0.014
 ) -> void:
 	global_position = origin
 	direction = travel_direction.normalized()

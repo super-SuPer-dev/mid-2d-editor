@@ -8,6 +8,7 @@ var feedback_values: Dictionary = {}
 
 
 func _ready() -> void:
+	AudioManager.play_music(&"main_theme")
 	target_character_id = CharacterCatalog.resolve_character_id(GameManager.selected_character_id)
 	LocalizationManager.language_changed.connect(_refresh_text)
 	for character_id: String in CharacterCatalog.get_ids():

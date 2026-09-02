@@ -2,7 +2,7 @@ extends Control
 
 
 func _ready() -> void:
-	AudioManager.play_music(&"menu_base")
+	AudioManager.play_music(&"main_theme")
 	LocalizationManager.language_changed.connect(_refresh_text)
 	_refresh_text(LocalizationManager.current_language)
 

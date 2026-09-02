@@ -39,6 +39,7 @@ mouse_filter = 2
 color = Color(0.02, 0.045, 0.07, 0.72)
 
 [node name="MasteryFrame" type="TextureRect" parent="." unique_id=185790341]
+visible = false
 modulate = Color(1, 1, 1, 0.88)
 layout_mode = 1
 anchors_preset = 15
@@ -101,42 +102,42 @@ size_flags_vertical = 0
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="OperatorList" type="PanelContainer" parent="Margin/Layout/Cards"]
+[node name="OperatorList" type="PanelContainer" parent="Margin/Layout/Cards" unique_id=2143462060]
 custom_minimum_size = Vector2(280, 320)
 layout_mode = 2
 theme_type_variation = &"UpgradeCard"
 
-[node name="Content" type="VBoxContainer" parent="Margin/Layout/Cards/OperatorList"]
+[node name="Content" type="VBoxContainer" parent="Margin/Layout/Cards/OperatorList" unique_id=657474310]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Margin/Layout/Cards/OperatorList/Content"]
+[node name="Title" type="Label" parent="Margin/Layout/Cards/OperatorList/Content" unique_id=1158978342]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.73, 0.82, 0.52, 1)
 theme_override_font_sizes/font_size = 18
 text = "MASTERY_SELECT_OPERATOR"
 horizontal_alignment = 1
 
-[node name="Selectors" type="VBoxContainer" parent="Margin/Layout/Cards/OperatorList/Content"]
+[node name="Selectors" type="VBoxContainer" parent="Margin/Layout/Cards/OperatorList/Content" unique_id=2077769122]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="tonkla" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+[node name="tonkla" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors" unique_id=537237487]
 custom_minimum_size = Vector2(240, 60)
 layout_mode = 2
 toggle_mode = true
 
-[node name="rin" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+[node name="rin" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors" unique_id=1780019549]
 custom_minimum_size = Vector2(240, 60)
 layout_mode = 2
 toggle_mode = true
 
-[node name="khem" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+[node name="khem" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors" unique_id=1957920407]
 custom_minimum_size = Vector2(240, 60)
 layout_mode = 2
 toggle_mode = true
 
-[node name="t800" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors"]
+[node name="t800" type="Button" parent="Margin/Layout/Cards/OperatorList/Content/Selectors" unique_id=1199498834]
 custom_minimum_size = Vector2(240, 60)
 layout_mode = 2
 toggle_mode = true
@@ -214,7 +215,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="CurrentBenefit" type="Label" parent="Margin/Layout/Cards/blade/Content"]
+[node name="CurrentBenefit" type="Label" parent="Margin/Layout/Cards/blade/Content" unique_id=672535450]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.82, 0.57, 1)
@@ -224,7 +225,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="NextBenefit" type="Label" parent="Margin/Layout/Cards/blade/Content"]
+[node name="NextBenefit" type="Label" parent="Margin/Layout/Cards/blade/Content" unique_id=310470724]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.94, 0.78, 0.38, 1)

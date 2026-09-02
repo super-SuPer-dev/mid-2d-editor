@@ -176,6 +176,10 @@ scale = Vector2(1.09, 0.94)
 
 [node name="Player" parent="." instance=ExtResource("3")]
 position = Vector2(100, 560)
+
+[node name="Camera2D" parent="Player"]
+position = Vector2(0, 0)
+
 [node name="Enemies" type="Node2D" parent="."]
 [node name="Maw" parent="Enemies" instance=ExtResource("4")]
 position = Vector2(650, 570)

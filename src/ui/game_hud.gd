@@ -7,7 +7,6 @@ extends CanvasLayer
 @onready var objective_label: Label = $Root/TopMargin/Row/Objective
 @onready var hint_label: Label = $Root/Hint
 @onready var boss_panel: Panel = $Root/BossPanel
-@onready var boss_frame: TextureRect = $Root/BossPanel/Frame
 @onready var boss_name: Label = $Root/BossPanel/Content/Name
 @onready var boss_phase_pips: HBoxContainer = $Root/BossPanel/Content/PhaseRow/PhasePips
 @onready var boss_phase_value: Label = $Root/BossPanel/Content/PhaseRow/PhaseValue
@@ -29,15 +28,8 @@ var pending_complete: bool = false
 var pending_campaign_complete: bool = false
 var last_health := Vector2i(0, 0)
 var boss_health_initialized := false
-
-const BOSS_HUD_FRAME_PATHS := {
-	"thorn_matriarch": "res://assets/ui/boss/thorn_matriarch_boss_hud_frame_v1.png",
-	"maw_bloom_sovereign": "res://assets/ui/boss/maw_sovereign_boss_hud_frame_v1.png",
-	"possessed_banyan": "res://assets/ui/boss/possessed_banyan_boss_hud_frame_v1.png",
-	"root_hydra": "res://assets/ui/boss/root_hydra_boss_hud_frame_v1.png",
-	"root_core_eye": "res://assets/ui/boss/root_core_eye_boss_hud_frame_v1.png",
-}
-
+var modal_transition_token: int = 0
+var modal_mouse_release_required: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -53,7 +45,6 @@ func _ready() -> void:
 	_on_mission_phase_changed(GameManager.mission_phase)
 	_refresh_text(LocalizationManager.current_language)
 
-
 func _process(delta: float) -> void:
 	if not boss_panel.visible or not boss_health_initialized:
 		return
@@ -61,12 +52,14 @@ func _process(delta: float) -> void:
 		var trail_speed := maxf(12.0, boss_health.max_value * 0.55)
 		boss_health_trail.value = move_toward(boss_health_trail.value, boss_health.value, trail_speed * delta)
 
-
 func bind_player(value: PlayerController) -> void:
 	player = value
 	player.health_changed.connect(_on_health_changed)
 	_on_health_changed(player.health.current_health, player.health.max_health)
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		modal_mouse_release_required = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause") and GameManager.run_active:
@@ -75,21 +68,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif not get_tree().paused:
 			show_pause()
 
-
 func show_pause() -> void:
 	get_tree().paused = true
 	_show_modal("HUD_PAUSE_TITLE", "HUD_PAUSE_SUBTITLE", Color("54d6ff"), [
 		["HUD_RESUME", close_modal], ["HUD_RESTART", SceneManager.restart_level], ["HUD_SELECT_MISSION", SceneManager.go_to_level_select],
 	])
 
-
 func show_game_over() -> void:
 	AudioManager.play_named_sfx(&"defeat_stinger", 1.0, -8.0)
+	modal_mouse_release_required = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	get_tree().paused = true
 	_show_modal("HUD_GAME_OVER", "HUD_GAME_OVER_SUBTITLE", Color("ef476f"), [
 		["HUD_RETRY", SceneManager.restart_level], ["HUD_SELECT_MISSION", SceneManager.go_to_level_select],
-	])
-
+	], {}, true)
 
 func show_level_complete(is_campaign_complete: bool) -> void:
 	pending_campaign_complete = is_campaign_complete
@@ -98,7 +89,6 @@ func show_level_complete(is_campaign_complete: bool) -> void:
 		pending_complete = true
 		return
 	_show_complete_modal()
-
 
 func _show_complete_modal() -> void:
 	AudioManager.play_named_sfx(&"victory_stinger", 1.0, -8.0)
@@ -115,23 +105,33 @@ func _show_complete_modal() -> void:
 		actions.append(["HUD_MAIN_MENU", SceneManager.go_to_main_menu])
 	_show_modal(title_key, subtitle_key, Color("63ffb0"), actions, values)
 
-
-func _show_modal(title_key: String, subtitle_key: String, accent: Color, actions: Array, subtitle_values: Dictionary = {}) -> void:
+func _show_modal(title_key: String, subtitle_key: String, accent: Color, actions: Array, subtitle_values: Dictionary = {}, animate_in: bool = false) -> void:
+	modal_transition_token += 1
+	var transition_token := modal_transition_token
 	modal_title.text = LocalizationManager.text(title_key)
 	modal_title.add_theme_color_override("font_color", accent)
 	modal_subtitle.text = LocalizationManager.text(subtitle_key, subtitle_values)
 	modal_actions.clear()
 	for index in modal_buttons.size():
 		var button := modal_buttons[index]
-		button.disabled = false
+		button.disabled = animate_in
 		if index < actions.size():
 			button.visible = true
 			button.text = LocalizationManager.text(str(actions[index][0]))
 			modal_actions.append(actions[index][1])
 		else:
 			button.visible = false
+	modal.modulate.a = 0.0 if animate_in else 1.0
 	modal.visible = true
-
+	if animate_in:
+		await get_tree().create_timer(0.45, true).timeout
+		while modal_mouse_release_required:
+			await get_tree().process_frame
+		if transition_token != modal_transition_token or not modal.visible:
+			return
+		modal.modulate.a = 1.0
+		for button in modal_buttons:
+			button.disabled = false
 
 func _activate_action(index: int) -> void:
 	if index >= modal_actions.size():
@@ -143,24 +143,21 @@ func _activate_action(index: int) -> void:
 	AudioManager.play_click()
 	action.call_deferred()
 
-
 func _on_action_1() -> void:
 	_activate_action(0)
-
 
 func _on_action_2() -> void:
 	_activate_action(1)
 
-
 func _on_action_3() -> void:
 	_activate_action(2)
 
-
 func close_modal() -> void:
+	modal_transition_token += 1
 	get_tree().paused = false
+	modal.modulate.a = 1.0
 	modal.visible = false
 	modal_actions.clear()
-
 
 func _play_next_level() -> void:
 	var next_level := str(LevelCatalog.get_level(GameManager.current_level_id).get("next_level", ""))
@@ -168,7 +165,6 @@ func _play_next_level() -> void:
 		SceneManager.go_to_level_select()
 	else:
 		SceneManager.play_level(next_level)
-
 
 func _refresh_text(_locale: String) -> void:
 	level_label.text = LevelCatalog.get_display_name(GameManager.current_level_id)
@@ -180,21 +176,17 @@ func _refresh_text(_locale: String) -> void:
 	if GameManager.mission_phase == GameManager.PHASE_BOSS_ACTIVE:
 		_refresh_boss_name()
 
-
 func _on_health_changed(current_health: int, maximum_health: int) -> void:
 	last_health = Vector2i(current_health, maximum_health)
 	health_label.text = LocalizationManager.text("HUD_HEALTH", {"current": current_health, "maximum": maximum_health})
 
-
 func _on_currency_changed(current_amount: int, _change: int) -> void:
 	crystal_label.text = LocalizationManager.text("HUD_SAMPLES", {"count": current_amount})
-
 
 func _on_objective_changed(defeated: int, required: int) -> void:
 	if GameManager.mission_phase == GameManager.PHASE_CLEAR_THREATS:
 		objective_label.text = LocalizationManager.text("HUD_THREATS", {"current": mini(defeated, required), "required": required})
 		objective_label.remove_theme_color_override("font_color")
-
 
 func _on_mission_phase_changed(phase: StringName) -> void:
 	match phase:
@@ -202,7 +194,6 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 			objective_label.text = LocalizationManager.text("HUD_BOSS_INCOMING")
 			objective_label.add_theme_color_override("font_color", Color("ef9b6c"))
 			boss_panel.visible = true
-			_refresh_boss_frame()
 			_refresh_boss_name()
 		GameManager.PHASE_EXTRACTION:
 			objective_label.text = LocalizationManager.text("HUD_EXTRACTION")
@@ -212,11 +203,9 @@ func _on_mission_phase_changed(phase: StringName) -> void:
 			boss_panel.visible = false
 			_on_objective_changed(GameManager.defeated_enemies, GameManager.required_enemies)
 
-
 func _refresh_boss_name() -> void:
 	boss_name.text = LocalizationManager.text(GameManager.current_boss_name_key)
 	_refresh_boss_phase_meter()
-
 
 func _refresh_boss_phase_meter() -> void:
 	var total := maxi(GameManager.current_boss_phase_count, 1)
@@ -238,12 +227,6 @@ func _refresh_boss_phase_meter() -> void:
 		pip.add_theme_stylebox_override("panel", style)
 		boss_phase_pips.add_child(pip)
 
-
-func _refresh_boss_frame() -> void:
-	var path := str(BOSS_HUD_FRAME_PATHS.get(GameManager.current_boss_id, ""))
-	boss_frame.texture = GameManager.load_runtime_texture(path) if not path.is_empty() else null
-
-
 func _on_boss_health_changed(current_health: int, maximum_health: int) -> void:
 	boss_health.max_value = maximum_health
 	boss_health_trail.max_value = maximum_health
@@ -253,10 +236,8 @@ func _on_boss_health_changed(current_health: int, maximum_health: int) -> void:
 	boss_health.value = current_health
 	boss_health_value.text = "%d / %d" % [current_health, maximum_health]
 
-
 func _on_boss_phase_changed(_current_phase: int, _phase_count: int) -> void:
 	_refresh_boss_name()
-
 
 func _on_sequence_completed(completed_sequence_id: String) -> void:
 	if pending_complete and completed_sequence_id == str(LevelCatalog.get_level(GameManager.current_level_id).get("debrief_sequence", "")):

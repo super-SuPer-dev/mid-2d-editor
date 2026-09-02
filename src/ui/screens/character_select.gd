@@ -9,6 +9,7 @@ const PASSIVE_ICONS := {
 
 
 func _ready() -> void:
+	AudioManager.play_music(&"main_theme")
 	LocalizationManager.language_changed.connect(_refresh_text)
 	resized.connect(_refresh_wrapped_text)
 	for character_id in CharacterCatalog.get_ids():
